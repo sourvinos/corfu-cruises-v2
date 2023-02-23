@@ -3,7 +3,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 input.center {
-    text-align: center !important;
+    text-align: center;
 }
 
 input.right {

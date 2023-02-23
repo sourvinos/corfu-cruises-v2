@@ -106,12 +106,12 @@
 }
 
 .mat-calendar-body-today {
-    border: 1px solid var(--color-day-selected) !important;
+    border: 0.0625rem solid var(--color-day-selected) !important;
 }
 
 .mat-calendar-body-selected {
     background-color: var(--color-day-selected) !important;
-    border: 1px solid var(--color-day-selected) !important;
+    border: 0.0625rem solid var(--color-day-selected) !important;
     color: var(--color-a);
     font-weight: bold !important;
 }
@@ -127,7 +127,7 @@
 }
 
 .mat-date-range-input-start-wrapper {
-    margin-bottom: 9px !important;
+    margin-bottom: 0.5625rem !important;
     overflow: inherit !important;
     width: 100% !important;
 }
@@ -136,34 +136,39 @@
     color: var(--color-c);
     margin-left: auto;
     position: relative;
-    right: 3rem !important;
-    top: 0 !important;
+    right: 1.5rem !important;
+    top: -0.125rem !important;
 }
 
 .header-datepicker {
     align-items: center;
     display: flex;
-    justify-content: flex-end;
-    margin-left: auto;
-    padding: 3px 0 0.625rem !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+    /* padding: 0.1875rem 0 0.625rem !important; */
+    padding: 9px 0 0 8px !important;
+    width: 100% !important;
 }
 
 .header-datepicker input {
     background-color: transparent !important;
     border: 0;
     color: var(--color-c);
-    font-family: var(--font-family-manrope) !important;
-    font-weight: 600;
+    font-family: var(--font-family-asty) !important;
+    font-size: 11px !important;
+    font-weight: 300;
     outline: none !important;
     padding-top: 0.1875rem !important;
+    text-align: left !important;
     width: 5rem !important;
 }
 
 .date-clear-icon {
     color: var(--color-table-dropdown-filter-clear);
     font-size: 0.91rem;
-    margin: 0 0 0 -1rem !important;
-    padding-top: 4px;
+    margin: 0 !important;
+    position: absolute !important;
+    top: 0.5rem;
 }
 
 .date-clear-icon:hover {
@@ -179,7 +184,7 @@
 }
 
 .mat-date-range-input-inner {
-    margin-top: 3px !important;
+    margin-top: 0.1875rem !important;
 }
 
 .mat-datepicker-toggle .mat-button-disabled {
@@ -188,8 +193,8 @@
 
 .mat-datepicker-toggle .mat-icon-button {
     height: 0 !important;
-    margin-top: -12px !important;
-    top: -4px !important;
+    margin-top: -0.75rem !important;
+    top: -0.25rem !important;
     width: 0 !important;
 }
 

@@ -21,7 +21,7 @@
                         <th class="width-9" pSortableColumn="maxPax">{{ getLabel("headerMaxPax") }}</th>
                     </tr>
                     <tr>
-                        <th class="width-10" style="padding-left: 1.375rem !important;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
+                        <th class="width-10"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
                         <th class="header-datepicker width-10">
                             <input (dateInput)="filterByDate($event)" [matDatepicker]="picker" [ngModel]="filterDate" class="center" matInput readonly>
                             <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
@@ -61,7 +61,7 @@
                 </ng-template>
                 <ng-template let-record pTemplate="body">
                     <tr (click)="unHighlightAllRows()" (dblclick)="editRecord(record.id)" [attr.id]=record.id [pSelectableRow]="record" style="height: 32px;">
-                        <td class="center width-10" style="padding-left: 0.375rem;">
+                        <td class="center width-10">
                             <span *ngIf="record.isActive" class="is-active material-icons-outlined">check_circle</span>
                             <span *ngIf="!record.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                         </td>

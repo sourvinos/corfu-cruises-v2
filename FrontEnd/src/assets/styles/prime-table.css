@@ -34,6 +34,7 @@
 
 .p-datatable .p-datatable-thead > tr {
     background-color: var(--color-b);
+    transition: all var(--theme-change-delay) ease-in;
 }
 
 .p-datatable .p-datatable-thead > tr > th {
@@ -53,7 +54,7 @@
 }
 
 .p-datatable .p-datatable-thead > tr:nth-child(2) > th {
-    padding: 0 0.5rem 9px 0.5rem !important;
+    padding: 0 0.5rem 0.5625rem 0.5rem;
 }
 
 .p-datatable .p-sortable-column.p-highlight {
@@ -73,7 +74,7 @@
 }
 
 .p-datatable .p-datatable-tbody > tr > td {
-    border-bottom: 1px solid var(--color-d);
+    border-bottom: 0.0625rem solid var(--color-d);
     color: var(--color-c);
     font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-table-row);
@@ -135,7 +136,7 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 }
 
 .p-checkbox {
-    margin: 2px !important;
+    margin: 0.125rem !important;
 }
 
 .material-icons-outlined {
@@ -366,7 +367,7 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 }
 
 .pi-chevron-down {
-    padding-top: 0;
+    padding-top: 0.4375rem;
 }
 
 .align-vertical img, .align-vertical span {
