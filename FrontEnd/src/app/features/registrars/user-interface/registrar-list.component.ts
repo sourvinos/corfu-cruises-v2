@@ -123,7 +123,7 @@ export class RegistrarListComponent {
             setTimeout(() => {
                 this.filterColumn(filters.isActive, 'isActive', 'contains')
                 this.filterColumn(filters.isPrimary, 'isPrimary', 'equals')
-                this.filterColumn(filters.ship, 'ship', 'equals')
+                this.filterColumn(filters.ship, 'ship', 'in')
                 this.filterColumn(filters.fullname, 'fullname', 'contains')
             }, 500)
         }

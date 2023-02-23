@@ -21,14 +21,14 @@
                         <th class="width-9" pSortableColumn="maxPax">{{ getLabel("headerMaxPax") }}</th>
                     </tr>
                     <tr>
-                        <th class="" style="padding-left: 1.375rem !important;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
-                        <th class="header-datepicker">
-                            <input (dateInput)="filterByDate($event)" [matDatepicker]="picker" [ngModel]="filterDate" class="center width-5" matInput readonly>
+                        <th class="width-10" style="padding-left: 1.375rem !important;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
+                        <th class="header-datepicker width-10">
+                            <input (dateInput)="filterByDate($event)" [matDatepicker]="picker" [ngModel]="filterDate" class="center" matInput readonly>
                             <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                             <span (click)="clearDateFilter()" [ngClass]="hasDateFilter()" class="date-clear-icon pi pi-filter-slash"></span>
                             <mat-datepicker #picker></mat-datepicker>
                         </th>
-                        <th class="">
+                        <th class="width-23">
                             <p-columnFilter [showMenu]="false" field="destination" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
                                     <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctDestinations" [placeholder]="getEmoji('wildcard')" optionLabel="description">
@@ -41,7 +41,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="">
+                        <th class="width-23">
                             <p-columnFilter [showMenu]="false" field="port" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
                                     <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctPorts" [placeholder]="getEmoji('wildcard')" optionLabel="description">
@@ -54,7 +54,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="">
+                        <th class="width-9">
                             <input (input)="table.filter($event.target.value, 'maxPax', 'contains')" [value]="$any(table).filters['maxPax']?.value" class="center p-inputtext">
                         </th>
                     </tr>

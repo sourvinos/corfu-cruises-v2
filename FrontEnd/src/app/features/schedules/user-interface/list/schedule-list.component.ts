@@ -74,7 +74,7 @@ export class ScheduleListComponent {
     //#region public methods
 
     public clearDateFilter(): void {
-        this.table.filter('', 'birthdate', 'equals')
+        this.table.filter('', 'date', 'equals')
         this.filterDate = ''
         this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
     }

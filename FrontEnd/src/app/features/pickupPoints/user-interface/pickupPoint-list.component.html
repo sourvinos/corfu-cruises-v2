@@ -21,7 +21,7 @@
                         <th class="width-6" pSortableColumn="time">{{ getLabel("headerTime") }}</th>
                     </tr>
                     <tr>
-                        <th style="padding-left: 1.375rem !important;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
+                        <th class="width-10" style="padding-left: 1.375rem !important;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
                         <th class="width-10">
                             <p-columnFilter [showMenu]="false" field="coachRoute" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
@@ -34,9 +34,9 @@
                                     </p-multiSelect>
                                 </ng-template>
                             </p-columnFilter>
-                        <th><input (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value" class="p-inputtext"></th>
-                        <th><input (input)="table.filter($event.target.value, 'exactPoint', 'contains')" [value]="$any(table).filters['exactPoint']?.value" class="p-inputtext"></th>
-                        <th><input (input)="table.filter($event.target.value, 'time', 'contains')" [value]="$any(table).filters['time']?.value" class="p-inputtext center"></th>
+                        <th class="width-25"><input (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value" class="p-inputtext"></th>
+                        <th class="width-24"><input (input)="table.filter($event.target.value, 'exactPoint', 'contains')" [value]="$any(table).filters['exactPoint']?.value" class="p-inputtext"></th>
+                        <th class="width-6"><input (input)="table.filter($event.target.value, 'time', 'contains')" [value]="$any(table).filters['time']?.value" class="p-inputtext center"></th>
                     </tr>
                 </ng-template>
                 <ng-template let-record pTemplate="body">

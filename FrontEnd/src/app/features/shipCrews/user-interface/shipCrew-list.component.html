@@ -21,8 +21,8 @@
                         <th class="width-10" pSortableColumn="birthdate">{{ getLabel("headerBirthdate") }}</th>
                     </tr>
                     <tr>
-                        <th style="padding-left: 1.375rem !important;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
-                        <th>
+                        <th class="width-10" style="padding-left: 1.375rem !important;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
+                        <th class="width-20">
                             <p-columnFilter [showMenu]="false" field="ship" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
                                     <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctShips" [placeholder]="getEmoji('wildcard')" optionLabel="description">
@@ -35,9 +35,9 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th><input (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value" class="p-inputtext"></th>
-                        <th><input (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value" class="p-inputtext"></th>
-                        <th class="header-datepicker">
+                        <th class="width-19"><input (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value" class="p-inputtext"></th>
+                        <th class="width-16"><input (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value" class="p-inputtext"></th>
+                        <th class="header-datepicker width-10">
                             <input (dateInput)="filterByDate($event)" [matDatepicker]="picker" [ngModel]="filterDate" class="center" matInput readonly>
                             <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
                             <span (click)="clearDateFilter()" [ngClass]="hasDateFilter()" class="date-clear-icon pi pi-filter-slash"></span>
@@ -47,7 +47,7 @@
                 </ng-template>
                 <ng-template let-record pTemplate="body">
                     <tr [attr.id]=record.id [pSelectableRow]="record" (click)="unHighlightAllRows()" (dblclick)="editRecord(record.id)" style="height: 32px;">
-                        <td class="width-10" style="padding-left: 1.3125rem; padding-right: 1.375rem; text-align: center;">
+                        <td class="center width-10" style="padding-left: 1.3125rem; padding-right: 1.375rem;">
                             <span *ngIf="record.isActive" class="is-active material-icons-outlined">check_circle</span>
                             <span *ngIf="!record.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                         </td>
