@@ -25,8 +25,8 @@
 #goto-today {
     box-shadow: none;
     position: absolute;
-    right: -0.5625rem;
-    top: -1.8125rem;
+    right: -0.8125rem;
+    top: -1.875rem;
 }
 
 #goto-today:hover {
@@ -35,4 +35,8 @@
 
 #today {
     color: var(--color-background-today) !important;
+}
+
+.mat-datepicker-toggle-default-icon {
+    margin-bottom: -1.125rem !important;
 }

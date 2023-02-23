@@ -31,6 +31,7 @@
     --font-size-loading-message: 2rem;
     --font-size-logo-loader-first-child: 8rem;
     --font-size-logo-loader-second-child: 4.5rem;
+    --font-size-logo-text: 200%;
     --font-size-map-tooltip: 1.1rem;
     --font-size-menu-headers: 1.4rem;
     --font-size-menu-items: 1.1rem;
@@ -42,8 +43,9 @@
     --font-size-table-header: 0.7rem;
     --font-size-table-row: 0.7rem;
     --form-field-margin: 0.625rem;
+    /* Misc */
+    --blur: 0.5rem;
+    --gap: 1rem;
     --login-logo-image-size: 7rem;
     --login-logo-text-size: 3rem;
-    /* Blur */
-    --blur: 0.5rem;
 }

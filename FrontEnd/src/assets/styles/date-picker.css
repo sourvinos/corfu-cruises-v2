@@ -145,8 +145,7 @@
     display: flex;
     max-width: 100% !important;
     min-width: 100% !important;
-    /* padding: 0.1875rem 0 0.625rem !important; */
-    padding: 9px 0 0 8px !important;
+    padding: 0.5625rem 0 0 0.5rem !important;
     width: 100% !important;
 }
 
@@ -155,7 +154,7 @@
     border: 0;
     color: var(--color-c);
     font-family: var(--font-family-asty) !important;
-    font-size: 11px !important;
+    font-size: 0.6875rem !important;
     font-weight: 300;
     outline: none !important;
     padding-top: 0.1875rem !important;
@@ -200,6 +199,11 @@
 
 .mat-datepicker-toggle-default-icon {
     display: flex;
-    margin-bottom: -0.875rem;
-    width: 1rem;
+    margin-bottom: -0.875rem !important;
+    width: 1rem !important;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
+    margin-left: 0.5625rem;
+    padding-top: 0.5rem !important;
 }

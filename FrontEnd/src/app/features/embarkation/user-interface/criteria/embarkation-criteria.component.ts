@@ -9,6 +9,7 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmbarkationCriteriaVM } from '../../classes/view-models/criteria/embarkation-criteria-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
@@ -41,7 +42,7 @@ export class EmbarkationCriteriaComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 
@@ -54,6 +55,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     ngAfterViewInit(): void {
+        this.enableFilters()
         this.checkGroupCheckbox('all-destinations', this.destinations, 'destinations')
         this.checkGroupCheckbox('all-ports', this.ports, 'ports')
         this.checkGroupCheckbox('all-ships', this.ships, 'ships')
@@ -157,6 +159,10 @@ export class EmbarkationCriteriaComponent {
         this.localStorageService.deleteItems([
             { 'item': 'embarkationList', 'when': 'always' }
         ])
+    }
+
+    private enableFilters(): void {
+        this.helperService.enableTableFilters()
     }
 
     private getToday(): string {

@@ -201,13 +201,11 @@ export class EmbarkationReservationsComponent {
             this.getVirtualElement()
             this.scrollToSavedPosition()
             this.hightlightSavedRow()
-        }, 500)
+        }, 1000)
     }
 
     private enableDisableFilters(): void {
-        if (this.records.reservations.length == 0) {
-            this.helperService.disableTableFilters()
-        }
+        this.records.reservations.length == 0 ? this.helperService.disableTableFilters() : this.helperService.enableTableFilters()
     }
 
     private filterColumn(element: { value: any }, field: string, matchMode: string): void {

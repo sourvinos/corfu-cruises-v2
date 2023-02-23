@@ -109,23 +109,46 @@ export class HelperService {
         return lookupArray
     }
 
+    public enableTableFilters(): void {
+        setTimeout(() => {
+            const checkboxes = document.querySelectorAll('.p-checkbox, .p-checkbox-box') as NodeListOf<HTMLElement>
+            checkboxes.forEach(x => {
+                x.classList.remove('disabled')
+            })
+            const datePickers = document.querySelectorAll('.mat-datepicker-toggle, .mat-datepicker-toggle > .mat-button-base > .mat-button-wrapper') as NodeListOf<HTMLElement>
+            datePickers.forEach(x => {
+                x.classList.remove('disabled')
+            })
+            const dropdown = document.querySelectorAll('.p-inputwrapper') as NodeListOf<HTMLElement>
+            dropdown.forEach(x => {
+                x.classList.remove('disabled')
+            })
+            const textFilters = document.querySelectorAll('.p-inputtext')
+            textFilters.forEach(x => {
+                x.classList.remove('disabled')
+            })
+        }, 500)
+    }
+
     public disableTableFilters(): void {
-        const checkboxes = document.querySelectorAll('.p-checkbox, .p-checkbox-box') as NodeListOf<HTMLElement>
-        checkboxes.forEach(x => {
-            x.classList.add('disabled')
-        })
-        const datePickers = document.querySelectorAll('.mat-datepicker-toggle, .mat-datepicker-toggle > .mat-button-base > .mat-button-wrapper') as NodeListOf<HTMLElement>
-        datePickers.forEach(x => {
-            x.classList.add('disabled')
-        })
-        const dropdown = document.querySelectorAll('.p-inputwrapper') as NodeListOf<HTMLElement>
-        dropdown.forEach(x => {
-            x.classList.add('disabled')
-        })
-        const textFilters = document.querySelectorAll('.p-inputtext')
-        textFilters.forEach(x => {
-            x.classList.add('disabled')
-        })
+        setTimeout(() => {
+            const checkboxes = document.querySelectorAll('.p-checkbox, .p-checkbox-box') as NodeListOf<HTMLElement>
+            checkboxes.forEach(x => {
+                x.classList.add('disabled')
+            })
+            const datePickers = document.querySelectorAll('.mat-datepicker-toggle, .mat-datepicker-toggle > .mat-button-base > .mat-button-wrapper') as NodeListOf<HTMLElement>
+            datePickers.forEach(x => {
+                x.classList.add('disabled')
+            })
+            const dropdown = document.querySelectorAll('.p-inputwrapper') as NodeListOf<HTMLElement>
+            dropdown.forEach(x => {
+                x.classList.add('disabled')
+            })
+            const textFilters = document.querySelectorAll('.p-inputtext')
+            textFilters.forEach(x => {
+                x.classList.add('disabled')
+            })
+        }, 500)
     }
 
     public clearTableTextFilters(table: Table, inputs: string[]): void {
