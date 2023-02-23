@@ -85,6 +85,8 @@ export class AccountService extends HttpDataService {
             { 'item': 'shipOwnerList-filters', 'when': 'always' }, { 'item': 'shipOwnerList-id', 'when': 'always' }, { 'item': 'shipOwnerList-scrollTop', 'when': 'always' },
             { 'item': 'shipRouteList-filters', 'when': 'always' }, { 'item': 'shipRouteList-id', 'when': 'always' }, { 'item': 'shipRouteList-scrollTop', 'when': 'always' },
             { 'item': 'userList-filters', 'when': 'always' }, { 'item': 'userList-id', 'when': 'always' }, { 'item': 'userList-scrollTop', 'when': 'always' },
+            // Tasks filters
+            { 'item': 'embarkationList-filters', 'when': 'always' }, { 'item': 'embarkationList-id', 'when': 'always' }, { 'item': 'embarkationList-scrollTop', 'when': 'always' },
             // Tables
             { 'item': 'coachRoutes', 'when': 'always' },
             { 'item': 'customers', 'when': 'always' },
@@ -97,8 +99,6 @@ export class AccountService extends HttpDataService {
             { 'item': 'shipOwners', 'when': 'always' },
             { 'item': 'ships', 'when': 'always' },
             { 'item': 'shipRoutes', 'when': 'always' },
-            // Misc
-            { 'item': 'refNo', 'when': 'always' },
         ])
     }
 

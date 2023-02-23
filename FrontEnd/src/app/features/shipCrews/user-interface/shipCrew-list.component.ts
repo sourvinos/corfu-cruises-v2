@@ -215,7 +215,7 @@ export class ShipCrewListComponent {
     }
 
     private storeScrollTop(): void {
-        this.helperService.storeScrollTop('p-scroller-inline')
+        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     private subscribeToInteractionService(): void {

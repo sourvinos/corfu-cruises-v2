@@ -39,12 +39,11 @@ export class EmbarkationReservationsComponent {
     public featureIcon = 'embarkation'
     public icon = 'arrow_back'
     public parentUrl = '/embarkation'
-    public isVirtual = true
-    private scrollableElement: any
+    public records: EmbarkationGroupVM
+    private virtualElement: any
 
     public criteriaPanels: EmbarkationCriteriaVM
 
-    public records: EmbarkationGroupVM
     public totals = [0, 0, 0]
     public totalsFiltered = [0, 0, 0]
 
@@ -66,14 +65,14 @@ export class EmbarkationReservationsComponent {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
-                this.isVirtual = true
                 this.loadRecords().then(() => {
-                    this.isVirtual = false
                     this.populateDropdownFilters()
                     this.filterTableFromStoredFilters()
                     this.updateTotals('totals', this.records.reservations)
                     this.updateTotals('totalsFiltered', this.records.reservations)
-                    this.hightlightSavedRow()
+                    this.populateCriteriaPanelsFromStorage()
+                    this.enableDisableFilters()
+                    this.getLocale()
                 })
             }
         })
@@ -81,14 +80,8 @@ export class EmbarkationReservationsComponent {
 
     //#region lifecycle hooks
 
-    ngOnInit(): void {
-        this.populateCriteriaPanelsFromStorage()
-        this.getLocale()
-    }
-
     ngAfterViewInit(): void {
-        this.enableDisableFilters()
-        this.getScrollerElement()
+        this.doVirtualTableTasks()
     }
 
     ngOnDestroy(): void {
@@ -104,8 +97,9 @@ export class EmbarkationReservationsComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.updateTotals('totalsFiltered', event.filteredValue)
+        this.helperService.clearStyleFromVirtualTable()
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -172,8 +166,8 @@ export class EmbarkationReservationsComponent {
 
     public showPassengers(reservation: EmbarkationVM): void {
         this.storeScrollTop()
-        this.storeSelectedRefNo(reservation)
-        this.highlightRow()
+        this.storeSelectedId(reservation.refNo)
+        this.hightlightSavedRow()
         this.showPassengersDialog(reservation)
     }
 
@@ -200,6 +194,14 @@ export class EmbarkationReservationsComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
+    }
+
+    private doVirtualTableTasks(): void {
+        setTimeout(() => {
+            this.getVirtualElement()
+            this.scrollToSavedPosition()
+            this.hightlightSavedRow()
+        }, 500)
     }
 
     private enableDisableFilters(): void {
@@ -237,19 +239,12 @@ export class EmbarkationReservationsComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
-    private getScrollerElement(): void {
-        this.scrollableElement = document.getElementsByClassName('p-datatable-wrapper')[0]
-    }
-
-    private highlightRow(): void {
-        document.getElementById(this.localStorageService.getItem('refNo'))?.classList.add('p-highlight')
+    private getVirtualElement(): void {
+        this.virtualElement = document.getElementsByClassName('p-scroller-inline')[0]
     }
 
     private hightlightSavedRow(): void {
-        setTimeout(() => {
-            this.scrollToSavedPosition()
-            this.highlightRow()
-        }, 1000)
+        this.helperService.highlightSavedRow(this.feature)
     }
 
     private loadRecords(): Promise<any> {
@@ -290,7 +285,7 @@ export class EmbarkationReservationsComponent {
     }
 
     private scrollToSavedPosition(): void {
-        this.scrollableElement.scrollTop = parseInt(this.localStorageService.getItem('scrollTop')) | 0
+        this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
     private showPassengersDialog(reservation: EmbarkationVM): void {
@@ -306,16 +301,17 @@ export class EmbarkationReservationsComponent {
         response.afterClosed().subscribe(result => {
             if (result !== undefined && result == true) {
                 this.router.navigate([this.url])
+                this.doVirtualTableTasks()
             }
         })
     }
 
-    private storeSelectedRefNo(reservation: EmbarkationVM): void {
-        this.localStorageService.saveItem('refNo', reservation.refNo)
+    private storeSelectedId(refNo: string): void {
+        this.localStorageService.saveItem(this.feature + '-id', refNo)
     }
 
     private storeScrollTop(): void {
-        this.localStorageService.saveItem('scrollTop', this.scrollableElement.scrollTop)
+        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     private updateTotals(totalsArray: string, reservations: any[]): void {

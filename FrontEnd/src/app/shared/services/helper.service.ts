@@ -253,14 +253,15 @@ export class HelperService {
     }
 
     public scrollToSavedPosition(virtualElement: any, feature: string): void {
-        setTimeout(() => {
-            virtualElement.scrollTo({
-                top: parseInt(this.localStorageService.getItem(feature + '-scrollTop')) || 0,
-                left: 0,
-                behavior: 'auto'
-            })
-        }, 500)
-
+        if (virtualElement != undefined) {
+            setTimeout(() => {
+                virtualElement.scrollTo({
+                    top: parseInt(this.localStorageService.getItem(feature + '-scrollTop')) || 0,
+                    left: 0,
+                    behavior: 'auto'
+                })
+            }, 500)
+        }
     }
 
     //#endregion

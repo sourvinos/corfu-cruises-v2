@@ -41,7 +41,7 @@
 .p-multiselect .p-multiselect-label {
     font-size: 0.6875rem;
     margin: 0;
-    padding: 0;
+    padding: 8px 0 0 0;
     text-align: left;
 }
 
@@ -99,6 +99,8 @@
     color: var(--color-table-dropdown-filter-clear);
     height: 1rem;
     margin: 0.125rem 0 0 0 !important;
+    position: absolute !important;
+    top: 0.25rem;
     width: 0.9375rem;
 }
 
@@ -109,4 +111,6 @@
 
 .p-multiselect .p-multiselect-trigger {
     color: var(--color-c) !important;
+    justify-content: flex-end;
+    width: 1.1rem;
 }

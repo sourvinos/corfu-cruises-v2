@@ -7,7 +7,7 @@
                 <img [src]="getIcon('calendar')">
                 <div class="description">{{ formatDateToLocale(criteriaPanels.date, true, true) }}</div>
             </div>
-            <button (click)="resetTableFilters()" [disabled]="!isListFiltered()" class="primary" mat-flat-button>
+            <button (click)="resetTableFilters()" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
             </button>
         </div>
@@ -20,7 +20,7 @@
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-4" pSortableColumn="embarkationStatus.description">{{ getLabel('headerEmbarkationStatus') }}</th>

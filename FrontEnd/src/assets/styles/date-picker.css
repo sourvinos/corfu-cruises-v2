@@ -144,7 +144,7 @@
     align-items: center;
     display: flex;
     justify-content: flex-end;
-    margin: 0;
+    margin-left: auto;
     padding: 3px 0 0.625rem !important;
 }
 
@@ -155,7 +155,7 @@
     font-family: var(--font-family-manrope) !important;
     font-weight: 600;
     outline: none !important;
-    padding-top: 0 !important;
+    padding-top: 0.1875rem !important;
     width: 5rem !important;
 }
 
@@ -163,7 +163,7 @@
     color: var(--color-table-dropdown-filter-clear);
     font-size: 0.91rem;
     margin: 0 0 0 -1rem !important;
-    padding-top: 0;
+    padding-top: 4px;
 }
 
 .date-clear-icon:hover {
@@ -191,4 +191,10 @@
     margin-top: -12px !important;
     top: -4px !important;
     width: 0 !important;
+}
+
+.mat-datepicker-toggle-default-icon {
+    display: flex;
+    margin-bottom: -0.875rem;
+    width: 1rem;
 }
