@@ -1,0 +1,30 @@
+#dialog-header {
+    margin: 0 0 1.1rem 1rem;
+}
+
+#dialog-content {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+#form {
+    border-radius: 0.625rem;
+    border: 0.0625rem solid var(--color-e);
+    height: 100% !important;
+    padding: 1rem;
+}
+
+.fieldset {
+    width: 99% !important;
+}
+
+.list-wrapper {
+    height: 75% !important;
+    overflow-y: scroll !important;
+    width: 100% !important;
+}
+
+#dialog-footer {
+    gap: 0.5rem;
+    margin: 1.8rem 1rem 0 0;
+}

@@ -1,0 +1,88 @@
+[
+    {
+        "feature": "months",
+        "labels": [
+            {
+                "id": "January",
+                "description": "Ιαν"
+            },
+            {
+                "id": "February",
+                "description": "Φεβ"
+            },
+            {
+                "id": "March",
+                "description": "Μαρ"
+            },
+            {
+                "id": "April",
+                "description": "Απρ"
+            },
+            {
+                "id": "May",
+                "description": "Μαι"
+            },
+            {
+                "id": "June",
+                "description": "Ιουν"
+            },
+            {
+                "id": "July",
+                "description": "Ιουλ"
+            },
+            {
+                "id": "August",
+                "description": "Αυγ"
+            },
+            {
+                "id": "September",
+                "description": "Σεπ"
+            },
+            {
+                "id": "October",
+                "description": "Οκτ"
+            },
+            {
+                "id": "November",
+                "description": "Νοε"
+            },
+            {
+                "id": "December",
+                "description": "Δεκ"
+            }
+        ]
+    },
+    {
+        "feature": "weekdays",
+        "labels": [
+            {
+                "id": "Mon",
+                "description": "Δευ"
+            },
+            {
+                "id": "Tue",
+                "description": "Τρί"
+            },
+            {
+                "id": "Wed",
+                "description": "Τετ"
+            },
+            {
+                "id": "Thu",
+                "description": "Πέμ"
+            },
+            {
+                "id": "Fri",
+                "description": "Παρ"
+            },
+            {
+                "id": "Sat",
+                "description": "Σάβ"
+            },
+            {
+                "id": "Sun",
+                "description": "Κυρ"
+            }
+        ]
+    }
+]

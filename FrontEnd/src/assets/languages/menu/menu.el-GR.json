@@ -1,0 +1,28 @@
+[
+
+    { "id": "reservations-reservations", "description": "Κρατήσεις" },
+    { "id": "reservations-availability", "description": "Διαθεσιμότητα" },
+    { "id": "reservations-ledgers", "description": "Η καρτέλα μου" },
+    
+    { "id": "tasks-embarkation", "description": "Επιβίβαση" },
+    { "id": "tasks-manifest", "description": "Κατάσταση επιβαινόντων" },
+    { "id": "tasks-ledgers", "description": "Καρτέλες πελατών" },
+
+    { "id": "tables-coachRoutes", "description": "Δρομολόγια λεωφορείων" },
+    { "id": "tables-customers", "description": "Πελάτες" },
+    { "id": "tables-destinations", "description": "Προορισμοί" },
+    { "id": "tables-drivers", "description": "Οδηγοί" },
+    { "id": "tables-genders", "description": "Φύλα" },
+    { "id": "tables-pickupPoints", "description": "Σημεία παραλαβής" },
+    { "id": "tables-ports", "description": "Λιμάνια" },
+    { "id": "tables-schedules", "description": "Πρόγραμμα εκδρομών" },
+    { "id": "tables-ships", "description": "Πλοία" },
+    { "id": "tables-shipCrews", "description": "Πληρώματα" },
+    { "id": "tables-registrars", "description": "Καταγραφείς επιβατών" },
+    { "id": "tables-shipOwners", "description": "Πλοιοκτήτες" },
+    { "id": "tables-shipRoutes", "description": "Δρομολόγια πλοίων" },
+    { "id": "tables-users", "description": "Χρήστες" },
+
+    { "id": "user-account", "description": "Ο λογαριασμός μου" },
+    { "id": "user-logout", "description": "Αποσύνδεση" }
+]

@@ -1,0 +1,29 @@
+button {
+    background-color: transparent;
+}
+
+.sub-menu {
+    right: 0;
+}
+
+.sub-menu button {
+    border-top: 1px solid var(--color-dropdown-menu-border);
+    border-right: 1px solid var(--color-dropdown-menu-border);
+    border-bottom: 0;
+    border-left: 1px solid var(--color-dropdown-menu-border);
+}
+
+.sub-menu button:last-child {
+    border-bottom: 1px solid var(--color-dropdown-menu-border);
+}
+
+#active-year {
+    color: var(--color-c);
+    font-family: var(--font-family-montserrat);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-left: auto;
+    margin-right: 1rem;
+    transform: scale(1.5, 1);
+    transition: all var(--theme-change-delay) ease-in;
+}

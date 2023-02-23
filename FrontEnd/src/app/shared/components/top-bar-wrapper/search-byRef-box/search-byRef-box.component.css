@@ -1,0 +1,45 @@
+#form {
+    display: flex;
+}
+
+#search-by-ref-no-box {
+    display: flex;
+    margin: 0 0.5rem 0 1rem;
+}
+
+#search-by-ref-no-text {
+    background-color: var(--color-a);
+    border-radius: 0.3125rem;
+    border: none;
+    color: var(--color-c);
+    font-family: var(--font-family-ubuntu), sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    margin: 0 0.4rem 0 0;
+    padding: 0.375rem 1rem;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+#search-by-ref-no-text::placeholder {
+    color: var(--color-c) !important;
+    opacity: 0.35;
+}
+
+input {
+    border: 0;
+    outline: 0;
+}
+
+input:focus {
+    outline: none !important;
+}
+
+button {
+    display: flex;
+    padding: 0 0.1875rem;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+button span {
+    color: var(--color-c) !important;
+}

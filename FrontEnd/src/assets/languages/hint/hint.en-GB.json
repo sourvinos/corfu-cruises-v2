@@ -1,0 +1,48 @@
+{
+    "labels": [
+        {
+            "id": "required",
+            "description": "This field is required"
+        },
+        {
+            "id": "minLength",
+            "description": "This field must be at least xx characters long"
+        },
+        {
+            "id": "maxLength",
+            "description": "This field can be up to xx characters long"
+        },
+        {
+            "id": "invalid",
+            "description": "This field is invalid"
+        },
+        {
+            "id": "passwordsNoMatch",
+            "description": "New password and confirm new password do not match"
+        },
+        {
+            "id": "spacesNotAllowed",
+            "description": "Spaces are not allowed"
+        },
+        {
+            "id": "otherErrors",
+            "description": "This field has errors"
+        },
+        {
+            "id": "invalidPeriod",
+            "description": "The period is not valid"
+        },
+        {
+            "id": "containsIllegalCharacters",
+            "description": "Only alphanumeric characters or underscores are allowed."
+        },
+        {
+            "id": "beginsOrEndsWithSpace",
+            "description": "This field can't begin or end with one or more spaces."
+        },
+        {
+            "id": "emptyOrInvalidDate",
+            "description": "This field must be a valid date"
+        }
+    ]
+}

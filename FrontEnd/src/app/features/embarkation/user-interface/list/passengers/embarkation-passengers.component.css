@@ -1,0 +1,22 @@
+#table-wrapper {
+    margin: 1rem 0 1.4rem 0 !important;
+}
+
+.p-scroller {
+    overflow-y: auto !important;
+}
+
+#dialog-header h1 .title {
+    color: var(--color-c);
+}
+
+#missing-passengers {
+    align-items: center;
+    color: var(--color-c);
+    display: flex;
+    font-family: var(--font-family-manrope);
+}
+
+.embarkation-status:hover {
+    cursor: pointer;
+}

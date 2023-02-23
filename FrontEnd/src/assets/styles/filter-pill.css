@@ -1,0 +1,52 @@
+.filter-pill {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.filter-pill .pill {
+    align-items: center;
+    border-radius: 0.3125rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    padding: 0.5rem;
+    width: 5rem;
+}
+
+.filter-pill .date {
+    width: auto !important;
+}
+
+.filter-pill .overbooked {
+    width: auto !important;
+}
+
+.filter-pill .pill img {
+    width: 1.375rem;
+}
+
+.filter-pill .pill .description {
+    align-items: center;
+    color: var(--color-button-text);
+    display: flex;
+    font-family: var(--font-family-handbook);
+    line-height: 0;
+    margin-left: auto;
+    transform: scale(1, 2.0);
+}
+
+.filter-pill .pill .pill:nth-child(1) {
+    background-color: var(--color-criteria-a) !important;
+}
+
+.filter-pill .pill:nth-child(2) {
+    background-color: var(--color-criteria-b) !important;
+}
+
+.filter-pill .pill:nth-child(3) {
+    background-color: var(--color-criteria-c) !important;
+}
+
+.filter-pill .pill:nth-child(4) {
+    background-color: var(--color-criteria-d) !important;
+}

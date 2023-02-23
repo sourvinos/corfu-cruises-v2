@@ -1,0 +1,12 @@
+{
+    "profiles": {
+        "API.Model.Tests": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Testing"
+            },
+            "applicationUrl": "https://localhost:5001"
+        }
+    }
+}

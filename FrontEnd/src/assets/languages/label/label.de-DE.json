@@ -1,0 +1,2139 @@
+[
+    {
+        "feature": "loginForm",
+        "labels": [
+            {
+                "id": "title-top",
+                "description": "Willkommen bei"
+            },
+            {
+                "id": "title-middle",
+                "description": "CORFU CRUISES"
+            },
+            {
+                "id": "title-bottom",
+                "description": "Korfu Stadt, Benitses, Lefkimmi, Kavos"
+            },
+            {
+                "id": "header",
+                "description": "Anmeldung"
+            },
+            {
+                "id": "username",
+                "description": "Nutzername"
+            },
+            {
+                "id": "password",
+                "description": "Passwort"
+            },
+            {
+                "id": "noRobotCheckbox",
+                "description": "Ich bin kein Roboter"
+            },
+            {
+                "id": "forgotPasswordButton",
+                "description": "Ich habe mein Passwort vergessen"
+            },
+            {
+                "id": "loginButton",
+                "description": "ANMELDUNG"
+            }
+        ]
+    },
+    {
+        "feature": "customerList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Kunden"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerName",
+                "description": "Name"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Telefone"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUER"
+            }
+        ]
+    },
+    {
+        "feature": "customerForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Kunde"
+            },
+            {
+                "id": "description",
+                "description": "Name der Firma"
+            },
+            {
+                "id": "profession",
+                "description": "Beruf"
+            },
+            {
+                "id": "address",
+                "description": "Adresse"
+            },
+            {
+                "id": "phones",
+                "description": "Telefone"
+            },
+            {
+                "id": "personInCharge",
+                "description": "Verantwortlicher"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "destinationList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reiseziele"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerAbbreviation",
+                "description": "Abk."
+            },
+            {
+                "id": "headerDescription",
+                "description": "Bezeichnung"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUES"
+            }
+        ]
+    },
+    {
+        "feature": "destinationForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "abbreviation",
+                "description": "Abk."
+            },
+            {
+                "id": "description",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "driverList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Fahrer"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerFullname",
+                "description": "Vollständiger Name"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Telefone"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUER"
+            }
+        ]
+    },
+    {
+        "feature": "driverForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Fahrer"
+            },
+            {
+                "id": "description",
+                "description": "Vollständiger Name"
+            },
+            {
+                "id": "phones",
+                "description": "Telefonnummern"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "pickupPointList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Abholpunkte"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerRouteAbbreviation",
+                "description": "Route"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "headerExactPoint",
+                "description": "Genauer punkt"
+            },
+            {
+                "id": "headerTime",
+                "description": "Uhr"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUER"
+            },
+            {
+                "id": "createPdf",
+                "description": "PDF ERSTELLEN"
+            }
+        ]
+    },
+    {
+        "feature": "pickupPointForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Abholstelle"
+            },
+            {
+                "id": "coachRoute",
+                "description": "Busroute"
+            },
+            {
+                "id": "description",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "exactPoint",
+                "description": "Genaue Stelle"
+            },
+            {
+                "id": "time",
+                "description": "Abholzeit"
+            },
+            {
+                "id": "coordinates",
+                "description": "GPS Koordinaten"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            },
+            {
+                "id": "formTab",
+                "description": "Einzelheiten"
+            },
+            {
+                "id": "mapTab",
+                "description": "Karte"
+            }
+        ]
+    },
+    {
+        "feature": "portList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Häfen"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerStopOrder",
+                "description": "Annäherungsauftrag"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUER"
+            }
+        ]
+    },
+    {
+        "feature": "portForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Hafen"
+            },
+            {
+                "id": "description",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "abbreviation",
+                "description": "Abk."
+            },
+            {
+                "id": "stopOrder",
+                "description": "Annäherungsauftrag"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "coachRouteList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Busrouten"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerHasTransfer",
+                "description": "xFER"
+            },
+            {
+                "id": "headerAbbreviation",
+                "description": "Abk."
+            },
+            {
+                "id": "headerDescription",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUE"
+            }
+        ]
+    },
+    {
+        "feature": "coachRouteForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Route"
+            },
+            {
+                "id": "abbreviation",
+                "description": "Abk."
+            },
+            {
+                "id": "description",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "port",
+                "description": "Hafen"
+            },
+            {
+                "id": "hasTransfer",
+                "description": "Erfordert Übertragung"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            },
+            {
+                "id": "formTab",
+                "description": "Formular"
+            },
+            {
+                "id": "mapTab",
+                "description": "Karte"
+            }
+        ]
+    },
+    {
+        "feature": "userList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Benutzer"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Activ"
+            },
+            {
+                "id": "headerIsAdmin",
+                "description": "Admin"
+            },
+            {
+                "id": "headerUsername",
+                "description": "Nutzername"
+            },
+            {
+                "id": "headerDisplayname",
+                "description": "Angezeigter Name"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUER"
+            },
+            {
+                "id": "showConnectedUsers",
+                "description": "ANGESCHLOSSENE BENUTZER"
+            }
+        ]
+    },
+    {
+        "feature": "editUserForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Benutzer"
+            },
+            {
+                "id": "my-header",
+                "description": "Mein Konto"
+            },
+            {
+                "id": "userName",
+                "description": "Nutzername"
+            },
+            {
+                "id": "displayname",
+                "description": "Angezeigter Name"
+            },
+            {
+                "id": "customer",
+                "description": "Linkedin-Kunde"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "isAdmin",
+                "description": "Admin"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "changePasswordButton",
+                "description": "PASSWORT ÄNDERN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "newUserForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Nutzer"
+            },
+            {
+                "id": "userName",
+                "description": "Nutzername"
+            },
+            {
+                "id": "displayname",
+                "description": "Angezeigter Name"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "password",
+                "description": "Passwort"
+            },
+            {
+                "id": "confirmPassword",
+                "description": "Kennwort bestätigen"
+            },
+            {
+                "id": "customer",
+                "description": "Linkedin-Kunde"
+            },
+            {
+                "id": "isAdmin",
+                "description": "Admin"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "sendLoginCredentials",
+                "description": "AN Email SENDEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "changePasswordForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Kennwort ändern"
+            },
+            {
+                "id": "currentPassword",
+                "description": "Jetziges Passwort"
+            },
+            {
+                "id": "newPassword",
+                "description": "Neues Kennwort"
+            },
+            {
+                "id": "confirmPassword",
+                "description": "Bestätige neues Passwort"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "reservationList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Täglicher Buchungsbericht"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "summaryHeaderDestinations",
+                "description": "Reiseziele"
+            },
+            {
+                "id": "summaryHeaderCustomers",
+                "description": "Kunden"
+            },
+            {
+                "id": "summaryHeaderRoutes",
+                "description": "Routen"
+            },
+            {
+                "id": "summaryHeaderDrivers",
+                "description": "Fahrer"
+            },
+            {
+                "id": "summaryHeaderPorts",
+                "description": "Häfen"
+            },
+            {
+                "id": "summaryHeaderShips",
+                "description": "Schiffe"
+            },
+            {
+                "id": "assignToDriverButton",
+                "description": "Fahrgäste in den Bus einteilen"
+            },
+            {
+                "id": "assignToShipButton",
+                "description": "Pre-Boarding-Liste erstellen"
+            },
+            {
+                "id": "createPdfButton",
+                "description": "PDF für Fahrer erstellen"
+            },
+            {
+                "id": "newButton",
+                "description": "NEU"
+            },
+            {
+                "id": "total",
+                "description": "Gesamtpersonen"
+            },
+            {
+                "id": "displayed",
+                "description": "Angezeigte"
+            },
+            {
+                "id": "selected",
+                "description": "Ausgewählte"
+            },
+            {
+                "id": "headerSelected",
+                "description": "A"
+            },
+            {
+                "id": "headerRefNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Ticket"
+            },
+            {
+                "id": "headerPlusMinus",
+                "description": "+/-"
+            },
+            {
+                "id": "headerDestination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "headerRoute",
+                "description": "Route"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Kunde"
+            },
+            {
+                "id": "headerPickupPoint",
+                "description": "Abholpunkt"
+            },
+            {
+                "id": "headerAdults",
+                "description": "E"
+            },
+            {
+                "id": "headerKids",
+                "description": "K"
+            },
+            {
+                "id": "headerFree",
+                "description": "G"
+            },
+            {
+                "id": "headerTotal",
+                "description": "Pax"
+            },
+            {
+                "id": "headerDriver",
+                "description": "Fahrer"
+            },
+            {
+                "id": "headerPort",
+                "description": "Häfen"
+            },
+            {
+                "id": "headerShip",
+                "description": "Schiff"
+            },
+            {
+                "id": "headerTime",
+                "description": "Uhr"
+            }
+        ]
+    },
+    {
+        "feature": "reservationForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reservierung bearbeiten"
+            },
+            {
+                "id": "tabGeneral",
+                "description": "Übersicht"
+            },
+            {
+                "id": "tabPassengers",
+                "description": "Passagiere"
+            },
+            {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "customer",
+                "description": "Kunde"
+            },
+            {
+                "id": "pickupPoint",
+                "description": "Abholpunkt"
+            },
+            {
+                "id": "exactPoint",
+                "description": "Genauer Punkt"
+            },
+            {
+                "id": "time",
+                "description": "Uhr"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Ticketnummer"
+            },
+            {
+                "id": "adults",
+                "description": "Erwachsene"
+            },
+            {
+                "id": "kids",
+                "description": "Kinder"
+            },
+            {
+                "id": "free",
+                "description": "Gratis"
+            },
+            {
+                "id": "totalPersons",
+                "description": "Gesamt"
+            },
+            {
+                "id": "driver",
+                "description": "Fahrer"
+            },
+            {
+                "id": "port",
+                "description": "Hafen"
+            },
+            {
+                "id": "ship",
+                "description": "Schiff"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "phones",
+                "description": "Telefone"
+            },
+            {
+                "id": "remarks",
+                "description": "Kommentare"
+            },
+            {
+                "id": "abortButton",
+                "description": "Abbrechen"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "printVoucherButton",
+                "description": "Drucken"
+            },
+            {
+                "id": "sendVoucherButton",
+                "description": "An Email senden"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            },
+            {
+                "id": "createVoucherOnServer",
+                "description": "Gutschein per E-Mail versenden"
+            },
+            {
+                "id": "createVoucherOnClient",
+                "description": "Gutschein drucken"
+            }
+        ]
+    },
+    {
+        "feature": "forgotPasswordForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Ich habe mein Passwort vergessen"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "saveButton",
+                "description": "WEITER"
+            },
+            {
+                "id": "weNeedYourEmail",
+                "description": "Geben Sie uns Ihre Email-Adresse und wir senden Ihnen Anweisungen zum Zurücksetzen Ihres Passworts"
+            }
+        ]
+    },
+    {
+        "feature": "resetPasswordForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Neues Passwort erstellen"
+            },
+            {
+                "id": "password",
+                "description": "Neues Kennwort"
+            },
+            {
+                "id": "confirmPassword",
+                "description": "Bestätige neues Passwort"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "dialog",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Warnung"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "noButton",
+                "description": "ABBRECHEN"
+            }
+        ]
+    },
+    {
+        "feature": "assignToDriver",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Auswahl des Fahrers"
+            },
+            {
+                "id": "subHeader",
+                "description": "Wählen Sie den Fahrer, der die Passagiere zum Hafen bringt."
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "noButton",
+                "description": "ABBRECHEN"
+            }
+        ]
+    },
+    {
+        "feature": "assignToShip",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Auswahl der Schiffe"
+            },
+            {
+                "id": "subHeader",
+                "description": "Wählen Sie das Schiff aus, das die Passagiere zum Zielort bringt."
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "noButton",
+                "description": "ABBRECHEN"
+            }
+        ]
+    },
+    {
+        "feature": "shipList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Schiffe"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Name"
+            },
+            {
+                "id": "headerIMO",
+                "description": "IMO"
+            },
+            {
+                "id": "newButton",
+                "description": "NEUES"
+            }
+        ]
+    },
+    {
+        "feature": "shipForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Schiff"
+            },
+            {
+                "id": "description",
+                "description": "Name"
+            },
+            {
+                "id": "shipOwner",
+                "description": "Schiffseigner"
+            },
+            {
+                "id": "imo",
+                "description": "ΙΜΟ"
+            },
+            {
+                "id": "flag",
+                "description": "Flagge"
+            },
+            {
+                "id": "registryNo",
+                "description": "Registrierungsnummer"
+            },
+            {
+                "id": "manager",
+                "description": "Manager"
+            },
+            {
+                "id": "managerInGreece",
+                "description": "Manager in Griechenland"
+            },
+            {
+                "id": "agent",
+                "description": "Agenten"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "calendarWrapper",
+        "labels": [
+            {
+                "id": "listButton",
+                "description": "ZEITPLÄNE BEARBEITEN"
+            },
+            {
+                "id": "newButton",
+                "description": "NEU"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleCreateForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Neue Terminplanung"
+            },
+            {
+                "id": "destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "port",
+                "description": "Hafen"
+            },
+            {
+                "id": "dateRange",
+                "description": "Kalenderintervall"
+            },
+            {
+                "id": "maxPax",
+                "description": "Maximale Anzahl von Passagieren"
+            },
+            {
+                "id": "departureTime",
+                "description": "Abfahrtszeit"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "passengerList",
+        "labels": [
+            {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Name"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Vorname"
+            },
+            {
+                "id": "headerCountry",
+                "description": "Nationalität"
+            },
+            {
+                "id": "headerIsCheckedIn",
+                "description": "Einchecken"
+            },
+            {
+                "id": "newPassengerButton",
+                "description": "NEUE PASSAGIERE"
+            }
+        ]
+    },
+    {
+        "feature": "passengerForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Passagier"
+            },
+            {
+                "id": "lastname",
+                "description": "Name"
+            },
+            {
+                "id": "firstname",
+                "description": "Vorname"
+            },
+            {
+                "id": "nationality",
+                "description": "Nationalität"
+            },
+            {
+                "id": "birthdate",
+                "description": "Geburtsdatum"
+            },
+            {
+                "id": "gender",
+                "description": "Geschlecht"
+            },
+            {
+                "id": "specialCare",
+                "description": "Spezialbehandlung"
+            },
+            {
+                "id": "remarks",
+                "description": "Kommentare"
+            },
+            {
+                "id": "isCheckedIn",
+                "description": "Einchecken"
+            },
+            {
+                "id": "cancelButton",
+                "description": "ABBRECHEN"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            }
+        ]
+    },
+    {
+        "feature": "genderList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Geschlechter"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEU"
+            }
+        ]
+    },
+    {
+        "feature": "genderForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Geschlecht"
+            },
+            {
+                "id": "description",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "embarkationCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Einschiffungskriterien"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "destinations",
+                "description": "Reiseziele"
+            },
+            {
+                "id": "ports",
+                "description": "Häfen"
+            },
+            {
+                "id": "ships",
+                "description": "Schiffe"
+            },
+            {
+                "id": "selected",
+                "description": "Ausgewählte"
+            },
+            {
+                "id": "searchButton",
+                "description": "SUCHEN"
+            }
+        ]
+    },
+    {
+        "feature": "embarkationList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Einschiffung"
+            },
+            {
+                "id": "headerEmbarkationStatus",
+                "description": "Zustand"
+            },
+            {
+                "id": "headerRefNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "headerTicketNo",
+                "description": "Ticket"
+            },
+            {
+                "id": "headerDestination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Kunde"
+            },
+            {
+                "id": "headerPickupPoint",
+                "description": "Abholpunkt"
+            },
+            {
+                "id": "headerDriver",
+                "description": "Fahrer"
+            },
+            {
+                "id": "headerPort",
+                "description": "Hafen"
+            },
+            {
+                "id": "headerShip",
+                "description": "Schiff"
+            },
+            {
+                "id": "headerPersons",
+                "description": "Pax"
+            },
+            {
+                "id": "headerPlusMinus",
+                "description": "+/-"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Name"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Vorname"
+            },
+            {
+                "id": "headerCountry",
+                "description": "Land"
+            },
+            {
+                "id": "headerStatus",
+                "description": "Einschiffung"
+            },
+            {
+                "id": "criteria-destinations",
+                "description": "Reiseziele"
+            },
+            {
+                "id": "criteria-ports",
+                "description": "Häfen"
+            },
+            {
+                "id": "criteria-ships",
+                "description": "Schiffe"
+            },
+            {
+                "id": "boardedFilter",
+                "description": "EINGESCHIFFT"
+            },
+            {
+                "id": "indeterminateFilter",
+                "description": "UNBESTIMMT"
+            },
+            {
+                "id": "pendingFilter",
+                "description": "AUSSTEHEND"
+            },
+            {
+                "id": "createPDF",
+                "description": "PDF ERSTELLEN"
+            },
+            {
+                "id": "scanOpenButton",
+                "description": "GUTSCHEIN SCANNEN"
+            },
+            {
+                "id": "scan-close-button",
+                "description": "X"
+            },
+            {
+                "id": "embarkAllPassengers",
+                "description": "EMBARK ALLES"
+            },
+            {
+                "id": "missingPassenger",
+                "description": "Keine Daten für 1 Passagier"
+            },
+            {
+                "id": "missingPassengers",
+                "description": "Keine Daten für xx Passagiere"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            }
+        ]
+    },
+    {
+        "feature": "nationalityList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Nationalitäten"
+            },
+            {
+                "id": "newButton",
+                "description": "NEU"
+            },
+            {
+                "id": "headerDescription",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "headerFlag",
+                "description": "Flagge"
+            }
+        ]
+    },
+    {
+        "feature": "nationalityForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Nationalität"
+            },
+            {
+                "id": "description",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "code",
+                "description": "Code"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "ledgerCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Kriterien für die Erstellung von Kundenbüchern"
+            },
+            {
+                "id": "date",
+                "description": "Datumsbereich"
+            },
+            {
+                "id": "customers",
+                "description": "Kunden"
+            },
+            {
+                "id": "destinations",
+                "description": "Reiseziele"
+            },
+            {
+                "id": "ships",
+                "description": "Schiffe"
+            },
+            {
+                "id": "selected",
+                "description": "Ausgewählte"
+            },
+            {
+                "id": "searchButton",
+                "description": "SUCHEN"
+            }
+        ]
+    },
+    {
+        "feature": "ledgerList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Kundenbücher"
+            },
+            {
+                "id": "headerCustomer",
+                "description": "Kunde"
+            },
+            {
+                "id": "headerDate",
+                "description": "Datum"
+            },
+            {
+                "id": "headerDestination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "headerShip",
+                "description": "Schiff"
+            },
+            {
+                "id": "headerPort",
+                "description": "Hafen"
+            },
+            {
+                "id": "headerRefNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "headerTicket",
+                "description": "Ticket"
+            },
+            {
+                "id": "headerHasTransfer",
+                "description": "xFER"
+            },
+            {
+                "id": "headerAdults",
+                "description": "E"
+            },
+            {
+                "id": "headerKids",
+                "description": "K"
+            },
+            {
+                "id": "headerFree",
+                "description": "G"
+            },
+            {
+                "id": "headerTotalPersons",
+                "description": "Σ"
+            },
+            {
+                "id": "headerNoShow",
+                "description": "N/S"
+            },
+            {
+                "id": "headerRemarks",
+                "description": "K"
+            },
+            {
+                "id": "createPdfButton",
+                "description": "PDF ERSTELLEN"
+            },
+            {
+                "id": "criteria-customers",
+                "description": "Kunden"
+            },
+            {
+                "id": "criteria-destinations",
+                "description": "Reiseziele"
+            },
+            {
+                "id": "criteria-ships",
+                "description": "Schiffe"
+            },
+            {
+                "id": "ok-button",
+                "description": "OK"
+            },
+            {
+                "id": "summary-tab",
+                "description": "Übersicht"
+            },
+            {
+                "id": "reservations-tab",
+                "description": "Reservierungen"
+            }
+        ]
+    },
+    {
+        "feature": "manifestCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Kriterien für die Erstellung eines Passagiermanifests"
+            },
+            {
+                "id": "headerRouteSelector",
+                "description": "Auswahl der Schiffsroute"
+            },
+            {
+                "id": "subHeaderRouteSelector",
+                "description": "Wählen Sie die Route, der das Schiff folgen soll."
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "ports",
+                "description": "Häfen"
+            },
+            {
+                "id": "ship",
+                "description": "Schiff"
+            },
+            {
+                "id": "shipRoute",
+                "description": "Route"
+            },
+            {
+                "id": "selected",
+                "description": "Ausgewählte"
+            },
+            {
+                "id": "searchButton",
+                "description": "SUCHEN"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "cancelButton",
+                "description": "ABBRECHEN"
+            }
+        ]
+    },
+    {
+        "feature": "manifestList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Passagiermanifest"
+            },
+            {
+                "id": "criteriaDestination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "criteriaPort",
+                "description": "Hafen"
+            },
+            {
+                "id": "criteriaShip",
+                "description": "Schiff"
+            },
+            {
+                "id": "headerOccupant",
+                "description": "Eigentum"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Name"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Vorname"
+            },
+            {
+                "id": "headerCountry",
+                "description": "Land"
+            },
+            {
+                "id": "headerGender",
+                "description": "Geschlecht"
+            },
+            {
+                "id": "countPassengers",
+                "description": "p"
+            },
+            {
+                "id": "countCrew",
+                "description": "c"
+            },
+            {
+                "id": "createPdf",
+                "description": "PDF ERSTELLEN"
+            }
+        ]
+    },
+    {
+        "feature": "shipOwnerList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Schiffseigner"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerName",
+                "description": "Name des Unternehmens"
+            },
+            {
+                "id": "headerPhones",
+                "description": "Telefone"
+            },
+            {
+                "id": "headerEmail",
+                "description": "Email"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUER"
+            }
+        ]
+    },
+    {
+        "feature": "shipOwnerForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Inhaber"
+            },
+            {
+                "id": "description",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "profession",
+                "description": "Beruf"
+            },
+            {
+                "id": "address",
+                "description": "Adresse"
+            },
+            {
+                "id": "taxNo",
+                "description": "Steuernummer"
+            },
+            {
+                "id": "city",
+                "description": "Stadt"
+            },
+            {
+                "id": "phones",
+                "description": "Telefone"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "shipRouteList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Schiffsrouten"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerFromPort",
+                "description": "Abreisehafen"
+            },
+            {
+                "id": "headerViaPort",
+                "description": "Zwischenhäfen im Anflug"
+            },
+            {
+                "id": "headerToPort",
+                "description": "Zielhafen"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUE"
+            }
+        ]
+    },
+    {
+        "feature": "shipRouteForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Route"
+            },
+            {
+                "id": "description",
+                "description": "Beschreibung"
+            },
+            {
+                "id": "fromPort",
+                "description": "Abreisehafen"
+            },
+            {
+                "id": "fromTime",
+                "description": "Abreisezeit"
+            },
+            {
+                "id": "viaPort",
+                "description": "Zwischenhäfen"
+            },
+            {
+                "id": "viaTime",
+                "description": "Ankunftszeit"
+            },
+            {
+                "id": "toPort",
+                "description": "Ankunftshafen"
+            },
+            {
+                "id": "toTime",
+                "description": "Ankunftszeit"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "registrarList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Registrare"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Activ"
+            },
+            {
+                "id": "headerIsPrimary",
+                "description": "Primär"
+            },
+            {
+                "id": "headerFullname",
+                "description": "Vollständiger Name"
+            },
+            {
+                "id": "headerShipDescription",
+                "description": "Schiff"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUER"
+            }
+        ]
+    },
+    {
+        "feature": "registrarForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Registrator"
+            },
+            {
+                "id": "fullname",
+                "description": "Vollständiger Name"
+            },
+            {
+                "id": "ship",
+                "description": "Schiff"
+            },
+            {
+                "id": "phones",
+                "description": "Telefone"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "fax",
+                "description": "Fax"
+            },
+            {
+                "id": "address",
+                "description": "Adresse"
+            },
+            {
+                "id": "isPrimary",
+                "description": "Primär"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "shipCrewList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Besatzungen"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Activ"
+            },
+            {
+                "id": "headerShipDescription",
+                "description": "Schiff"
+            },
+            {
+                "id": "headerLastname",
+                "description": "Name"
+            },
+            {
+                "id": "headerFirstname",
+                "description": "Vorname"
+            },
+            {
+                "id": "headerBirthdate",
+                "description": "Geburtsdatum"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEU"
+            }
+        ]
+    },
+    {
+        "feature": "shipCrewForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Besatzung"
+            },
+            {
+                "id": "lastname",
+                "description": "Name"
+            },
+            {
+                "id": "firstname",
+                "description": "Vorname"
+            },
+            {
+                "id": "birthdate",
+                "description": "Geburtsdatum"
+            },
+            {
+                "id": "ship",
+                "description": "Schiff"
+            },
+            {
+                "id": "nationality",
+                "description": "Nationalität"
+            },
+            {
+                "id": "gender",
+                "description": "Geschlecht"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Fahrplan"
+            },
+            {
+                "id": "headerIsActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "headerDate",
+                "description": "Datum"
+            },
+            {
+                "id": "headerDestinationDescription",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "headerPortDescription",
+                "description": "Hafen"
+            },
+            {
+                "id": "headerMaxPax",
+                "description": "Max Pax"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUE"
+            }
+        ]
+    },
+    {
+        "feature": "scheduleEditForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Zeitplan"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "port",
+                "description": "Hafen"
+            },
+            {
+                "id": "maxPax",
+                "description": "Maximale Anzahl von Passagieren"
+            },
+            {
+                "id": "departureTime",
+                "description": "Abfahrtszeit"
+            },
+            {
+                "id": "isActive",
+                "description": "Aktiv"
+            },
+            {
+                "id": "deleteButton",
+                "description": "LÖSCHEN"
+            },
+            {
+                "id": "saveButton",
+                "description": "SPEICHERN"
+            }
+        ]
+    },
+    {
+        "feature": "reservationsCalendar",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Reservierungen"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEUE"
+            }
+        ]
+    },
+    {
+        "feature": "searchByRefBox",
+        "labels": [
+            {
+                "id": "placeholder",
+                "description": "Suche nach RefNo"
+            }
+        ]
+    },
+    {
+        "feature": "theme",
+        "labels": [
+            {
+                "id": "blue",
+                "description": "Blau"
+            },
+            {
+                "id": "gray",
+                "description": "Grau"
+            },
+            {
+                "id": "green",
+                "description": "Grün"
+            },
+            {
+                "id": "olive",
+                "description": "Olivgrün"
+            },
+            {
+                "id": "orange",
+                "description": "Orange"
+            },
+            {
+                "id": "red",
+                "description": "Rot"
+            }
+        ]
+    },
+    {
+        "feature": "totalsCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Summen des Zeitraums"
+            },
+            {
+                "id": "dateRange",
+                "description": "Kalenderintervall"
+            },
+            {
+                "id": "searchButton",
+                "description": "SUCHEN"
+            }
+        ]
+    },
+    {
+        "feature": "availabilityCalendar",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Verfügbarkeit"
+            },
+            {
+                "id": "newRecord",
+                "description": "NEU"
+            }
+        ]
+    },
+    {
+        "feature": "connectedUserList",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Angeschlossene Benutzer"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            },
+            {
+                "id": "headerId",
+                "description": "Id"
+            },
+            {
+                "id": "headerCreatedDate",
+                "description": "Anmeldung"
+            },
+            {
+                "id": "headerExpiryDate",
+                "description": "Automatisch abmelden"
+            }
+        ]
+    },
+    {
+        "feature": "mat-calendar",
+        "labels": [
+            {
+                "id": "todayButton",
+                "description": "HEUTE"
+            }
+        ]
+    }
+]

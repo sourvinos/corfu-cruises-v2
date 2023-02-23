@@ -1,0 +1,12 @@
+#table-wrapper {
+    margin: 0 !important;
+}
+
+.p-datatable-wrapper {
+    overflow-y: auto;
+    scrollbar-gutter: auto;
+}
+
+.p-datatable-flex-scrollable .p-datatable-wrapper {
+    scrollbar-gutter: auto;
+}

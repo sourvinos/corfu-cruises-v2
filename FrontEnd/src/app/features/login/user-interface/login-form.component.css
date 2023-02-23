@@ -1,0 +1,22 @@
+#columns {
+    align-items: center;
+    display: flex;
+    margin: 0 1rem 0 0;
+}
+
+#columns button {
+    margin-left: auto;
+}
+
+#forgot-password {
+    color: var(--color-c);
+    font-family: var(--font-family-manrope);
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-top: 1rem;
+}
+
+#forgot-password:hover {
+    color: var(--color-link);
+    cursor: pointer;
+}

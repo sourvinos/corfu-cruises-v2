@@ -1,0 +1,29 @@
+[
+
+    { "id": "reservations-reservations", "description": "Réservations" },
+    { "id": "reservations-availability", "description": "Disponibilité" }, 
+    { "id": "reservations-ledgers", "description": "Mon registre" },
+
+    { "id": "tasks-embarkation", "description": "Embarquement" },
+    { "id": "tasks-manifest", "description": "Manifeste des passagers" },
+    { "id": "tasks-ledgers", "description": "Registres des clients" },
+
+    { "id": "tables-coachRoutes", "description": "Routes de bus" },
+    { "id": "tables-customers", "description": "Clients" },
+    { "id": "tables-destinations", "description": "Destinations" },
+    { "id": "tables-drivers", "description": "Conducteurs" },
+    { "id": "tables-genders", "description": "Genres" },
+    { "id": "tables-pickupPoints", "description": "Points de collecte" },
+    { "id": "tables-ports", "description": "Ports" },
+    { "id": "tables-schedules", "description": "Programme des voyages" },
+    { "id": "tables-ships", "description": "Navires" },
+    { "id": "tables-shipCrews", "description": "Équipes" },
+    { "id": "tables-registrars", "description": "Enregistreurs de passagers" },
+    { "id": "tables-shipOwners", "description": "Armateurs" },
+    { "id": "tables-shipRoutes", "description": "Routes maritimes" },
+    { "id": "tables-users", "description": "Utilisateurs" },
+
+    { "id": "user-account", "description": "Mon compte" },
+    { "id": "user-logout", "description": "Quitter" }
+
+]

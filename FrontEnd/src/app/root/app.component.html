@@ -1,0 +1,17 @@
+<div id="wrapper">
+
+    <div id="main">
+
+        <top-bar></top-bar>
+
+        <div id="content" [@routeAnimation]="o.isActivated?o.activatedRoute:''">
+            <router-outlet #o="outlet"></router-outlet>
+        </div>
+
+    </div>
+
+    <div *ngIf="isLoading">
+        <loading-spinner></loading-spinner>
+    </div>
+
+</div>

@@ -1,0 +1,110 @@
+* {
+    box-sizing: border-box !important;
+}
+
+.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
+    opacity: 0 !important;
+}
+
+.mat-dialog-container {
+    padding: 2rem !important;
+}
+
+svg {
+    display: block;
+    margin: 0.625rem auto 2rem auto;
+    width: 100px;
+}
+
+.path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+}
+
+.path.circle {
+    animation: dash 0.9s ease-in-out;
+}
+
+.path.line {
+    animation: dash 0.9s 0.35s ease-in-out forwards;
+    stroke-dashoffset: 1000;
+}
+
+.path.check {
+    animation: dash-check 0.9s 0.35s ease-in-out forwards;
+    stroke-dashoffset: -100;
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes dash {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes dash-check {
+    0% {
+        stroke-dashoffset: -100;
+    }
+
+    100% {
+        stroke-dashoffset: 900;
+    }
+}
+
+@keyframes dash-check {
+    0% {
+        stroke-dashoffset: -100;
+    }
+
+    100% {
+        stroke-dashoffset: 900;
+    }
+}
+
+#dialog {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+}
+
+#dialog-header {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+#dialog-content {
+    color: var(--color-c);
+    display: flex;
+    font-family: var(--font-family-handbook) !important;
+    font-size: var(--font-size-modal-text) !important;
+    font-weight: var(--font-weight-dialog-content) !important;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#dialog-footer {
+    margin-top: auto;
+}
+
+.mat-dialog-actions {
+    justify-content: center;
+    margin: 0;
+    min-height: 0;
+    padding: 0;
+}

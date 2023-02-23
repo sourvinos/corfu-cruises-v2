@@ -1,0 +1,48 @@
+<div id="list">
+
+    <div id="header">
+        <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <div id="criteria">
+            <button (click)="resetTableFilters()" class="primary" mat-flat-button>
+                <i class="pi pi-filter-slash"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="table-wrapper">
+            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="width-10" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}</th>
+                        <th class="width-10" pSortableColumn="stopOrder">{{ getLabel("headerStopOrder") }}</th>
+                        <th class="width-55" pSortableColumn="description">{{ getLabel("headerDescription") }}</th>
+                    </tr>
+                    <tr>
+                        <th style="padding-left: 1.375rem !important;"><p-columnFilter field="isActive" type="boolean"></p-columnFilter></th>
+                        <th><input (input)="table.filter($event.target.value, 'stopOrder', 'contains')" [value]="$any(table).filters['stopOrder']?.value" class="center p-inputtext"></th>
+                        <th><input (input)="table.filter($event.target.value, 'description', 'contains')" [value]="$any(table).filters['description']?.value" class="p-inputtext"></th>
+                    </tr>
+                </ng-template>
+                <ng-template let-record pTemplate="body">
+                    <tr (click)="unHighlightAllRows()" (dblclick)="editRecord(record.id)" [attr.id]=record.id [pSelectableRow]="record" style="height: 32px;">
+                        <td class="center width-10" style="padding-left: 0.375rem;">
+                            <span *ngIf="record.isActive" class="is-active material-icons-outlined">check_circle</span>
+                            <span *ngIf="!record.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
+                        </td>
+                        <td class="center width-10"><img [src]="getStopOrderIcon(record.stopOrder)"></td>
+                        <td class="width-55">{{ record.description }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <div id="footer">
+        <table-total-filtered-records [filteredRecordCount]="recordsFilteredCount" [recordCount]="records.length"></table-total-filtered-records>
+        <div class="button-group-right">
+            <button (click)="newRecord()" class="primary" mat-flat-button>{{ getLabel("newRecord") }}</button>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,88 @@
+[
+    {
+        "feature": "months",
+        "labels": [
+            {
+                "id": "January",
+                "description": "Jan"
+            },
+            {
+                "id": "February",
+                "description": "Feb"
+            },
+            {
+                "id": "March",
+                "description": "März"
+            },
+            {
+                "id": "April",
+                "description": "Apr"
+            },
+            {
+                "id": "May",
+                "description": "Mai"
+            },
+            {
+                "id": "June",
+                "description": "Juni"
+            },
+            {
+                "id": "July",
+                "description": "Juli"
+            },
+            {
+                "id": "August",
+                "description": "Aug"
+            },
+            {
+                "id": "September",
+                "description": "Sept"
+            },
+            {
+                "id": "October",
+                "description": "Okt"
+            },
+            {
+                "id": "November",
+                "description": "Nov"
+            },
+            {
+                "id": "December",
+                "description": "Dez"
+            }
+        ]
+    },
+    {
+        "feature": "weekdays",
+        "labels": [
+            {
+                "id": "Mon",
+                "description": "Mo"
+            },
+            {
+                "id": "Tue",
+                "description": "Di"
+            },
+            {
+                "id": "Wed",
+                "description": "Mi"
+            },
+            {
+                "id": "Thu",
+                "description": "Do"
+            },
+            {
+                "id": "Fri",
+                "description": "Fr"
+            },
+            {
+                "id": "Sat",
+                "description": "Sa"
+            },
+            {
+                "id": "Sun",
+                "description": "So"
+            }
+        ]
+    }
+]

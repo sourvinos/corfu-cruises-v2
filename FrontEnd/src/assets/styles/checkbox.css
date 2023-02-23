@@ -1,0 +1,86 @@
+.styled-input-single {
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    white-space: nowrap;
+}
+
+.styled-input-single:not(.disabled):hover {
+    background-color: var(--color-checkbox-label-background-hover);
+    cursor: pointer;
+}
+
+.styled-input-single label {
+    align-items: center;
+    color: var(--color-c);
+    cursor: pointer;
+    display: flex;
+    font-family: var(--font-family-asty);
+    font-size: var(--font-size-checkbox);
+    font-weight: 300;
+    max-height: var(--font-size-checkbox) !important;
+    overflow: hidden;
+    padding: 1rem 2.5rem;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+.styled-input-single label.no-label {
+    padding: 1rem;
+}
+
+.styled-input-single label::before, .styled-input-single label::after {
+    border-radius: 50%;
+    content: "";
+    position: absolute;
+    top: 50%;
+}
+
+.styled-input-single label::before {
+    background: #f7f7f7;
+    border: 0.0625rem solid grey;
+    box-shadow: 0 0 0.0625rem grey;
+    height: 1.5rem;
+    left: 0;
+    margin: -0.8125rem 0 0.0625rem 0.1875rem;
+    width: 1.5rem;
+}
+
+.styled-input-single label::after {
+    background-color: var(--color-checkbox-background);
+    height: 1.25rem;
+    left: 0.3125rem;
+    margin: -0.625rem 0.0625rem;
+    opacity: 0;
+    transform: translate3d(-2.5rem, 0, 0) scale(0.5);
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out;
+    width: 1.255rem;
+}
+
+.styled-input-single input[type="radio"], .styled-input-single input[type="checkbox"] {
+    left: -1rem;
+    position: absolute;
+    top: 0;
+    visibility: hidden;
+}
+
+.styled-input-single input[type="radio"]:checked + label::after, .styled-input-single input[type="checkbox"]:checked + label::after {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+.styled-input-square label::before, .styled-input-square label::after {
+    border-radius: 0;
+}
+
+.rounded:hover {
+    border-radius: 15px 0 0 15px;
+}
+
+.styled-input-single.disabled label:hover {
+    cursor: not-allowed;
+}
+
+.styled-input-single.disabled label::after {
+    background-color: transparent;
+}

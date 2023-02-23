@@ -1,0 +1,382 @@
+.p-scroller {
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+}
+
+.p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead {
+    background-color: transparent;
+}
+
+.p-datatable-tbody {
+    height: 100% !important;
+    top: 0 !important;
+}
+
+.p-datatable-flex-scrollable .p-datatable-scrollable-body, .p-datatable-flex-scrollable .p-datatable-virtual-scrollable-body {
+    overflow-x: hidden !important;
+}
+
+.cdk-virtual-scroll-content-wrapper {
+    height: 100% !important;
+}
+
+.p-datatable-scrollable-footer, .p-datatable-scrollable-header {
+    overflow: visible !important;
+}
+
+.p-datatable-flex-scrollable .p-datatable-wrapper {
+    backdrop-filter: blur(var(--blur));
+    background: none;
+    overflow-y: scroll !important;
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+}
+
+.p-datatable .p-datatable-thead > tr {
+    background-color: var(--color-b);
+}
+
+.p-datatable .p-datatable-thead > tr > th {
+    background-color: var(--color-b);
+    border-right: 0.0625rem solid var(--color-a) !important;
+    border-width: 0 0.0625rem 0 0 !important;
+    color: var(--color-c) !important;
+    font-family: var(--font-family-asty) !important;
+    font-size: var(--font-size-table-header) !important;
+    font-weight: 300 !important;
+    text-align: center !important;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+.p-datatable .p-datatable-thead > tr:nth-child(1) > th {
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+}
+
+.p-datatable .p-datatable-thead > tr:nth-child(2) > th {
+    padding: 0 0.5rem 0.75rem 0.5rem !important;
+}
+
+.p-datatable .p-sortable-column.p-highlight {
+    background-color: var(--color-b) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr.p-highlight {
+    background-color: var(--color-f) !important;
+}
+
+.p-datatable .p-datatable-tbody > tr {
+    background-color: transparent !important;
+}
+
+.p-datatable .p-datatable-tbody > tr:focus {
+    outline: none !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td {
+    border-bottom: 1px solid var(--color-d);
+    color: var(--color-c);
+    font-family: var(--font-family-asty) !important;
+    font-size: var(--font-size-table-row);
+    font-weight: 300;
+    overflow: hidden !important;
+    padding: 0.4375rem 0.5rem;
+    text-overflow: ellipsis !important;
+    transition: background-color var(--theme-change-delay) ease-in, color var(--theme-change-delay) ease-in;
+    white-space: nowrap !important;
+}
+
+.p-datatable .p-datatable-tbody > tr > td > img {
+    height: 1.0625rem;
+    width: 1.25rem;
+}
+
+.p-datatable .p-datatable-tfoot {
+    background-color: var(--color-b) !important;
+}
+
+.p-datatable .p-datatable-tfoot > tr > td {
+    background-color: transparent;
+    border: none;
+    justify-content: flex-end;
+}
+
+.p-datatable .p-sortable-column .p-sortable-column-icon {
+    color: var(--color-c) !important;
+    margin-top: -0.25rem;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+.p-datatable .p-sortable-column .p-sortable-column-badge {
+    background-color: var(--color-a);
+    color: var(--color-c);
+    margin-top: -0.25rem;
+}
+
+.p-sortable-column:focus {
+    box-shadow: none !important;
+    outline: none;
+}
+
+.p-datatable .p-sortable-column:not(.p-highlight):hover {
+    background-color: var(--color-b) !important;
+}
+
+.p-button.p-button-text.p-button-plain:enabled:hover {
+    background-color: transparent !important;
+}
+
+.p-button.p-button-text:enabled:focus, .p-button.p-button-outlined:enabled:focus {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+div:not(.p-column-filter).p-column-filter-row:hover {
+    background-color: var(--color-f) !important;
+}
+
+.p-checkbox {
+    margin: 2px !important;
+}
+
+.material-icons-outlined {
+    font-size: 0.9375rem;
+}
+
+.number {
+    text-align: right !important;
+}
+
+.transparent {
+    background-color: transparent !important;
+}
+
+.width-2 {
+    max-width: 2rem;
+    min-width: 2rem;
+    width: 2rem;
+}
+
+.width-3 {
+    max-width: 3rem;
+    min-width: 3rem;
+    width: 3rem;
+}
+
+.width-4 {
+    max-width: 4rem;
+    min-width: 4rem;
+    width: 4rem;
+}
+
+.width-5 {
+    max-width: 5rem;
+    min-width: 5rem;
+    width: 5rem;
+}
+
+.width-6 {
+    max-width: 6rem;
+    min-width: 6rem;
+    width: 6rem;
+}
+
+.width-7 {
+    max-width: 7rem;
+    min-width: 7rem;
+    width: 7rem;
+}
+
+.width-8 {
+    max-width: 8rem;
+    min-width: 8rem;
+    width: 8rem;
+}
+
+.width-9 {
+    max-width: 9rem;
+    min-width: 9rem;
+    width: 9rem;
+}
+
+.width-10 {
+    max-width: 10rem;
+    min-width: 10rem;
+    width: 10rem;
+}
+
+.width-11 {
+    max-width: 11rem;
+    min-width: 11rem;
+    width: 11rem;
+}
+
+.width-12 {
+    max-width: 12rem;
+    min-width: 12rem;
+    width: 12rem;
+}
+
+.width-13 {
+    max-width: 13rem;
+    min-width: 13rem;
+    width: 13rem;
+}
+
+.width-14 {
+    max-width: 14rem;
+    min-width: 14rem;
+    width: 14rem;
+}
+
+.width-15 {
+    max-width: 15rem;
+    min-width: 15rem;
+    width: 15rem;
+}
+
+.width-16 {
+    max-width: 16rem;
+    min-width: 16rem;
+    width: 16rem;
+}
+
+.width-18 {
+    max-width: 18rem;
+    min-width: 18rem;
+    width: 18rem;
+}
+
+.width-19 {
+    max-width: 19rem;
+    min-width: 19rem;
+    width: 19rem;
+}
+
+.width-20 {
+    max-width: 20rem;
+    min-width: 20rem;
+    width: 20rem;
+}
+
+.width-21 {
+    max-width: 21rem;
+    min-width: 21rem;
+    width: 21rem;
+}
+
+.width-22 {
+    max-width: 22rem;
+    min-width: 22rem;
+    width: 22rem;
+}
+
+.width-23 {
+    max-width: 23rem;
+    min-width: 23rem;
+    width: 23rem;
+}
+
+.width-24 {
+    max-width: 24rem;
+    min-width: 24rem;
+    width: 24rem;
+}
+
+.width-25 {
+    max-width: 25rem;
+    min-width: 25rem;
+    width: 25rem;
+}
+
+.width-26 {
+    max-width: 26rem;
+    min-width: 26rem;
+    width: 26rem;
+}
+
+.width-27 {
+    max-width: 27rem;
+    min-width: 27rem;
+    width: 27rem;
+}
+
+.width-28 {
+    max-width: 28rem;
+    min-width: 28rem;
+    width: 28rem;
+}
+
+.width-30 {
+    max-width: 30rem;
+    min-width: 30rem;
+    width: 30rem;
+}
+
+.width-31 {
+    max-width: 31rem;
+    min-width: 31rem;
+    width: 31rem;
+}
+
+.width-32 {
+    max-width: 32rem;
+    min-width: 32rem;
+    width: 32rem;
+}
+
+.width-33 {
+    max-width: 33rem;
+    min-width: 33rem;
+    width: 33rem;
+}
+
+.width-35 {
+    max-width: 35rem;
+    min-width: 35rem;
+    width: 35rem;
+}
+
+.width-40 {
+    max-width: 35rem;
+    min-width: 35rem;
+    width: 35rem;
+}
+
+.width-45 {
+    max-width: 45rem;
+    min-width: 45rem;
+    width: 45rem;
+}
+
+.width-55 {
+    max-width: 55rem;
+    min-width: 55rem;
+    width: 55rem;
+}
+
+.width-65 {
+    max-width: 65rem;
+    min-width: 65rem;
+    width: 65rem;
+}
+
+.icon-with-text {
+    align-items: center;
+    display: flex;
+}
+
+.pi-chevron-down {
+    padding-top: 0;
+}
+
+.align-vertical img, .align-vertical span {
+    vertical-align: middle;
+}
+
+.is-active {
+    color: var(--color-table-active);
+}
+
+.is-not-active {
+    color: var(--color-table-inactive);
+}

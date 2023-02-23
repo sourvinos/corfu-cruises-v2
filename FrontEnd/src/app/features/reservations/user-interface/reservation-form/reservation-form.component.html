@@ -1,0 +1,198 @@
+<div id="form-wrapper">
+
+    <div id="content">
+
+        <div id="header">
+            <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+            <div id="header-buttons">
+                <div id="tab-scroller">
+                    <button (click)="scrollToReservation()" mat-flat-button id="tab-overview">{{ getLabel("tabGeneral") }}</button>
+                    <button (click)="scrollToPassengers()" mat-flat-button id="tab-passengers">{{ getLabel("tabPassengers") }}</button>
+                </div>
+                <button [matMenuTriggerFor]="menu" pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text transparent"></button>
+                <mat-menu #menu="matMenu" class="primary" xPosition="before">
+                    <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
+                </mat-menu>
+            </div>
+        </div>
+
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <div *ngIf="isReservationTabVisible" id="reservation">
+                <div class="tab-content">
+                    <div class="group-field">
+                        <mat-form-field style="width: 30% !important;">
+                            <mat-label>{{ getLabel('refNo') }}</mat-label>
+                            <input formControlName="refNo" matInput readonly>
+                        </mat-form-field>
+                        <!-- Date -->
+                        <mat-form-field>
+                            <input [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" data-tabindex="1" formControlName="date" matInput>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="date.hasError('required')">{{ getHint("required") }}</mat-error>
+                            <mat-error *ngIf="!date.hasError('required')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                        <!-- Destination -->
+                        <mat-form-field>
+                            <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="2" formControlName="destination" id="destination" matInput>
+                            <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
+                            <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                        <!-- Customer -->
+                        <mat-form-field>
+                            <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" [readonly]="!userMustBeAdmin()" data-tabindex="3" formControlName="customer" id="customer" matInput>
+                            <mat-error *ngIf="customer.hasError('required')">{{ getHint("required") }}</mat-error>
+                            <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="group-field">
+                        <!-- Pickup Point -->
+                        <mat-form-field>
+                            <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="pickupPoints" [placeholder]="getLabel('pickupPoint')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="4" formControlName="pickupPoint" id="pickupPoint" matInput>
+                            <mat-error *ngIf="pickupPoint.hasError('required')">{{ getHint("required") }}</mat-error>
+                            <mat-error *ngIf="!pickupPoint.hasError('required') && pickupPoint.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                        <!-- Exact Point -->
+                        <mat-form-field style="width: 30% !important;">
+                            <mat-label>{{ getLabel('exactPoint') }}</mat-label>
+                            <input formControlName="exactPoint" matInput readonly>
+                        </mat-form-field>
+                        <!-- Time -->
+                        <mat-form-field style="width: 20% !important;">
+                            <mat-label>{{ getLabel('time') }}</mat-label>
+                            <input formControlName="time" matInput readonly>
+                        </mat-form-field>
+                    </div>
+                    <div class="group-field">
+                        <!-- Ticket No -->
+                        <mat-form-field>
+                            <input [inputTabStop]="input" [placeholder]="getLabel('ticketNo')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="5" formControlName="ticketNo" id="pickupPoint" matInput>
+                            <mat-error *ngIf="ticketNo.hasError('required')">{{ getHint("required") }}</mat-error>
+                            <mat-error *ngIf="ticketNo.hasError('maxlength')">{{ getHint("maxLength", ticketNo.errors.maxlength.requiredLength) }}</mat-error>
+                        </mat-form-field>
+                        <!-- Adults -->
+                        <mat-form-field>
+                            <input (keyup)="doPersonsCalculations()" [inputTabStop]="input" [placeholder]="getLabel('adults')" [readonly]="!userMustBeAdminOrNewRecord()" class="number" data-tabindex="6" formControlName="adults" id="adults" matInput type="number">
+                            <mat-error *ngIf="adults.hasError('required')">{{ getHint("required") }}</mat-error>
+                            <mat-error *ngIf="!adults.hasError('required') && adults.hasError('min') || adults.hasError('max')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                        <!-- Kids -->
+                        <mat-form-field>
+                            <input (keyup)="doPersonsCalculations()" [inputTabStop]="input" [placeholder]="getLabel('kids')" [readonly]="!userMustBeAdminOrNewRecord()" class="number" data-tabindex="7" formControlName="kids" id="kids" matInput type="number">
+                            <mat-error *ngIf="kids.hasError('required')">{{ getHint("required") }}</mat-error>
+                            <mat-error *ngIf="!kids.hasError('required') && kids.hasError('min') || kids.hasError('max')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                        <!-- Free -->
+                        <mat-form-field>
+                            <input (keyup)="doPersonsCalculations()" [inputTabStop]="input" [placeholder]="getLabel('free')" [readonly]="!userMustBeAdminOrNewRecord()" class="number" data-tabindex="8" formControlName="free" id="free" matInput type="number">
+                            <mat-error *ngIf="free.hasError('required')">{{ getHint("required") }}</mat-error>
+                            <mat-error *ngIf="!free.hasError('required') && free.hasError('min') || free.hasError('max')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                        <!-- Total Persons -->
+                        <mat-form-field>
+                            <input [placeholder]="getLabel('totalPersons')" formControlName="totalPersons" id="totalPersons" matInput readonly type="number">
+                            <!-- <span id="passenger-check-total-icon">{{ passengerDifferenceIcon }}</span> -->
+                        </mat-form-field>
+                    </div>
+                    <div class="group-field">
+                        <!-- Email -->
+                        <mat-form-field>
+                            <input [inputTabStop]="input" [placeholder]="getLabel('email')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="9" formControlName="email" id="email" matInput type="email">
+                            <mat-error *ngIf="email.hasError('maxlength')">{{ getHint("maxLength", email.errors.maxlength.requiredLength) }}</mat-error>
+                            <mat-error *ngIf="!email.hasError('maxlength') && email.hasError('email')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                        <!-- Phones -->
+                        <mat-form-field>
+                            <input [inputTabStop]="input" [placeholder]="getLabel('phones')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="10" formControlName="phones" id="phones" matInput>
+                            <mat-error *ngIf="phones.hasError('maxlength')">{{ getHint("maxLength", phones.errors.maxlength.requiredLength) }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="group-field">
+                        <mat-form-field>
+                            <mat-label>{{ getLabel("driver") }}</mat-label>
+                            <input [matAutocomplete]="drivers" formControlName="driver" matInput readonly>
+                            <mat-error *ngIf="driver.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>{{ getLabel("ship") }}</mat-label>
+                            <input [matAutocomplete]="ships" formControlName="ship" matInput readonly>
+                            <mat-error *ngIf="ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>{{ getLabel("port") }}</mat-label>
+                            <input [matAutocomplete]="ports" formControlName="port" matInput readonly>
+                            <mat-error *ngIf="port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="group-field" id="remarks">
+                        <!-- Remarks -->
+                        <mat-form-field>
+                            <input [inputTabStop]="input" [placeholder]="getLabel('remarks')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="11" formControlName="remarks" id="remarks" matInput>
+                            <mat-error *ngIf="remarks.hasError('maxlength')">{{ getHint("maxLength", remarks.errors.maxlength.requiredLength) }}</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="isPassengersTabVisible" id="passengers">
+                <div class="tab-content">
+                    <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="checkTotalPersonsAgainstPassengerCount($event)" (outputPassengers)="patchFormWithPassengers($event)"></passenger-list>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div id="footer">
+        <div class="button-group-right">
+            <button *ngIf="form.value.reservationId != ''" (click)="onDelete()" class="delete" id="delete" mat-flat-button>{{ getLabel('deleteButton') }}</button>
+            <button (click)="onSave()" [disabled]="!form.valid || !checkTotalPersonsAgainstPassengerCount()" class="primary" mat-flat-button>
+                <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("saveButton") }}</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<mat-autocomplete #destinations="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredDestinations | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete #customers="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredCustomers | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete #pickupPoints="matAutocomplete" [displayWith]="autocompleteFields" (optionSelected)="updateFieldsAfterPickupPointSelection($event.option.value)" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredPickupPoints | async" [value]="option">
+        <span>{{ option.description.substring(0, 30) }}</span>
+        <span>{{ option.exactPoint.substring(0, 30) }}</span>
+        <span>{{ option.time }}</span>
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete #drivers="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredDrivers | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete #ships="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredShips | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete #ports="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredPorts | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<ng-template #contextMenu>
+    <button mat-menu-item class="reverse" (click)="doVoucherTasksOnServer()"><span>{{ getLabel('createVoucherOnServer') }}</span></button>
+    <button mat-menu-item class="reverse" (click)="doVoucherTasksOnClient()"><span>{{ getLabel('createVoucherOnClient') }}</span></button>
+</ng-template>

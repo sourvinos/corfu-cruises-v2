@@ -1,0 +1,38 @@
+#header {
+    margin-bottom: 0.5rem !important;
+}
+
+#form {
+    flex-direction: column !important;
+    gap: 0.5rem;
+}
+
+#form .group-field:first-child {
+    align-items: center;
+    display: flex;
+    margin-left: auto;
+    width: 15rem;
+}
+
+#form .group-field:last-child {
+    height: 100%;
+}
+
+#date {
+    width: 15rem !important;
+}
+
+#goto-today {
+    box-shadow: none;
+    position: absolute;
+    right: -0.5625rem;
+    top: -1.8125rem;
+}
+
+#goto-today:hover {
+    background-color: transparent !important;
+}
+
+#today {
+    color: var(--color-background-today) !important;
+}

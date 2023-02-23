@@ -1,0 +1,59 @@
+* {
+    /* Lists and tables */
+    --color-scrollbar-thumb: #d94040;
+    --color-table-dropdown-filter-clear: #ff7a7a;
+    --color-table-dropdown-filter-background: #bfbdd7;
+    --color-table-active: #9bcf6f;
+    --color-table-inactive: #ff7a7a;
+    /*  Buttons */
+    --color-button-text: #ffffff;
+    --color-button-text-primary: #000000;
+    --color-button-background-secondary: #5f80a7;
+    --color-button-background-delete: #d94040;
+    --color-button-background-delete-hover: #af3c3c;
+    --color-button-background-primary: #9ee22e;
+    --color-button-background-primary-hover: #647997;
+    --color-button-menu-trigger: #cf6755;
+    /*  Checkboxes */
+    --color-checkbox-background: #3baca3;
+    --color-checkbox-label-background-hover: #9acfca42;
+    /* Reservation Form Tabs */
+    --color-tab-overview: #5f80a7;
+    --color-tab-passengers: #829ebe;
+    --color-tab-more: #acbed3;
+    /* Loader */
+    --color-loader: #d94040;
+    /* Criteria & Totals */
+    --color-criteria-a: #5f80a7;
+    --color-criteria-b: #698984;
+    --color-criteria-c: #ca874c;
+    --color-criteria-d: #cf6755;
+    /* Date picker */
+    --color-range-between: #ffeb3b;
+    --color-day-selected: #ffc107;
+    /* Custom calendar */
+    --color-background-saturday: #f29c6b;
+    --color-background-sunday: #f26513;
+    --color-background-today: #8dbf8f;
+    --color-background-month-selector: #f29c6b;
+    --color-background-summaries: #8dbf8f17;
+    /* Theme menu */
+    --color-sun: #f6ff00;
+    --color-moon: #607d8b;
+    /* Input */
+    --color-input-focus: #65b4ef;
+    --color-input-error: #e57b7b;
+    --color-input-selected-background: #65b3ef4d;
+    /* Links */
+    --color-link: #e57b7b;
+    /* New schedule weekdays */
+    --color-day-selected-weekday: #ff7a7a;
+    /* Dropdown menus */
+    --color-dropdown-menu-border: #ff7a7a;
+    --color-dropdown-item-hover: #9acfca42;
+    /* Dialog headers */
+    --color-dialog-header: #ff7a7a;
+    /* Tabs */
+    --color-active-tab-text: #ffffff;
+    --color-active-tab-background: #5f80a7;
+}

@@ -1,0 +1,18 @@
+<div *ngIf=isAdmin()>
+    <div id="tables-menu">
+        <ul>
+            <li>
+                <button class="show-sub-menu">
+                    <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('tables')" style="height: 25px; width: 25px">
+                    <span class="material-icons-outlined">expand_more</span>
+                </button>
+                <ul (click)="hideMenu()" class="sub-menu">
+                    <button *ngFor="let item of menuItems" (click)="doNavigationTasks(item.id)" class="hoverable">
+                        <img width="20px" [src]="getIcon(item.id.substring(7))">
+                        <span>{{ item.description }}</span>
+                    </button>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>

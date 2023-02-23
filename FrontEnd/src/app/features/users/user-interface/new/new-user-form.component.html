@@ -1,0 +1,76 @@
+<div id="form-wrapper">
+
+    <div id="header">
+        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+    </div>
+
+    <div id="content">
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <div class="group-field">
+                <mat-form-field>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('userName')" data-cy="userName" data-tabindex="1" formControlName="userName" id="userName" matInput>
+                    <mat-error *ngIf="userName.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="userName.hasError('maxlength')">{{ getHint("maxLength", userName.errors.maxlength.requiredLength) }}</mat-error>
+                    <mat-error *ngIf="!userName.hasError('maxlength') && userName.hasError('containsSpace')">{{ getHint("spacesNotAllowed") }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('displayname')" data-cy="displayname" data-tabindex="2" formControlName="displayname" id="displayname" matInput>
+                    <mat-error *ngIf="displayname.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="displayname.hasError('maxlength')">{{ getHint("maxLength", displayname.errors.maxlength.requiredLength) }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="group-field">
+                <mat-form-field>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" data-cy="customer-description" data-tabindex="3" formControlName="customer" id="customer" matInput>
+                    <mat-error *ngIf="customer.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('email')" data-cy="email" data-tabindex="4" formControlName="email" id="email" matInput type="email">
+                    <mat-error *ngIf="email.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="email.hasError('maxlength')">{{ getHint("maxLength", email.errors.maxlength.requiredLength) }}</mat-error>
+                    <mat-error *ngIf="!email.hasError('required') && !email.hasError('maxlength') && email.hasError('email')">{{ getHint("invalid") }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div formGroupName="passwords" id="passwords">
+                <div class="group-field">
+                    <mat-form-field>
+                        <input [inputTabStop]="input" [placeholder]="getLabel('password')" [type]="hidePassword ? 'password' : 'text'" data-cy="password" data-tabindex="5" formControlName="password" id="password" matInput>
+                        <button (click)="hidePassword = !hidePassword" mat-icon-button matSuffix type="button">
+                            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="password.hasError('required')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="password.hasError('containsSpace')">{{ getHint("spacesNotAllowed") }}</mat-error>
+                        <mat-error *ngIf="password.hasError('minlength') && !password.hasError('containsSpace')">{{ getHint("minLength", password.errors.minlength.requiredLength) }}</mat-error>
+                        <mat-error *ngIf="password.hasError('maxlength') && !password.hasError('containsSpace')">{{ getHint("maxLength", password.errors.maxlength.requiredLength) }}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [errorStateMatcher]="confirmValidParentMatcher" [inputTabStop]="input" [placeholder]="getLabel('confirmPassword')" [type]="hidePassword ? 'password' : 'text'" data-cy="confirmPassword" data-tabindex="6" formControlName="confirmPassword" id="confirmPassword" matInput>
+                        <button (click)="hidePassword = !hidePassword" mat-icon-button matSuffix type="button">
+                            <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="confirmPassword.hasError('required')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="!confirmPassword.hasError('required') && !matchingPasswords">{{ getHint("passwordsNoMatch") }}</mat-error>
+                        <mat-error *ngIf="!confirmPassword.hasError('required') && matchingPasswords">{{ getHint("invalid") }}</mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <mat-slide-toggle data-cy="isAdmin" formControlName="isAdmin">{{ getLabel("isAdmin") }}</mat-slide-toggle>
+            <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel("isActive") }}</mat-slide-toggle>
+        </form>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <div class="button-group-right">
+            <button (click)="onSave()" [disabled]="!form.valid" class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel("saveButton") }}</button>
+        </div>
+    </div>
+
+</div>
+
+<mat-autocomplete #customers="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredCustomers | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>

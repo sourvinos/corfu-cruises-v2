@@ -1,0 +1,36 @@
+{
+    "extends": "stylelint-config-standard",
+    "rules": {
+        "at-rule-empty-line-before": [
+            "always",
+            {
+                "ignore": [
+                    "after-comment",
+                    "first-nested",
+                    "inside-block",
+                    "blockless-after-same-name-blockless",
+                    "blockless-after-blockless"
+                ]
+            }
+        ],
+        "color-hex-length": "long",
+        "comment-empty-line-before": "never",
+        "comment-no-empty": null,
+        "custom-property-empty-line-before": "never",
+        "declaration-empty-line-before": "never",
+        "indentation": 4,
+        "max-line-length": null,
+        "no-descending-specificity": null,
+        "no-missing-end-of-source-newline": null,
+        "number-no-trailing-zeros": null,
+        "rule-empty-line-before": null,
+        "selector-combinator-space-after": "always",
+        "selector-combinator-space-before": "always",
+        "selector-list-comma-newline-after": "never-multi-line",
+        "selector-list-comma-space-after": "always",
+        "selector-pseudo-element-colon-notation": "double",
+        "selector-pseudo-element-no-unknown": null,
+        "selector-type-no-unknown": null,
+        "shorthand-property-no-redundant-values": null
+    }
+}

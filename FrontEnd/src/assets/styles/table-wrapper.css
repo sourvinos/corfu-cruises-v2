@@ -1,0 +1,5 @@
+#table-wrapper {
+    height: inherit;
+    margin: 0 1.75rem 0 3rem;
+    overflow: hidden;
+}

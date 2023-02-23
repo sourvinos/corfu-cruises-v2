@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="12.276031mm"
+   height="12.276031mm"
+   viewBox="0 0 12.276031 12.276031"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="10.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="true"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="17.544013"
+     inkscape:cx="22.457804"
+     inkscape:cy="23.312796"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g9154" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-153.27899,-22.77823)">
+    <g
+       id="g9154"
+       transform="translate(47.867377,-10.011249)">
+      <g
+         id="g3001"
+         transform="translate(10.918711,-14.913738)"
+         style="fill:#ffe9a6;stroke:#e05400;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1">
+        <circle
+           style="fill:#ffe9a6;fill-opacity:1;stroke:#e05400;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+           id="circle2637"
+           cx="100.63091"
+           cy="53.841232"
+           r="5.9880152" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:8.06269px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;opacity:1;fill:none;stroke:#e05400;stroke-width:0.3;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1"
+         x="91.923676"
+         y="48.11208"
+         id="text507"
+         transform="scale(1.1634486,0.85951369)"><tspan
+           sodipodi:role="line"
+           id="tspan505"
+           style="fill:none;stroke:#e05400;stroke-width:0.3;stroke-dasharray:none;stroke-opacity:1"
+           x="91.923676"
+           y="48.11208">10</tspan></text>
+    </g>
+  </g>
+</svg>

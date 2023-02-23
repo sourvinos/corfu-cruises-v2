@@ -1,0 +1,6 @@
+<div id="search-by-ref-no-box" *ngIf="loginStatus | async">
+    <form id="form" [formGroup]="form" autocomplete="off">
+        <input id="search-by-ref-no-text" formControlName="searchByRefNo" [placeholder]="getLabel('placeholder')">
+        <button (click)="onSearchByRefNo()" [disabled]="!form.valid" class="mat-flat-button transparent"><span class="material-icons">search</span></button>
+    </form>
+</div>

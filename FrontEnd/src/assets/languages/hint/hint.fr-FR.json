@@ -1,0 +1,48 @@
+{
+    "labels": [
+        {
+            "id": "required",
+            "description": "Ce champ est requis"
+        },
+        {
+            "id": "minLength",
+            "description": "Ce champ doit contenir au moins xx caractères"
+        },
+        {
+            "id": "maxLength",
+            "description": "Ce champ peut contenir jusqu'à xx caractères"
+        },
+        {
+            "id": "invalid",
+            "description": "Ce champ est invalide"
+        },
+        {
+            "id": "passwordsNoMatch",
+            "description": "Le nouveau mot de passe et la confirmation du nouveau mot de passe ne correspondent pas"
+        },
+        {
+            "id": "spacesNotAllowed",
+            "description": "Les espaces ne sont pas autorisés"
+        },
+        {
+            "id": "otherErrors",
+            "description": "Ce champ contient des erreurs"
+        },
+        {
+            "id": "invalidPeriod",
+            "description": "La période n'est pas valide"
+        },
+        {
+            "id": "containsIllegalCharacters",
+            "description": "Seuls les caractères alphanumériques ou les caractères de soulignement sont autorisés."
+        },
+        {
+            "id": "beginsOrEndsWithSpace",
+            "description": "Ce champ ne peut pas commencer ou se terminer par un ou plusieurs espaces."
+        },
+        {
+            "id": "emptyOrInvalidDate",
+            "description": "Ce champ doit être une date valide"
+        }
+    ]
+}

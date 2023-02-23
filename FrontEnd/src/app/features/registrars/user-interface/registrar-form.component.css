@@ -1,0 +1,11 @@
+form {
+    height: 100%;
+}
+
+.styled-input-square {
+    margin: auto auto 0 2.7rem;
+}
+
+.styled-input-square:last-child {
+    margin: 0 auto 2rem 2.7rem;
+}

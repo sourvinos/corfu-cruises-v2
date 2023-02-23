@@ -1,0 +1,31 @@
+<div id="dialog">
+
+    <div id="dialog-header">
+        <h1 mat-dialog-title>{{ getLabel('headerRouteSelector') }}</h1>
+        <h6 mat-dialog-title>{{ getLabel('subHeaderRouteSelector') }}</h6>
+    </div>
+
+    <div id="dialog-content">
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <div *ngFor="let shipRoute of shipRoutes" [attr.id]=shipRoute.description>
+                <div class="styled-input-rounded">
+                    <div class="styled-input-single rounded">
+                        <input (click)="updateRadioButtons(form, 'shipRoutes', 'shipRoute', shipRoute.id, shipRoute.description)" class="shipRoutes" formArrayName="shipRoutes" type="radio" [value]="shipRoute.id" [attr.id]="'shipRoute' + shipRoute.id" [checked]="lookup('ships', shipRoute.id)">
+                        <label [attr.for]="'shipRoute' + shipRoute.id" [attr.id]="'shipRoute-label' + shipRoute.id">{{ shipRoute.description }}</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="dialog-footer">
+        <button (click)="close()" class="transparent" mat-flat-button tabindex="-1">
+            <span>{{ getLabel("cancelButton") }}</span>
+        </button>
+        <button (click)="continue()" [disabled]="!form.valid" class="primary" mat-flat-button>
+            <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+            <span>{{ getLabel("okButton") }}</span>
+        </button>
+    </div>
+
+</div>

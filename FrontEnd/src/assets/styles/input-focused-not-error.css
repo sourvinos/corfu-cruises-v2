@@ -1,0 +1,32 @@
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label {
+    color: var(--color-input-focus);
+}
+
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
+    color: var(--color-input-focus);
+}
+
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
+    color: var(--color-input-focus);
+}
+
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-underline .mat-form-field-ripple {
+    background-color: var(--color-input-focus);
+    transition: all var(--hover-change-delay) ease-in;
+}
+
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-hint {
+    color: var(--color-input-focus);
+}
+
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
+    color: var(--color-input-focus);
+}
+
+.mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper {
+    color: var(--color-input-focus);
+}
+
+.mat-start-date input:focus {
+    padding-bottom: 0 !important;
+}

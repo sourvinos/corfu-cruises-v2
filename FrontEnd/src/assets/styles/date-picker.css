@@ -1,0 +1,194 @@
+:host {
+    display: flex;
+}
+
+#calendar-wrapper {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    margin-bottom: 1rem;
+    max-height: 400px;
+    min-height: 400px;
+    width: 300px;
+}
+
+#calendar-card {
+    align-items: flex-start;
+    box-shadow: none;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    padding: 0;
+    width: 100%;
+}
+
+.mat-calendar-controls, .mat-calendar-header {
+    color: var(--color-text);
+    margin: 0 0 1.5rem 0 !important;
+}
+
+.mat-calendar-table-header th {
+    color: var(--color-button-text) !important;
+}
+
+.mat-calendar-body-label {
+    opacity: 0;
+    padding: 0 !important;
+}
+
+.mat-calendar-period-button {
+    margin-left: 0 !important;
+}
+
+.mat-calendar-previous-button, .mat-calendar-next-button {
+    color: var(--color-button-text) !important;
+}
+
+.mat-calendar-next-button {
+    margin-right: 0.2rem !important;
+}
+
+.mat-calendar, .date-range-selector {
+    height: max-content !important;
+    width: 18rem !important;
+    padding: 0.5rem;
+}
+
+.mat-calendar-header {
+    padding: 0 !important;
+}
+
+.mat-calendar-table-header {
+    color: var(--color-c);
+    transition: all var(--hover-change-delay) ease-in;
+}
+
+.mat-calendar-controls .mat-button .mat-button-wrapper {
+    color: var(--color-button-text);
+    font-family: var(--font-family-asty);
+    font-size: var(--font-size-datepicker-header-month);
+    transition: all var(--hover-change-delay) ease-in;
+}
+
+.mat-calendar-body-cell {
+    background-color: transparent !important;
+    border-radius: 50%;
+    font-family: var(--font-family-manrope) !important;
+    transition: background-color 0.4s ease-out;
+}
+
+.mat-calendar-body-cell:hover {
+    background-color: var(--color-day-selected) !important;
+}
+
+.mat-calendar-body-cell-content:hover {
+    color: var(--color-button-text) !important;
+}
+
+.mat-calendar-arrow {
+    display: none !important;
+}
+
+.mat-calendar-table-header-divider::after {
+    height: 0 !important;
+}
+
+.mat-datepicker-content-container {
+    background-color: #6c9091;
+}
+
+.mat-calendar-body-cell-content {
+    color: var(--color-button-text);
+    flex-direction: column;
+    font-size: var(--font-size-calendar-day);
+    transition: all var(--hover-change-delay) ease-in;
+}
+
+.mat-calendar-body-today {
+    border: 1px solid var(--color-day-selected) !important;
+}
+
+.mat-calendar-body-selected {
+    background-color: var(--color-day-selected) !important;
+    border: 1px solid var(--color-day-selected) !important;
+    color: var(--color-a);
+    font-weight: bold !important;
+}
+
+.mat-calendar-body-in-range {
+    background-color: var(--color-range-between) !important;
+    border-radius: 50% !important;
+}
+
+.mat-calendar-body-cell::before, .mat-calendar-body-cell::after, .mat-calendar-body-cell-preview {
+    height: 0 !important;
+    width: 0 !important;
+}
+
+.mat-date-range-input-start-wrapper {
+    margin-bottom: 9px !important;
+    overflow: inherit !important;
+    width: 100% !important;
+}
+
+.mat-datepicker-toggle, .mat-datepicker-content .mat-datepicker-content {
+    color: var(--color-c);
+    margin-left: auto;
+    position: relative;
+    right: 3rem !important;
+    top: 0 !important;
+}
+
+.header-datepicker {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 3px 0 0.625rem !important;
+}
+
+.header-datepicker input {
+    background-color: transparent !important;
+    border: 0;
+    color: var(--color-c);
+    font-family: var(--font-family-manrope) !important;
+    font-weight: 600;
+    outline: none !important;
+    padding-top: 0 !important;
+    width: 5rem !important;
+}
+
+.date-clear-icon {
+    color: var(--color-table-dropdown-filter-clear);
+    font-size: 0.91rem;
+    margin: 0 0 0 -1rem !important;
+    padding-top: 0;
+}
+
+.date-clear-icon:hover {
+    cursor: pointer;
+}
+
+.mat-date-range-input {
+    width: 85% !important;
+}
+
+.mat-date-range-input-container {
+    margin-top: 0 !important;
+}
+
+.mat-date-range-input-inner {
+    margin-top: 3px !important;
+}
+
+.mat-datepicker-toggle .mat-button-disabled {
+    color: #ffffff82 !important;
+}
+
+.mat-datepicker-toggle .mat-icon-button {
+    height: 0 !important;
+    margin-top: -12px !important;
+    top: -4px !important;
+    width: 0 !important;
+}

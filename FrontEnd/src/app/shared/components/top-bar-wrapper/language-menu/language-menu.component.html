@@ -1,0 +1,17 @@
+<div id="language-menu">
+    <ul>
+        <li>
+            <button class="show-sub-menu">
+                <img (load)="loadImage()" [ngClass]="imageIsLoading()" src="/assets/images/languages/{{ getStoredLanguage() }}.svg" style="height: 25px; width: 27px">
+                <span class="material-icons-outlined">expand_more</span>
+            </button>
+            <ul class="sub-menu" (click)="hideMenu()">
+                <button class="hoverable" (click)="doLanguageTasks('el-GR')"><img src="/assets/images/languages/el-GR.svg"><span>Ελληνικά</span></button>
+                <button class="hoverable" (click)="doLanguageTasks('en-GB')"><img src="/assets/images/languages/en-GB.svg"><span>English</span></button>
+                <button class="hoverable" (click)="doLanguageTasks('de-DE')"><img src="/assets/images/languages/de-DE.svg"><span>Deutsch</span></button>
+                <button class="hoverable" (click)="doLanguageTasks('cs-CZ')"><img src="/assets/images/languages/cs-CZ.svg"><span>Česky</span></button>
+                <button class="hoverable" (click)="doLanguageTasks('fr-FR')"><img src="/assets/images/languages/fr-FR.svg"><span>Française</span></button>
+            </ul>
+        </li>
+    </ul>
+</div>

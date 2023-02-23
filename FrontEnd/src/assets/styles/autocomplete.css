@@ -1,0 +1,29 @@
+.mat-autocomplete-panel.mat-autocomplete-visible {
+    background-color: var(--color-b) !important;
+    border-radius: 0 !important;
+}
+
+.mat-option {
+    border: 1px solid transparent !important;
+    font-family: var(--font-family-ubuntu) !important;
+    height: 2rem !important;
+    line-height: 2rem !important;
+}
+
+.mat-option-text {
+    color: var(--color-c) !important;
+    display: flex !important;
+    justify-content: space-between;
+}
+
+.mat-option-text > span:not(:last-child) {
+    width: 10rem !important;
+}
+
+.mat-option-text > span:last-child {
+    width: 3rem !important;
+}
+
+.mat-option.mat-active {
+    background-color: var(--color-a);
+}

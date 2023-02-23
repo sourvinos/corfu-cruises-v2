@@ -1,0 +1,29 @@
+[
+
+    { "id": "reservations-reservations", "description": "Reservations" },
+    { "id": "reservations-availability", "description": "Availability" }, 
+    { "id": "reservations-ledgers", "description": "My ledger" },
+
+    { "id": "tasks-embarkation", "description": "Embarkation" },
+    { "id": "tasks-manifest", "description": "Passengers manifest" },
+    { "id": "tasks-ledgers", "description": "Customer Ledgers" },
+
+    { "id": "tables-coachRoutes", "description": "Coach routes" },
+    { "id": "tables-customers", "description": "Customers" },
+    { "id": "tables-destinations", "description": "Destinations" },
+    { "id": "tables-drivers", "description": "Drivers" },
+    { "id": "tables-genders", "description": "Genders" },
+    { "id": "tables-pickupPoints", "description": "Pickup points" },
+    { "id": "tables-ports", "description": "Ports" },
+    { "id": "tables-schedules", "description": "Trips schedule" },
+    { "id": "tables-ships", "description": "Ships" },
+    { "id": "tables-shipCrews", "description": "Crews" },
+    { "id": "tables-registrars", "description": "Passenger registrars" },
+    { "id": "tables-shipOwners", "description": "Shipowners" },
+    { "id": "tables-shipRoutes", "description": "Ship routes" },
+    { "id": "tables-users", "description": "Users" },
+
+    { "id": "user-account", "description": "My account" },
+    { "id": "user-logout", "description": "Logout" }
+
+]

@@ -1,0 +1,219 @@
+[
+    {
+        "feature": "snackbarMessages",
+        "labels": [
+            {
+                "error": 200,
+                "message": "Tout est OK."
+            },
+            {
+                "error": 400,
+                "message": "Le modèle n'est pas valide."
+            },
+            {
+                "error": 401,
+                "message": "L'authentification n'a pas réussi."
+            },
+            {
+                "error": 403,
+                "message": "Cette operation necessite une autorisation de niveau superieur."
+            },
+            {
+                "error": 404,
+                "message": "L'enregistrement n'est pas trouve."
+            },
+            {
+                "error": 409,
+                "message": "L'enregistrement n'est pas unique."
+            },
+            {
+                "error": 427,
+                "message": "Pour ce jour, destination et port, aucun trajet n'est prévu."
+            },
+            {
+                "error": 430,
+                "message": "Pour ce jour et cette destination, aucun trajet n'est prévu."
+            },
+            {
+                "error": 431,
+                "message": "Il n'est pas possible d'ajouter ou de modifier une réservation après le départ."
+            },
+            {
+                "error": 432,
+                "message": "Pour cette journée, aucun trajet n'est prévu."
+            },
+            {
+                "error": 433,
+                "message": "Cette réservation entraînera une surréservation."
+            },
+            {
+                "error": 450,
+                "message": "Ce client n'existe pas ou est inactif."
+            },
+            {
+                "error": 451,
+                "message": "Cette destination n'existe pas ou est inactive."
+            },
+            {
+                "error": 452,
+                "message": "Ce point de ramassage n'existe pas ou est inactif."
+            },
+            {
+                "error": 453,
+                "message": "Ce conducteur n'existe pas ou est inactif."
+            },
+            {
+                "error": 454,
+                "message": "Ce navire n'existe pas ou est inactif."
+            },
+            {
+                "error": 455,
+                "message": "Le nombre de passagers n'est pas correct."
+            },
+            {
+                "error": 456,
+                "message": "La nationalité d'au moins un passager n'existe pas ou est inactive."
+            },
+            {
+                "error": 457,
+                "message": "Le sexe d'au moins un passager n'existe pas ou est inactif."
+            },
+            {
+                "error": 458,
+                "message": "L'occupant d'au moins un passager n'existe pas ou est inactif."
+            },
+            {
+                "error": 459,
+                "message": "Les nouvelles réservations avec transfert entre 22h00 et le départ du navire ne sont pas autorisées. Veuillez nous contacter pour connaître la disponibilité des bus."
+            },
+            {
+                "error": 490,
+                "message": "L'enregistrement n'a pas ete sauve."
+            },
+            {
+                "error": 491,
+                "message": "Nous sommes désolés, mais cette entrée est en cours d'utilisation et ne peut être supprimée."
+            },
+            {
+                "error": 492,
+                "message": "Un utilisateur avec ces détails ne peut pas être créé. Assurez-vous que le nom d'utilisateur et l'adresse électronique sont uniques."
+            },
+            {
+                "error": 493,
+                "message": "L'ordre d'approche existe déjà."
+            },
+            {
+                "error": 494,
+                "message": "Le mot de passe ne peut pas changer."
+            },
+            {
+                "error": 497,
+                "message": "Nous ne sommes pas en mesure de continuer. Veuillez vous assurer que le nom d'utilisateur et/ou l'email n'appartiennent pas à un autre utilisateur."
+            },
+            {
+                "error": 499,
+                "message": "Nous ne sommes pas en mesure de continuer. L'utilisateur connecté ne peut pas être supprimé."
+            },
+            {
+                "error": 500,
+                "message": "Quelque chose a mal tourné, mais cela a été signalé."
+            },
+            {
+                "id": "authenticationFailed",
+                "message": "Authentification échouée."
+            },
+            {
+                "id": "askConfirmationToAbortEditing",
+                "message": "Si vous continuez, les modifications seront perdues."
+            },
+            {
+                "id": "askConfirmationToDelete",
+                "message": "Ce disque sera perdu à jamais."
+            },
+            {
+                "id": "emailSent",
+                "message": "Nous vous avons envoyé un courriel contenant les instructions pour définir un nouveau mot de passe."
+            },
+            {
+                "id": "emailNotSent",
+                "message": "Nous ne pouvons pas vous envoyer d'e-mail pour le moment, veuillez réessayer dans un petit moment."
+            },
+            {
+                "id": "emptyEmail",
+                "message": "L' adresse email ne peut pas être vide."
+            },
+            {
+                "id": "fileCreated",
+                "message": "Le fichier a été créé."
+            },
+            {
+                "id": "formIsDirty",
+                "message": "Avant de continuer, les modifications doivent être enregistrées."
+            },
+            {
+                "id": "noRecordsSelected",
+                "message": "Vous n'avez pas sélectionné d'inscriptions."
+            },
+            {
+                "id": "noResults",
+                "message": "Avec ces critères, nous n'avons rien trouvé."
+            },
+            {
+                "id": "noVideoDevicesFound",
+                "message": "Aucune caméra trouvée sur votre appareil."
+            },
+            {
+                "id": "recordCreated",
+                "message": "Un enregistrement a été créé."
+            },
+            {
+                "id": "recordDeleted",
+                "message": "Cet enregistrement a été supprimé."
+            },
+            {
+                "id": "recordUpdated",
+                "message": "Cet enregistrement a été mis à jour."
+            },
+            {
+                "id": "selectedRecordsHaveBeenProcessed",
+                "message": "Tous les enregistrements sont mis a jour."
+            },
+            {
+                "id": "unableToResetPassword",
+                "message": "Impossible de réinitialiser le mot de passe."
+            },
+            {
+                "id": "wrongPassengerCount",
+                "message": "Le nombre de passagers ne correspond pas au nombre total de personnes."
+            },
+            {
+                "id": "noContactWithServer",
+                "message": "Il n'y a pas de réponse de la base de données."
+            },
+            {
+                "id": "featureNotAvailable",
+                "message": "Cette option n'est pas encore disponible."
+            },
+            {
+                "id": "reservationCreated",
+                "message": "RefNo "
+            },
+            {
+                "id": "success",
+                "message": "Tout est OK."
+            },
+            {
+                "id": "warning",
+                "message": "Devons-nous supprimer cette entrée?"
+            },
+            {
+                "id": "userDisconnected",
+                "message": "Vous avez été inactif pendant trop longtemps et nous vous avons déconnecté, afin d'économiser des ressources."
+            },
+            {
+                "id": "passwordCanBeChangedOnlyByAccountOwner",
+                "message": "Le mot de passe ne peut être modifié que par le propriétaire du compte."
+            }
+        ]
+    }
+]

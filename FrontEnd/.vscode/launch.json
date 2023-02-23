@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "FrontEnd Debug",
+            "type": "chrome",
+            "request": "launch",
+            "preLaunchTask": "npm: start",
+            "url": "https://localhost:4200",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}

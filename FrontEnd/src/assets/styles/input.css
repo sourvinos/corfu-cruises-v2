@@ -1,0 +1,98 @@
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+    display: none;
+}
+
+input.center {
+    text-align: center !important;
+}
+
+input.right {
+    text-align: right !important;
+}
+
+input::selection {
+    background-color: var(--color-input-selected-background);
+}
+
+input.mat-input-element {
+    caret-color: var(--color-c) !important;
+    margin-top: -0.0625rem !important;
+}
+
+input[type="text"], input[type="email"], input[type="number"], input[type="password"], input:-webkit-autofill, input:-webkit-autofill:active {
+    background-clip: content-box;
+    cursor: text !important;
+    font-family: var(--font-family-asty);
+    font-size: var(--font-size-input) !important;
+    font-weight: 300;
+    outline: none;
+}
+
+input:-internal-autofill-previewed, input:-internal-autofill-selected {
+    -webkit-text-fill-color: var(--color-c) !important;
+    transition: background-color var(--hover-change-delay) ease-in-out 0s !important;
+}
+
+.mat-form-field {
+    backdrop-filter: blur(var(--blur));
+    background-color: #cddc3905 !important;
+    border-radius: 10px;
+    border: 1px solid var(--color-b) !important;
+    line-height: 132%;
+    margin-top: var(--form-field-margin) !important;
+    padding: 0.5rem 1rem;
+    width: 100% !important;
+}
+
+.mat-form-field.list-filter {
+    backdrop-filter: blur(0);
+    background-color: transparent !important;
+    border: none !important;
+    line-height: 0 !important;
+    margin-top: 0 !important;
+    padding: 0 1.5rem 0 1.5rem !important;
+}
+
+.mat-form-field.list-filter .mat-form-field-infix {
+    border-top: 0 !important;
+}
+
+.mat-form-field-infix {
+    border-top: 20px solid transparent;
+    display: flex !important;
+    font-family: var(--font-family-asty) !important;
+    font-weight: 300 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.mat-form-field-subscript-wrapper {
+    margin-top: 2px !important;
+}
+
+.mat-hint, .mat-error {
+    font-family: var(--font-family-asty);
+    font-size: var(--font-size-input-hint);
+    font-weight: 300;
+}
+
+.mat-form-field-label-wrapper {
+    top: -20px !important;
+}
+
+.mat-date-range-input {
+    margin-top: 0 !important;
+}
+
+.mat-form-field-type-mat-date-range-input .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
+    font-size: unset !important;
+}
+
+.mat-form-field-flex {
+    align-items: center !important;
+    display: flex !important;
+}
+
+.mat-date-range-input-separator {
+    color: transparent !important;
+}

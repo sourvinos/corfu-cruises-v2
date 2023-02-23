@@ -1,0 +1,16 @@
+<div id="year-picker">
+    <ul>
+        <li>
+            <button>
+                <span id="active-year">{{ activeYear }}</span>
+                <span class="material-icons-outlined">expand_more</span>
+            </button>
+            <ul (click)="hideMenu()" class="sub-menu">
+                <button *ngFor="let year of years" (click)="selectYear(year)" class="hoverable">
+                    <img width="20px" [src]="getIcon('calendar')">
+                    <span>{{ year }}</span>
+                </button>
+            </ul>
+        </li>
+    </ul>
+</div>

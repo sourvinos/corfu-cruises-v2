@@ -1,0 +1,39 @@
+#form {
+    flex-direction: row !important;
+}
+
+.fit-content {
+    height: fit-content;
+}
+
+.fieldset {
+    height: 100%;
+    width: 15rem;
+}
+
+.filter {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+}
+
+.list-wrapper {
+    height: 92%;
+    overflow-y: scroll;
+    width: 13.5rem;
+}
+
+.selected {
+    display: flex;
+    align-items: center;
+}
+
+.selected-count {
+    font-size: 0.6875rem;
+}
+
+.icon {
+    position: relative;
+    top: -2px;
+    font-size: 15px;
+}

@@ -1,0 +1,48 @@
+{
+    "labels": [
+        {
+            "id": "required",
+            "description": "Toto pole je povinné"
+        },
+        {
+            "id": "minLength",
+            "description": "Toto pole musí mít alespoň xx znaků"
+        },
+        {
+            "id": "maxLength",
+            "description": "Toto pole může mít až xx znaků"
+        },
+        {
+            "id": "invalid",
+            "description": "Toto pole je neplatné."
+        },
+        {
+            "id": "passwordsNoMatch",
+            "description": "Nové heslo a potvrzení nového hesla se neshodují"
+        },
+        {
+            "id": "spacesNotAllowed",
+            "description": "Mezery nejsou povoleny"
+        },
+        {
+            "id": "otherErrors",
+            "description": "Toto pole obsahuje chyby"
+        },
+        {
+            "id": "invalidPeriod",
+            "description": "Lhůta není platná"
+        },
+        {
+            "id": "containsIllegalCharacters",
+            "description": "Povoleny jsou pouze alfanumerické znaky nebo podtržítka."
+        },
+        {
+            "id": "beginsOrEndsWithSpace",
+            "description": "Toto pole nesmí začínat ani končit jednou nebo více mezerami."
+        },
+        {
+            "id": "emptyOrInvalidDate",
+            "description": "Toto pole musí být platné datum"
+        }
+    ]
+}

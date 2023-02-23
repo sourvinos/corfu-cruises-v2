@@ -1,0 +1,14 @@
+.mat-card {
+    background-color: transparent;
+    box-shadow: none !important;
+    height: 100%;
+    transition: all var(--theme-change-delay) ease-in !important;
+}
+
+.mat-card-content {
+    height: 100%;
+}
+
+.mat-card-header-text {
+    margin: 0 !important;
+}

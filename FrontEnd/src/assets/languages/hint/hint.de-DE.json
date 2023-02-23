@@ -1,0 +1,48 @@
+{
+    "labels": [
+        {
+            "id": "required",
+            "description": "Dieses Feld wird benötigt"
+        },
+        {
+            "id": "minLength",
+            "description": "Dieses Feld muss mindestens xx Zeichen lang sein"
+        },
+        {
+            "id": "maxLength",
+            "description": "Dieses Feld kann bis zu xx Zeichen lang sein"
+        },
+        {
+            "id": "invalid",
+            "description": "Dieses Feld ist ungültig"
+        },
+        {
+            "id": "passwordsNoMatch",
+            "description": "Neues Passwort und neues Passwort bestätigen stimmen nicht überein"
+        },
+        {
+            "id": "spacesNotAllowed",
+            "description": "Leerzeichen sind nicht erlaubt"
+        },
+        {
+            "id": "otherErrors",
+            "description": "Dieses Feld enthält Fehler"
+        },
+        {
+            "id": "invalidPeriod",
+            "description": "Der Zeitraum ist ungültig"
+        },
+        {
+            "id": "containsIllegalCharacters",
+            "description": "Es sind nur alphanumerische Zeichen oder Unterstriche erlaubt."
+        },
+        {
+            "id": "beginsOrEndsWithSpace",
+            "description": "Dieses Feld darf nicht mit einem oder mehreren Leerzeichen beginnen oder enden."
+        },
+        {
+            "id": "emptyOrInvalidDate",
+            "description": "Dieses Feld muss ein gültiges Datum sein"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+<div id="list">
+
+    <div id="header">
+        <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <button (click)="gotoToday()" [disabled]="currentYearIsNotDisplayedYear()" class="transparent" id="goto-today-button" mat-mini-fab>
+            <mat-icon id="today">my_location</mat-icon>
+        </button>
+        <year-selector (yearEmitter)="doActiveYearTasks($event)" [activeYear]="activeYear"></year-selector>
+        <month-selector (monthEmitter)="setActiveMonth($event)"></month-selector>
+    </div>
+
+    <div id="content">
+        <div id="days">
+            <div [attr.id]="day.date" class="day" *ngFor="let day of year" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }">
+                <div class="day-data">
+                    <div class="weekday">{{ getLocaleWeekdayName(day.weekdayName) }}</div>
+                    <div class="date">{{ day.value }}</div>
+                    <div class="month">{{ getLocaleMonthName(day.monthName) }}</div>
+                </div>
+                <div *ngIf="day.destinations.length > 0" class="reservation-data">
+                    <div class="reservation">
+                        <div *ngFor="let destination of day.destinations" (click)="doReservationTasks(day.date, destination.id, destination.description)" class="destinations">
+                            <div class="destination-description">{{ destination.abbreviation }}</div>
+                            <div class="ports" *ngFor="let port of destination.ports">
+                                <div class="port-description">{{ port.abbreviation }}</div>
+                                <div class="port-description">{{ port.accumulatedFreePax }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="day.destinations.length == 0" class="no-reservation-data">
+                    <span class="material-icons-outlined">do_not_disturb</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="button-group-right">
+            <button mat-flat-button class="primary">{{ getLabel("newRecord") }}</button>
+        </div>
+    </div>
+
+</div>

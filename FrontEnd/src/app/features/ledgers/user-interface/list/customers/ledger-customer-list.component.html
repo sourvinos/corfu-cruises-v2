@@ -1,0 +1,54 @@
+<div id="list">
+
+    <div id="header">
+        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <div class="filter-pill">
+            <div class="pill date">
+                <img [src]="getIcon('calendar')">
+                <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }} - {{ formatDateToLocale(criteriaPanels.toDate, true, true) }}</div>
+            </div>
+            <button (click)="resetTableFilters()" [disabled]="records.length==recordsFilteredCount" class="primary" mat-flat-button>
+                <i class="pi pi-filter-slash"></i>
+            </button>
+        </div>
+    </div>
+
+    <div id="content">
+        <div id="criteria-panel">
+            <criteria-panel [backgroundColor]="'var(--color-criteria-a)'" [feature]="feature" [header]="'criteria-customers'" [icon]="'customers'" [records]="criteriaPanels.customers" [sortField]="'description'"></criteria-panel>
+            <criteria-panel [backgroundColor]="'var(--color-criteria-b)'" [feature]="feature" [header]="'criteria-destinations'" [icon]="'destinations'" [records]="criteriaPanels.destinations" [sortField]="'description'"></criteria-panel>
+            <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
+        </div>
+        <div id="table-wrapper">
+            <p-table #table (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="customer.id" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th class="width-3"></th>
+                        <th pSortableColumn="customer.description">{{ getLabel("headerCustomer") }}</th>
+                    </tr>
+                    <tr>
+                        <th class="width-3"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
+                        <th><input (input)="table.filter($event.target.value, 'customer.description', 'contains')" [disabled]="records.length==0" [value]="$any(table).filters['customer.description']?.value" class="p-inputtext"></th>
+                    </tr>
+                </ng-template>
+                <ng-template let-ledger pTemplate="body">
+                    <tr [attr.id]="ledger.customer.id" (dblclick)="showCustomerReservations(ledger)" style="height:32px">
+                        <td class="center width-3"><p-tableCheckbox [value]="ledger"></p-tableCheckbox></td>
+                        <td (click)="highlightRow(ledger.customer.id)">{{ ledger.customer.description }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <div id="footer">
+        <table-total-filtered-records [filteredRecordCount]="recordsFilteredCount" [recordCount]="records.length"></table-total-filtered-records>
+        <div class="button-group-right">
+            <button [disabled]="selectedRecords.length==0" (click)="exportSelected()" class="primary" mat-flat-button>
+                <mat-icon *ngIf="selectedRecords.length==0" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("createPdfButton") }}</span>
+            </button>
+        </div>
+    </div>
+
+</div>

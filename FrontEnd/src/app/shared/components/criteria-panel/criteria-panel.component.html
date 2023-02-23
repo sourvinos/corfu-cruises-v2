@@ -1,0 +1,13 @@
+<div class="panel" [style.background-color]="backgroundColor">
+    <div class="panel-header">
+        <img width="20px" [src]="getIcon(icon)">
+        <span>{{ getLabel(header) }}</span>
+    </div>
+    <div class="panel-content">
+        <div class="list">
+            <div *ngFor="let record of records" class="description">
+                ▪️ {{ record.description }}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+fieldset {
+    backdrop-filter: blur(var(--blur));
+    background-color: #cddc3905 !important;
+    border-radius: 0.625rem;
+    border: 0.0625rem solid var(--color-b);
+    padding: 1rem 0.5rem 1rem 1rem;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+fieldset legend {
+    align-items: center;
+    color: var(--color-c);
+    display: flex;
+    font-family: var(--font-family-asty);
+    font-size: var(--font-size-fieldset-legend);
+    font-weight: 300;
+    justify-content: space-between;
+    padding: 0 0.5rem 0 0.3rem;
+    width: 100%;
+    transition: all var(--theme-change-delay) ease-in;
+}

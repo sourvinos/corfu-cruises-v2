@@ -1,0 +1,29 @@
+[
+
+    { "id": "reservations-reservations", "description": "Reservierung" },
+    { "id": "reservations-availability", "description": "Verfügbarkeit" }, 
+    { "id": "reservations-ledgers", "description": "Mein Hauptbuch" },
+
+    { "id": "tasks-embarkation", "description": "Einschiffung" },
+    { "id": "tasks-manifest", "description": "Schiffsmanifest" },
+    { "id": "tasks-ledgers", "description": "Kundenbücher" },
+
+    { "id": "tables-coachRoutes", "description": "Busrouten" },
+    { "id": "tables-customers", "description": "Kunden" },
+    { "id": "tables-destinations", "description": "Reiseziele" },
+    { "id": "tables-drivers", "description": "Fahrer" },
+    { "id": "tables-genders", "description": "Geschlechter" },
+    { "id": "tables-pickupPoints", "description": "Abholstellen" },
+    { "id": "tables-ports", "description": "Häfen" },
+    { "id": "tables-schedules", "description": "Fahrplan" },
+    { "id": "tables-ships", "description": "Schiffe" }, 
+    { "id": "tables-shipCrews", "description": "Besatzungen" },
+    { "id": "tables-registrars", "description": "Fahrgastregistrierer" },
+    { "id": "tables-shipOwners", "description": "Schiffseigner" },
+    { "id": "tables-shipRoutes", "description": "Schiffsrouten" },
+    { "id": "tables-users", "description": "Benutzer" },
+
+    { "id": "user-account", "description": "Mein Konto" },
+    { "id": "user-logout", "description": "Ausloggen" }
+
+]

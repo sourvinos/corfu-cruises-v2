@@ -1,0 +1,18 @@
+:host {
+    height: 100%;
+}
+
+#table-wrapper {
+    margin: 0;
+}
+
+#passenger-list {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin-top: 0.7rem;
+}
+
+.fa-trash-alt {
+    color: var(--color-button-background-delete) !important;
+}

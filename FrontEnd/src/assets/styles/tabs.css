@@ -1,0 +1,59 @@
+.mat-ink-bar {
+    height: 0 !important;
+}
+
+.mat-tab-body-content {
+    display: flex !important;
+    flex-direction: column;
+    padding: 0;
+    width: 100%;
+}
+
+.mat-tab-body-wrapper {
+    flex: 1 !important;
+    margin-top: 1rem;
+}
+
+.mat-tab-body.mat-tab-body-active {
+    height: 100% !important;
+    position: absolute !important;
+}
+
+.mat-tab-group {
+    height: 100% !important;
+}
+
+.mat-tab-header {
+    border-bottom: 0 !important;
+    width: max-content;
+}
+
+.mat-tab-label {
+    font-family: var(--font-family-handbook);
+    font-weight: var(--font-weight-header);
+    min-width: 3.125rem !important;
+}
+
+.mat-tab-label-active {
+    background-color: var(--color-active-tab-background) !important;
+    color: var(--color-c) !important;
+}
+
+.mat-tab-label:not(.mat-tab-label-active) {
+    background-color: var(--color-active-tab-background) !important;
+}
+
+.mat-tab-label-container {
+    padding: 0 !important;
+}
+
+.mat-tab-label-content {
+    color: var(--color-active-tab-text) !important;
+    font-family: var(--font-family-roboto) !important;
+    font-size: var(--font-size-tab-label) !important;
+    font-weight: var(--font-weight-button) !important;
+}
+
+.mat-tab-label.mat-tab-label-active:not(.mat-tab-disabled), .mat-tab-label.mat-tab-label-active.cdk-keyboard-focused:not(.mat-tab-disabled) {
+    opacity: 1;
+}

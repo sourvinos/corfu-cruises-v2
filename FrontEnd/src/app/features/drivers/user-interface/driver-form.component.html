@@ -1,0 +1,44 @@
+<div id="form-wrapper">
+
+    <div id="content">
+        <mat-card>
+            <mat-card-header>
+                <div id="header">
+                    <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+                </div>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="form" autocomplete="off" data-cy="form">
+                    <mat-form-field>
+                        <input [inputTabStop]="input" [placeholder]="getLabel('description')" data-cy="description" data-tabindex="1" formControlName="description" id="description" matInput>
+                        <mat-error *ngIf="description.hasError('required')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="description.hasError('maxlength')">{{ getHint("maxLength", description.errors.maxlength.requiredLength) }}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input [inputTabStop]="input" [placeholder]="getLabel('phones')" data-cy="phones" data-tabindex="2" formControlName="phones" id="phones" matInput>
+                        <mat-error *ngIf="phones.hasError('maxlength')">{{ getHint("maxLength", phones.errors.maxlength.requiredLength) }}</mat-error>
+                    </mat-form-field>
+                    <div class="styled-input-square">
+                        <div class="styled-input-single">
+                            <input data-cy="isActive" formControlName="isActive" id="isActive" type="checkbox">
+                            <label data-cy="isActive-label" for="isActive">{{ getLabel("isActive") }}</label>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <div class="button-group-right">
+            <button (click)="onDelete()" *ngIf="form.value.id !== 0" class="delete" data-cy="delete" id="delete" mat-flat-button>{{ getLabel("deleteButton") }}</button>
+            <button (click)="onSave()" [disabled]="!form.valid" class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel("saveButton") }}</button>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading | async">
+        <loading-spinner></loading-spinner>
+    </div>
+
+</div>

@@ -1,0 +1,88 @@
+[
+    {
+        "feature": "months",
+        "labels": [
+            {
+                "id": "January",
+                "description": "Jan"
+            },
+            {
+                "id": "February",
+                "description": "Feb"
+            },
+            {
+                "id": "March",
+                "description": "Mar"
+            },
+            {
+                "id": "April",
+                "description": "Apr"
+            },
+            {
+                "id": "May",
+                "description": "May"
+            },
+            {
+                "id": "June",
+                "description": "Jun"
+            },
+            {
+                "id": "July",
+                "description": "Jul"
+            },
+            {
+                "id": "August",
+                "description": "Aug"
+            },
+            {
+                "id": "September",
+                "description": "Sep"
+            },
+            {
+                "id": "October",
+                "description": "Oct"
+            },
+            {
+                "id": "November",
+                "description": "Nov"
+            },
+            {
+                "id": "December",
+                "description": "Dec"
+            }
+        ]
+    },
+    {
+        "feature": "weekdays",
+        "labels": [
+            {
+                "id": "Mon",
+                "description": "Mon"
+            },
+            {
+                "id": "Tue",
+                "description": "Tue"
+            },
+            {
+                "id": "Wed",
+                "description": "Wed"
+            },
+            {
+                "id": "Thu",
+                "description": "Thu"
+            },
+            {
+                "id": "Fri",
+                "description": "Fri"
+            },
+            {
+                "id": "Sat",
+                "description": "Sat"
+            },
+            {
+                "id": "Sun",
+                "description": "Sun"
+            }
+        ]
+    }
+]

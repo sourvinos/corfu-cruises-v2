@@ -1,0 +1,142 @@
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#content {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    justify-content: center;
+    margin: 0 2.8rem 0 3rem;
+}
+
+#days {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+}
+
+.day {
+    background-color: var(--color-b);
+    border-radius: 0.625rem;
+    border: 1px solid var(--color-a);
+    display: flex;
+    flex-direction: column;
+    max-width: 11rem;
+    min-width: 11rem;
+    padding: 1.8rem;
+    scroll-snap-align: start;
+}
+
+.day:hover {
+    cursor: no-drop;
+}
+
+.day-data {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.day-data .weekday, .day-data .month {
+    color: var(--color-c);
+    font-family: var(--font-family-manrope);
+    font-size: 1rem;
+}
+
+.day-data .date {
+    color: var(--color-c);
+    font-family: var(--font-family-montserrat);
+    font-size: 1.8rem;
+    text-align: center;
+    width: 3rem;
+}
+
+.day.has-schedule {
+    cursor: pointer;
+}
+
+.day.has-schedule:hover {
+    border: 1px solid var(--color-c);
+    filter: brightness(1.1);
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+.no-reservation-data {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.no-reservation-data span {
+    color: rgb(0 0 0 /0%);
+    font-size: 4rem;
+}
+
+.reservation-data {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.reservation {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.destinations {
+    color: var(--color-c);
+    display: flex;
+    font-family: var(--font-family-montserrat);
+    font-size: 0.8rem;
+    justify-content: space-between;
+    margin: 0.4rem 0;
+}
+
+.destination-description {
+    width: 20rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pax {
+    color: var(--color-c);
+    font-family: var(--font-family-montserrat);
+    font-size: 1.5rem;
+    margin: auto auto 1rem auto;
+    text-align: center;
+}
+
+.saturday {
+    background-color: var(--color-background-saturday);
+}
+
+.sunday {
+    background-color: var(--color-background-sunday);
+}
+
+.is-today {
+    background-color: var(--color-background-today) !important;
+}
+
+#goto-today-button {
+    background-color: transparent !important;
+    margin: 0 1rem 0 auto !important;
+}
+
+.mat-icon#today {
+    color: var(--color-background-today) !important;
+    font-size: 1.4rem !important;
+    margin-top: 1px !important;
+}

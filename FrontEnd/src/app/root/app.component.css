@@ -1,0 +1,56 @@
+#wrapper {
+    background: url("../../assets/images/background/background.svg") no-repeat center;
+    background-color: var(--color-a);
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100vw;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+#content {
+    height: 100%;
+    min-height: 0;
+}
+
+#loading-indication, #loading-indication::before {
+    background-color: var(--color-a);
+    display: flex;
+    height: 0.0625rem;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+}
+
+#loading-indication::before {
+    background-color: var(--color-loader);
+    content: "";
+    animation: running-progress 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes running-progress {
+    0% {
+        margin-left: 0;
+        margin-right: 100%;
+    }
+
+    50% {
+        margin-left: 25%;
+        margin-right: 0%;
+    }
+
+    100% {
+        margin-left: 100%;
+        margin-right: 0;
+    }
+}

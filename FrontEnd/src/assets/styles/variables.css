@@ -1,0 +1,49 @@
+* {
+    /* Font names */
+    --font-family-asty: "Asty CF Std";
+    --font-family-handbook: "PF-Handbook-Pro";
+    --font-family-inconsolata: "Inconsolata";
+    --font-family-logo: "Aka-Acid-CanterBold";
+    --font-family-manrope: "Manrope";
+    --font-family-montserrat: "Montserrat";
+    --font-family-roboto: "Roboto";
+    --font-family-ubuntu: "Ubuntu Condensed";
+    /* Font weights */
+    --font-weight-dialog-content: 300 !important;
+    --font-weight-header: 300 !important;
+    --font-weight-input-label: 300 !important;
+    --font-weight-logo: 400;
+    --font-weight-mat-hint: 300;
+    --font-weight-snackbar: 300;
+    /* Theme change delays */
+    --hover-change-delay: 0.15s;
+    --theme-change-delay: 1s;
+    /* Common sizes in all screen resolutions */
+    --font-size-button: 0.8rem;
+    --font-size-calendar-day: 0.85rem;
+    --font-size-checkbox: 0.65rem;
+    --font-size-datepicker-header-month: 1.25rem;
+    --font-size-dialog: 1.5rem;
+    --font-size-fieldset-legend: 0.8rem;
+    --font-size-h1: 1rem;
+    --font-size-h6: 0.8rem;
+    --font-size-line-height-h1: 1.25rem;
+    --font-size-loading-message: 2rem;
+    --font-size-logo-loader-first-child: 8rem;
+    --font-size-logo-loader-second-child: 4.5rem;
+    --font-size-map-tooltip: 1.1rem;
+    --font-size-menu-headers: 1.4rem;
+    --font-size-menu-items: 1.1rem;
+    --font-size-modal-text: 1.3rem;
+    --font-size-paragraph: 0.7rem;
+    --font-size-snackbar: 1.1rem;
+    --font-size-sum-persons: 120%;
+    --font-size-tab-label: 0.8rem;
+    --font-size-table-header: 0.7rem;
+    --font-size-table-row: 0.7rem;
+    --form-field-margin: 0.625rem;
+    --login-logo-image-size: 7rem;
+    --login-logo-text-size: 3rem;
+    /* Blur */
+    --blur: 0.5rem;
+}

@@ -1,0 +1,52 @@
+<div id="dialog">
+
+    <div id="dialog-header">
+        <h1 mat-dialog-title>
+            <span>{{ getLabel('headerRefNo') }}: </span><span class="title">{{ reservation.refNo }}</span>&nbsp;&nbsp;
+            <span>{{ getLabel('headerTicketNo') }}: </span><span class="title">{{ reservation.ticketNo }}</span>
+        </h1>
+    </div>
+
+    <div id="table-wrapper">
+        <p-table #table [scrollable]="true" [value]="reservation.passengers" [virtualScrollItemSize]="32" [virtualScroll]="true" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="width-10" pSortableColumn="lastname">{{ getLabel('headerLastname')}}</th>
+                    <th class="width-10" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}</th>
+                    <th class="width-10" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}</th>
+                    <th class="width-5" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-passenger>
+                <tr style="height:32px">
+                    <td class="width-10">{{ passenger.lastname }}</td>
+                    <td class="width-10">{{ passenger.firstname }}</td>
+                    <td class="align-vertical width-10">
+                        <img [src]="getNationalityIcon(passenger.nationalityCode)" />
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;{{ passenger.nationalityDescription }}</span>
+                    </td>
+                    <td (click)="toggleEmbarkationStatus(passenger)" [ngClass]="passenger.isCheckedIn ? 'complete' : 'pending'" class="center embarkation-status width-5">
+                        <span *ngIf="passenger.isCheckedIn">{{ getEmoji('green-circle') }}</span>
+                        <span *ngIf="!passenger.isCheckedIn">{{ getEmoji('red-circle') }}</span>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div id="dialog-footer">
+        <div *ngIf="missingPassengers()" id="missing-passengers">
+            <span style="font-size: 2rem">{{ getEmoji('error') }}</span>
+            <span *ngIf="countMissingPassengers() == 1">{{ getLabel("missingPassenger") }}</span>
+            <span *ngIf="countMissingPassengers() > 1">{{ getLabel("missingPassengers", countMissingPassengers().toString()) }}</span>
+        </div>
+        <div class="button-group-right">
+            <button (click)="doEmbarkation(true, reservation.passengers)" [disabled]="isEmbarkAllAllowed()" class="secondary" mat-flat-button>
+                <mat-icon *ngIf="isEmbarkAllAllowed()" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel('embarkAllPassengers') }}</span>
+            </button>
+            <button (click)="close()" class="primary" mat-flat-button>{{ getLabel('okButton') }}</button>
+        </div>
+    </div>
+
+</div>

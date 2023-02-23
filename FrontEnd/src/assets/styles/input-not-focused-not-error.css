@@ -1,0 +1,29 @@
+.mat-form-field-appearance-legacy .mat-form-field-label {
+    color: var(--color-c);
+}
+
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
+    color: var(--color-c);
+}
+
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
+    color: var(--color-c);
+    font-weight: var(--font-weight-input-label);
+}
+
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
+    color: var(--color-c);
+    font-size: var(--font-size-input);
+    padding-bottom: 6px !important;
+}
+
+.mat-form-field-wrapper .mat-form-field-underline {
+    background-color: var(--color-c) !important;
+    transition: all var(--hover-change-delay) ease-in;
+}
+
+.mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-hint {
+    color: var(--color-c);
+    font-size: var(--font-size-input-hint) !important;
+    font-weight: var(--font-weight-mat-hint);
+}

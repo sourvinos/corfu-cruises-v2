@@ -1,0 +1,12 @@
+#dialog-header {
+    margin-left: 1rem;
+}
+
+#dialog-content {
+    height: 100%;
+    margin: 1rem 0 !important;
+}
+
+#dialog-footer {
+    margin-right: 1rem;
+}

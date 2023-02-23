@@ -1,0 +1,31 @@
+<div id="passenger-list">
+
+    <div *ngIf="passengers" id="table-wrapper">
+        <p-table #table [scrollable]="true" [value]="passengers" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th style="width: 50%;" pSortableColumn="lastname">{{ getLabel('headerLastname') }}</th>
+                    <th style="width: 45%;" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}</th>
+                    <th style="width: 5%;"></th>
+                </tr>
+                <tr>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-record>
+                <tr (dblclick)="editRecord(record)" style="height:32px">
+                    <td style="width: 50%;">{{ record.lastname }}</td>
+                    <td style="width: 45%;">{{ record.firstname }}</td>
+                    <td style="width: 5%; text-align: center;"><i (click)="deleteRow(record)" class="far fa-trash-alt"></i></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div id="footer">
+        <button (click)="newRow()" class="primary" mat-flat-button tabindex="-1">{{ getLabel("newPassengerButton") }}</button>
+    </div>
+
+</div>

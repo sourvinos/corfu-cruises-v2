@@ -1,0 +1,49 @@
+<div id="table-wrapper">
+    <p-table #table [scrollable]="true" [value]="data.customer.reservations" [virtualScrollItemSize]="32" [virtualScroll]="true" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+        <ng-template pTemplate="header">
+            <tr>
+                <th class="width-5" pSortableColumn="date">{{ getLabel('headerDate') }}</th>
+                <th class="width-6" pSortableColumn="destination.abbreviation">{{ getLabel('headerDestination') }}</th>
+                <th class="width-6" pSortableColumn="ship.description">{{ getLabel('headerShip') }}</th>
+                <th class="width-6" pSortableColumn="port.abbreviation">{{ getLabel('headerPort') }}</th>
+                <th class="width-5" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}</th>
+                <th class="width-5" pSortableColumn="ticketNo">{{ getLabel('headerTicket') }}</th>
+                <th class="width-4" pSortableColumn="hasTransfer">{{ getLabel('headerHasTransfer') }}</th>
+                <th class="width-3" pSortableColumn="adults">{{ getLabel('headerAdults') }}</th>
+                <th class="width-3" pSortableColumn="kids">{{ getLabel('headerKids') }}</th>
+                <th class="width-3" pSortableColumn="free">{{ getLabel('headerFree') }}</th>
+                <th class="width-3" pSortableColumn="totalPersons">Σ</th>
+                <th class="width-3" pSortableColumn="embarkedPassengers">Σ<span class="subscript">1</span></th>
+                <th class="width-3" pSortableColumn="totalNoShow">{{ getLabel('headerNoShow') }}</th>
+                <th class="width-3">{{ getLabel('headerRemarks') }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-reservation>
+            <tr [pSelectableRow]="reservation" style="height:32px">
+                <td class="center width-5">{{ formatDateToLocale(reservation.date) }}</td>
+                <td class="center width-6">{{ reservation.destination.abbreviation }}</td>
+                <td class="width-6">{{ reservation.ship.description }}</td>
+                <td class="center width-6">{{ reservation.port.abbreviation }}</td>
+                <td class="center width-5">{{ reservation.refNo }}</td>
+                <td class="width-5">{{ reservation.ticketNo }}</td>
+                <td [ngClass]="reservation.hasTransfer ? 'has-transfer' : 'no-transfer'" class="center emoji width-4">
+                    <span *ngIf="reservation.hasTransfer">{{ getEmoji('green-circle') }} </span>
+                    <span *ngIf="!reservation.hasTransfer">{{ getEmoji('red-circle') }}</span>
+                </td>
+                <td class="number width-3">{{ reservation.adults | replaceZero }}</td>
+                <td class="number width-3">{{ reservation.kids | replaceZero }}</td>
+                <td class="number width-3">{{ reservation.free | replaceZero }}</td>
+                <td class="number width-3">{{ reservation.totalPersons }}</td>
+                <td class="number width-3">{{ reservation.embarkedPassengers }}</td>
+                <td class="text-with-emoji number width-3">
+                    <span>{{ reservation.totalNoShow | replaceZero }}</span>
+                    <span *ngIf="reservation.totalPersons - reservation.embarkedPassengers == 0" class="emoji"></span>
+                    <span *ngIf="reservation.totalPersons - reservation.embarkedPassengers != 0" class="emoji">&nbsp;{{ getEmoji('error') }}</span>
+                </td>
+                <td class="center width-3">
+                    <span (click)="showRemarks(reservation.remarks)" [ngClass]="hasRemarks(reservation.remarks)?'clickable':''" *ngIf="hasRemarks(reservation.remarks)" class="remarks">{{ getEmoji('remarks') }}</span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

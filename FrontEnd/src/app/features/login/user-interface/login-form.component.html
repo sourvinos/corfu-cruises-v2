@@ -1,0 +1,51 @@
+<div id="login-form">
+
+    <div id="top">
+        <language-menu></language-menu>
+        <theme-menu></theme-menu>
+    </div>
+
+    <login-logo></login-logo>
+
+    <div id="header">
+        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+    </div>
+
+    <div id="content">
+        <form [formGroup]="form" autocomplete="off" data-cy="form">
+            <mat-form-field>
+                <input [inputTabStop]="input" [placeholder]="getLabel('username')" data-cy="username" data-tabindex="1" formControlName="username" id="username" matInput>
+                <mat-error *ngIf="username.hasError('required')">{{ getHint("required") }}</mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <input [inputTabStop]="input" [placeholder]="getLabel('password')" [type]="hidePassword ? 'password' : 'text'" data-cy="password" data-tabindex="2" formControlName="password" id="password" matInput>
+                <button (click)="hidePassword = !hidePassword" mat-icon-button matSuffix type="button">
+                    <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+                </button>
+                <mat-error *ngIf="password.hasError('required')">{{ getHint("required") }}</mat-error>
+            </mat-form-field>
+            <div id="columns">
+                <div class="styled-input-square">
+                    <div class="styled-input-single">
+                        <input data-cy="no-robot" formControlName="noRobot" id="no-robot" type="checkbox">
+                        <label data-cy="no-robot-label" for="no-robot">{{ getLabel("noRobotCheckbox") }}</label>
+                    </div>
+                </div>
+                <span id="forgot-password" (click)="onForgotPassword()">{{ getLabel("forgotPasswordButton") }}</span>
+            </div>
+        </form>
+        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+    </div>
+
+    <div id="footer">
+        <button (click)="onLogin()" [disabled]="!form.valid" class="primary" data-cy="login" id="login" mat-flat-button>
+            <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+            <span>{{ getLabel("loginButton") }}</span>
+        </button>
+    </div>
+
+    <div *ngIf="isLoading | async">
+        <loading-spinner></loading-spinner>
+    </div>
+
+</div>

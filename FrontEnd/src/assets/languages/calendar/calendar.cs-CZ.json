@@ -1,0 +1,88 @@
+[
+    {
+        "feature": "months",
+        "labels": [
+            {
+                "id": "January",
+                "description": "Led"
+            },
+            {
+                "id": "February",
+                "description": "Ún"
+            },
+            {
+                "id": "March",
+                "description": "Břez"
+            },
+            {
+                "id": "April",
+                "description": "Dub"
+            },
+            {
+                "id": "May",
+                "description": "Kvet"
+            },
+            {
+                "id": "June",
+                "description": "Červen"
+            },
+            {
+                "id": "July",
+                "description": "Červen"
+            },
+            {
+                "id": "August",
+                "description": "Srp"
+            },
+            {
+                "id": "September",
+                "description": "Zár"
+            },
+            {
+                "id": "October",
+                "description": "Říj"
+            },
+            {
+                "id": "November",
+                "description": "List"
+            },
+            {
+                "id": "December",
+                "description": "Pros"
+            }
+        ]
+    },
+    {
+        "feature": "weekdays",
+        "labels": [
+            {
+                "id": "Mon",
+                "description": "Po"
+            },
+            {
+                "id": "Tue",
+                "description": "Út"
+            },
+            {
+                "id": "Wed",
+                "description": "St"
+            },
+            {
+                "id": "Thu",
+                "description": "Čt"
+            },
+            {
+                "id": "Fri",
+                "description": "Pá"
+            },
+            {
+                "id": "Sat",
+                "description": "So"
+            },
+            {
+                "id": "Sun",
+                "description": "Ne"
+            }
+        ]
+    }
+]

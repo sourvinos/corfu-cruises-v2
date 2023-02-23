@@ -1,0 +1,88 @@
+[
+    {
+        "feature": "months",
+        "labels": [
+            {
+                "id": "January",
+                "description":"Janv"
+            },
+            {
+                "id": "February",
+                "description": "Févr"
+            },
+            {
+                "id": "March",
+                "description": "Mars"
+            },
+            {
+                "id": "April",
+                "description": "Avril"
+            },
+            {
+                "id": "May",
+                "description": "Mai"
+            },
+            {
+                "id": "June",
+                "description": "Juin"
+            },
+            {
+                "id": "July",
+                "description": "Juil"
+            },
+            {
+                "id": "August",
+                "description": "Août"
+            },
+            {
+                "id": "September",
+                "description": "Sept"
+            },
+            {
+                "id": "October",
+                "description": "Oct"
+            },
+            {
+                "id": "November",
+                "description": "Nov"
+            },
+            {
+                "id": "December",
+                "description": "Déc"
+            }
+        ]
+    },
+    {
+        "feature": "weekdays",
+        "labels": [
+            {
+                "id": "Mon",
+                "description": "Lu"
+            },
+            {
+                "id": "Tue",
+                "description": "Ma"
+            },
+            {
+                "id": "Wed",
+                "description": "Me"
+            },
+            {
+                "id": "Thu",
+                "description": "Je"
+            },
+            {
+                "id": "Fri",
+                "description": "Ve"
+            },
+            {
+                "id": "Sat",
+                "description": "Sa"
+            },
+            {
+                "id": "Sun",
+                "description": "Di"
+            }
+        ]
+    }
+]

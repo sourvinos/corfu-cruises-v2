@@ -1,0 +1,48 @@
+{
+    "labels": [
+        {
+            "id": "required",
+            "description": "Το πεδίο είναι υποχρεωτικό"
+        },
+        {
+            "id": "minLength",
+            "description": "Το πεδίο πρέπει να έχει μήκος τουλάχιστον xx χαρακτήρες"
+        },
+        {
+            "id": "maxLength",
+            "description": "Το πεδίο μπορεί να έχει μήκος μέχρι xx χαρακτήρες"
+        },
+        {
+            "id": "invalid",
+            "description": "Το πεδίο είναι λάθος"
+        },
+        {
+            "id": "passwordsNoMatch",
+            "description": "Ο νέος κωδικός και η επιβεβαίωση νέου κωδικού δεν συμφωνούν"
+        },
+        {
+            "id": "spacesNotAllowed",
+            "description": "Τα κενά απαγορεύονται"
+        },
+        {
+            "id": "otherErrors",
+            "description": "Το πεδίο έχει λάθη"
+        },
+        {
+            "id": "invalidPeriod",
+            "description": "Το διάστημα δεν είναι σωστό"
+        },
+        {
+            "id": "containsIllegalCharacters",
+            "description": "Επιτρέπονται μόνο αλφαριθμητικοί χαρακτήρες ή υπογραμμίσεις (κάτω παύλα)."
+        },
+        {
+            "id": "beginsOrEndsWithSpace",
+            "description": "Το πεδίο δεν μπορεί να αρχίζει ή να τελειώνει με ένα ή περισσότερα κενά."
+        },
+        {
+            "id": "emptyOrInvalidDate",
+            "description": "Το πεδίο πρέπει να είναι έγκυρη ημερομηνία"
+        }
+    ]
+}

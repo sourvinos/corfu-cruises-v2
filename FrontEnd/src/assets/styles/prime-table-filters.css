@@ -1,0 +1,112 @@
+.p-dropdown .p-dropdown-clear-icon {
+    color: var(--color-table-dropdown-filter-clear);
+    font-size: 1rem;
+    margin-top: 0;
+    top: 27%;
+}
+
+.p-dropdown .p-dropdown-trigger {
+    border-radius: 0;
+    color: var(--color-c);
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+.p-dropdown .p-dropdown-trigger:hover {
+    border-radius: 0;
+}
+
+.p-dropdown {
+    background-color: transparent;
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+    font-family: var(--font-family-handbook);
+}
+
+.p-dropdown-panel .p-dropdown-items {
+    padding: 0;
+    text-align: left;
+}
+
+.p-dropdown:not(.p-disabled).p-focus {
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.p-fluid .p-multiselect {
+    background-color: transparent;
+    border: none;
+}
+
+.p-multiselect .p-multiselect-label {
+    font-size: 0.6875rem;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+}
+
+.p-multiselect:not(.p-disabled).p-focus {
+    box-shadow: none;
+}
+
+.p-fluid .p-dropdown .p-dropdown-label {
+    font-family: var(--font-family-handbook);
+    margin-bottom: 0;
+    padding: 0.3125rem 0.375rem 0.1875rem 0.375rem !important;
+    text-align: left;
+    width: 10rem !important;
+}
+
+.p-multiselect-panel {
+    background-color: var(--color-b);
+    padding: 0.5rem 0.5rem !important;
+}
+
+.p-multiselect-panel .p-multiselect-items {
+    padding: 0 !important;
+}
+
+.p-multiselect-panel .p-multiselect-header {
+    display: none;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight, .p-multiselect-panel .p-multiselect-items .p-multiselect-item, .p-multiselect-panel .p-multiselect-items .p-multiselect-item:hover {
+    background-color: var(--color-b) !important;
+    box-shadow: none !important;
+    color: var(--color-c) !important;
+    font-family: var(--font-family-asty);
+    font-size: 12px;
+    font-size: var(--font-size-table-row);
+    font-weight: 300;
+    padding: 0.375rem 0 0.375rem 0;
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item:hover {
+    background-color: var(--color-a) !important;
+}
+
+.p-multiselect-option span {
+    margin-left: 0.3rem;
+}
+
+.p-fluid .p-dropdown {
+    border: none;
+}
+
+.p-column-filter-menu-button, .p-column-filter-clear-button {
+    border-radius: 0;
+    box-shadow: none !important;
+    color: var(--color-table-dropdown-filter-clear);
+    height: 1rem;
+    margin: 0.125rem 0 0 0 !important;
+    width: 0.9375rem;
+}
+
+.p-column-filter-menu-button, .p-column-filter-clear-button:hover {
+    background-color: transparent;
+    color: var(--color-table-dropdown-filter-clear) !important;
+}
+
+.p-multiselect .p-multiselect-trigger {
+    color: var(--color-c) !important;
+}

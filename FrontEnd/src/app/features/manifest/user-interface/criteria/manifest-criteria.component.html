@@ -1,0 +1,127 @@
+<div id="form-wrapper">
+
+    <div id="content">
+        <div id="header">
+            <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        </div>
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <!-- Date -->
+            <div class="group-field">
+                <mat-form-field id="date">
+                    <input (dateChange)="patchFormWithSelectedDate($event)" [matDatepicker]="picker" [placeholder]="getLabel('date')" formControlName="date" matInput>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="date.hasError('required')">{{ getHint("invalid") }}</mat-error>
+                    <button (click)="gotoToday()" class="transparent" id="goto-today" mat-mini-fab tabindex="-1">
+                        <mat-icon id="today">my_location</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+            <div class="group-field">
+                <!-- Destination -->
+                <fieldset class="fieldset">
+                    <legend>
+                        <span>{{ getLabel('destination') }}</span>
+                        <div class="selected">
+                            <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.destinations.length }}</span>
+                            <span class="icon">{{ getEmoji(form.value.destinations.length > 0 ? 'ok' : 'error') }}</span>
+                        </div>
+                    </legend>
+                    <div class="filter">
+                        <div class="styled-input-square">
+                            <div class="styled-input-single disabled">
+                                <input id="all-destinations" type="checkbox" formControlName="allDestinationsCheckbox">
+                                <label class="no-label" for="all-destinations"></label>
+                            </div>
+                        </div>
+                        <mat-form-field class="list-filter">
+                            <input (keyup)="filterList($event, 'destinations')" formControlName="destinationsFilter" id="destinationsFilter" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="list-wrapper">
+                        <div *ngFor="let destination of destinations" [attr.id]=destination.description>
+                            <div class="styled-input-rounded">
+                                <div class="styled-input-single rounded">
+                                    <input (click)="updateRadioButtons(form, 'destinations', 'destination', destination.id, destination.description)" class="destinations" formArrayName="destinations" type="radio" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
+                                    <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- Ports -->
+                <fieldset class="fieldset">
+                    <legend>
+                        <span>{{ getLabel('ports') }}</span>
+                        <div class="selected">
+                            <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.ports.length }}</span>
+                            <span class="icon">{{ getEmoji(form.value.ports.length > 0 ? 'ok' : 'error') }}</span>
+                        </div>
+                    </legend>
+                    <div class="filter">
+                        <div class="styled-input-square">
+                            <div class="styled-input-single">
+                                <input (click)="toggleAllCheckboxes(form, 'port', 'allPortsCheckbox')" id="all-ports" type="checkbox" formControlName="allPortsCheckbox">
+                                <label class="no-label" for="all-ports"></label>
+                            </div>
+                        </div>
+                        <mat-form-field class="list-filter">
+                            <input (keyup)="filterList($event, 'ports')" formControlName="portsFilter" id="portsFilter" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="list-wrapper">
+                        <div *ngFor="let port of ports" [attr.id]=port.description>
+                            <div class="styled-input-square">
+                                <div class="styled-input-single" (change)="checkboxChange($event, 'allPortsCheckbox', 'ports', ports, port.description)">
+                                    <input class="port" formArrayName="ports" type="checkbox" [value]="port.id" [attr.id]="'port' + port.id" [checked]="lookup('ports', port.id)">
+                                    <label [attr.for]="'port' + port.id" [attr.id]="'port-label' + port.id">{{ port.description | trimString:33 }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- Ship -->
+                <fieldset class="fieldset">
+                    <legend>
+                        <span>{{ getLabel('ship') }}</span>
+                        <div class="selected">
+                            <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.ships.length }}</span>
+                            <span class="icon">{{ getEmoji(form.value.ships.length > 0 ? 'ok' : 'error') }}</span>
+                        </div>
+                    </legend>
+                    <div class="filter">
+                        <div class="styled-input-square">
+                            <div class="styled-input-single disabled">
+                                <input id="all-ships" type="checkbox" formControlName="allShipsCheckbox">
+                                <label class="no-label" for="all-ships"></label>
+                            </div>
+                        </div>
+                        <mat-form-field class="list-filter">
+                            <input (keyup)="filterList($event, 'ships')" formControlName="shipsFilter" id="shipsFilter" matInput>
+                        </mat-form-field>
+                    </div>
+                    <div class="list-wrapper">
+                        <div *ngFor="let ship of ships" [attr.id]=ship.description>
+                            <div class="styled-input-rounded">
+                                <div class="styled-input-single rounded">
+                                    <input (click)="updateRadioButtons(form, 'ships', 'ship', ship.id, ship.description)" class="ships" formArrayName="ships" type="radio" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
+                                    <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+
+    <div id="footer">
+        <div class="button-group-right">
+            <button (click)="doTasks()" [disabled]="!form.valid" class="primary" id="search" mat-flat-button>
+                <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("searchButton") }}</span>
+            </button>
+        </div>
+    </div>
+
+</div>

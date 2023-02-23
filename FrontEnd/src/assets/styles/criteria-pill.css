@@ -1,0 +1,78 @@
+#criteria, #filters, #overbookings {
+    align-items: center;
+    display: flex;
+    font-family: var(--font-family-handbook);
+    gap: 0.5rem;
+}
+
+#criteria {
+    margin: 0 1rem 0 auto;
+}
+
+#overbookings {
+    margin-left: 1rem;
+}
+
+#criteria > div, #filters > div, #overbookings > div {
+    align-items: center;
+    border-radius: 0.3125rem;
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    padding: 0.5rem;
+}
+
+#filters > div {
+    min-width: 5rem;
+}
+
+#criteria > div > img {
+    width: 1.5625rem;
+}
+
+.pill .description {
+    transform: scale(1, 2.0);
+}
+
+.pill:nth-child(1) {
+    background-color: var(--color-criteria-a) !important;
+}
+
+.pill:nth-child(2) {
+    background-color: var(--color-criteria-b) !important;
+}
+
+.pill:nth-child(3) {
+    background-color: var(--color-criteria-c) !important;
+}
+
+.pill:nth-child(4) {
+    background-color: var(--color-criteria-d) !important;
+}
+
+#criteria .label, #criteria .description, #filters .label, #filters .description, #overbookings .label, #overbookings .description {
+    align-items: center;
+    color: var(--color-button-text);
+    line-height: 0;
+    margin-left: auto;
+}
+
+.description {
+    display: flex;
+}
+
+.pi-filter {
+    font-size: 0.5rem;
+    margin-top: 0.125rem;
+}
+
+.pi-filter::before {
+    margin: 0 0.2rem 0 0.2rem;
+}
+
+.monotype {
+    font-family: var(--font-family-inconsolata);
+}
+.normal {
+    font-family: var(--font-family-handbook);
+}

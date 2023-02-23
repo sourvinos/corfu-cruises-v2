@@ -1,0 +1,145 @@
+button {
+    align-items: center;
+    border: none;
+    cursor: default !important;
+    font-family: var(--font-family-asty) !important;
+    font-size: var(--font-size-button) !important;
+    font-weight: 300 !important;
+    min-width: 0 !important;
+    outline: 0 !important;
+    padding-top: 0.0625rem !important;
+    transition: all var(--hover-change-delay) ease-in;
+}
+
+button:hover:not([disabled]) {
+    transition: all var(--hover-change-delay) ease-in;
+}
+
+button.primary {
+    background-color: var(--color-button-background-primary) !important;
+    color: var(--color-button-text-primary) !important;
+}
+
+button.secondary {
+    background-color: var(--color-button-background-secondary) !important;
+    color: var(--color-button-text) !important;
+}
+
+button.primary:hover:not([disabled]) {
+    background-color: var(--color-button-background-primary-hover) !important;
+}
+
+button.delete {
+    background-color: var(--color-button-background-delete) !important;
+    color: var(--color-button-text) !important;
+}
+
+button.delete:hover {
+    background-color: var(--color-button-background-delete-hover) !important;
+}
+
+button.reverse {
+    color: var(--color-c) !important;
+}
+
+button.bold {
+    font-weight: 700 !important;
+}
+
+button.transparent {
+    background-color: transparent !important;
+    color: var(--color-c) !important;
+}
+
+button.transparent:hover {
+    background-color: var(--color-button-background-secondary) !important;
+    color: var(--color-button-text) !important;
+}
+
+button.tab {
+    padding-bottom: 0.3125rem;
+}
+
+button.tab:first-child {
+    margin-right: 1rem;
+}
+
+button .mat-button-wrapper img {
+    margin-top: -0.1875rem !important;
+}
+
+button.mat-mini-fab:not(.transparent) {
+    background-color: var(--color-b) !important;
+    box-shadow: none !important;
+    color: var(--color-a) !important;
+    height: 38px !important;
+    margin: 0 !important;
+    outline: 0 !important;
+    width: 38px !important;
+}
+
+button.mat-mini-fab .mat-button-wrapper {
+    color: var(--color-c);
+    line-height: 1.4375rem !important;
+    margin: 0 auto;
+    padding: 0 !important;
+    transition: all var(--hover-change-delay) ease-in;
+}
+
+button.mat-mini-fab .mat-button-wrapper .material-icons {
+    margin-top: -0.25rem !important;
+}
+
+button.mat-mini-fab:hover:not(.transparent) {
+    background-color: var(--color-c) !important;
+    color: var(--color-a) !important;
+}
+
+button:disabled {
+    cursor: not-allowed !important;
+    pointer-events: all !important;
+}
+
+button:not(:disabled) {
+    cursor: pointer !important;
+}
+
+button.mat-button-toggle-label-content {
+    line-height: 2.5rem !important;
+}
+
+button.button-icon {
+    font-size: 1.3125rem !important;
+    font-size: 1rem !important;
+    height: 1.0625rem !important;
+    margin-top: -0.125rem !important;
+}
+
+.mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]):hover {
+    background-color: var(--color-a) !important;
+}
+
+button.mat-menu-trigger, button.mat-menu-trigger:hover {
+    background-color: transparent !important;
+    height: 2.375rem !important;
+}
+
+button.mat-menu-trigger span {
+    color: var(--color-button-text) !important;
+}
+
+.mat-icon {
+    font-size: 1rem;
+    line-height: 1.25rem;
+}
+
+.mat-form-field-prefix .mat-icon-button, .mat-form-field-suffix .mat-icon-button {
+    height: 2rem !important;
+    width: 2rem !important;
+}
+
+.button-group-right {
+    display: flex;
+    gap: 1rem;
+    margin-left: auto;
+}

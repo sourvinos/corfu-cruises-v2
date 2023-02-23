@@ -1,0 +1,22 @@
+#logo {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    outline: 0;
+}
+
+#logo-image {
+    color: #83b4ed !important;
+    position: absolute;
+    width: 3.5rem;
+}
+
+#logo-text {
+    color: var(--color-c) !important;
+    font-family: var(--font-family-logo);
+    font-size: var(--font-size-logo-text) !important;
+    font-weight: var(--font-weight-logo);
+    line-height: 2.25rem;
+    margin: 0.125rem 0 0 4rem;
+    transition: all var(--theme-change-delay) ease-in;
+}

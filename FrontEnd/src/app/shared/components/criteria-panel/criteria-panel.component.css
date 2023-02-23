@@ -1,0 +1,48 @@
+:host {
+    display: flex;
+    height: calc(100% / 3);
+}
+
+.panel {
+    background: url("../../../../assets/images/background/helm.svg") no-repeat top left;
+    background-size: 190%;
+    clip-path: polygon(95% 0%, 100% 5%, 100% 100%, 0% 100%, 0% 0%);
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0.5rem 0.90rem 1rem;
+    position: relative;
+    width: 11rem;
+}
+
+.panel-header {
+    align-items: center;
+    color: rgb(255 255 255 / 100%);
+    display: flex;
+    font-family: var(--font-family-handbook);
+    font-size: 1rem;
+    transform: scale(1, 1.4);
+}
+
+.panel-header span {
+    margin-left: 0.5rem;
+}
+
+.panel-content {
+    color: rgb(255 255 255 / 70%);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-family-roboto);
+    font-size: 0.7rem;
+    margin-top: 0.7rem;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.panel-content .list {
+    margin-right: 0.5rem;
+    overflow-x: clip;
+}
+
+.panel-content .description {
+    white-space: nowrap;
+}

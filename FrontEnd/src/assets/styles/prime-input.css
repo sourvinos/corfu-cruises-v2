@@ -1,0 +1,18 @@
+.p-inputtext {
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+    color: var(--color-c) !important;
+    font-family: var(--font-family-asty);
+    font-size: 0.75rem !important;
+    font-weight: 300;
+    margin-bottom: -1px !important;
+    padding: 3px 5px 3px 5px !important;
+    width: 100%;
+}
+
+.p-inputtext:not(.disabled):focus {
+    background-color: var(--color-a) !important;
+    border: none;
+    box-shadow: none;
+}

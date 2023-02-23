@@ -1,0 +1,46 @@
+<div id="wrapper">
+
+    <div id="header">
+        <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <button (click)="gotoToday()" [disabled]="currentYearIsNotDisplayedYear()" class="transparent" id="goto-today-button" mat-mini-fab>
+            <mat-icon id="today">my_location</mat-icon>
+        </button>
+        <year-selector (yearEmitter)="setActiveYear($event)" [activeYear]="activeYear"></year-selector>
+        <month-selector (monthEmitter)="setActiveMonth($event)"></month-selector>
+    </div>
+
+    <div id="content">
+        <div id="days">
+            <div (click)="gotoReservationsList(day)" [attr.id]="day.date" class="day" *ngFor="let day of year" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }">
+                <div class="day-data">
+                    <div class="weekday">{{ getLocaleWeekdayName(day.weekdayName) }}</div>
+                    <div class="date">{{ day.value }}</div>
+                    <div class="month">{{ getLocaleMonthName(day.monthName) }}</div>
+                </div>
+                <div *ngIf="day.destinations != undefined" class="reservation-data">
+                    <div class="reservation">
+                        <div class="destinations" *ngFor="let destination of day.destinations">
+                            <div class="destination-description">{{ destination.abbreviation }}</div>
+                            <div class="destination-pax">{{ destination.pax }}</div>
+                        </div>
+                    </div>
+                    <div class="pax">{{ day.pax }}</div>
+                </div>
+                <div *ngIf="day.destinations == undefined" class="no-reservation-data">
+                    <span class="material-icons-outlined">do_not_disturb</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="button-group-right">
+            <button mat-flat-button class="primary" id="new">{{ getLabel("newRecord") }}</button>
+        </div>
+    </div>
+
+</div>
+
+<div *ngIf="isLoading">
+    <loading-spinner></loading-spinner>
+</div>

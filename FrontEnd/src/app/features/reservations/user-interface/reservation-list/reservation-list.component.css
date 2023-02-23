@@ -1,0 +1,11 @@
+:host {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+
+#header #navigation {
+    align-items: center;
+    display: flex;
+    margin-right: 1rem;
+}
