@@ -34,7 +34,7 @@
                     <div class="filter">
                         <div class="styled-input-square">
                             <div class="styled-input-single">
-                                <input (click)="toggleAllCheckboxes(form, 'customer', 'allCustomersCheckbox')" id="all-customers" type="checkbox" formControlName="allCustomersCheckbox">
+                                <input (click)="toggleAllCheckboxes(form, 'customer', 'allCustomersCheckbox')" formControlName="allCustomersCheckbox" id="all-customers" type="checkbox">
                                 <label class="no-label" for="all-customers"></label>
                             </div>
                         </div>
@@ -46,7 +46,7 @@
                         <div *ngFor="let customer of customers" [attr.id]=customer.description>
                             <div class="styled-input-square">
                                 <div class="styled-input-single" (change)="checkboxChange($event, 'allCustomersCheckbox', 'customers', customers, customer.description)">
-                                    <input class="customer" formArrayName="customers" type="checkbox" [value]="customer.id" [attr.id]="'customer' + customer.id" [checked]="lookup('customers', customer.id)">
+                                    <input [attr.id]="'customer' + customer.id" [checked]="lookup('customers', customer.id)" [value]="customer.id" class="customer" formArrayName="customers" type="checkbox">
                                     <label [attr.for]="'customer' + customer.id" [attr.id]="'customer-label' + customer.id">{{ customer.description | trimString:33 }}</label>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                     <div class="filter">
                         <div class="styled-input-square">
                             <div class="styled-input-single">
-                                <input (click)="toggleAllCheckboxes(form, 'destination', 'allDestinationsCheckbox')" id="all-destinations" type="checkbox" formControlName="allDestinationsCheckbox">
+                                <input (click)="toggleAllCheckboxes(form, 'destination', 'allDestinationsCheckbox')" formControlName="allDestinationsCheckbox" id="all-destinations" type="checkbox">
                                 <label class="no-label" for="all-destinations"></label>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                         <div *ngFor="let destination of destinations" [attr.id]=destination.description>
                             <div class="styled-input-square">
                                 <div class="styled-input-single" (change)="checkboxChange($event, 'allDestinationsCheckbox', 'destinations', destinations, destination.description)">
-                                    <input class="destination" formArrayName="destinations" type="checkbox" [value]="destination.id" [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)">
+                                    <input [attr.id]="'destination' + destination.id" [checked]="lookup('destinations', destination.id)" [value]="destination.id" class="destination" formArrayName="destinations" type="checkbox">
                                     <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description | trimString:33 }}</label>
                                 </div>
                             </div>
@@ -96,7 +96,7 @@
                     <div class="filter">
                         <div class="styled-input-square">
                             <div class="styled-input-single">
-                                <input (click)="toggleAllCheckboxes(form, 'ship', 'allShipsCheckbox')" id="all-ships" type="checkbox" formControlName="allShipsCheckbox">
+                                <input (click)="toggleAllCheckboxes(form, 'ship', 'allShipsCheckbox')" formControlName="allShipsCheckbox" id="all-ships" type="checkbox">
                                 <label class="no-label" for="all-ships"></label>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
                         <div *ngFor="let ship of ships" [attr.id]=ship.description>
                             <div class="styled-input-square">
                                 <div class="styled-input-single" (change)="checkboxChange($event, 'allShipsCheckbox', 'ships', ships, ship.description)">
-                                    <input class="ship" formArrayName="ships" type="checkbox" [value]="ship.id" [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)">
+                                    <input [attr.id]="'ship' + ship.id" [checked]="lookup('ships', ship.id)" [value]="ship.id" class="ship" formArrayName="ships" type="checkbox">
                                     <label [attr.for]="'ship' + ship.id" [attr.id]="'ship-label' + ship.id">{{ ship.description | trimString:33 }}</label>
                                 </div>
                             </div>
