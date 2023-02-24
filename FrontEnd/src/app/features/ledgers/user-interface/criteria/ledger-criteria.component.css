@@ -22,18 +22,3 @@
 #date {
     width: 15rem !important;
 }
-
-#goto-today {
-    box-shadow: none;
-    position: absolute;
-    right: -0.5625rem;
-    top: -1.8125rem;
-}
-
-#goto-today:hover {
-    background-color: transparent !important;
-}
-
-#today {
-    color: var(--color-background-today) !important;
-}

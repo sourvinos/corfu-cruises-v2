@@ -34,29 +34,27 @@ export class LedgerCustomerListComponent {
     public featureIcon = 'ledgers'
     public icon = 'arrow_back'
     public parentUrl = '/ledgers'
-    public isVirtual = false
+    public records: LedgerVM[] = []
+    public recordsFilteredCount: number
+    private virtualElement: any
 
     public criteriaPanels: LedgerCriteriaVM
 
-    public records: LedgerVM[] = []
-    public recordsFilteredCount: number
     public selectedRecords: LedgerVM[] = []
-
     public isAdmin = false
 
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
         this.getConnectedUserRole()
+        this.loadRecords()
+        this.populateCriteriaPanelsFromStorage()
     }
 
     //#region lifecycle hooks
 
-    ngOnInit(): void {
-        this.toggleVirtualTable()
-        this.loadRecords()
-        this.toggleVirtualTable()
-        this.populateCriteriaPanelsFromStorage()
+    ngAfterViewInit(): void {
+        this.doVirtualTableTasks()
     }
 
     ngOnDestroy(): void {
@@ -73,7 +71,9 @@ export class LedgerCustomerListComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
+        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.recordsFilteredCount = event.filteredValue.length
+        this.helperService.clearStyleFromVirtualTable()
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -92,8 +92,9 @@ export class LedgerCustomerListComponent {
         this.router.navigate([this.parentUrl])
     }
 
-    public highlightRow(id: any): void {
-        // this.helperService.highlightRow(id)
+    public highlightRow(id: number): void {
+        this.storeSelectedId(id)
+        this.hightlightSavedRow()
     }
 
     public resetTableFilters(): void {
@@ -113,6 +114,14 @@ export class LedgerCustomerListComponent {
         })
     }
 
+    private storeSelectedId(id: number): void {
+        this.localStorageService.saveItem(this.feature + '-id', id.toString())
+    }
+
+    public unHighlightAllRows(): void {
+        this.helperService.unHighlightAllRows()
+    }
+
     //#endregion
 
     //#region private methods
@@ -122,30 +131,43 @@ export class LedgerCustomerListComponent {
         this.unsubscribe.unsubscribe()
     }
 
+    private doVirtualTableTasks(): void {
+        setTimeout(() => {
+            this.getVirtualElement()
+        }, 1000)
+    }
+
     private getConnectedUserRole(): void {
         this.isAdmin = ConnectedUser.isAdmin
     }
 
-    private loadRecords(): void {
-        const listResolved = this.activatedRoute.snapshot.data[this.feature]
-        if (listResolved.error === null) {
-            this.records = Object.assign([], listResolved.result)
-            this.recordsFilteredCount = this.records.length
-        } else {
-            this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
-                this.goBack()
-            })
-        }
+    private getVirtualElement(): void {
+        this.virtualElement = document.getElementsByClassName('p-scroller-inline')[0]
+    }
+
+    private hightlightSavedRow(): void {
+        this.helperService.highlightSavedRow(this.feature)
+    }
+
+    private loadRecords(): Promise<any> {
+        return new Promise((resolve) => {
+            const listResolved = this.activatedRoute.snapshot.data[this.feature]
+            if (listResolved.error === null) {
+                this.records = Object.assign([], listResolved.result)
+                this.recordsFilteredCount = this.records.length
+                resolve(this.records)
+            } else {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
+                    this.goBack()
+                })
+            }
+        })
     }
 
     private populateCriteriaPanelsFromStorage(): void {
         if (this.localStorageService.getItem('ledger-criteria')) {
             this.criteriaPanels = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
         }
-    }
-
-    private toggleVirtualTable(): void {
-        this.isVirtual = !this.isVirtual
     }
 
     //#endregion

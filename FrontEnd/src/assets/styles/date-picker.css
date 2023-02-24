@@ -127,8 +127,7 @@
 }
 
 .mat-date-range-input-start-wrapper {
-    margin-bottom: 0.5625rem !important;
-    overflow: inherit !important;
+    /* overflow: inherit !important; */
     width: 100% !important;
 }
 
@@ -179,6 +178,7 @@
 }
 
 .mat-date-range-input-container {
+    align-items: flex-start !important;
     margin-top: 0 !important;
 }
 
@@ -206,4 +206,19 @@
 .mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon {
     margin-left: 0.5625rem;
     padding-top: 0.5rem !important;
+}
+
+#goto-today {
+    box-shadow: none;
+    position: absolute;
+    right: -0.8125rem;
+    top: -1.875rem;
+}
+
+#goto-today:hover {
+    background-color: transparent !important;
+}
+
+#today {
+    color: var(--color-background-today) !important;
 }

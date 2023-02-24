@@ -102,6 +102,13 @@ export class LedgerCriteriaComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public gotoToday(): void {
+        this.form.patchValue({
+            fromDate: this.dateHelperService.formatDateToIso(new Date()),
+            toDate: this.dateHelperService.formatDateToIso(new Date())
+        })
+    }
+
     public lookup(arrayName: string, arrayId: number): boolean {
         if (this.criteria) {
             return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false

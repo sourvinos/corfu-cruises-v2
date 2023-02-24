@@ -7,7 +7,7 @@
                 <img [src]="getIcon('calendar')">
                 <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }} - {{ formatDateToLocale(criteriaPanels.toDate, true, true) }}</div>
             </div>
-            <button (click)="resetTableFilters()" [disabled]="records.length==recordsFilteredCount" class="primary" mat-flat-button>
+            <button (click)="resetTableFilters()" class="primary" mat-flat-button>
                 <i class="pi pi-filter-slash"></i>
             </button>
         </div>
@@ -20,7 +20,7 @@
             <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="customer.id" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
+            <p-table #table (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="customer.id" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-3"></th>
@@ -31,10 +31,10 @@
                         <th><input (input)="table.filter($event.target.value, 'customer.description', 'contains')" [disabled]="records.length==0" [value]="$any(table).filters['customer.description']?.value" class="p-inputtext"></th>
                     </tr>
                 </ng-template>
-                <ng-template let-ledger pTemplate="body">
-                    <tr [attr.id]="ledger.customer.id" (dblclick)="showCustomerReservations(ledger)" style="height:32px">
-                        <td class="center width-3"><p-tableCheckbox [value]="ledger"></p-tableCheckbox></td>
-                        <td (click)="highlightRow(ledger.customer.id)">{{ ledger.customer.description }}</td>
+                <ng-template let-customer pTemplate="body">
+                    <tr [attr.id]="customer.customer.id" (click)="unHighlightAllRows()" (dblclick)="showCustomerReservations(customer)" style="height:32px">
+                        <td class="center width-3"><p-tableCheckbox [value]="customer"></p-tableCheckbox></td>
+                        <td (click)="highlightRow(customer.customer.id)">{{ customer.customer.description }}</td>
                     </tr>
                 </ng-template>
             </p-table>
