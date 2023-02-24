@@ -21,13 +21,13 @@ namespace API.Features.Reservations {
                 }))
                 .ForMember(x => x.CoachRoute, x => x.MapFrom(x => new CoachRouteListVM {
                     Id = x.PickupPoint.CoachRoute.Id,
-                    Description = x.PickupPoint.CoachRoute.Abbreviation,
-                    LongDescription = x.PickupPoint.CoachRoute.Description,
+                    Description = x.PickupPoint.CoachRoute.Description,
+                    Abbreviation = x.PickupPoint.CoachRoute.Abbreviation
                 }))
                 .ForMember(x => x.Destination, x => x.MapFrom(x => new DestinationListVM {
                     Id = x.Destination.Id,
-                    Description = x.Destination.Abbreviation,
-                    LongDescription = x.Destination.Description
+                    Description = x.Destination.Description,
+                    Abbreviation = x.Destination.Abbreviation
                 }))
                 .ForMember(x => x.PickupPoint, x => x.MapFrom(x => new PickupPointListVM {
                     Id = x.PickupPoint.Id,
@@ -41,8 +41,8 @@ namespace API.Features.Reservations {
                 }))
                 .ForMember(x => x.Port, x => x.MapFrom(x => new PortListVM {
                     Id = x.Port.Id,
-                    Description = x.Port.Abbreviation,
-                    LongDescription = x.Port.Description
+                    Description = x.Port.Description,
+                    Abbreviation = x.Port.Abbreviation
                 }))
                 .ForMember(x => x.Ship, x => x.MapFrom(x => new SimpleEntity {
                     Id = x.Ship == null ? 0 : x.Ship.Id,

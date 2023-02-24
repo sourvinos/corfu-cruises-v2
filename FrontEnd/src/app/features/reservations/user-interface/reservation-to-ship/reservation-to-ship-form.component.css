@@ -1,5 +1,5 @@
 #dialog-header {
-    margin-left: 1rem;
+    margin-left: 0;
 }
 
 #dialog-content {
@@ -8,5 +8,5 @@
 }
 
 #dialog-footer {
-    margin-right: 1rem;
+    margin-right: 0;
 }

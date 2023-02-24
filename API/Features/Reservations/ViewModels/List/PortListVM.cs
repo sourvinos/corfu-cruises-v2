@@ -4,7 +4,7 @@ namespace API.Features.Reservations {
 
     public class PortListVM : SimpleEntity {
 
-        public string LongDescription { get; set; }
+        public string Abbreviation { get; set; }
 
     }
 

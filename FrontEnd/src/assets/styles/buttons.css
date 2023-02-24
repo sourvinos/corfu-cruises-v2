@@ -125,7 +125,7 @@ button.mat-menu-trigger, button.mat-menu-trigger:hover {
 }
 
 button.mat-menu-trigger span {
-    color: var(--color-button-text) !important;
+    color: var(--color-c) !important;
 }
 
 .mat-icon {

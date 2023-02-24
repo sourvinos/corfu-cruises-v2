@@ -23,7 +23,7 @@ export class ReservationService extends HttpDataService {
     }
 
     public getByDateAndDriver(date: string, driverId: number): Observable<any> {
-        return this.http.get<any>(this.url + '/date/' + date + '/byDriver/' + driverId)
+        return this.http.get<any>(this.url + '/date/' + date + '/driver/' + driverId)
     }
 
     public getByRefNo(refNo: string): Observable<ReservationListVM> {

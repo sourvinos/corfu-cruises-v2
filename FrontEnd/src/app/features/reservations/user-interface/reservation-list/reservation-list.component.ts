@@ -50,6 +50,7 @@ export class ReservationListComponent {
     public parentUrl = '/reservations'
     public records: ReservationListVM[] = []
     public selectedRecords: ReservationListVM[] = []
+    private virtualElement: any
 
     public totals = [0, 0, 0]
     public isAdmin: boolean
@@ -69,19 +70,22 @@ export class ReservationListComponent {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
+                this.getConnectedUserRole()
                 this.loadRecords()
-                this.populateDropdowns()
-                this.storeDate()
+                this.populateDropdownFilters()
+                this.filterTableFromStoredFilters()
                 this.updateTotals(this.totals, this.records)
                 this.calculateOverbookings()
+                this.storeDate()
+                this.enableDisableFilters()
             }
         })
     }
 
     //#region lifecycle hooks
 
-    ngOnInit(): void {
-        this.getConnectedUserRole()
+    ngAfterViewInit(): void {
+        this.doVirtualTableTasks()
     }
 
     ngOnDestroy(): void {
@@ -149,19 +153,22 @@ export class ReservationListComponent {
     }
 
     public createPdf(): void {
-        this.driverReportService.doReportTasks(this.getDistinctDriverIds(this.records))
+        this.driverReportService.doReportTasks(this.getDistinctDriverIds())
     }
 
     public editRecord(id: string): void {
         this.localStorageService.saveItem('returnUrl', this.url)
+        this.storeScrollTop()
+        this.storeSelectedId(id)
         this.router.navigate([this.parentUrl, id])
     }
 
     public filterRecords(event?: { filteredValue: any[] }): void {
+        this.helperService.clearStyleFromVirtualTable()
         this.helperService.clearTableCheckboxes()
+        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.selectedRecords.splice(0)
         this.updateTotals(this.totals, event.filteredValue)
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -189,7 +196,7 @@ export class ReservationListComponent {
     }
 
     public highlightRow(id: any): void {
-        // this.helperService.highlightRow(id)
+        this.helperService.highlightRow(id)
     }
 
     public isFilterDisabled(): boolean {
@@ -238,6 +245,49 @@ export class ReservationListComponent {
         this.unsubscribe.unsubscribe()
     }
 
+    private doVirtualTableTasks(): void {
+        setTimeout(() => {
+            this.getVirtualElement()
+            this.scrollToSavedPosition()
+            this.hightlightSavedRow()
+        }, 1000)
+    }
+
+    private enableDisableFilters(): void {
+        this.records.length == 0 ? this.helperService.disableTableFilters() : this.helperService.enableTableFilters()
+    }
+
+    private filterColumn(element: { value: any }, field: string, matchMode: string): void {
+        if (element != undefined && (element.value != null || element.value != undefined)) {
+            this.table.filter(element.value, field, matchMode)
+        }
+    }
+
+    private filterTableFromStoredFilters(): void {
+        const filters = this.localStorageService.getFilters(this.feature + '-' + 'filters')
+        if (filters != undefined) {
+            setTimeout(() => {
+                this.filterColumn(filters.refNo, 'refNo', 'contains')
+                this.filterColumn(filters.ticketNo, 'ticketNo', 'contains')
+                this.filterColumn(filters.customer, 'customer', 'in')
+                this.filterColumn(filters.destination, 'destination', 'in')
+                this.filterColumn(filters.coachRoute, 'coachRoute', 'in')
+                this.filterColumn(filters.pickupPoint, 'pickupPoint', 'in')
+                this.filterColumn(filters.driver, 'driver', 'in')
+                this.filterColumn(filters.port, 'port', 'in')
+                this.filterColumn(filters.ship, 'ship', 'in')
+            }, 500)
+        }
+    }
+
+    private getVirtualElement(): void {
+        this.virtualElement = document.getElementsByClassName('p-scroller-inline')[0]
+    }
+
+    private hightlightSavedRow(): void {
+        this.helperService.highlightSavedRow(this.feature)
+    }
+
     private isAnyRowSelected(): boolean {
         if (this.selectedRecords.length == 0) {
             this.modalActionResultService.open(this.messageSnackbarService.noRecordsSelected(), 'error', ['ok'])
@@ -270,16 +320,15 @@ export class ReservationListComponent {
         return promise
     }
 
-    private getDistinctDriverIds(reservations: any): any[] {
+    private getDistinctDriverIds(): any[] {
         const driverIds = []
-        const x = [... new Set(reservations.map((x: { driverId: any }) => x.driverId))]
-        x.forEach(element => {
-            driverIds.push(element)
+        this.distinctDrivers.forEach(driver => {
+            driverIds.push(driver.id)
         })
         return driverIds
     }
 
-    private populateDropdowns(): void {
+    private populateDropdownFilters(): void {
         this.distinctCoachRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'description')
         this.distinctCustomers = this.helperService.getDistinctRecords(this.records, 'customer', 'description')
         this.distinctDestinations = this.helperService.getDistinctRecords(this.records, 'destination', 'description')
@@ -300,6 +349,10 @@ export class ReservationListComponent {
         })
     }
 
+    private scrollToSavedPosition(): void {
+        this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
+    }
+
     private storeDate(): void {
         if (this.url.includes('byRefNo')) {
             if (this.records.length > 0) {
@@ -310,6 +363,14 @@ export class ReservationListComponent {
                 ])
             }
         }
+    }
+
+    private storeSelectedId(id: string): void {
+        this.localStorageService.saveItem(this.feature + '-id', id)
+    }
+
+    private storeScrollTop(): void {
+        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     private updateTotals(totals: number[], filteredValue: any[]): void {
@@ -323,7 +384,7 @@ export class ReservationListComponent {
         this.distinctDestinations.forEach((destination) => {
             this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
                 this.overbookedDestinations.push({
-                    description: destination.longDescription,
+                    description: destination.abbreviation,
                     isOverbooked: response
                 })
             })

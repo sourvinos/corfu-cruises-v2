@@ -98,7 +98,7 @@
     box-shadow: none !important;
     color: var(--color-table-dropdown-filter-clear);
     height: 1rem;
-    margin: 0.125rem 0 0 0 !important;
+    margin: 0.125rem 0 0 -0.1875rem !important;
     position: absolute !important;
     top: 0.25rem;
     width: 0.9375rem;
