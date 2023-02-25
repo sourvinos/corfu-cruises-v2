@@ -15,9 +15,9 @@
 
     <div id="content">
         <div id="criteria-panel">
-            <criteria-panel [backgroundColor]="'var(--color-criteria-a)'" [feature]="feature" [header]="'criteria-destinations'" [icon]="'destinations'" [records]="criteriaPanels.destinations" [sortField]="'description'"></criteria-panel>
-            <criteria-panel [backgroundColor]="'var(--color-criteria-b)'" [feature]="feature" [header]="'criteria-ports'" [icon]="'ports'" [records]="criteriaPanels.ports" [sortField]="'description'"></criteria-panel>
-            <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
+            <criteria-panel [backgroundImage]="'var(--color-criteria-a)'" [feature]="feature" [header]="'criteria-destinations'" [icon]="'destinations'" [records]="criteriaPanels.destinations" [sortField]="'description'"></criteria-panel>
+            <criteria-panel [backgroundImage]="'var(--color-criteria-b)'" [feature]="feature" [header]="'criteria-ports'" [icon]="'ports'" [records]="criteriaPanels.ports" [sortField]="'description'"></criteria-panel>
+            <criteria-panel [backgroundImage]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
         <div id="table-wrapper">
             <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">

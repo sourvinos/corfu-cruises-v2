@@ -33,14 +33,13 @@
 }
 
 .p-datatable .p-datatable-thead > tr {
-    background-color: var(--color-b);
+    background-color: var(--color-x);
     transition: all var(--theme-change-delay) ease-in;
 }
 
 .p-datatable .p-datatable-thead > tr > th {
-    background-color: var(--color-b);
-    border-right: 0.0625rem solid var(--color-a) !important;
-    border-width: 0 0.0625rem 0 0 !important;
+    background-color: var(--color-x);
+    border-right: 0.0625rem solid transparent !important;
     color: var(--color-c) !important;
     font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-table-header) !important;
@@ -50,19 +49,41 @@
 }
 
 .p-datatable .p-datatable-thead > tr:nth-child(1) > th {
+    border-bottom: none;
+    border-top: 1px solid var(--color-e);
     padding: 0.5rem 0.5rem 0.5rem 0.5rem;
 }
 
 .p-datatable .p-datatable-thead > tr:nth-child(2) > th {
+    border-bottom: 1px solid var(--color-e);
+    border-top: none;
     padding: 0 0.5rem 0.5625rem 0.5rem;
 }
 
+.p-datatable .p-datatable-thead > tr:nth-child(1) > th:first-child {
+    border-left: 1px solid var(--color-e);
+    border-radius: 0.3125rem 0 0 0;
+}
+
+.p-datatable .p-datatable-thead > tr:nth-child(1) > th:last-child {
+    border-right: 1px solid var(--color-e) !important;
+    border-radius: 0 0.3125rem 0 0;
+}
+
+.p-datatable .p-datatable-thead > tr:nth-child(2) > th:first-child {
+    border-left: 1px solid var(--color-e);
+}
+
+.p-datatable .p-datatable-thead > tr:nth-child(2) > th:last-child {
+    border-right: 1px solid var(--color-e) !important;
+}
+
 .p-datatable .p-sortable-column.p-highlight {
-    background-color: var(--color-b) !important;
+    background-color: var(--color-x) !important;
 }
 
 .p-datatable .p-datatable-tbody > tr.p-highlight {
-    background-color: var(--color-f) !important;
+    background-color: var(--color-g) !important;
 }
 
 .p-datatable .p-datatable-tbody > tr {
@@ -119,7 +140,7 @@
 }
 
 .p-datatable .p-sortable-column:not(.p-highlight):hover {
-    background-color: var(--color-b) !important;
+    background-color: var(--color-x) !important;
 }
 
 .p-button.p-button-text.p-button-plain:enabled:hover {
@@ -132,7 +153,7 @@
 }
 
 div:not(.p-column-filter).p-column-filter-row:hover {
-    background-color: var(--color-f) !important;
+    background-color: var(--color-g) !important;
 }
 
 .p-checkbox {

@@ -127,7 +127,7 @@ export class PassengerFormComponent {
             'lastname': form.value.lastname,
             'firstname': form.value.firstname,
             'occupantId': 2,
-            'birthdate': form.value.birthdate.format('YYYY-MM-DD'),
+            'birthdate': form.value.birthdate,
             'nationality': form.value.nationality,
             'gender': form.value.gender,
             'specialCare': form.value.specialCare,

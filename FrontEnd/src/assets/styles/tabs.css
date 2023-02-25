@@ -35,12 +35,12 @@
 }
 
 .mat-tab-label-active {
-    background-color: var(--color-active-tab-background) !important;
+    background-image: var(--color-active-tab-background) !important;
     color: var(--color-c) !important;
 }
 
 .mat-tab-label:not(.mat-tab-label-active) {
-    background-color: var(--color-active-tab-background) !important;
+    background-image: var(--color-active-tab-background) !important;
 }
 
 .mat-tab-label-container {

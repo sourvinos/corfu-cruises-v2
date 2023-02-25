@@ -5,10 +5,10 @@
 
 #topmenu {
     align-items: center;
-    background: var(--color-b);
+    background-color: var(--color-x);
     border-radius: 0.3125rem;
-    border: none;
+    border: 0.0625rem solid var(--color-e);
     display: flex;
-    padding: 0.25rem;
+    padding: 0;
     transition: all var(--theme-change-delay) ease-in;
 }

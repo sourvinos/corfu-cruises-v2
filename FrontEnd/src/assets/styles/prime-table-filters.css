@@ -58,7 +58,7 @@
 }
 
 .p-multiselect-panel {
-    background-color: var(--color-b);
+    background-color: var(--color-x);
     padding: 0.5rem 0.5rem !important;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item.p-highlight, .p-multiselect-panel .p-multiselect-items .p-multiselect-item, .p-multiselect-panel .p-multiselect-items .p-multiselect-item:hover {
-    background-color: var(--color-b) !important;
+    background-color: var(--color-x) !important;
     box-shadow: none !important;
     color: var(--color-c) !important;
     font-family: var(--font-family-asty);
@@ -82,7 +82,7 @@
 }
 
 .p-multiselect-panel .p-multiselect-items .p-multiselect-item:hover {
-    background-color: var(--color-a) !important;
+    background-color: var(--color-g) !important;
 }
 
 .p-multiselect-option span {

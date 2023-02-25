@@ -43,12 +43,12 @@
 }
 
 #tab-overview {
-    background-color: var(--color-tab-overview);
+    background-image: var(--color-tab-overview);
     color: var(--color-button-text);
 }
 
 #tab-passengers {
-    background-color: var(--color-tab-passengers);
+    background-image: var(--color-tab-passengers);
     color: var(--color-button-text);
 }
 
@@ -63,9 +63,4 @@
 
 #table-wrapper {
     margin: 0;
-}
-
-#footer {
-    justify-content: space-between;
-    padding: var(--gap) 2rem var(--gap) 1rem;
 }

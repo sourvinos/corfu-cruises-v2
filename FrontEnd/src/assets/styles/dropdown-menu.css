@@ -15,11 +15,12 @@ li {
 }
 
 button {
-    background-color: var(--color-b);
+    background-color: var(--color-x);
     border-radius: 0;
     border: none;
     color: var(--color-c);
     display: flex;
+    font-size: 0.8rem !important;
     padding: 0.25rem 0 0.25rem 1rem !important;
 }
 
@@ -28,7 +29,7 @@ button.show-sub-menu {
 }
 
 button.hoverable:hover {
-    background-color: var(--color-d) !important;
+    background-color: var(--color-z) !important;
 }
 
 span {
@@ -40,10 +41,12 @@ li:hover .sub-menu {
 }
 
 .sub-menu {
+    border: 0.0625rem solid var(--color-e);
     display: none;
     flex-direction: column;
     left: 0;
     list-style: none;
+    overflow: hidden;
     padding: 0;
     position: absolute;
     top: 100%;
@@ -53,7 +56,7 @@ li:hover .sub-menu {
 
 .sub-menu button {
     animation: enter 0.1s ease forwards;
-    background-color: var(--color-b);
+    background-color: var(--color-x);
     justify-content: flex-start;
     opacity: 0;
     padding: 0.8rem 1rem !important;

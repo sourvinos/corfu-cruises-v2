@@ -14,5 +14,5 @@
 }
 
 .fa-trash-alt {
-    color: var(--color-button-background-delete) !important;
+    color: var(--color-table-delete-icon) !important;
 }

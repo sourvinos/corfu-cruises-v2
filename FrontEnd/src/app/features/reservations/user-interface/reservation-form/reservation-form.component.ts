@@ -1,12 +1,10 @@
-import moment from 'moment'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { firstValueFrom, Observable, Subject } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { map, startWith, takeUntil } from 'rxjs/operators'
 // Custom
-import { AccountService } from 'src/app/shared/services/account.service'
 import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
@@ -28,10 +26,10 @@ import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-ac
 import { ReservationReadDto } from '../../classes/dtos/form/reservation-read-dto'
 import { ReservationService } from '../../classes/services/reservation.service'
 import { ReservationWriteDto } from '../../classes/dtos/form/reservation-write-dto'
-import { UserService } from 'src/app/features/users/classes/services/user.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/voucher/services/voucher.service'
 import { WarningIconService } from '../../classes/services/warning-icon.service'
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 
 @Component({
     selector: 'reservation-form',
@@ -53,7 +51,7 @@ export class ReservationFormComponent {
     public parentUrl = ''
 
     private userId: string
-    public isAdmin: false
+    public isAdmin: boolean
     public isNewRecord = false
     public isLoading = new Subject<boolean>()
 
@@ -76,16 +74,16 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private userService: UserService, private voucherService: VoucherService, private warningIconService: WarningIconService) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private voucherService: VoucherService, private warningIconService: WarningIconService) {
         this.activatedRoute.params.subscribe(x => {
             this.initForm()
+            this.isReservationTabVisible = true
+            this.isPassengersTabVisible = false
             if (x.id) {
                 this.getRecord()
                 this.populateFields(this.reservation)
                 this.setNewRecord(false)
                 this.doPostInitJobs()
-                this.isReservationTabVisible = true
-                this.isPassengersTabVisible = false
             } else {
                 this.readStoredVariables()
                 this.setNewRecord(true)
@@ -258,14 +256,11 @@ export class ReservationFormComponent {
     }
 
     private doPostInitJobs(): void {
-        this.getConnectedUserId().then(() => {
-            this.getConnectedUserRole().then(() => {
-                this.getLinkedCustomer().then(() => {
-                    this.populateDropDowns()
-                    this.updateReturnUrl()
-                })
-            })
-        })
+        this.getConnectedUserId()
+        this.getUserRole()
+        this.getLinkedCustomer()
+        this.populateDropDowns()
+        this.updateReturnUrl()
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -279,14 +274,14 @@ export class ReservationFormComponent {
     private flattenForm(): ReservationWriteDto {
         const form = this.form.value
         const reservation: ReservationWriteDto = {
-            reservationId: form.reservationId,
+            reservationId: form.reservationId != '' ? form.reservationId : null,
             customerId: form.customer.id,
             destinationId: form.destination.id,
             driverId: form.driver ? form.driver.id : null,
             pickupPointId: form.pickupPoint.id,
             portId: form.port.id,
             shipId: form.ship ? form.ship.id : null,
-            date: moment(form.date).format('YYYY-MM-DD'),
+            date: form.date,
             refNo: form.refNo,
             ticketNo: form.ticketNo,
             email: form.email,
@@ -304,41 +299,21 @@ export class ReservationFormComponent {
         this.helperService.focusOnField(field)
     }
 
-    private getConnectedUserId(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.accountService.getConnectedUserId().subscribe((response) => {
-                this.userId = response
-                resolve(this.userId)
-            })
-        })
-        return promise
+    private getConnectedUserId(): void {
+        this.userId = ConnectedUser.id
     }
 
-    private getConnectedUserRole(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
-                this.isAdmin = response
-                resolve(this.isAdmin)
-            })
-        })
-        return promise
-    }
-
-    private getLinkedCustomer(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            this.userService.getSingle(this.userId).subscribe(user => {
-                if (user.body.customer.id != 0) {
-                    this.form.patchValue({
-                        customer: {
-                            'id': user.body.customer.id,
-                            'description': user.body.customer.description
-                        }
-                    })
+    private getLinkedCustomer(): void {
+        if (this.isNewRecord) {
+            const x = JSON.parse(this.localStorageService.getItem('customers'))
+            const z = x.filter(x => x.id == ConnectedUser.customerId)
+            this.form.patchValue({
+                customer: {
+                    'id': z.length > 0 ? z[0].id : 0,
+                    'description': z.length > 0 ? z[0].description : ''
                 }
-                resolve(user)
             })
-        })
-        return promise
+        }
     }
 
     private getValidPassengerIconForVoucher(isValid: boolean): string {
@@ -361,6 +336,10 @@ export class ReservationFormComponent {
             }
         })
         return promise
+    }
+
+    private getUserRole(): void {
+        this.isAdmin = ConnectedUser.isAdmin ? true : false
     }
 
     private goBack(): void {
@@ -404,7 +383,7 @@ export class ReservationFormComponent {
                 occupantId: 2,
                 lastname: passenger.lastname,
                 firstname: passenger.firstname,
-                birthdate: moment(passenger.birthdate).format('YYYY-MM-DD'),
+                birthdate: passenger.birthdate,
                 specialCare: passenger.specialCare,
                 remarks: passenger.remarks,
                 isCheckedIn: passenger.isCheckedIn

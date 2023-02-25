@@ -16,26 +16,18 @@ button:hover:not([disabled]) {
 }
 
 button.primary {
-    background-color: var(--color-button-background-primary) !important;
-    color: var(--color-button-text-primary) !important;
+    background-image: var(--color-button-background-primary);
+    color: var(--color-button-text) !important;
 }
 
 button.secondary {
-    background-color: var(--color-button-background-secondary) !important;
+    background-image: var(--color-button-background-secondary);
     color: var(--color-button-text) !important;
-}
-
-button.primary:hover:not([disabled]) {
-    background-color: var(--color-button-background-primary-hover) !important;
 }
 
 button.delete {
-    background-color: var(--color-button-background-delete) !important;
+    background-image: var(--color-button-background-delete) !important;
     color: var(--color-button-text) !important;
-}
-
-button.delete:hover {
-    background-color: var(--color-button-background-delete-hover) !important;
 }
 
 button.reverse {
@@ -52,8 +44,7 @@ button.transparent {
 }
 
 button.transparent:hover {
-    background-color: var(--color-button-background-secondary) !important;
-    color: var(--color-button-text) !important;
+    background-color: var(--color-x) !important;
 }
 
 button.tab {

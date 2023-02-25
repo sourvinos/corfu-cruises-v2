@@ -15,9 +15,9 @@
 
     <div id="content">
         <div id="criteria-panel">
-            <criteria-panel [backgroundColor]="'var(--color-criteria-a)'" [feature]="feature" [header]="'criteriaDestination'" [icon]="'destinations'" [records]="criteriaPanels.destinations"></criteria-panel>
-            <criteria-panel [backgroundColor]="'var(--color-criteria-b)'" [feature]="feature" [header]="'criteriaPorts'" [icon]="'ports'" [records]="criteriaPanels.ports"></criteria-panel>
-            <criteria-panel [backgroundColor]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteriaShip'" [icon]="'ships'" [records]="criteriaPanels.ships"></criteria-panel>
+            <criteria-panel [backgroundImage]="'var(--color-criteria-a)'" [feature]="feature" [header]="'criteriaDestination'" [icon]="'destinations'" [records]="criteriaPanels.destinations"></criteria-panel>
+            <criteria-panel [backgroundImage]="'var(--color-criteria-b)'" [feature]="feature" [header]="'criteriaPorts'" [icon]="'ports'" [records]="criteriaPanels.ports"></criteria-panel>
+            <criteria-panel [backgroundImage]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteriaShip'" [icon]="'ships'" [records]="criteriaPanels.ships"></criteria-panel>
         </div>
         <div id="table-wrapper">
             <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.passengers" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">

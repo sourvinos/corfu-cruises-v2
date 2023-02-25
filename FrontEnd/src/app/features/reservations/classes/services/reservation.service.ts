@@ -31,7 +31,7 @@ export class ReservationService extends HttpDataService {
     }
 
     public save(formData: any): Observable<any> {
-        return formData.reservationId == ''
+        return formData.reservationId == null
             ? this.http.post<any>(this.url, formData)
             : this.http.put<any>(this.url, formData)
     }

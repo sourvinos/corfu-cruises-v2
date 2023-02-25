@@ -16,7 +16,7 @@
             },
             {
                 "id": "header",
-                "description": "Přihlásit se"
+                "description": "Přihlášení"
             },
             {
                 "id": "username",
@@ -36,7 +36,7 @@
             },
             {
                 "id": "loginButton",
-                "description": "PŘIHLÁSIT SE"
+                "description": "Přihlášení"
             }
         ]
     },
@@ -65,7 +65,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÝ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -106,11 +106,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -135,7 +135,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÁ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -160,11 +160,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -189,7 +189,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÝ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -214,11 +214,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -251,11 +251,11 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÝ"
+                "description": "Nový rekord"
             },
             {
                 "id": "createPdf",
-                "description": "VYTVOŘIT PDF"
+                "description": "Vytvořit PDF"
             }
         ]
     },
@@ -292,11 +292,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             },
             {
                 "id": "formTab",
@@ -329,7 +329,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÉ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -358,11 +358,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -379,7 +379,7 @@
             },
             {
                 "id": "headerHasTransfer",
-                "description": "xFER"
+                "description": "Transfer"
             },
             {
                 "id": "headerAbbreviation",
@@ -391,7 +391,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÁ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -424,11 +424,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             },
             {
                 "id": "formTab",
@@ -469,7 +469,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÝ"
+                "description": "Nový rekord"
             },
             {
                 "id": "showConnectedUsers",
@@ -514,15 +514,15 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "changePasswordButton",
-                "description": "ZMĚNIT HESLO"
+                "description": "Změna hesla"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -571,7 +571,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -596,7 +596,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -649,7 +649,7 @@
             },
             {
                 "id": "newButton",
-                "description": "NOVÝ"
+                "description": "Nový"
             },
             {
                 "id": "total",
@@ -734,7 +734,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Upravit rezervaci"
+                "description": "Rezervaci"
             },
             {
                 "id": "tabGeneral",
@@ -822,7 +822,7 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "printVoucherButton",
@@ -834,7 +834,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             },
             {
                 "id": "createVoucherOnServer",
@@ -884,7 +884,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -930,11 +930,11 @@
         "feature": "assignToShip",
         "labels": [
             {
-                "id": "searchHint",
+                "id": "header",
                 "description": "Výběr lodi"
             },
             {
-                "id": "header",
+                "id": "subHeader",
                 "description": "Vyberte loď, která přepraví cestující do cílové destinace."
             },
             {
@@ -967,7 +967,7 @@
                 "description": "IMO"
             },
             {
-                "id": "newButton",
+                "id": "newRecord",
                 "description": "NOVÁ"
             }
         ]
@@ -1017,11 +1017,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -1034,7 +1034,7 @@
             },
             {
                 "id": "newButton",
-                "description": "NOVÝ"
+                "description": "Nový"
             }
         ]
     },
@@ -1067,7 +1067,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -1096,7 +1096,7 @@
             },
             {
                 "id": "newPassengerButton",
-                "description": "NOVÝ PASAŽÉR"
+                "description": "Nový cestující"
             }
         ]
     },
@@ -1141,7 +1141,7 @@
             },
             {
                 "id": "cancelButton",
-                "description": "ZRUŠIT"
+                "description": "Zrušit"
             },
             {
                 "id": "okButton",
@@ -1166,7 +1166,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÉ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -1187,11 +1187,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -1224,7 +1224,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "HLEDAT"
+                "description": "Vyhledávání"
             }
         ]
     },
@@ -1321,11 +1321,11 @@
             },
             {
                 "id": "createPDF",
-                "description": "VYTVOŘIT PDF"
+                "description": "Vytvořit PDF"
             },
             {
                 "id": "scanOpenButton",
-                "description": "SKENOVAT POUKAZ"
+                "description": "Skenování voucheru"
             },
             {
                 "id": "scan-close-button",
@@ -1358,7 +1358,7 @@
             },
             {
                 "id": "newButton",
-                "description": "NOVÝ"
+                "description": "Nový"
             },
             {
                 "id": "headerDescription",
@@ -1391,11 +1391,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -1428,7 +1428,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "VYHLEDÁVÁNÍ"
+                "description": "Vyhledávání"
             }
         ]
     },
@@ -1469,7 +1469,7 @@
             },
             {
                 "id": "headerHasTransfer",
-                "description": "xFER"
+                "description": "Transfer"
             },
             {
                 "id": "headerAdults",
@@ -1497,7 +1497,7 @@
             },
             {
                 "id": "createPdfButton",
-                "description": "VYTVOŘIT PDF"
+                "description": "Vytvořit PDF"
             },
             {
                 "id": "criteria-customers",
@@ -1566,7 +1566,7 @@
             },
             {
                 "id": "searchButton",
-                "description": "VYHLEDÁVÁNÍ"
+                "description": "Vyhledávání"
             },
             {
                 "id": "okButton",
@@ -1574,7 +1574,7 @@
             },
             {
                 "id": "cancelButton",
-                "description": "ZRUŠIT"
+                "description": "Zrušit"
             }
         ]
     },
@@ -1631,7 +1631,7 @@
             },
             {
                 "id": "createPdf",
-                "description": "VYTVOŘIT PDF"
+                "description": "Vytvořit PDF"
             }
         ]
     },
@@ -1660,7 +1660,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÝ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -1705,11 +1705,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -1738,7 +1738,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÁ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -1783,11 +1783,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -1816,7 +1816,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÝ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -1861,11 +1861,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -1898,7 +1898,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÝ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -1939,11 +1939,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -1976,7 +1976,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÝ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -2013,11 +2013,11 @@
             },
             {
                 "id": "deleteButton",
-                "description": "SMAZAT"
+                "description": "Smazat"
             },
             {
                 "id": "saveButton",
-                "description": "ULOŽIT"
+                "description": "Uložit"
             }
         ]
     },
@@ -2030,7 +2030,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÁ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -2044,52 +2044,6 @@
         ]
     },
     {
-        "feature": "theme",
-        "labels": [
-            {
-                "id": "blue",
-                "description": "Modrá"
-            },
-            {
-                "id": "gray",
-                "description": "Šedá"
-            },
-            {
-                "id": "green",
-                "description": "Zelená"
-            },
-            {
-                "id": "olive",
-                "description": "Olivová"
-            },
-            {
-                "id": "orange",
-                "description": "Oranžová"
-            },
-            {
-                "id": "red",
-                "description": "Červená"
-            }
-        ]
-    },
-    {
-        "feature": "totalsCriteria",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Celkové součty za období"
-            },
-            {
-                "id": "dateRange",
-                "description": "Kalendářní interval"
-            },
-            {
-                "id": "searchButton",
-                "description": "VYHLEDÁVÁNÍ"
-            }
-        ]
-    },
-    {
         "feature": "availabilityCalendar",
         "labels": [
             {
@@ -2098,7 +2052,7 @@
             },
             {
                 "id": "newRecord",
-                "description": "NOVÝ"
+                "description": "Nový rekord"
             }
         ]
     },
@@ -2124,15 +2078,6 @@
             {
                 "id": "headerExpiryDate",
                 "description": "Auto odhlášení"
-            }
-        ]
-    },
-    {
-        "feature": "mat-calendar",
-        "labels": [
-            {
-                "id": "todayButton",
-                "description": "DENNĚ"
             }
         ]
     }

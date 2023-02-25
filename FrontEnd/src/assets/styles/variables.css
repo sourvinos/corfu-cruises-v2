@@ -1,4 +1,7 @@
 * {
+    /* Logo */
+    --login-logo-image-size: 5.5rem;
+    --login-logo-text-size: 2.5rem;
     /* Font names */
     --font-family-asty: "Asty CF Std";
     --font-family-handbook: "PF-Handbook-Pro";
@@ -19,7 +22,7 @@
     --hover-change-delay: 0.15s;
     --theme-change-delay: 1s;
     /* Common sizes in all screen resolutions */
-    --font-size-button: 0.8rem;
+    --font-size-button: 0.90rem;
     --font-size-calendar-day: 0.85rem;
     --font-size-checkbox: 0.65rem;
     --font-size-datepicker-header-month: 1.25rem;
@@ -31,7 +34,7 @@
     --font-size-loading-message: 2rem;
     --font-size-logo-loader-first-child: 8rem;
     --font-size-logo-loader-second-child: 4.5rem;
-    --font-size-logo-text: 200%;
+    --font-size-logo-text: 2.5rem;
     --font-size-map-tooltip: 1.1rem;
     --font-size-menu-headers: 1.4rem;
     --font-size-menu-items: 1.1rem;
@@ -46,6 +49,4 @@
     /* Misc */
     --blur: 0.5rem;
     --gap: 1rem;
-    --login-logo-image-size: 7rem;
-    --login-logo-text-size: 3rem;
 }
