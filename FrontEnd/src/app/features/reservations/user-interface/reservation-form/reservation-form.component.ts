@@ -206,7 +206,10 @@ export class ReservationFormComponent {
         this.form.patchValue({
             exactPoint: value.exactPoint,
             time: value.time,
-            port: { 'id': value.port.id, 'description': value.port.description }
+            port: {
+                'id': value.port.id,
+                'description': value.port.description
+            }
         })
     }
 
@@ -257,7 +260,7 @@ export class ReservationFormComponent {
 
     private doPostInitJobs(): void {
         this.getConnectedUserId()
-        this.getUserRole()
+        this.getConnectedUserRole()
         this.getLinkedCustomer()
         this.populateDropDowns()
         this.updateReturnUrl()
@@ -338,7 +341,7 @@ export class ReservationFormComponent {
         return promise
     }
 
-    private getUserRole(): void {
+    private getConnectedUserRole(): void {
         this.isAdmin = ConnectedUser.isAdmin ? true : false
     }
 

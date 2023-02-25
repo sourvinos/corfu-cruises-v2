@@ -2,10 +2,10 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Table } from 'primeng/table'
-import { firstValueFrom, Subject } from 'rxjs'
+import { Subject } from 'rxjs'
 // Custom
-import { AccountService } from 'src/app/shared/services/account.service'
 import { CoachRouteDistinctVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-distinct-vm'
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { CustomerDistinctVM } from 'src/app/features/customers/classes/view-models/customer-distinct-vm'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationDistinctVM } from 'src/app/features/destinations/classes/view-models/destination-distinct-vm'
@@ -66,7 +66,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -103,7 +103,7 @@ export class ReservationListComponent {
                 height: '550px',
                 width: '500px',
                 data: {
-                    drivers: this.driverService.getActive(),
+                    drivers: this.driverService.getActiveFromStorage(),
                     actions: ['abort', 'ok']
                 },
                 panelClass: 'dialog'
@@ -129,7 +129,7 @@ export class ReservationListComponent {
                 height: '550px',
                 width: '500px',
                 data: {
-                    ships: this.shipService.getActive(),
+                    ships: this.shipService.getActiveFromStorage(),
                     actions: ['abort', 'ok']
                 },
                 panelClass: 'dialog'
@@ -310,14 +310,8 @@ export class ReservationListComponent {
         return promise
     }
 
-    private getConnectedUserRole(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            firstValueFrom(this.accountService.isConnectedUserAdmin()).then((response) => {
-                this.isAdmin = response
-                resolve(this.isAdmin)
-            })
-        })
-        return promise
+    private getConnectedUserRole(): void {
+        this.isAdmin = ConnectedUser.isAdmin ? true : false
     }
 
     private getDistinctDriverIds(): any[] {

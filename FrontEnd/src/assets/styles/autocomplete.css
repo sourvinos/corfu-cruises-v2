@@ -1,13 +1,18 @@
 .mat-autocomplete-panel.mat-autocomplete-visible {
-    background-color: var(--color-b) !important;
+    background-color: var(--color-x) !important;
     border-radius: 0 !important;
 }
 
 .mat-option {
     border: 1px solid transparent !important;
     font-family: var(--font-family-ubuntu) !important;
+    font-size: 14px;
     height: 2rem !important;
     line-height: 2rem !important;
+}
+
+.mat-option:hover {
+    background-color: var(--color-z) !important;
 }
 
 .mat-option-text {
