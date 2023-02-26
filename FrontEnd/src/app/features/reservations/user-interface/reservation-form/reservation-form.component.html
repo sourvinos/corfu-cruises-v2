@@ -6,8 +6,8 @@
             <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
             <div id="header-buttons">
                 <div id="tab-scroller">
-                    <button (click)="scrollToReservation()" mat-flat-button id="tab-overview">{{ getLabel("tabGeneral") }}</button>
-                    <button (click)="scrollToPassengers()" mat-flat-button id="tab-passengers">{{ getLabel("tabPassengers") }}</button>
+                    <button (click)="showReservationTab()" mat-flat-button id="tab-overview">{{ getLabel("tabGeneral") }}</button>
+                    <button (click)="showPassengersTab()" mat-flat-button id="tab-passengers">{{ getLabel("tabPassengers") }}</button>
                 </div>
                 <button [matMenuTriggerFor]="menu" pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text transparent"></button>
                 <mat-menu #menu="matMenu" class="primary" xPosition="before">
@@ -26,8 +26,8 @@
                         </mat-form-field>
                         <!-- Date -->
                         <mat-form-field>
-                            <input [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" data-tabindex="1" formControlName="date" matInput>
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <input [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="1" formControlName="date" matInput>
+                            <mat-datepicker-toggle [disabled]="!userMustBeAdminOrNewRecord()" matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error *ngIf="date.hasError('required')">{{ getHint("required") }}</mat-error>
                             <mat-error *ngIf="!date.hasError('required')">{{ getHint("invalid") }}</mat-error>

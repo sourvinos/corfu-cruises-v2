@@ -83,12 +83,14 @@ export class HelperService {
         return distinctRecords
     }
 
-    public focusOnField(element: string): void {
+    public focusOnField(field: string): void {
         setTimeout(() => {
-            const input = <HTMLInputElement>document.getElementById(element)
-            input.focus()
-            input.select()
-        }, 800)
+            const input = Array.prototype.slice.apply(document.querySelectorAll('input[data-tabindex]'))[0]
+            if (input != null) {
+                input.focus()
+                input.select()
+            }
+        }, 500)
     }
 
     public toggleActiveItem(item: string, lookupArray: string[], className: string): any {

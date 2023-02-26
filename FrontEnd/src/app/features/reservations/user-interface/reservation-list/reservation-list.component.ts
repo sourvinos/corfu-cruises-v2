@@ -1,8 +1,8 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
+import { Subscription } from 'rxjs'
 import { Table } from 'primeng/table'
-import { Subject } from 'rxjs'
 // Custom
 import { CoachRouteDistinctVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-distinct-vm'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
@@ -39,10 +39,10 @@ import { environment } from 'src/environments/environment'
 export class ReservationListComponent {
 
     //#region variables
-
+    
     @ViewChild('table') table: Table | undefined
-
-    private unsubscribe = new Subject<void>()
+    
+    private subscription = new Subscription()
     private url = ''
     public feature = 'reservationList'
     public featureIcon = 'reservations'
@@ -67,16 +67,16 @@ export class ReservationListComponent {
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, public dialog: MatDialog) {
-        this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd) {
-                this.url = navigation.url
+        this.router.routeReuseStrategy.shouldReuseRoute = (): boolean => false
+        this.subscription = this.router.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                this.updateRouter()
                 this.getConnectedUserRole()
                 this.loadRecords()
                 this.populateDropdownFilters()
                 this.filterTableFromStoredFilters()
                 this.updateTotals(this.totals, this.records)
                 this.calculateOverbookings()
-                this.storeDate()
                 this.enableDisableFilters()
             }
         })
@@ -114,7 +114,7 @@ export class ReservationListComponent {
                         this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
                             this.clearSelectedRecords()
                             this.resetTableFilters()
-                            this.refreshList()
+                            this.router.navigate([this.router.url])
                         })
                     })
                 }
@@ -157,7 +157,6 @@ export class ReservationListComponent {
     }
 
     public editRecord(id: string): void {
-        this.localStorageService.saveItem('returnUrl', this.url)
         this.storeScrollTop()
         this.storeSelectedId(id)
         this.router.navigate([this.parentUrl, id])
@@ -208,10 +207,6 @@ export class ReservationListComponent {
         this.router.navigate([this.parentUrl, 'new'])
     }
 
-    public onGoBack(): void {
-        this.router.navigate([this.parentUrl])
-    }
-
     public resetTableFilters(): void {
         this.helperService.clearTableTextFilters(this.table, ['refNo', 'ticketNo'])
     }
@@ -228,21 +223,28 @@ export class ReservationListComponent {
         }
     }
 
-    public unHighlightAllRows(): void {
-        this.helperService.unHighlightAllRows()
-    }
-
     //#endregion
 
     //#region private methods
+
+    private calculateOverbookings(): void {
+        this.overbookedDestinations = []
+        this.distinctDestinations.forEach((destination) => {
+            this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
+                this.overbookedDestinations.push({
+                    description: destination.abbreviation,
+                    isOverbooked: response
+                })
+            })
+        })
+    }
 
     private clearSelectedRecords(): void {
         this.selectedRecords = []
     }
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private doVirtualTableTasks(): void {
@@ -254,7 +256,14 @@ export class ReservationListComponent {
     }
 
     private enableDisableFilters(): void {
-        this.records.length == 0 ? this.helperService.disableTableFilters() : this.helperService.enableTableFilters()
+        setTimeout(() => {
+            const x = document.querySelectorAll<HTMLElement>('.p-multiselect-label')
+            x.forEach(element => {
+                if (element.innerText == 'empty') {
+                    element.innerHTML = ''
+                }
+            })
+        }, 1000)
     }
 
     private filterColumn(element: { value: any }, field: string, matchMode: string): void {
@@ -278,6 +287,18 @@ export class ReservationListComponent {
                 this.filterColumn(filters.ship, 'ship', 'in')
             }, 500)
         }
+    }
+
+    private getConnectedUserRole(): void {
+        this.isAdmin = ConnectedUser.isAdmin ? true : false
+    }
+
+    private getDistinctDriverIds(): any[] {
+        const driverIds = []
+        this.distinctDrivers.forEach(driver => {
+            driverIds.push(driver.id)
+        })
+        return driverIds
     }
 
     private getVirtualElement(): void {
@@ -310,17 +331,6 @@ export class ReservationListComponent {
         return promise
     }
 
-    private getConnectedUserRole(): void {
-        this.isAdmin = ConnectedUser.isAdmin ? true : false
-    }
-
-    private getDistinctDriverIds(): any[] {
-        const driverIds = []
-        this.distinctDrivers.forEach(driver => {
-            driverIds.push(driver.id)
-        })
-        return driverIds
-    }
 
     private populateDropdownFilters(): void {
         this.distinctCoachRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'description')
@@ -333,7 +343,8 @@ export class ReservationListComponent {
     }
 
     private refreshList(): void {
-        this.router.navigate([this.url])
+        console.log('Refreshing')
+        this.router.navigateByUrl(this.router.url)
     }
 
     private saveSelectedIds(): void {
@@ -345,18 +356,6 @@ export class ReservationListComponent {
 
     private scrollToSavedPosition(): void {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
-    }
-
-    private storeDate(): void {
-        if (this.url.includes('byRefNo')) {
-            if (this.records.length > 0) {
-                this.localStorageService.saveItem('date', this.records[0].date)
-            } else {
-                this.localStorageService.deleteItems([
-                    { 'item': 'date', 'when': 'always' }
-                ])
-            }
-        }
     }
 
     private storeSelectedId(id: string): void {
@@ -373,16 +372,8 @@ export class ReservationListComponent {
         totals[2] = this.selectedRecords.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
     }
 
-    private calculateOverbookings(): void {
-        this.overbookedDestinations = []
-        this.distinctDestinations.forEach((destination) => {
-            this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
-                this.overbookedDestinations.push({
-                    description: destination.abbreviation,
-                    isOverbooked: response
-                })
-            })
-        })
+    private updateRouter(): void {
+        this.router.navigated = false
     }
 
     //#endregion

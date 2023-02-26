@@ -41,7 +41,6 @@ li:hover .sub-menu {
 }
 
 .sub-menu {
-    border: 0.0625rem solid var(--color-e);
     display: none;
     flex-direction: column;
     left: 0;
@@ -57,11 +56,21 @@ li:hover .sub-menu {
 .sub-menu button {
     animation: enter 0.1s ease forwards;
     background-color: var(--color-x);
+    border-left: 0.0625rem solid var(--color-e);
+    border-right: 0.0625rem solid var(--color-e);
     justify-content: flex-start;
     opacity: 0;
     padding: 0.8rem 1rem !important;
     transform-origin: bottom;
     width: 100%;
+}
+
+.sub-menu button:first-child {
+    border-top: 0.0625rem solid var(--color-e);
+}
+
+.sub-menu button:last-child {
+    border-bottom: 0.0625rem solid var(--color-e);
 }
 
 .sub-menu button:nth-child(1) {
