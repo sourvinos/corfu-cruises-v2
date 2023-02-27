@@ -745,6 +745,10 @@
                 "description": "Cestující"
             },
             {
+                "id": "tabMisc",
+                "description": "Podrobnosti"
+            },
+            {
                 "id": "refNo",
                 "description": "RefNo"
             },

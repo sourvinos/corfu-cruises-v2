@@ -343,7 +343,6 @@ export class ReservationListComponent {
     }
 
     private refreshList(): void {
-        console.log('Refreshing')
         this.router.navigateByUrl(this.router.url)
     }
 

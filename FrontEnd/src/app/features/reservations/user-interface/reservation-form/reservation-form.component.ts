@@ -68,6 +68,7 @@ export class ReservationFormComponent {
     public passengerDifferenceIcon: string
     public isReservationTabVisible: boolean
     public isPassengersTabVisible: boolean
+    public isMiscTabVisible: boolean
 
     //#endregion
 
@@ -108,17 +109,17 @@ export class ReservationFormComponent {
             const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
             switch (true) {
                 case passengerDifference == 0:
-                    this.passengerDifferenceIcon = this.emojiService.getEmoji('ok')
+                    this.passengerDifferenceIcon = this.emojiService.getEmoji('green-circle')
                     return true
                 case passengerDifference < 0:
-                    this.passengerDifferenceIcon = this.emojiService.getEmoji('error')
+                    this.passengerDifferenceIcon = this.emojiService.getEmoji('red-circle')
                     return false
                 case passengerDifference > 0:
-                    this.passengerDifferenceIcon = this.emojiService.getEmoji('warning')
+                    this.passengerDifferenceIcon = this.emojiService.getEmoji('yellow-circle')
                     return true
             }
         } else {
-            this.passengerDifferenceIcon = this.emojiService.getEmoji('warning')
+            this.passengerDifferenceIcon = this.emojiService.getEmoji('yellow-circle')
             return true
         }
     }
@@ -179,14 +180,22 @@ export class ReservationFormComponent {
         this.form.patchValue({ passengers: passengers })
     }
 
-    public showPassengersTab(): void {
-        this.isPassengersTabVisible = true
-        this.isReservationTabVisible = false
+    public showReservationTab(): void {
+        this.isReservationTabVisible = true
+        this.isPassengersTabVisible = false
+        this.isMiscTabVisible = false
     }
 
-    public showReservationTab(): void {
+    public showPassengersTab(): void {
+        this.isReservationTabVisible = false
+        this.isPassengersTabVisible = true
+        this.isMiscTabVisible = false
+    }
+
+    public showMiscTab(): void {
+        this.isReservationTabVisible = false
         this.isPassengersTabVisible = false
-        this.isReservationTabVisible = true
+        this.isMiscTabVisible = true
     }
 
     public updateFieldsAfterPickupPointSelection(value: PickupPointActiveVM): void {

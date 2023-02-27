@@ -13,6 +13,34 @@
     margin-top: 0.7rem;
 }
 
+#footer {
+    justify-content: space-between;
+}
+
+#passenger-count-wrapper {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+}
+
+#passenger-count-wrapper .material-icons {
+    color: var(--color-input-focus);
+    font-size: 2.1875rem;
+}
+
+#passenger-count {
+    color: var(--color-c);
+    font-family: var(--font-family-asty);
+    font-size: 1.25rem;
+    font-weight: 300;
+    margin-top: 0.1875rem;
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+tr:hover {
+    cursor: pointer;
+}
+
 .fa-trash-alt {
     color: var(--color-table-delete-icon) !important;
 }

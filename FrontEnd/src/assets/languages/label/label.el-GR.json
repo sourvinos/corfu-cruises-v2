@@ -745,6 +745,10 @@
                 "description": "Επιβάτες"
             },
             {
+                "id": "tabMisc",
+                "description": "Λεπτομέρειες"
+            },
+            {
                 "id": "refNo",
                 "description": "RefNo"
             },
@@ -1088,7 +1092,7 @@
             },
             {
                 "id": "headerCountry",
-                "description": "Εθνικότητα"
+                "description": "Xώρα"
             },
             {
                 "id": "headerIsCheckedIn",

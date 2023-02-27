@@ -9,13 +9,13 @@
             <div class="group-field">
                 <!-- Lastname -->
                 <mat-form-field>
-                    <input [inputTabStop]="input" [placeholder]="getLabel('lastname')" data-tabindex="1" formControlName="lastname" matInput>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('lastname')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="1" formControlName="lastname" matInput>
                     <mat-error *ngIf="lastname.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="lastname.hasError('maxlength')">{{ getHint("maxLength", lastname.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <!-- Firstname -->
                 <mat-form-field>
-                    <input [inputTabStop]="input" [placeholder]="getLabel('firstname')" data-tabindex="2" formControlName="firstname" matInput>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('firstname')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="2" formControlName="firstname" matInput>
                     <mat-error *ngIf="firstname.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="firstname.hasError('maxlength')">{{ getHint("maxLength", firstname.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
@@ -23,19 +23,19 @@
             <div class="group-field">
                 <!-- Nationality -->
                 <mat-form-field style="width: 40% !important;">
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="nationalities" [placeholder]="getLabel('nationality')" data-tabindex="3" formControlName="nationality" matInput>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="nationalities" [placeholder]="getLabel('nationality')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="3" formControlName="nationality" matInput>
                     <mat-error *ngIf="nationality.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!nationality.hasError('required') && nationality.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
                 <!-- Gender -->
                 <mat-form-field style="width: 30% !important;">
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="genders" [placeholder]="getLabel('gender')" data-tabindex="4" formControlName="gender" matInput>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="genders" [placeholder]="getLabel('gender')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="4" formControlName="gender" matInput>
                     <mat-error *ngIf="gender.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!gender.hasError('required') && gender.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
                 <!-- Birthdate -->
                 <mat-form-field style="width: 40% !important;">
-                    <input [inputTabStop]="input" [matDatepicker]="picker" [max]="maxBirthDate" [min]="minBirthDate" [placeholder]="getLabel('birthdate')" data-tabindex="5" formControlName="birthdate" matInput>
+                    <input [inputTabStop]="input" [matDatepicker]="picker" [max]="maxBirthDate" [min]="minBirthDate" [placeholder]="getLabel('birthdate')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="5" formControlName="birthdate" matInput>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="birthdate.hasError('required')">{{ getHint("required") }}</mat-error>
@@ -45,20 +45,27 @@
             <div class="group-field">
                 <!-- Special care -->
                 <mat-form-field>
-                    <input [inputTabStop]="input" [placeholder]="getLabel('specialCare')" data-tabindex="6" formControlName="specialCare" matInput>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('specialCare')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="6" formControlName="specialCare" matInput>
                     <mat-error *ngIf="specialCare.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="specialCare.hasError('maxlength')">{{ getHint("maxLength", specialCare.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
                 <!-- Remarks -->
                 <mat-form-field>
-                    <input [inputTabStop]="input" [placeholder]="getLabel('remarks')" data-tabindex="7" formControlName="remarks" matInput>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('remarks')" [readonly]="!userMustBeAdminOrNewRecord()" data-tabindex="7" formControlName="remarks" matInput>
                     <mat-error *ngIf="remarks.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="remarks.hasError('maxlength')">{{ getHint("maxLength", remarks.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
             </div>
-            <!-- <mat-slide-toggle [disableToogle]=!isAdmin formControlName="isCheckedIn">{{ getLabel('isCheckedIn') }}</mat-slide-toggle> -->
+            <div class="group-field">
+                <!-- IsBoarded -->
+                <div class="styled-input-square">
+                    <div class="styled-input-single">
+                        <input id="isCheckedIn" formControlName="isCheckedIn" type="checkbox">
+                        <label for="isCheckedIn">{{ getLabel("isCheckedIn") }}</label>
+                    </div>
+                </div>
+            </div>
         </form>
-
     </div>
 
     <div id="dialog-footer">
@@ -75,14 +82,14 @@
 
 </div>
 
-<mat-autocomplete #nationalities="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of filteredNationalities | async" [value]="option">
+<mat-autocomplete #genders="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredGenders | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>
 
-<mat-autocomplete #genders="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of filteredGenders | async" [value]="option">
+<mat-autocomplete #nationalities="matAutocomplete" [displayWith]="autocompleteFields" (optionSelected)="updateFieldsAfterNationalitySelection($event.option.value)" autoActiveFirstOption>
+    <mat-option *ngFor="let option of filteredNationalities | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>

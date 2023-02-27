@@ -17,6 +17,7 @@
     /* Reservation Form Tabs */
     --color-tab-overview: linear-gradient(to top, #5f80a7, #6a8eb8, #759cc9, #80aada, #8cb8ec);
     --color-tab-passengers: linear-gradient(to top, #829ebe, #8ca7c6, #96b0ce, #a0b9d6, #aac2de);
+    --color-tab-misc: linear-gradient(to top, #a4b9d0, #a9bed4, #afc2d8, #b4c7dc, #bacce0);
     /* Loader */
     --color-loader: #d94040;
     /* Criteria & Totals */

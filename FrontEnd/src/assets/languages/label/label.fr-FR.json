@@ -745,6 +745,10 @@
                 "description": "Passagers"
             },
             {
+                "id": "tabMisc",
+                "description": "Détails"
+            },
+            {
                 "id": "refNo",
                 "description": "RefNo"
             },

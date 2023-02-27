@@ -72,7 +72,12 @@ namespace API.Features.Reservations {
                 }));
             // Read passenger
             CreateMap<Passenger, PassengerReadDto>()
-                .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Birthdate)));
+                .ForMember(x => x.Birthdate, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Birthdate)))
+                .ForMember(x => x.Nationality, x => x.MapFrom(x => new NationalityDto {
+                    Id = x.Nationality.Id,
+                    Description = x.Nationality.Description,
+                    Code = x.Nationality.Code
+                }));
             // Write reservation
             CreateMap<ReservationWriteDto, Reservation>()
                 .ForMember(x => x.LastUpdate, x => x.MapFrom(x => DateHelpers.DateTimeToISOString(DateTime.Now)));

@@ -4,9 +4,12 @@ import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
 import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
+import { environment } from 'src/environments/environment'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'passenger-list',
@@ -29,7 +32,7 @@ export class PassengerListComponent {
 
     //#endregion
 
-    constructor(public dialog: MatDialog, private messageLabelService: MessageLabelService) { }
+    constructor(public emojiService: EmojiService, public dialog: MatDialog, private helperService: HelperService, private messageLabelService: MessageLabelService) { }
 
     //#region lifecycle hooks
 
@@ -41,6 +44,14 @@ export class PassengerListComponent {
     //#endregion
 
     //#region public methods
+
+    public getEmbarkationStatusIcon(status: boolean): string {
+        return status ? this.getEmoji('green-circle') : this.getEmoji('red-circle')
+    }
+
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
+    }
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
@@ -55,6 +66,14 @@ export class PassengerListComponent {
 
     public editRecord(record: any): void {
         this.showPassengerForm(record)
+    }
+
+    public getNationalityIcon(nationalityCode: string): any {
+        return environment.nationalitiesIconDirectory + nationalityCode.toLowerCase() + '.png'
+    }
+
+    public highlightRow(id: any): void {
+        this.helperService.highlightRow(id)
     }
 
     public newRow(): void {
@@ -72,7 +91,7 @@ export class PassengerListComponent {
                 id: passenger.id,
                 reservationId: passenger.reservationId,
                 gender: { 'id': passenger.gender.id, 'description': passenger.gender.description },
-                nationality: { 'id': passenger.nationality.id, 'description': passenger.nationality.description },
+                nationality: { 'id': passenger.nationality.id, 'code': passenger.nationality.code, 'description': passenger.nationality.description },
                 lastname: passenger.lastname,
                 firstname: passenger.firstname,
                 birthdate: passenger.birthdate,

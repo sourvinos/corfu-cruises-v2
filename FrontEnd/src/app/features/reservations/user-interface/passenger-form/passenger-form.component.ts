@@ -5,15 +5,17 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { NationalityDropdownVM } from 'src/app/features/nationalities/classes/view-models/nationality-dropdown-vm'
+import { NationalityVM } from './../../classes/view-models/passenger/nationality-vm'
 import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { GenderActiveVM } from 'src/app/features/genders/classes/view-models/gender-active-vm'
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 
 @Component({
     selector: 'passenger-form',
@@ -39,26 +41,31 @@ export class PassengerFormComponent {
 
     public isAutoCompleteDisabled = true
 
-    public genders: GenderActiveVM[] = []
-    public filteredGenders: Observable<GenderActiveVM[]>
-    public nationalities: NationalityDropdownVM[] = []
-    public filteredNationalities: Observable<NationalityDropdownVM[]>
+    public genders: SimpleEntity[]
+    public filteredGenders: Observable<SimpleEntity[]>
+    public nationalities: NationalityVM[]
+    public filteredNationalities: Observable<NationalityVM[]>
 
     public isAdmin: boolean
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadDto, private dateAdapter: DateAdapter<any>, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private ngZone: NgZone) {
+    constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadDto, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private ngZone: NgZone) {
         this.record = data
     }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
+        this.getConnectedUserRole()
         this.initForm()
         this.populateDropdowns()
         this.populateFields()
         this.setLocale()
+    }
+
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
@@ -91,6 +98,20 @@ export class PassengerFormComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public updateFieldsAfterNationalitySelection(value: NationalityVM): void {
+        this.form.patchValue({
+            nationality: {
+                'id': value.id,
+                'description': value.description,
+                'code': value.code,
+            }
+        })
+    }
+
+    public userMustBeAdminOrNewRecord(): boolean {
+        return this.isAdmin ? true : this.record.reservationId ? false : true
     }
 
     public save(): void {
@@ -127,7 +148,7 @@ export class PassengerFormComponent {
             'lastname': form.value.lastname,
             'firstname': form.value.firstname,
             'occupantId': 2,
-            'birthdate': form.value.birthdate,
+            'birthdate': this.dateHelperService.formatDateToIso(new Date(this.form.value.birthdate)),
             'nationality': form.value.nationality,
             'gender': form.value.gender,
             'specialCare': form.value.specialCare,
@@ -135,6 +156,14 @@ export class PassengerFormComponent {
             'isCheckedIn': form.value.isCheckedIn
         }
         return passenger
+    }
+
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
+    }
+
+    private getConnectedUserRole(): void {
+        this.isAdmin = ConnectedUser.isAdmin ? true : false
     }
 
     private initForm(): void {
@@ -145,10 +174,10 @@ export class PassengerFormComponent {
             nationality: ['', [Validators.required, ValidationService.RequireAutocomplete]],
             lastname: ['', [Validators.required, Validators.maxLength(128)]],
             firstname: ['', [Validators.required, Validators.maxLength(128)]],
-            birthdate: ['', [Validators.required, Validators.maxLength(10)]],
+            birthdate: ['', [Validators.required]],
             specialCare: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
-            isCheckedIn: false,
+            isCheckedIn: [{ value: false, disabled: !this.isAdmin }],
         })
     }
 
@@ -167,7 +196,7 @@ export class PassengerFormComponent {
             id: this.record.id,
             reservationId: this.record.reservationId,
             gender: { 'id': this.record.gender.id, 'description': this.record.gender.description },
-            nationality: { 'id': this.record.nationality.id, 'description': this.record.nationality.description },
+            nationality: { 'id': this.record.nationality.id, 'code': this.record.nationality.code, 'description': this.record.nationality.description },
             lastname: this.record.lastname,
             firstname: this.record.firstname,
             birthdate: this.record.birthdate,

@@ -96,6 +96,7 @@ svg {
     font-weight: var(--font-weight-dialog-content) !important;
     justify-content: center;
     overflow: hidden;
+    text-align: center;
 }
 
 #dialog-footer {

@@ -1,6 +1,6 @@
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
-export interface NationalityDropdownVM extends SimpleEntity {
+export interface NationalityVM extends SimpleEntity {
 
     code: string
 

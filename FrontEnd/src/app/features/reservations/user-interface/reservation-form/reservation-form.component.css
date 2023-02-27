@@ -1,10 +1,13 @@
 #content {
+    border-radius: 1rem;
+    border: 0.0625rem solid var(--color-e);
     display: flex;
     flex-direction: column;
     height: 100%;
     justify-content: center;
     margin: 0 auto;
-    width: 1000px;
+    padding: 1rem 4rem;
+    width: 90%;
 }
 
 #header {
@@ -30,16 +33,14 @@
     display: flex;
     flex-direction: row !important;
     height: 100%;
+    justify-content: center;
     overflow: hidden;
     scroll-behavior: smooth;
     scroll-snap-type: x mandatory;
 }
 
-.tab-content {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 1000px;
+#reservations, #passengers, #misc {
+    width: 100%;
 }
 
 #tab-overview {
@@ -49,6 +50,11 @@
 
 #tab-passengers {
     background-image: var(--color-tab-passengers);
+    color: var(--color-button-text);
+}
+
+#tab-misc {
+    background-image: var(--color-tab-misc);
     color: var(--color-button-text);
 }
 
@@ -63,4 +69,20 @@
 
 #table-wrapper {
     margin: 0;
+}
+
+.tab-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 0 auto;
+    width: 62rem;
+}
+
+#passenger-check-total-icon {
+    margin-left: 0.5rem;
+}
+
+.hide-autocomplete {
+    display: none;
 }

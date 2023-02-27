@@ -90,11 +90,6 @@ ul {
     margin: 0 auto;
 }
 
-.right-buttons {
-    margin-left: auto;
-    margin-right: 2rem;
-}
-
 .hidden {
     visibility: hidden !important;
 }

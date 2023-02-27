@@ -1,9 +1,10 @@
+using API.Infrastructure.Classes;
+
 namespace API.Features.Nationalities {
 
-    public class NationalityActiveVM {
+    public class NationalityActiveVM : SimpleEntity {
 
-        public int Id { get; set; }
-        public string Description { get; set; }
+        public string Code { get; set; }
 
     }
 
