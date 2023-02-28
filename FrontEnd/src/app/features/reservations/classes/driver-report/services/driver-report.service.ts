@@ -41,12 +41,12 @@ export class DriverReportService {
 
     //#region private methods
 
-    private addPersonsToPickupPoint(pickupPointCount: number, total: number[], row: { adults: any; kids: any; free: any; totalPersons: any }): any {
+    private addPaxToPickupPoint(pickupPointCount: number, total: number[], row: { adults: any; kids: any; free: any; totalPax: any }): any {
         pickupPointCount += 1
         total[0] += Number(row.adults)
         total[1] += Number(row.kids)
         total[2] += Number(row.free)
-        total[3] += Number(row.totalPersons)
+        total[3] += Number(row.totalPax)
         return { pickupPointCount, total }
     }
 
@@ -70,7 +70,7 @@ export class DriverReportService {
                 fontSize: 8
             },
             content: this.table(this.driverReport.reservations,
-                ['time', 'refNo', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPersons', 'customerDescription', 'fullname', 'remarks', 'destinationAbbreviation'],
+                ['time', 'refNo', 'ticketNo', 'pickupPointDescription', 'exactPoint', 'adults', 'kids', 'free', 'totalPax', 'customerDescription', 'fullname', 'remarks', 'destinationAbbreviation'],
                 ['center', 'center', 'center', 'left', 'left', 'right', 'right', 'right', 'right', 'left', 'left', 'left', 'center'])
         }
         this.createPdf(dd)
@@ -97,34 +97,34 @@ export class DriverReportService {
     private buildTableBody(reservations: any, columns: any[], align: any[]): void {
         const body: any = []
         let pickupPointCount = 0
-        let pickupPointPersons: number[] = [0, 0, 0, 0]
-        let driverPersons: number[] = [0, 0, 0, 0]
+        let pickupPointPax: number[] = [0, 0, 0, 0]
+        let driverPax: number[] = [0, 0, 0, 0]
         let pickupPointDescription = reservations[0].pickupPointDescription
         body.push(this.createTableHeaders())
         reservations.forEach(((reservation: DriverReportReservationDto) => {
             let dataRow = []
             if (reservation.pickupPointDescription === pickupPointDescription) {
-                const { pickupPointCount: x, total: z } = this.addPersonsToPickupPoint(pickupPointCount, pickupPointPersons, reservation)
+                const { pickupPointCount: x, total: z } = this.addPaxToPickupPoint(pickupPointCount, pickupPointPax, reservation)
                 pickupPointCount = x
-                pickupPointPersons = z
+                pickupPointPax = z
             } else {
                 if (pickupPointCount > 1) {
-                    body.push(this.createPickupPointTotalLine(pickupPointDescription, pickupPointPersons))
+                    body.push(this.createPickupPointTotalLine(pickupPointDescription, pickupPointPax))
                     dataRow = []
                 }
                 pickupPointCount = 1
                 pickupPointDescription = reservation.pickupPointDescription
-                pickupPointPersons = this.initPickupPointPersons(pickupPointPersons, reservation)
+                pickupPointPax = this.initPickupPointPax(pickupPointPax, reservation)
             }
-            driverPersons = this.addPersonsToDriver(driverPersons, reservation)
+            driverPax = this.addPaxToDriver(driverPax, reservation)
             dataRow = this.replaceZerosWithBlanks(columns, reservation, dataRow, align)
             body.push(dataRow)
         }))
         if (pickupPointCount > 1) {
-            body.push(this.createPickupPointTotalLine(pickupPointDescription, pickupPointPersons))
+            body.push(this.createPickupPointTotalLine(pickupPointDescription, pickupPointPax))
         }
         body.push(this.createBlankLine())
-        body.push(this.createTotalLineForDriver(this.driverReport.header.driverDescription, driverPersons))
+        body.push(this.createTotalLineForDriver(this.driverReport.header.driverDescription, driverPax))
         return body
     }
 
@@ -193,11 +193,11 @@ export class DriverReportService {
         }
     }
 
-    private addPersonsToDriver(totals: number[], row: { adults: any; kids: any; free: any; totalPersons: any }): number[] {
+    private addPaxToDriver(totals: number[], row: { adults: any; kids: any; free: any; totalPax: any }): number[] {
         totals[0] += Number(row.adults)
         totals[1] += Number(row.kids)
         totals[2] += Number(row.free)
-        totals[3] += Number(row.totalPersons)
+        totals[3] += Number(row.totalPax)
         return totals
     }
 
@@ -211,11 +211,11 @@ export class DriverReportService {
         return dataRow
     }
 
-    private initPickupPointPersons(total: number[], row: any): any[] {
+    private initPickupPointPax(total: number[], row: any): any[] {
         total[0] = Number(row.adults)
         total[1] = Number(row.kids)
         total[2] = Number(row.free)
-        total[3] = Number(row.totalPersons)
+        total[3] = Number(row.totalPax)
         return total
     }
 
@@ -292,7 +292,7 @@ export class DriverReportService {
                 'adults': reservation.adults,
                 'kids': reservation.kids,
                 'free': reservation.free,
-                'totalPersons': reservation.totalPersons,
+                'totalPax': reservation.totalPax,
                 'customerDescription': reservation.customerDescription,
                 'fullname': reservation.fullname ?? '',
                 'remarks': reservation.remarks,

@@ -8,7 +8,7 @@ export interface DriverReportReservationDto {
     adults: number
     kids: number
     free: number
-    totalPersons: number
+    totalPax: number
     customerDescription: string
     fullname: string
     remarks: string
