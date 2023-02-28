@@ -1,7 +1,8 @@
 .mat-menu-panel, .mat-menu-content {
     align-items: flex-start;
-    background-color: var(--color-b) !important;
+    background-color: var(--color-x) !important;
     border-radius: 0 !important;
+    border: 0.0625rem solid var(--color-e);
     display: flex;
     flex-direction: column;
     min-height: auto !important;
@@ -14,8 +15,22 @@
     color: var(--color-button-text) !important;
     display: flex !important;
     font-family: var(--font-family-asty) !important;
+    font-size: var(--font-size-button) !important;
     justify-content: flex-start !important;
     line-height: 0 !important;
     margin-left: 0 !important;
     padding: 0 1rem !important;
+}
+
+.mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]):hover {
+    background-color: var(--color-z) !important;
+}
+
+button.mat-menu-trigger, button.mat-menu-trigger:hover {
+    background-color: transparent !important;
+    height: 2.375rem !important;
+}
+
+button.mat-menu-trigger span {
+    color: var(--color-c) !important;
 }

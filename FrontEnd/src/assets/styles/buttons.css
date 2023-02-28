@@ -106,19 +106,6 @@ button.button-icon {
     margin-top: -0.125rem !important;
 }
 
-.mat-menu-item:hover:not([disabled]), .mat-menu-item.cdk-program-focused:not([disabled]), .mat-menu-item-highlighted:not([disabled]):hover {
-    background-color: var(--color-a) !important;
-}
-
-button.mat-menu-trigger, button.mat-menu-trigger:hover {
-    background-color: transparent !important;
-    height: 2.375rem !important;
-}
-
-button.mat-menu-trigger span {
-    color: var(--color-c) !important;
-}
-
 .mat-icon {
     font-size: 1rem;
     line-height: 1.25rem;

@@ -821,20 +821,8 @@
                 "description": "Kommentare"
             },
             {
-                "id": "abortButton",
-                "description": "Abbrechen"
-            },
-            {
                 "id": "deleteButton",
                 "description": "Löschen"
-            },
-            {
-                "id": "printVoucherButton",
-                "description": "Drucken"
-            },
-            {
-                "id": "sendVoucherButton",
-                "description": "An Email senden"
             },
             {
                 "id": "saveButton",
@@ -842,11 +830,11 @@
             },
             {
                 "id": "createVoucherOnServer",
-                "description": "Gutschein per E-Mail versenden"
+                "description": "Voucher per E-Mail versenden"
             },
             {
                 "id": "createVoucherOnClient",
-                "description": "Gutschein drucken"
+                "description": "Voucher drucken"
             }
         ]
     },

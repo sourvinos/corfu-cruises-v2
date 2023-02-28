@@ -821,20 +821,8 @@
                 "description": "Komentáře"
             },
             {
-                "id": "abortButton",
-                "description": "ZRUŠIT"
-            },
-            {
                 "id": "deleteButton",
                 "description": "Smazat"
-            },
-            {
-                "id": "printVoucherButton",
-                "description": "TISK"
-            },
-            {
-                "id": "sendVoucherButton",
-                "description": "ODESLAT NA EMAIL"
             },
             {
                 "id": "saveButton",
@@ -846,7 +834,7 @@
             },
             {
                 "id": "createVoucherOnClient",
-                "description": "Vytisknout poukaz"
+                "description": "Vytisknout voucher"
             }
         ]
     },

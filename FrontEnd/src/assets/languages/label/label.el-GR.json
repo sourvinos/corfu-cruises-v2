@@ -821,20 +821,8 @@
                 "description": "Σχόλια"
             },
             {
-                "id": "abortButton",
-                "description": "Άκυρο"
-            },
-            {
                 "id": "deleteButton",
                 "description": "Διαγραφή"
-            },
-            {
-                "id": "printVoucherButton",
-                "description": "ΕΚΤΥΠΩΣΗ"
-            },
-            {
-                "id": "sendVoucherButton",
-                "description": "ΑΠΟΣΤΟΛΗ ΣΕ EMAIL"
             },
             {
                 "id": "saveButton",
@@ -842,11 +830,11 @@
             },
             {
                 "id": "createVoucherOnServer",
-                "description": "Αποστολή κουπονιού σε email"
+                "description": "Αποστολή voucher σε email"
             },
             {
                 "id": "createVoucherOnClient",
-                "description": "Εκτύπωση κουπονιού"
+                "description": "Εκτύπωση voucher"
             }
         ]
     },

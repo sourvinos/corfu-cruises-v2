@@ -821,20 +821,8 @@
                 "description": "Remarques"
             },
             {
-                "id": "abortButton",
-                "description": "ANNULER"
-            },
-            {
                 "id": "deleteButton",
                 "description": "Supprimer"
-            },
-            {
-                "id": "printVoucherButton",
-                "description": "Imprimer"
-            },
-            {
-                "id": "sendVoucherButton",
-                "description": "Envoyer a l' email"
             },
             {
                 "id": "saveButton",

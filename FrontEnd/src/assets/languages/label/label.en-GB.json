@@ -821,20 +821,8 @@
                 "description": "Comments"
             },
             {
-                "id": "abortButton",
-                "description": "Cancel"
-            },
-            {
                 "id": "deleteButton",
                 "description": "Delete"
-            },
-            {
-                "id": "printVoucherButton",
-                "description": "Print"
-            },
-            {
-                "id": "sendVoucherButton",
-                "description": "Send to email"
             },
             {
                 "id": "saveButton",

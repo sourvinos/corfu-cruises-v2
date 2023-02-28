@@ -10,9 +10,9 @@
                     <button (click)="showPassengersTab()" mat-flat-button id="tab-passengers">{{ getLabel("tabPassengers") }}</button>
                     <button (click)="showMiscTab()" mat-flat-button id="tab-misc">{{ getLabel("tabMisc") }}</button>
                 </div>
-                <button [matMenuTriggerFor]="menu" pButton pRipple type="button" icon="pi pi-ellipsis-v" class="p-button-rounded p-button-text transparent"></button>
+                <button [matMenuTriggerFor]="menu" class="p-button-rounded p-button-text transparent" icon="pi pi-ellipsis-v" pButton pRipple type="button"></button>
                 <mat-menu #menu="matMenu" class="primary" xPosition="before">
-                    <ng-container *ngTemplateOutlet="contextMenu"></ng-container>
+                    <ng-container *ngTemplateOutlet="voucherMenu"></ng-container>
                 </mat-menu>
             </div>
         </div>
@@ -196,7 +196,7 @@
     </mat-option>
 </mat-autocomplete>
 
-<ng-template #contextMenu>
+<ng-template #voucherMenu xPosition="before">
     <button mat-menu-item class="reverse" (click)="doVoucherTasksOnServer()"><span>{{ getLabel('createVoucherOnServer') }}</span></button>
     <button mat-menu-item class="reverse" (click)="doVoucherTasksOnClient()"><span>{{ getLabel('createVoucherOnClient') }}</span></button>
 </ng-template>
