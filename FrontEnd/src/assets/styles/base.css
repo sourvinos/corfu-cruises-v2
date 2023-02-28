@@ -101,9 +101,8 @@ ul {
 .instructions {
     color: var(--color-c);
     font-family: var(--font-family-ubuntu);
-    font-size: 1rem;
+    font-size: 0.85rem;
     overflow-y: scroll;
-    width: 1000px;
 }
 
 .subscript {

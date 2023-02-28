@@ -75,6 +75,7 @@ export class ReservationFormComponent {
 
     ngOnInit(): void {
         this.initForm()
+        this.updateFieldsAfterEmptyPickupPoint()
         this.setRecordId()
         this.setNewRecord()
         this.doNewOrEditTasks()
@@ -205,6 +206,10 @@ export class ReservationFormComponent {
                 'description': value.port.description
             }
         })
+    }
+
+    public handleEmptyInput(event: any): void {
+        console.log('...', event)
     }
 
     //#endregion
@@ -438,7 +443,7 @@ export class ReservationFormComponent {
             refNo: this.record.refNo,
             destination: { 'id': this.record.destination.id, 'description': this.record.destination.description },
             customer: { 'id': this.record.customer.id, 'description': this.record.customer.description },
-            pickupPoint: { 'id': this.record.pickupPoint.id, 'description': this.record.pickupPoint.description, 'exactPoint': this.record.pickupPoint.exactPoint, 'time': this.record.pickupPoint.time },
+            pickupPoint: { 'id': this.record.pickupPoint.id, 'description': this.record.pickupPoint.description },
             exactPoint: this.record.pickupPoint.exactPoint,
             time: this.record.pickupPoint.time,
             driver: { 'id': this.record.driver.id, 'description': this.record.driver.description },
@@ -489,6 +494,18 @@ export class ReservationFormComponent {
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.subscribe(() => {
             this.setLocale()
+        })
+    }
+
+    private updateFieldsAfterEmptyPickupPoint(): void {
+        this.form.get('pickupPoint').valueChanges.subscribe(value => {
+            if (value == '') {
+                this.form.patchValue({
+                    exactPoint: '',
+                    time: '',
+                    port: ''
+                })
+            }
         })
     }
 
