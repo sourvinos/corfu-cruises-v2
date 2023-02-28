@@ -793,7 +793,7 @@
                 "description": "Δωρεάν"
             },
             {
-                "id": "totalPersons",
+                "id": "totalPax",
                 "description": "Σύνολο"
             },
             {
@@ -1488,7 +1488,7 @@
                 "description": "Δ"
             },
             {
-                "id": "headerTotalPersons",
+                "id": "headertotalPax",
                 "description": "Σ"
             },
             {

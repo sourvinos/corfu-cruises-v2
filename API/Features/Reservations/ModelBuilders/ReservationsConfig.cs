@@ -20,7 +20,7 @@ namespace API.Features.Reservations {
             entity.Property(x => x.Adults).HasDefaultValue(0).IsRequired(true);
             entity.Property(x => x.Kids).HasDefaultValue(0).IsRequired(true);
             entity.Property(x => x.Free).HasDefaultValue(0).IsRequired(true);
-            entity.Property(x => x.TotalPersons).HasComputedColumnSql("((`Adults` + `Kids`) + `Free`)", stored: false);
+            entity.Property(x => x.TotalPax).HasComputedColumnSql("((`Adults` + `Kids`) + `Free`)", stored: false);
             entity.Property(x => x.Email).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.Phones).HasDefaultValue("").HasMaxLength(128);
             entity.Property(x => x.Remarks).HasDefaultValue("").HasMaxLength(128);

@@ -793,7 +793,7 @@
                 "description": "Zdarma"
             },
             {
-                "id": "totalPersons",
+                "id": "totalPax",
                 "description": "Celkem"
             },
             {
@@ -1488,7 +1488,7 @@
                 "description": "Z"
             },
             {
-                "id": "headerTotalPersons",
+                "id": "headertotalPax",
                 "description": "Σ"
             },
             {

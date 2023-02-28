@@ -15,7 +15,7 @@
 
     <div id="content">
         <div id="table-wrapper">
-            <p-table #table (onHeaderCheckboxToggle)="calculateSelectedPersons()" (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
+            <p-table #table (onHeaderCheckboxToggle)="calculateSelectedPax()" (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-3"></th>
@@ -134,7 +134,7 @@
                 </ng-template>
                 <ng-template let-reservation pTemplate="body">
                     <tr (click)="highlightRow(reservation.reservationId)" (dblclick)="editRecord(reservation.reservationId)" [attr.id]="reservation.reservationId" style="height:32px">
-                        <td class="center width-3"><p-tableCheckbox (click)="calculateSelectedPersons()" [value]="reservation"></p-tableCheckbox></td>
+                        <td class="center width-3"><p-tableCheckbox (click)="calculateSelectedPax()" [value]="reservation"></p-tableCheckbox></td>
                         <td class="center width-5">{{ formatRefNo(reservation.refNo) }}</td>
                         <td class="width-8">{{ reservation.ticketNo }}</td>
                         <td class="width-5">{{ reservation.customer.description }}</td>
@@ -165,19 +165,19 @@
             <div class="pill">
                 <img [src]="getIcon('total')">
                 <div class="number description">
-                    <span>{{ totals[0] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ totalPax[0] | padNumber : 3 : ' ' }}</span>
                 </div>
             </div>
             <div class="pill number">
                 <img [src]="getIcon('filter')">
                 <div class="number description">
-                    <span>{{ totals[1] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ totalPax[1] | padNumber : 3 : ' ' }}</span>
                 </div>
             </div>
             <div class="pill number">
                 <img [src]="getIcon('selected')">
                 <div class="number description">
-                    <span>{{ totals[2] | padNumber : 3 : ' ' }}</span>
+                    <span>{{ totalPax[2] | padNumber : 3 : ' ' }}</span>
                 </div>
             </div>
         </div>

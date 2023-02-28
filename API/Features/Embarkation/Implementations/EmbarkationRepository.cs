@@ -39,13 +39,13 @@ namespace API.Features.Embarkation {
                     shipIds.Contains(x.ShipId)
                 )
                 .ToListAsync();
-            int totalPersons = reservations.Sum(x => x.TotalPersons);
+            int TotalPax = reservations.Sum(x => x.TotalPax);
             int embarkedPassengers = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);
-            int remainingPersons = totalPersons - embarkedPassengers;
+            int remainingPersons = TotalPax - embarkedPassengers;
             var mainResult = new EmbarkationInitialGroupVM {
-                TotalPersons = totalPersons,
+                TotalPax = TotalPax,
                 EmbarkedPassengers = embarkedPassengers,
-                PendingPersons = remainingPersons,
+                PendingPax = remainingPersons,
                 Reservations = reservations.ToList()
             };
             return mapper.Map<EmbarkationInitialGroupVM, EmbarkationFinalGroupVM>(mainResult);

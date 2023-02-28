@@ -11,7 +11,18 @@
                 <form [formGroup]="form" autocomplete="off" data-cy="form">
                     <div class="group-field">
                         <mat-form-field>
-                            <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="coachRoutes" [placeholder]="getLabel('coachRoute')" data-cy="route-description" data-tabindex="1" formControlName="coachRoute" id="coachRoute" matInput>
+                            <!-- <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="coachRoutes" [placeholder]="getLabel('coachRoute')" data-cy="route-description" data-tabindex="1" formControlName="coachRoute" id="coachRoute" matInput> -->
+                            <input 
+                            (keydown)="enableOrDisableAutoComplete($event)" 
+                            (keyup)="checkForEmptyAutoComplete($event)" 
+                            [inputTabStop]="input" 
+                            [matAutocompleteDisabled]="isAutoCompleteDisabled" 
+                            [matAutocomplete]="coachRoutes" 
+                            [placeholder]="getLabel('coachRoute')" 
+                            data-tabindex="1" 
+                            formControlName="coachRoute" 
+                            matInput
+                            >
                             <mat-error *ngIf="coachRoute.hasError('required')">{{ getHint("required") }}</mat-error>
                             <mat-error *ngIf="!coachRoute.hasError('required') && coachRoute.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                         </mat-form-field>

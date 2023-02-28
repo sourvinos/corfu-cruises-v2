@@ -13,7 +13,7 @@ export interface ReservationListVM {
     adults: number
     kids: number
     free: number
-    totalPersons: number
+    totalPax: number
     ticketNo: string
     coachRoute: CoachRouteDistinctVM
     customer: CustomerDistinctVM

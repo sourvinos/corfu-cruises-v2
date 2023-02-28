@@ -13,7 +13,7 @@ namespace API.Features.Reservations {
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Free { get; set; }
-        public int TotalPersons { get; set; }
+        public int TotalPax { get; set; }
 
         public SimpleEntity Customer { get; set; }
         public SimpleEntity CoachRoute { get; set; }

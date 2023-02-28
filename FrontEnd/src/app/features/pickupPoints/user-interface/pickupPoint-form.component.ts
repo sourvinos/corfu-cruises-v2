@@ -251,4 +251,8 @@ export class PickupPointFormComponent {
 
     //#endregion
 
+    public focus(): void {
+        console.log('focus')
+    }
+
 }

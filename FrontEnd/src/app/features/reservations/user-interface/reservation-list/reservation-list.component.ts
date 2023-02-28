@@ -52,7 +52,7 @@ export class ReservationListComponent {
     public selectedRecords: ReservationListVM[] = []
     private virtualElement: any
 
-    public totals = [0, 0, 0]
+    public totalPax = [0, 0, 0]
     public isAdmin: boolean
     public overbookedDestinations: OverbookedDestinationVM[] = []
 
@@ -75,7 +75,7 @@ export class ReservationListComponent {
                 this.loadRecords()
                 this.populateDropdownFilters()
                 this.filterTableFromStoredFilters()
-                this.updateTotals(this.totals, this.records)
+                this.updateTotals(this.totalPax, this.records)
                 this.calculateOverbookings()
                 this.enableDisableFilters()
             }
@@ -148,8 +148,8 @@ export class ReservationListComponent {
         }
     }
 
-    public calculateSelectedPersons(): void {
-        this.totals[2] = this.selectedRecords.reduce((sum, array) => sum + array.totalPersons, 0)
+    public calculateSelectedPax(): void {
+        this.totalPax[2] = this.selectedRecords.reduce((sum, array) => sum + array.totalPax, 0)
     }
 
     public createPdf(): void {
@@ -167,7 +167,7 @@ export class ReservationListComponent {
         this.helperService.clearTableCheckboxes()
         this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.selectedRecords.splice(0)
-        this.updateTotals(this.totals, event.filteredValue)
+        this.updateTotals(this.totalPax, event.filteredValue)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -365,10 +365,10 @@ export class ReservationListComponent {
         this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
-    private updateTotals(totals: number[], filteredValue: any[]): void {
-        totals[0] = this.records.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
-        totals[1] = filteredValue.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
-        totals[2] = this.selectedRecords.reduce((sum: number, array: { totalPersons: number }) => sum + array.totalPersons, 0)
+    private updateTotals(totalPax: number[], filteredValue: any[]): void {
+        totalPax[0] = this.records.reduce((sum: number, array: { totalPax: number }) => sum + array.totalPax, 0)
+        totalPax[1] = filteredValue.reduce((sum: number, array: { totalPax: number }) => sum + array.totalPax, 0)
+        totalPax[2] = this.selectedRecords.reduce((sum: number, array: { totalPax: number }) => sum + array.totalPax, 0)
     }
 
     private updateRouter(): void {

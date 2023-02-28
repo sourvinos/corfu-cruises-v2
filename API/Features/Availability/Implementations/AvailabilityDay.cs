@@ -58,7 +58,7 @@ namespace API.Features.Availability {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {
-                        port.Pax = reservations.Where(x => x.Date == schedule.Date && x.DestinationId == destination.Id && x.PortId == port.Id).Sum(x => x.TotalPersons);
+                        port.Pax = reservations.Where(x => x.Date == schedule.Date && x.DestinationId == destination.Id && x.PortId == port.Id).Sum(x => x.TotalPax);
                     }
                 }
             }
@@ -143,7 +143,7 @@ namespace API.Features.Availability {
                     Date = DateHelpers.DateToISOString(x.Date),
                     DestinationId = x.DestinationId,
                     PortId = x.PortId,
-                    TotalPersons = x.TotalPersons
+                    TotalPax = x.TotalPax
                 }).ToList();
             return reservations;
         }

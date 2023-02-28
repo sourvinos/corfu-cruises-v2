@@ -14,7 +14,7 @@ namespace API.Features.Embarkation {
         public SimpleEntity PickupPoint { get; set; }
         public SimpleEntity Port { get; set; }
         public SimpleEntity Ship { get; set; }
-        public int TotalPersons { get; set; }
+        public int TotalPax { get; set; }
         public int EmbarkedPassengers { get; set; }
         public SimpleEntity EmbarkationStatus { get; set; }
 

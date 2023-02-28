@@ -49,19 +49,16 @@ export class ReservationFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public isAutoCompleteDisabled: boolean
+    public isAutoCompleteDisabled = true
     public isLoading = new Subject<boolean>()
     public parentUrl: string
 
-    public destinations: DestinationActiveVM[] = []
-    public filteredDestinations: Observable<DestinationActiveVM[]>
-    public customers: CustomerActiveVM[] = []
-    public filteredCustomers: Observable<CustomerActiveVM[]>
-    public pickupPoints: PickupPointActiveVM[] = []
-    public filteredPickupPoints: Observable<PickupPointActiveVM[]>
-    public filteredDrivers: Observable<DriverActiveVM[]>
-    public filteredShips: Observable<DriverActiveVM[]>
-    public filteredPorts: Observable<PortActiveVM[]>
+    public activeDestinations: Observable<DestinationActiveVM[]>
+    public activeCustomers: Observable<CustomerActiveVM[]>
+    public activePickupPoints: Observable<PickupPointActiveVM[]>
+    public activeDrivers: Observable<DriverActiveVM[]>
+    public activeShips: Observable<DriverActiveVM[]>
+    public activePorts: Observable<PortActiveVM[]>
 
     public isAdmin: boolean
     public isNewRecord: boolean
@@ -79,8 +76,9 @@ export class ReservationFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.doNewEditJobs()
-        this.doPostInitJobs()
+        this.setNewRecord()
+        this.doNewOrEditTasks()
+        this.doPostInitTasks()
     }
 
     ngAfterViewInit(): void {
@@ -101,12 +99,12 @@ export class ReservationFormComponent {
     }
 
     public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
-        this.isAutoCompleteDisabled = event.target.value == '' ? true : false
+        if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
-    public checkTotalPersonsAgainstPassengerCount(element?: any): boolean {
+    public checkTotalPaxAgainstPassengerCount(element?: any): boolean {
         if (this.form.value.passengers.length > 0) {
-            const passengerDifference = this.form.value.totalPersons - (element != null ? element : this.form.value.passengers.length)
+            const passengerDifference = this.form.value.totalPax - (element != null ? element : this.form.value.passengers.length)
             switch (true) {
                 case passengerDifference == 0:
                     this.passengerDifferenceIcon = this.emojiService.getEmoji('green-circle')
@@ -124,9 +122,9 @@ export class ReservationFormComponent {
         }
     }
 
-    public doPersonsCalculations(): void {
-        this.calculateTotalPersons()
-        this.checkTotalPersonsAgainstPassengerCount()
+    public doPaxCalculations(): void {
+        this.calculateTotalPax()
+        this.checkTotalPaxAgainstPassengerCount()
     }
 
     public doVoucherTasksOnClient(): void {
@@ -213,9 +211,9 @@ export class ReservationFormComponent {
 
     //#region private methods
 
-    private calculateTotalPersons(): void {
-        const totalPersons = parseInt(this.form.value.adults, 10) + parseInt(this.form.value.kids, 10) + parseInt(this.form.value.free, 10)
-        this.form.patchValue({ totalPersons: Number(totalPersons) ? totalPersons : 0 })
+    private calculateTotalPax(): void {
+        const totalPax = parseInt(this.form.value.adults, 10) + parseInt(this.form.value.kids, 10) + parseInt(this.form.value.free, 10)
+        this.form.patchValue({ totalPax: Number(totalPax) ? totalPax : 0 })
     }
 
     private clearStoredVariables(): void {
@@ -242,18 +240,18 @@ export class ReservationFormComponent {
             'adults': form.adults,
             'kids': form.kids,
             'free': form.free,
-            'totalPersons': form.totalPersons,
+            'totalPax': form.totalPax,
             'driverDescription': form.driver.description,
             'ticketNo': form.ticketNo,
             'remarks': form.remarks,
-            'validPassengerIcon': this.getValidPassengerIconForVoucher(this.validatePassengerCountForVoucher(form.totalPersons, form.passengers)),
+            'validPassengerIcon': this.getValidPassengerIconForVoucher(this.validatePassengerCountForVoucher(form.totalPax, form.passengers)),
             'qr': form.ticketNo,
             'passengers': this.mapVoucherPassengers()
         }
         return voucher
     }
 
-    private doNewEditJobs(): void {
+    private doNewOrEditTasks(): void {
         if (this.isNewRecord) {
             this.getStoredVariables()
         } else {
@@ -262,8 +260,7 @@ export class ReservationFormComponent {
         }
     }
 
-    private doPostInitJobs(): void {
-        this.setNewRecord()
+    private doPostInitTasks(): void {
         this.getConnectedUserRole()
         this.getLinkedCustomer()
         this.populateDropDowns()
@@ -374,7 +371,7 @@ export class ReservationFormComponent {
             adults: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             free: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
-            totalPersons: ['0', ValidationService.isGreaterThanZero],
+            totalPax: ['0', ValidationService.isGreaterThanZero],
             driver: '',
             port: '',
             ship: '',
@@ -420,18 +417,18 @@ export class ReservationFormComponent {
         return passengers
     }
 
-    private populateDropdownFromLocalStorage(table: string, filteredTable: string, formField: string, modelProperty: string): void {
+    private populateDropdownFromStorage(table: string, filteredTable: string, formField: string, modelProperty: string): void {
         this[table] = JSON.parse(this.localStorageService.getItem(table))
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
     private populateDropDowns(): void {
-        this.populateDropdownFromLocalStorage('customers', 'filteredCustomers', 'customer', 'description')
-        this.populateDropdownFromLocalStorage('destinations', 'filteredDestinations', 'destination', 'description')
-        this.populateDropdownFromLocalStorage('drivers', 'filteredDrivers', 'driver', 'description')
-        this.populateDropdownFromLocalStorage('pickupPoints', 'filteredPickupPoints', 'pickupPoint', 'description')
-        this.populateDropdownFromLocalStorage('ports', 'filteredPorts', 'port', 'description')
-        this.populateDropdownFromLocalStorage('ships', 'filteredShips', 'ship', 'description')
+        this.populateDropdownFromStorage('customers', 'activeCustomers', 'customer', 'description')
+        this.populateDropdownFromStorage('destinations', 'activeDestinations', 'destination', 'description')
+        this.populateDropdownFromStorage('drivers', 'activeDrivers', 'driver', 'description')
+        this.populateDropdownFromStorage('pickupPoints', 'activePickupPoints', 'pickupPoint', 'description')
+        this.populateDropdownFromStorage('ports', 'activePorts', 'port', 'description')
+        this.populateDropdownFromStorage('ships', 'activeShips', 'ship', 'description')
     }
 
     private populateFields(): void {
@@ -450,7 +447,7 @@ export class ReservationFormComponent {
             adults: this.record.adults,
             kids: this.record.kids,
             free: this.record.free,
-            totalPersons: this.record.totalPersons,
+            totalPax: this.record.totalPax,
             ticketNo: this.record.ticketNo,
             email: this.record.email,
             phones: this.record.phones,
@@ -500,24 +497,20 @@ export class ReservationFormComponent {
         this.isPassengersTabVisible = false
     }
 
-    private validatePassengerCountForVoucher(reservationPersons: any, passengerCount: any): boolean {
-        if (reservationPersons == passengerCount.length) {
-            return true
-        } else {
-            return false
-        }
+    private validatePassengerCountForVoucher(reservationPax: any, passengerCount: any): boolean {
+        return reservationPax == passengerCount.length ? true : false
     }
 
     //#endregion
 
     //#region getters
 
-    get date(): AbstractControl {
-        return this.form.get('date')
-    }
-
     get refNo(): AbstractControl {
         return this.form.get('refNo')
+    }
+
+    get date(): AbstractControl {
+        return this.form.get('date')
     }
 
     get destination(): AbstractControl {
@@ -530,18 +523,6 @@ export class ReservationFormComponent {
 
     get pickupPoint(): AbstractControl {
         return this.form.get('pickupPoint')
-    }
-
-    get ship(): AbstractControl {
-        return this.form.get('ship')
-    }
-
-    get driver(): AbstractControl {
-        return this.form.get('driver')
-    }
-
-    get port(): AbstractControl {
-        return this.form.get('port')
     }
 
     get ticketNo(): AbstractControl {
@@ -560,8 +541,8 @@ export class ReservationFormComponent {
         return this.form.get('free')
     }
 
-    get totalPersons(): AbstractControl {
-        return this.form.get('totalPersons')
+    get totalPax(): AbstractControl {
+        return this.form.get('totalPax')
     }
 
     get email(): AbstractControl {
@@ -574,6 +555,18 @@ export class ReservationFormComponent {
 
     get remarks(): AbstractControl {
         return this.form.get('remarks')
+    }
+
+    get driver(): AbstractControl {
+        return this.form.get('driver')
+    }
+
+    get ship(): AbstractControl {
+        return this.form.get('ship')
+    }
+
+    get port(): AbstractControl {
+        return this.form.get('port')
     }
 
     //#endregion

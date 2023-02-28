@@ -56,12 +56,12 @@ namespace API.Features.Reservations {
                 .Select(x => new ReservationVM {
                     Date = DateHelpers.DateToISOString(x.Key.Date),
                     DestinationId = x.Key.DestinationId,
-                    Pax = x.Sum(x => x.TotalPersons)
+                    Pax = x.Sum(x => x.TotalPax)
                 }).ToList();
         }
 
         /// <summary>
-        ///     1. Calculates the pax property of the schedules list from the reservations totalPersons based on the date and the destination
+        ///     1. Calculates the pax property of the schedules list from the reservations totalPax based on the date and the destination
         ///     2. Groups the schedules list by date and destination
         /// </summary>
         /// <param name="schedules"></param>

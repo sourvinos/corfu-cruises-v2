@@ -10,7 +10,7 @@ namespace API.Features.Reservations {
         public int Adults { get; set; }
         public int Kids { get; set; }
         public int Free { get; set; }
-        public int TotalPersons { get; set; }
+        public int TotalPax { get; set; }
         public string CustomerDescription { get; set; }
         public string Fullname { get; set; }
         public string Remarks { get; set; }

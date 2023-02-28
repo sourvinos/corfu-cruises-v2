@@ -16,12 +16,32 @@
                         <mat-error *ngIf="date.hasError('required')">{{ getHint("required") }}</mat-error>
                     </mat-form-field>
                     <mat-form-field>
-                        <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" data-cy="destination-description" data-tabindex="2" formControlName="destination" matInput>
+                        <input 
+                        (keydown)="enableOrDisableAutoComplete($event)" 
+                        (keyup)="checkForEmptyAutoComplete($event)" 
+                        [inputTabStop]="input" 
+                        [matAutocompleteDisabled]="isAutoCompleteDisabled" 
+                        [matAutocomplete]="destinations" 
+                        [placeholder]="getLabel('destination')" 
+                        data-tabindex="2" 
+                        formControlName="destination"
+                        matInput
+                        >
                         <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
                         <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                     </mat-form-field>
                     <mat-form-field>
-                        <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ports" [placeholder]="getLabel('port')" data-cy="port-description" data-tabindex="3" formControlName="port" matInput>
+                        <input 
+                        (keydown)="enableOrDisableAutoComplete($event)" 
+                        (keyup)="checkForEmptyAutoComplete($event)" 
+                        [inputTabStop]="input" 
+                        [matAutocompleteDisabled]="isAutoCompleteDisabled" 
+                        [matAutocomplete]="ports" 
+                        [placeholder]="getLabel('port')" 
+                        data-tabindex="3" 
+                        formControlName="port" 
+                        matInput
+                        >
                         <mat-error *ngIf="port.hasError('required')">{{ getHint("required") }}</mat-error>
                         <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                     </mat-form-field>

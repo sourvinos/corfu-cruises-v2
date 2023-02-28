@@ -16,7 +16,7 @@
                             <mat-error *ngIf="fullname.hasError('maxlength')">{{ getHint("maxLength", fullname.errors.maxlength.requiredLength) }}</mat-error>
                         </mat-form-field>
                         <mat-form-field>
-                            <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ships" [placeholder]="getLabel('ship')" data-cy="ship-description" data-tabindex="2" formControlName="ship" matInput>
+                            <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ships" [placeholder]="getLabel('ship')" data-tabindex="2" formControlName="ship" matInput>
                             <mat-error *ngIf="ship.hasError('required')">{{ getHint("required") }}</mat-error>
                             <mat-error *ngIf="!ship.hasError('required') && ship.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                         </mat-form-field>
@@ -55,7 +55,7 @@
                 </form>
             </mat-card-content>
         </mat-card>
-        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+        <p class="instructions">{{ form.value | json }} {{ form.valid }}</p>
     </div>
 
     <div id="footer">

@@ -25,7 +25,7 @@ export interface ReservationReadDto {
     adults: number
     kids: number
     free: number
-    totalPersons: number
+    totalPax: number
     ticketNo: string
     passengers: PassengerReadDto
 

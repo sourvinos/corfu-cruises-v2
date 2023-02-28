@@ -793,7 +793,7 @@
                 "description": "Free"
             },
             {
-                "id": "totalPersons",
+                "id": "totalPax",
                 "description": "Total"
             },
             {
@@ -1488,7 +1488,7 @@
                 "description": "F"
             },
             {
-                "id": "headerTotalPersons",
+                "id": "headertotalPax",
                 "description": "Σ"
             },
             {

@@ -49,7 +49,7 @@ namespace API.Features.Reservations {
                     Description = x.Ship == null ? "(EMPTY)" : x.Ship.Description
                 }))
                 .ForMember(x => x.PassengerCount, x => x.MapFrom(x => x.Passengers.Count))
-                .ForMember(x => x.PassengerDifference, x => x.MapFrom(x => x.TotalPersons - x.Passengers.Count));
+                .ForMember(x => x.PassengerDifference, x => x.MapFrom(x => x.TotalPax - x.Passengers.Count));
             // DriverList
             CreateMap<Reservation, ReservationDriverListVM>()
                 .ForMember(x => x.ExactPoint, x => x.MapFrom(x => x.PickupPoint.ExactPoint))

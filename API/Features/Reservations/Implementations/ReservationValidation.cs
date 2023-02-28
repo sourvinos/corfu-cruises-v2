@@ -59,11 +59,11 @@ namespace API.Features.Reservations {
                 .AsNoTracking()
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
                 .Sum(x => x.MaxPax);
-            int totalPersonsFromAllPorts = context.Reservations
+            int totalPaxFromAllPorts = context.Reservations
                 .AsNoTracking()
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
-                .Sum(x => x.TotalPersons);
-            return totalPersonsFromAllPorts > maxPassengersForAllPorts;
+                .Sum(x => x.TotalPax);
+            return totalPaxFromAllPorts > maxPassengersForAllPorts;
         }
 
         public int IsValid(ReservationWriteDto reservation, IScheduleRepository scheduleRepo) {
