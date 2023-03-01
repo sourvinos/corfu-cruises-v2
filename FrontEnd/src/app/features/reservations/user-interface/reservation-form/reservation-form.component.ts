@@ -22,7 +22,7 @@ import { MessageSnackbarService } from 'src/app/shared/services/messages-snackba
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { OkIconService } from '../../classes/services/ok-icon.service'
 import { PassengerWriteDto } from '../../classes/dtos/form/passenger-write-dto'
-import { PickupPointActiveVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-active-vm'
+import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 import { ReservationReadDto } from '../../classes/dtos/form/reservation-read-dto'
 import { ReservationService } from '../../classes/services/reservation.service'
@@ -53,12 +53,12 @@ export class ReservationFormComponent {
     public isLoading = new Subject<boolean>()
     public parentUrl: string
 
-    public activeDestinations: Observable<DestinationActiveVM[]>
-    public activeCustomers: Observable<CustomerActiveVM[]>
-    public activePickupPoints: Observable<PickupPointActiveVM[]>
-    public activeDrivers: Observable<DriverActiveVM[]>
-    public activeShips: Observable<DriverActiveVM[]>
-    public activePorts: Observable<PortActiveVM[]>
+    public dropdownCustomers: Observable<CustomerActiveVM[]>
+    public dropdownDestinations: Observable<DestinationActiveVM[]>
+    public dropdownDrivers: Observable<DriverActiveVM[]>
+    public dropdownPickupPoints: Observable<PickupPointDropdownVM[]>
+    public dropdownPorts: Observable<PortActiveVM[]>
+    public dropdownShips: Observable<DriverActiveVM[]>
 
     public isAdmin: boolean
     public isNewRecord: boolean
@@ -202,7 +202,7 @@ export class ReservationFormComponent {
         this.isMiscTabVisible = true
     }
 
-    public updateFieldsAfterPickupPointSelection(value: PickupPointActiveVM): void {
+    public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownVM): void {
         this.form.patchValue({
             exactPoint: value.exactPoint,
             time: value.time,
@@ -429,12 +429,12 @@ export class ReservationFormComponent {
     }
 
     private populateDropDowns(): void {
-        this.populateDropdownFromStorage('customers', 'activeCustomers', 'customer', 'description')
-        this.populateDropdownFromStorage('destinations', 'activeDestinations', 'destination', 'description')
-        this.populateDropdownFromStorage('drivers', 'activeDrivers', 'driver', 'description')
-        this.populateDropdownFromStorage('pickupPoints', 'activePickupPoints', 'pickupPoint', 'description')
-        this.populateDropdownFromStorage('ports', 'activePorts', 'port', 'description')
-        this.populateDropdownFromStorage('ships', 'activeShips', 'ship', 'description')
+        this.populateDropdownFromStorage('customers', 'dropdownCustomers', 'customer', 'description')
+        this.populateDropdownFromStorage('destinations', 'dropdownDestinations', 'destination', 'description')
+        this.populateDropdownFromStorage('drivers', 'dropdownDrivers', 'driver', 'description')
+        this.populateDropdownFromStorage('pickupPoints', 'dropdownPickupPoints', 'pickupPoint', 'description')
+        this.populateDropdownFromStorage('ports', 'dropdownPorts', 'port', 'description')
+        this.populateDropdownFromStorage('ships', 'dropdownShips', 'ship', 'description')
     }
 
     private populateFields(): void {

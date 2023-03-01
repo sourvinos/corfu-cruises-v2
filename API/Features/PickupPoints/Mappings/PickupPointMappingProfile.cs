@@ -10,9 +10,9 @@ namespace API.Features.PickupPoints {
         public PickupPointMappingProfile() {
             // List
             CreateMap<PickupPoint, PickupPointListVM>()
-                .ForMember(x => x.CoachRoute, x => x.MapFrom(x => new SimpleEntity {
+                .ForMember(x => x.CoachRoute, x => x.MapFrom(x => new PickupPointListCoachRouteVM {
                     Id = x.CoachRoute.Id,
-                    Description = x.CoachRoute.Abbreviation
+                    Abbreviation = x.CoachRoute.Abbreviation
                 }));
             // Dropdown
             CreateMap<PickupPoint, PickupPointActiveVM>()

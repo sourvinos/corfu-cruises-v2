@@ -19,27 +19,26 @@ namespace API.Features.Reservations {
                     Id = x.Customer.Id,
                     Description = x.Customer.Description
                 }))
-                .ForMember(x => x.CoachRoute, x => x.MapFrom(x => new CoachRouteListVM {
+                .ForMember(x => x.CoachRoute, x => x.MapFrom(x => new ReservationListCoachRouteVM {
                     Id = x.PickupPoint.CoachRoute.Id,
-                    Description = x.PickupPoint.CoachRoute.Description,
                     Abbreviation = x.PickupPoint.CoachRoute.Abbreviation
                 }))
-                .ForMember(x => x.Destination, x => x.MapFrom(x => new DestinationListVM {
+                .ForMember(x => x.Destination, x => x.MapFrom(x => new ReservationListDestinationVM {
                     Id = x.Destination.Id,
                     Description = x.Destination.Description,
                     Abbreviation = x.Destination.Abbreviation
                 }))
-                .ForMember(x => x.PickupPoint, x => x.MapFrom(x => new PickupPointListVM {
+                .ForMember(x => x.PickupPoint, x => x.MapFrom(x => new ReservationListPickupPointVM {
                     Id = x.PickupPoint.Id,
                     Description = x.PickupPoint.Description,
                     Time = x.PickupPoint.Time
                 }))
-                .ForMember(x => x.Driver, x => x.MapFrom(x => new DriverListVM {
+                .ForMember(x => x.Driver, x => x.MapFrom(x => new ReservationListDriverVM {
                     Id = x.Driver == null ? 0 : x.Driver.Id,
                     Description = x.Driver == null ? "(EMPTY)" : x.Driver.Description,
                     Phones = x.Driver == null ? "(EMPTY)" : x.Driver.Phones
                 }))
-                .ForMember(x => x.Port, x => x.MapFrom(x => new PortListVM {
+                .ForMember(x => x.Port, x => x.MapFrom(x => new ReservationListPortVM {
                     Id = x.Port.Id,
                     Description = x.Port.Description,
                     Abbreviation = x.Port.Abbreviation

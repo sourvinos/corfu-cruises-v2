@@ -1,6 +1,6 @@
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
-export interface PickupPointDistinctVM extends SimpleEntity {
+export interface ReservationListPickupPointVM extends SimpleEntity {
 
     time: string
 

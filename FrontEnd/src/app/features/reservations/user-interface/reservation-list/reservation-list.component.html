@@ -39,7 +39,7 @@
                         <th class="width-5">
                             <p-columnFilter [showMenu]="false" field="customer" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctCustomers" [placeholder]="getEmoji('wildcard')" optionLabel="description">
+                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownCustomers" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.description }}</span>
@@ -52,7 +52,7 @@
                         <th class="width-6">
                             <p-columnFilter [showMenu]="false" field="destination" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctDestinations" [placeholder]="getEmoji('wildcard')" optionLabel="description">
+                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownDestinations" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.description }}</span>
@@ -65,7 +65,7 @@
                         <th class="width-5">
                             <p-columnFilter [showMenu]="false" field="coachRoute" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctCoachRoutes" [placeholder]="getEmoji('wildcard')" optionLabel="description">
+                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownCoachRoutes" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.abbreviation }}</span>
@@ -78,7 +78,7 @@
                         <th class="width-8">
                             <p-columnFilter [showMenu]="false" field="pickupPoint" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctPickupPoints" [placeholder]="getEmoji('wildcard')" optionLabel="description">
+                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownPickupPoints" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.description }}</span>
@@ -94,7 +94,7 @@
                         <th class="width-5">
                             <p-columnFilter [showMenu]="false" field="driver" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctDrivers" [placeholder]="getEmoji('wildcard')" optionLabel="description">
+                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownDrivers" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.description }}</span>
@@ -107,7 +107,7 @@
                         <th class="width-5">
                             <p-columnFilter [showMenu]="false" field="port" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctPorts" [placeholder]="getEmoji('wildcard')" optionLabel="description">
+                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownPorts" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.description }}</span>
@@ -120,7 +120,7 @@
                         <th class="width-5">
                             <p-columnFilter [showMenu]="false" field="ship" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctShips" [placeholder]="getEmoji('wildcard')" optionLabel="description">
+                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownShips" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.description }}</span>

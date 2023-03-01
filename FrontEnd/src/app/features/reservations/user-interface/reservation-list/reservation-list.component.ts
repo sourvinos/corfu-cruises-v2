@@ -4,11 +4,8 @@ import { MatDialog } from '@angular/material/dialog'
 import { Subscription } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
-import { CoachRouteDistinctVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-distinct-vm'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
-import { CustomerDistinctVM } from 'src/app/features/customers/classes/view-models/customer-distinct-vm'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DestinationDistinctVM } from 'src/app/features/destinations/classes/view-models/destination-distinct-vm'
 import { DriverDistinctVM } from 'src/app/features/drivers/classes/view-models/driver-distinct-vm'
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
 import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
@@ -19,9 +16,11 @@ import { LocalStorageService } from 'src/app/shared/services/local-storage.servi
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { OverbookedDestinationVM } from '../../classes/view-models/list/overbooked-destination-vm'
-import { PickupPointDistinctVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-distinct-vm'
-import { PortDistinctVM } from 'src/app/features/ports/classes/view-models/port-distinct-vm'
+import { ReservationListCoachRouteVM } from '../../classes/view-models/list/reservation-list-coachRoute-vm'
+import { ReservationListDestinationVM } from 'src/app/features/reservations/classes/view-models/list/reservation-list-destination-vm'
+import { ReservationListOverbookedDestinationVM } from '../../classes/view-models/list/reservation-list-overbooked-destination-vm'
+import { ReservationListPickupPointVM } from '../../classes/view-models/list/reservation-list-pickupPoint-vm'
+import { ReservationListPortVM } from '../../classes/view-models/list/reservation-list-port-vm'
 import { ReservationListVM } from '../../classes/view-models/list/reservation-list-vm'
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
@@ -39,9 +38,9 @@ import { environment } from 'src/environments/environment'
 export class ReservationListComponent {
 
     //#region variables
-    
+
     @ViewChild('table') table: Table | undefined
-    
+
     private subscription = new Subscription()
     private url = ''
     public feature = 'reservationList'
@@ -54,15 +53,15 @@ export class ReservationListComponent {
 
     public totalPax = [0, 0, 0]
     public isAdmin: boolean
-    public overbookedDestinations: OverbookedDestinationVM[] = []
+    public overbookedDestinations: ReservationListOverbookedDestinationVM[] = []
 
-    public distinctCoachRoutes: CoachRouteDistinctVM[] = []
-    public distinctCustomers: CustomerDistinctVM[] = []
-    public distinctDestinations: DestinationDistinctVM[] = []
-    public distinctDrivers: DriverDistinctVM[] = []
-    public distinctPickupPoints: PickupPointDistinctVM[] = []
-    public distinctPorts: PortDistinctVM[] = []
-    public distinctShips: SimpleEntity[] = []
+    public dropdownCoachRoutes: ReservationListCoachRouteVM[] = []
+    public dropdownCustomers: SimpleEntity[] = []
+    public dropdownDestinations: ReservationListDestinationVM[] = []
+    public dropdownDrivers: DriverDistinctVM[] = []
+    public dropdownPickupPoints: ReservationListPickupPointVM[] = []
+    public dropdownPorts: ReservationListPortVM[] = []
+    public dropdownShips: SimpleEntity[] = []
 
     //#endregion
 
@@ -229,7 +228,7 @@ export class ReservationListComponent {
 
     private calculateOverbookings(): void {
         this.overbookedDestinations = []
-        this.distinctDestinations.forEach((destination) => {
+        this.dropdownDestinations.forEach((destination) => {
             this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
                 this.overbookedDestinations.push({
                     description: destination.abbreviation,
@@ -295,7 +294,7 @@ export class ReservationListComponent {
 
     private getDistinctDriverIds(): any[] {
         const driverIds = []
-        this.distinctDrivers.forEach(driver => {
+        this.dropdownDrivers.forEach(driver => {
             driverIds.push(driver.id)
         })
         return driverIds
@@ -333,13 +332,13 @@ export class ReservationListComponent {
 
 
     private populateDropdownFilters(): void {
-        this.distinctCoachRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'description')
-        this.distinctCustomers = this.helperService.getDistinctRecords(this.records, 'customer', 'description')
-        this.distinctDestinations = this.helperService.getDistinctRecords(this.records, 'destination', 'description')
-        this.distinctDrivers = this.helperService.getDistinctRecords(this.records, 'driver', 'description')
-        this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records, 'pickupPoint', 'description')
-        this.distinctPorts = this.helperService.getDistinctRecords(this.records, 'port', 'description')
-        this.distinctShips = this.helperService.getDistinctRecords(this.records, 'ship', 'descriptiοn')
+        this.dropdownCoachRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'description')
+        this.dropdownCustomers = this.helperService.getDistinctRecords(this.records, 'customer', 'description')
+        this.dropdownDestinations = this.helperService.getDistinctRecords(this.records, 'destination', 'description')
+        this.dropdownDrivers = this.helperService.getDistinctRecords(this.records, 'driver', 'description')
+        this.dropdownPickupPoints = this.helperService.getDistinctRecords(this.records, 'pickupPoint', 'description')
+        this.dropdownPorts = this.helperService.getDistinctRecords(this.records, 'port', 'description')
+        this.dropdownShips = this.helperService.getDistinctRecords(this.records, 'ship', 'descriptiοn')
     }
 
     private refreshList(): void {

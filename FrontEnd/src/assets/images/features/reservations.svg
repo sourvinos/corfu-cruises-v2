@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
 <svg
-   viewBox="0 0 24 24"
    version="1.1"
-   id="svg362"
+   id="Layer_1"
+   viewBox="0 0 24 24"
+   xml:space="preserve"
    sodipodi:docname="reservations.svg"
    width="24"
    height="24"
@@ -10,279 +13,104 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <defs
-     id="defs366" />
-  <sodipodi:namedview
-     id="namedview364"
-     pagecolor="#ffffff"
-     bordercolor="#000000"
-     borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
-     inkscape:pagecheckerboard="true"
-     inkscape:deskcolor="#d1d1d1"
-     showgrid="false"
-     inkscape:zoom="33.916667"
-     inkscape:cx="12"
-     inkscape:cy="12"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1352"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg362" />
-  <title
-     id="title265" />
-  <g
-     data-name="28-Calendar"
-     id="_28-Calendar"
-     transform="matrix(0.38709677,0,0,0.4137931,-0.38709677,-1.2413793)">
-    <rect
-       height="52"
-       style="fill:#e3e3e3"
-       width="62"
-       x="1"
-       y="6"
-       id="rect267" />
-    <rect
-       height="10"
-       style="fill:#ff5d54"
-       width="50"
-       x="7"
-       y="21"
-       id="rect269" />
-    <polygon
-       points="57,31 7,31 7,41 7,47 21,47 21,41 57,41 "
-       style="fill:#34c1ad"
-       id="polygon271" />
-    <rect
-       height="6"
-       style="fill:#f5f5f5"
-       width="36"
-       x="21"
-       y="41"
-       id="rect273" />
-    <rect
-       height="6"
-       rx="2"
-       style="fill:#21abab"
-       width="4"
-       x="53"
-       y="3"
-       id="rect275" />
-    <rect
-       height="6"
-       rx="2"
-       style="fill:#21abab"
-       width="4"
-       x="39"
-       y="3"
-       id="rect277" />
-    <rect
-       height="6"
-       rx="2"
-       style="fill:#21abab"
-       width="4"
-       x="21"
-       y="3"
-       id="rect279" />
-    <rect
-       height="6"
-       rx="2"
-       style="fill:#21abab"
-       width="4"
-       x="7"
-       y="3"
-       id="rect281" />
-    <polygon
-       points="13.854,20.797 14.146,21.203 7.146,26.203 6.854,25.797 "
-       style="fill:#f5f5f5"
-       id="polygon283" />
-    <polygon
-       points="20.854,20.797 21.146,21.203 14.146,26.203 13.854,25.797 "
-       style="fill:#f5f5f5"
-       id="polygon285" />
-    <polygon
-       points="27.854,20.797 28.146,21.203 21.146,26.203 20.854,25.797 "
-       style="fill:#f5f5f5"
-       id="polygon287" />
-    <polygon
-       points="34.854,20.797 35.146,21.203 28.146,26.203 27.854,25.797 "
-       style="fill:#f5f5f5"
-       id="polygon289" />
-    <polygon
-       points="41.854,20.797 42.146,21.203 35.146,26.203 34.854,25.797 "
-       style="fill:#f5f5f5"
-       id="polygon291" />
-    <polygon
-       points="48.854,20.797 49.146,21.203 42.146,26.203 41.854,25.797 "
-       style="fill:#f5f5f5"
-       id="polygon293" />
-    <polygon
-       points="56.867,20.788 57.133,21.212 49.133,26.212 48.867,25.788 "
-       style="fill:#f5f5f5"
-       id="polygon295" />
-    <polygon
-       points="13.854,25.797 14.146,26.203 7.146,31.203 6.854,30.797 "
-       style="fill:#f5f5f5"
-       id="polygon297" />
-    <polygon
-       points="20.854,25.797 21.146,26.203 14.146,31.203 13.854,30.797 "
-       style="fill:#f5f5f5"
-       id="polygon299" />
-    <polygon
-       points="27.854,25.797 28.146,26.203 21.146,31.203 20.854,30.797 "
-       style="fill:#f5f5f5"
-       id="polygon301" />
-    <polygon
-       points="34.854,25.797 35.146,26.203 28.146,31.203 27.854,30.797 "
-       style="fill:#f5f5f5"
-       id="polygon303" />
-    <polygon
-       points="41.854,25.797 42.146,26.203 35.146,31.203 34.854,30.797 "
-       style="fill:#f5f5f5"
-       id="polygon305" />
-    <polygon
-       points="48.854,25.797 49.146,26.203 42.146,31.203 41.854,30.797 "
-       style="fill:#f5f5f5"
-       id="polygon307" />
-    <polygon
-       points="56.867,25.788 57.133,26.212 49.133,31.212 48.867,30.788 "
-       style="fill:#f5f5f5"
-       id="polygon309" />
-    <path
-       d="M 57,20.5 H 7 A 0.5,0.5 0 0 0 6.5,21 V 47 A 0.5,0.5 0 0 0 7,47.5 H 57 A 0.5,0.5 0 0 0 57.5,47 V 21 A 0.5,0.5 0 0 0 57,20.5 Z m -0.5,5 h -7 v -4 h 7 z m -42,15 v -4 h 6 v 4 z m 6,1 v 5 h -6 v -5 z m 1,-10 h 6 v 4 h -6 z m -1,4 h -6 v -4 h 6 z m 14,-5 h -6 v -4 h 6 z m 1,-4 h 6 v 4 h -6 z m -8,4 h -6 v -4 h 6 z m 1,1 h 6 v 4 h -6 z m 7,0 h 6 v 4 h -6 z m 7,0 h 6 v 4 h -6 z m 0,-1 v -4 h 6 v 4 z m 0,-5 v -4 h 6 v 4 z m -1,0 h -6 v -4 h 6 z m -7,0 h -6 v -4 h 6 z m -7,0 h -6 v -4 h 6 z m -7,0 h -6 v -4 h 6 z m 0,1 v 4 h -6 v -4 z m -7,4 h -6 v -4 h 6 z m 0,1 v 4 h -6 v -4 z m 0,5 v 4 h -6 v -4 z m 8,0 h 6 v 4 h -6 z m 7,0 h 6 v 4 h -6 z m 7,0 h 6 v 4 h -6 z m 7,0 h 6 v 4 h -6 z m 7,0 h 7 v 4 h -7 z m 0,-1 v -4 h 7 v 4 z m 0,-5 v -4 h 7 v 4 z m -36,-9 v 4 h -6 v -4 z m -6,20 h 6 v 5 h -6 z m 14,5 v -5 h 35 v 5 z"
-       style="fill:#3d3d3d"
-       id="path311" />
-    <path
-       d="M 55,6 V 4 A 1.972,1.972 0 0 1 55.263,3.027 1.905,1.905 0 0 0 55,3 2,2 0 0 0 53,5 V 7 A 1.993,1.993 0 0 0 56.737,7.973 1.993,1.993 0 0 1 55,6 Z"
-       style="fill:#13969d"
-       id="path313" />
-    <path
-       d="M 41,6 V 4 A 1.972,1.972 0 0 1 41.263,3.027 1.905,1.905 0 0 0 41,3 2,2 0 0 0 39,5 V 7 A 1.993,1.993 0 0 0 42.737,7.973 1.993,1.993 0 0 1 41,6 Z"
-       style="fill:#13969d"
-       id="path315" />
-    <path
-       d="M 23,6 V 4 A 1.972,1.972 0 0 1 23.263,3.027 1.905,1.905 0 0 0 23,3 2,2 0 0 0 21,5 V 7 A 1.993,1.993 0 0 0 24.737,7.973 1.993,1.993 0 0 1 23,6 Z"
-       style="fill:#13969d"
-       id="path317" />
-    <path
-       d="M 9,6 V 4 A 1.972,1.972 0 0 1 9.263,3.027 1.905,1.905 0 0 0 9,3 2,2 0 0 0 7,5 V 7 A 1.993,1.993 0 0 0 10.737,7.973 1.993,1.993 0 0 1 9,6 Z"
-       style="fill:#13969d"
-       id="path319" />
-    <path
-       d="M 55,9 A 2,2 0 0 1 53,7 V 6 H 52 V 8 A 2,2 0 0 0 55.82,8.82 1.99,1.99 0 0 1 55,9 Z"
-       style="fill:#bfbfbf"
-       id="path321" />
-    <path
-       d="M 41,9 A 2,2 0 0 1 39,7 V 6 H 38 V 8 A 2,2 0 0 0 41.82,8.82 1.99,1.99 0 0 1 41,9 Z"
-       style="fill:#bfbfbf"
-       id="path323" />
-    <path
-       d="M 23,9 A 2,2 0 0 1 21,7 V 6 H 20 V 8 A 2,2 0 0 0 23.82,8.82 1.99,1.99 0 0 1 23,9 Z"
-       style="fill:#bfbfbf"
-       id="path325" />
-    <path
-       d="M 9,9 A 2,2 0 0 1 7,7 V 6 H 6 V 8 A 2,2 0 0 0 9.82,8.82 1.99,1.99 0 0 1 9,9 Z"
-       style="fill:#bfbfbf"
-       id="path327" />
-    <rect
-       height="2"
-       style="fill:#13969d"
-       width="4"
-       x="6"
-       y="11"
-       id="rect329" />
-    <rect
-       height="2"
-       style="fill:#13969d"
-       width="9"
-       x="6"
-       y="14"
-       id="rect331" />
-    <rect
-       height="2"
-       style="fill:#13969d"
-       width="2"
-       x="12"
-       y="17"
-       id="rect333" />
-    <rect
-       height="2"
-       style="fill:#13969d"
-       width="2"
-       x="19"
-       y="17"
-       id="rect335" />
-    <rect
-       height="2"
-       style="fill:#13969d"
-       width="2"
-       x="26"
-       y="17"
-       id="rect337" />
-    <rect
-       height="2"
-       style="fill:#13969d"
-       width="2"
-       x="33"
-       y="17"
-       id="rect339" />
-    <rect
-       height="2"
-       style="fill:#13969d"
-       width="2"
-       x="40"
-       y="17"
-       id="rect341" />
-    <rect
-       height="2"
-       style="fill:#13969d"
-       width="2"
-       x="47"
-       y="17"
-       id="rect343" />
-    <rect
-       height="2"
-       style="fill:#13969d"
-       width="2"
-       x="55"
-       y="17"
-       id="rect345" />
-    <rect
-       height="7"
-       style="fill:#3d3d3d"
-       width="1"
-       x="27.5"
-       y="49"
-       id="rect347" />
-    <path
-       d="m 34.5,49 h -1 v 3.5 h -2 V 49 h -1 v 4 a 0.5,0.5 0 0 0 0.5,0.5 h 2.5 V 56 h 1 V 53.5 H 36 v -1 h -1.5 z"
-       style="fill:#3d3d3d"
-       id="path349" />
-    <path
-       d="M 41.828,49 H 40 a 0.472,0.472 0 0 0 -0.5,0.438 v 6.124 A 0.472,0.472 0 0 0 40,56 h 1.828 A 2.524,2.524 0 0 0 44.5,53.662 V 51.338 A 2.524,2.524 0 0 0 41.828,49 Z m 1.672,4.662 a 1.58,1.58 0 0 1 -1.672,1.463 H 40.5 v -5.25 h 1.328 a 1.58,1.58 0 0 1 1.672,1.463 z"
-       style="fill:#3d3d3d"
-       id="path351" />
-    <path
-       d="m 49,49 a 2.423,2.423 0 0 0 -2.5,2.333 V 56 h 1 v -2.333 h 3 V 56 h 1 V 51.333 A 2.423,2.423 0 0 0 49,49 Z m -1.5,3.733 v -1.4 a 1.5,1.5 0 0 1 3,0 v 1.4 z"
-       style="fill:#3d3d3d"
-       id="path353" />
-    <path
-       d="m 56.5,49 v 1 a 1.5,1.5 0 0 1 -3,0 v -1 h -1 v 1 a 2.5,2.5 0 0 0 2,2.449 V 56 h 1 V 52.449 A 2.5,2.5 0 0 0 57.5,50 v -1 z"
-       style="fill:#3d3d3d"
-       id="path355" />
-    <rect
-       height="3"
-       style="fill:#bfbfbf"
-       width="62"
-       x="1"
-       y="58"
-       id="rect357" />
-    <path
-       d="m 1,58 v 3 h 5 a 2,2 0 0 1 2,-2 h 55 v -1 z"
-       style="fill:#a3a3a3"
-       id="path359" />
-  </g>
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs479" /><sodipodi:namedview
+   id="namedview477"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="true"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="33.916667"
+   inkscape:cx="12"
+   inkscape:cy="12"
+   inkscape:window-width="1920"
+   inkscape:window-height="1017"
+   inkscape:window-x="-8"
+   inkscape:window-y="-8"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="Layer_1" />
+<path
+   style="fill:#8cc1ea;stroke-width:0.0536747"
+   d="M 16.389643,1.0720312 H 22.25512 C 23.218522,1.0720312 24,1.6680469 24,2.4028125 V 22.669219 C 24,23.403984 23.218522,24 22.25512,24 H 1.7457406 C 0.78147768,24 0,23.403984 0,22.669219 V 2.4028125 C 0,1.6680469 0.78147768,1.0720312 1.7457406,1.0720312 h 5.8645552"
+   id="path448" />
+<polyline
+   style="fill:#ffffff"
+   points="327.421,78.553 392.043,78.553 392.043,456.317 119.957,456.317 119.957,78.553   184.585,78.553 "
+   id="polyline450"
+   transform="matrix(0.06146108,0,0,0.046875,-3.7340067,0)" />
+<path
+   style="fill:#f2ca7f;stroke-width:0.0536747"
+   d="M 16.389643,4.3835156 H 7.6107874 v -3.0525 C 7.6107874,0.59596875 8.3921422,0 9.3559749,0 h 5.2883571 c 0.963833,0 1.745188,0.59596875 1.745188,1.3310156 v 3.0525 z"
+   id="path452" />
+<rect
+   x="9.605691"
+   y="2.4776719"
+   style="fill:#79b1d6;stroke-width:0.0536747"
+   width="4.7884946"
+   height="0.85832816"
+   id="rect454" />
+<g
+   id="g464"
+   transform="matrix(0.06146108,0,0,0.046875,-3.7340067,0)">
+	<rect
+   x="209.743"
+   y="163.222"
+   style="fill:#898686"
+   width="139.735"
+   height="18.311001"
+   id="rect456" />
+	<rect
+   x="209.743"
+   y="370.09601"
+   style="fill:#898686"
+   width="139.735"
+   height="18.311001"
+   id="rect458" />
+	<rect
+   x="209.743"
+   y="301.138"
+   style="fill:#898686"
+   width="139.735"
+   height="18.311001"
+   id="rect460" />
+	<rect
+   x="209.743"
+   y="232.17999"
+   style="fill:#898686"
+   width="139.735"
+   height="18.311001"
+   id="rect462" />
+</g>
+<g
+   id="g474"
+   transform="matrix(0.06146108,0,0,0.046875,-3.7340067,0)">
+	<circle
+   style="fill:#f2ca7f"
+   cx="171.66901"
+   cy="172.377"
+   r="9.1549997"
+   id="circle466" />
+	<circle
+   style="fill:#f2ca7f"
+   cx="171.66901"
+   cy="241.33501"
+   r="9.1549997"
+   id="circle468" />
+	<circle
+   style="fill:#f2ca7f"
+   cx="171.66901"
+   cy="310.293"
+   r="9.1549997"
+   id="circle470" />
+	<circle
+   style="fill:#f2ca7f"
+   cx="171.66901"
+   cy="379.25101"
+   r="9.1549997"
+   id="circle472" />
+</g>
 </svg>

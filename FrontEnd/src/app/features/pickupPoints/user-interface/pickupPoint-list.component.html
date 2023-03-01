@@ -28,7 +28,7 @@
                                     <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctRoutes" [placeholder]="getEmoji('wildcard')" optionLabel="description">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
-                                                <span>{{ option.description }}</span>
+                                                <span>{{ option.abbreviation }}</span>
                                             </div>
                                         </ng-template>
                                     </p-multiSelect>
@@ -45,7 +45,7 @@
                             <span *ngIf="record.isActive" class="is-active material-icons-outlined">check_circle</span>
                             <span *ngIf="!record.isActive" class="is-not-active material-icons-outlined">highlight_off</span>
                         </td>
-                        <td class="center width-10">{{ record.coachRoute.description }}</td>
+                        <td class="center width-10">{{ record.coachRoute.abbreviation }}</td>
                         <td class="width-25">{{ record.description }}</td>
                         <td class="width-24">{{ record.exactPoint }}</td>
                         <td class="center width-6">{{ record.time }}</td>

@@ -16,11 +16,11 @@ namespace API.Features.Reservations {
         public int TotalPax { get; set; }
 
         public SimpleEntity Customer { get; set; }
-        public SimpleEntity CoachRoute { get; set; }
-        public DestinationListVM Destination { get; set; }
-        public DriverListVM Driver { get; set; }
-        public PickupPointListVM PickupPoint { get; set; }
-        public PortListVM Port { get; set; }
+        public ReservationListCoachRouteVM CoachRoute { get; set; }
+        public ReservationListDestinationVM Destination { get; set; }
+        public ReservationListDriverVM Driver { get; set; }
+        public ReservationListPickupPointVM PickupPoint { get; set; }
+        public ReservationListPortVM Port { get; set; }
         public SimpleEntity Ship { get; set; }
 
         public int PassengerCount { get; set; }

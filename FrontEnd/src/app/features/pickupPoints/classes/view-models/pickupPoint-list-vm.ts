@@ -1,10 +1,10 @@
-import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
+import { PickupPointListCoachRouteVM } from './pickupPoint-list-coachRoute-vm'
 
 export interface PickupPointListVM {
 
     id: number
     description: string
-    coachRoute: SimpleEntity
+    coachRoute: PickupPointListCoachRouteVM
     exactPoint: string
     time: string
     isActive: boolean

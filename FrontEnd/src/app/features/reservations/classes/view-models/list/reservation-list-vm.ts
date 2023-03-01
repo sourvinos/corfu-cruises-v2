@@ -1,10 +1,9 @@
-import { CoachRouteDistinctVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-distinct-vm'
-import { CustomerDistinctVM } from 'src/app/features/customers/classes/view-models/customer-distinct-vm'
-import { DestinationDistinctVM } from 'src/app/features/destinations/classes/view-models/destination-distinct-vm'
-import { DriverDistinctVM } from 'src/app/features/drivers/classes/view-models/driver-distinct-vm'
-import { PickupPointDistinctVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-distinct-vm'
-import { PortDistinctVM } from 'src/app/features/ports/classes/view-models/port-distinct-vm'
-import { ShipDistinctVM } from 'src/app/features/ships/classes/view-models/ship-distinct-vm'
+import { ReservationListCoachRouteVM } from './reservation-list-coachRoute-vm'
+import { ReservationListDestinationVM } from 'src/app/features/reservations/classes/view-models/list/reservation-list-destination-vm'
+import { ReservationListDriverVM } from './reservation-list-driver-vm'
+import { ReservationListPickupPointVM } from './reservation-list-pickupPoint-vm'
+import { ReservationListPortVM } from './reservation-list-port-vm'
+import { SimpleEntity } from './../../../../../shared/classes/simple-entity'
 
 export interface ReservationListVM {
 
@@ -15,13 +14,13 @@ export interface ReservationListVM {
     free: number
     totalPax: number
     ticketNo: string
-    coachRoute: CoachRouteDistinctVM
-    customer: CustomerDistinctVM
-    destination: DestinationDistinctVM
-    driver: DriverDistinctVM
-    pickupPoint: PickupPointDistinctVM
-    port: PortDistinctVM
-    ship: ShipDistinctVM
+    coachRoute: ReservationListCoachRouteVM
+    customer: SimpleEntity
+    destination: ReservationListDestinationVM
+    driver: ReservationListDriverVM
+    pickupPoint: ReservationListPickupPointVM
+    port: ReservationListPortVM
+    ship: SimpleEntity
     user: string
 
 }
