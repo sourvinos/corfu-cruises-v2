@@ -2072,5 +2072,46 @@
                 "description": "Αυτόματη αποσύνδεση"
             }
         ]
+    },
+    {
+        "feature": "tempPassengersDialog",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Προσοχή!"
+            },
+            {
+                "id": "subHeader",
+                "description": "Βρήκαμε προσωρινά αποθηκευμένους επιβάτες."
+            },
+            {
+                "id": "actionMessage",
+                "description": "Τι θέλετε να κάνουμε;"
+            },
+            {
+                "id": "option1",
+                "description": "Προσθήκη"
+            },
+            {
+                "id": "option1message",
+                "description": "Στους τυχόν υπάρχοντες επιβάτες θα προστεθούν όλοι οι προσωρινοί. Αν δημιουργηθούν διπλές εγγραφές θα πρέπει να τις διαγράψετε."
+            },
+            {
+                "id": "option2",
+                "description": "Αντικατάσταση"
+            },
+            {
+                "id": "option2message",
+                "description": "Όλοι οι τυχόν υπάρχοντες επιβάτες θα διαγραφούν και θα αντικατασταθούν από τους προσωρινούς."
+            },
+            {
+                "id": "abortButton",
+                "description": "Άκυρο"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            }
+        ]
     }
 ]

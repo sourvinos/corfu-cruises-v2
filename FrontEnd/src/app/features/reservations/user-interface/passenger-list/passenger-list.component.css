@@ -17,21 +17,37 @@
     justify-content: space-between;
 }
 
-#passenger-count-wrapper {
+.passenger-count-wrapper {
     align-items: center;
     display: flex;
     gap: 0.5rem;
 }
 
-#passenger-count-wrapper .material-icons {
-    color: var(--color-input-focus);
+.passenger-count-wrapper .material-icons {
     font-size: 2.1875rem;
 }
 
-#passenger-count {
+.passenger-count-wrapper .material-icons.primary {
+    color: var(--color-input-focus);
+}
+
+.passenger-count-wrapper .material-icons.error {
+    color: var(--color-red);
+}
+
+.passenger-count-wrapper .material-icons.error:hover {
+    cursor: pointer;
+}
+
+.passenger-count-wrapper .material-icons.error:first-child {
+    font-size: 1.4rem;
+    margin-top: 2px;
+}
+
+.passenger-count {
     color: var(--color-c);
     font-family: var(--font-family-asty);
-    font-size: 1.25rem;
+    font-size: 1rem;
     font-weight: 300;
     margin-top: 0.1875rem;
     transition: all var(--theme-change-delay) ease-in;

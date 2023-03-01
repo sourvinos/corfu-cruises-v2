@@ -151,6 +151,7 @@
             <button *ngIf="form.value.reservationId != ''" (click)="onDelete()" class="delete" mat-flat-button>{{ getLabel('deleteButton') }}</button>
             <button (click)="onSave()" [disabled]="!form.valid || !checkTotalPaxAgainstPassengerCount()" class="primary" mat-flat-button>
                 <mat-icon *ngIf="!form.valid || !checkTotalPaxAgainstPassengerCount()" class="button-icon">lock</mat-icon>
+                <mat-icon *ngIf="checkForTempPassengers()" class="button-icon">warning</mat-icon>
                 <span>{{ getLabel("saveButton") }}</span>
             </button>
         </div>

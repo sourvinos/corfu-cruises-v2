@@ -35,11 +35,12 @@
 
 #dialog-header h1 {
     color: var(--color-dialog-header) !important;
-    margin: 0 !important;
+    margin: 0 0 1rem 0 !important;
 }
 
 #dialog-header h6 {
     color: var(--color-c) !important;
+    line-height: 1rem;
     margin: 0;
 }
 

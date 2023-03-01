@@ -36,10 +36,16 @@
     </div>
 
     <div id="footer">
-        <div id="passenger-count-wrapper">
-            <span class="material-icons">group</span>
-            <span id="passenger-count">{{ passengers.length }}</span>
+        <div class="passenger-count-wrapper">
+            <span *ngIf="tempPassengers.length != 0" (click)="showTempPassengersDialog()" class="error material-icons">warning</span>
+            <span class="primary material-icons">group</span>
+            <span class="passenger-count">{{ passengers.length || 0}}</span>
         </div>
+        <!-- <div *ngIf="tempPassengers.length != 0" (click)="showTempPassengersDialog()" class="passenger-count-wrapper">
+            <span class="error material-icons">warning</span>
+            <span class="error material-icons">group</span>
+            <span class="passenger-count">{{ tempPassengers.length }}</span>
+        </div> -->
         <button (click)="newRow()" class="secondary" mat-flat-button tabindex="-1">{{ getLabel("newPassengerButton") }}</button>
     </div>
 

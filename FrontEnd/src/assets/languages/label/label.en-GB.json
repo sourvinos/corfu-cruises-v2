@@ -2072,5 +2072,46 @@
                 "description": "Auto logout"
             }
         ]
+    },
+    {
+        "feature": "tempPassengersDialog",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Warning!"
+            },
+            {
+                "id": "subHeader",
+                "description": "We found temporary saved passengers."
+            },
+            {
+                "id": "actionMessage",
+                "description": "What shall we do?"
+            },
+            {
+                "id": "option1",
+                "description": "Add"
+            },
+            {
+                "id": "option1message",
+                "description": "All temporary passengers will be added to any existing. If duplicate entries are created you will need to delete them."
+            },
+            {
+                "id": "option2",
+                "description": "Replace"
+            },
+            {
+                "id": "option2message",
+                "description": "All possible existing passengers will be replaced by the temporary. This will delete all of the possibly existing ones."
+            },
+            {
+                "id": "abortButton",
+                "description": "Cancel"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            }
+        ]
     }
 ]

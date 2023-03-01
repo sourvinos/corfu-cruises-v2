@@ -2072,5 +2072,46 @@
                 "description": "Déconnexion auto"
             }
         ]
+    },
+    {
+        "feature": "tempPassengersDialog",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Attention!"
+            },
+            {
+                "id": "subHeader",
+                "description": "Nous avons trouvé des passagers sauvés temporairement."
+            },
+            {
+                "id": "actionMessage",
+                "description": "Que devons-nous faire?"
+            },
+            {
+                "id": "option1",
+                "description": "Ajouter"
+            },
+            {
+                "id": "option1message",
+                "description": "Tous les passagers temporaires seront ajoutés à ceux qui existent déjà. Si des entrées en double sont créées, vous devrez les supprimer."
+            },
+            {
+                "id": "option2",
+                "description": "Remplacer"
+            },
+            {
+                "id": "option2message",
+                "description": "Tous les passagers existants éventuels seront remplacés par les passagers temporaires. Ceci supprimera tous les passagers existants possibles."
+            },
+            {
+                "id": "abortButton",
+                "description": "Annuler"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            }
+        ]
     }
 ]

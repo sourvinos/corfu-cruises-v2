@@ -4,12 +4,14 @@ import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
 import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
+import { StoredPassengersModalComponent } from '../stored-passengers/stored-passengers-modal.component'
 import { environment } from 'src/environments/environment'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'passenger-list',
@@ -29,12 +31,17 @@ export class PassengerListComponent {
     @Output() outputPassengers = new EventEmitter()
     private ngUnsubscribe = new Subject<void>()
     public feature = 'passengerList'
+    public tempPassengers: PassengerReadDto[] = []
 
     //#endregion
 
-    constructor(public emojiService: EmojiService, public dialog: MatDialog, private helperService: HelperService, private messageLabelService: MessageLabelService) { }
+    constructor(private dialog: MatDialog, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService) { }
 
     //#region lifecycle hooks
+
+    ngOnInit(): void {
+        this.checkForTempPassengers()
+    }
 
     ngOnDestroy(): void {
         this.ngUnsubscribe.next()
@@ -84,6 +91,42 @@ export class PassengerListComponent {
 
     //#region private methods
 
+    private checkForTempPassengers(): void {
+        if (this.localStorageService.getItem('passengers') != '') {
+            this.tempPassengers = JSON.parse(this.localStorageService.getItem('passengers'))
+        }
+    }
+
+    public showTempPassengersDialog(): void {
+        if (this.localStorageService.getItem('passengers') != '') {
+            const dialogRef = this.dialog.open(StoredPassengersModalComponent, {
+                height: '550px',
+                width: '500px',
+                data: {
+                    actions: ['abort', 'ok']
+                },
+                panelClass: 'dialog'
+            })
+            dialogRef.afterClosed().subscribe(result => {
+                if (result !== undefined) {
+                    if (result.options[0].id == 1) {
+                        this.passengers.push(...JSON.parse(this.localStorageService.getItem('passengers')))
+                        this.outputPassengerCount.emit(this.passengers.length)
+                        this.outputPassengers.emit(this.passengers)
+                    }
+                    if (result.options[0].id == 2) {
+                        this.passengers = JSON.parse(this.localStorageService.getItem('passengers'))
+                        this.outputPassengerCount.emit(this.passengers.length)
+                        this.outputPassengers.emit(this.passengers)
+                    }
+                    if (result.options[0].id == 3) {
+                        this.localStorageService.deleteItems([{ 'passengers': 'always' }])
+                    }
+                }
+            })
+        }
+    }
+
     private sendPassengerToForm(passenger: PassengerReadDto): void {
         const dialog = this.dialog.open(PassengerFormComponent, {
             disableClose: true,
@@ -131,12 +174,12 @@ export class PassengerListComponent {
                 isCheckedIn: false
             }
         })
-        dialog.afterClosed().subscribe((result: any) => {
-            if (result) {
-                this.passengers.push(result)
-                this.passengers = [...this.passengers]
+        dialog.afterClosed().subscribe((newPassenger: any) => {
+            if (newPassenger) {
+                this.passengers.push(newPassenger)
                 this.outputPassengerCount.emit(this.passengers.length)
                 this.outputPassengers.emit(this.passengers)
+                this.updateStorageWithPassengers()
             }
         })
     }
@@ -148,6 +191,10 @@ export class PassengerListComponent {
         if (passenger != undefined) {
             this.sendPassengerToForm(passenger)
         }
+    }
+
+    private updateStorageWithPassengers(): void {
+        this.localStorageService.saveItem('passengers', JSON.stringify(this.passengers))
     }
 
     //#endregion

@@ -1,0 +1,39 @@
+<div id="dialog">
+
+    <div id="dialog-header">
+        <h1 mat-dialog-title>{{ getLabel('header') }}</h1>
+        <h6 mat-dialog-title>{{ getLabel('subHeader') }}</h6>
+        <h6 mat-dialog-title>{{ getLabel('actionMessage') }}</h6>
+    </div>
+
+    <div id="dialog-content">
+        <form id="form" [formGroup]="form" autocomplete="off">
+            <div *ngFor="let option of options" [attr.id]=option.description>
+                <div class="styled-input-rounded">
+                    <div class="styled-input-single rounded">
+                        <input (click)="updateRadioButtons(form, 'options', 'option', option.id, option.description)" class="options" formArrayName="options" type="radio" [value]="option.id" [attr.id]="'option' + option.id" [checked]="false">
+                        <label [attr.for]="'option' + option.id" [attr.id]="'option-label' + option.id">
+                            <span>{{ getLabel('option' + option.id) }}</span>
+                        </label>
+                    </div>
+                    <p class="option-message">{{ getLabel('option' + option.id + 'message') }}</p>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="dialog-footer">
+        <div class="button-group-right">
+            <mat-dialog-actions>
+                <button (click)="cancel()" class="transparent" mat-flat-button tabindex="-1">
+                    <span>{{ getLabel("abortButton") }}</span>
+                </button>
+                <button (click)="save()" [disabled]="!form.valid" class="primary" mat-flat-button>
+                    <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+                    <span>{{ getLabel("okButton") }}</span>
+                </button>
+            </mat-dialog-actions>
+        </div>
+    </div>
+
+</div>

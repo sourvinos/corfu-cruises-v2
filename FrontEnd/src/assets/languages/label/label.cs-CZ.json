@@ -2072,5 +2072,46 @@
                 "description": "Auto odhlášení"
             }
         ]
+    },
+    {
+        "feature": "tempPassengersDialog",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Pozor"
+            },
+            {
+                "id": "subHeader",
+                "description": "Našli jsme dočasně uložené cestující."
+            },
+            {
+                "id": "actionMessage",
+                "description": "Co máme dělat?"
+            },
+            {
+                "id": "option1",
+                "description": "Přidat"
+            },
+            {
+                "id": "option1message",
+                "description": "Všichni dočasní cestující budou přidáni ke všem stávajícím. Pokud se vytvoří duplicitní záznamy, budete je muset odstranit."
+            },
+            {
+                "id": "option2",
+                "description": "Vyměnit"
+            },
+            {
+                "id": "option2message",
+                "description": "Všichni případní stávající cestující budou nahrazeni dočasnými. Tím se odstraní všechny případně existující."
+            },
+            {
+                "id": "abortButton",
+                "description": "Zrušit"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            }
+        ]
     }
 ]

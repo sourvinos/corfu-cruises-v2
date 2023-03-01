@@ -103,6 +103,10 @@ export class ReservationFormComponent {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
+    public checkForTempPassengers(): boolean {
+        return this.localStorageService.getItem('passengers') != ''
+    }
+
     public checkTotalPaxAgainstPassengerCount(element?: any): boolean {
         if (this.form.value.passengers.length > 0) {
             const passengerDifference = this.form.value.totalPax - (element != null ? element : this.form.value.passengers.length)
@@ -162,6 +166,7 @@ export class ReservationFormComponent {
                 this.reservationService.delete(this.form.value.reservationId).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
+                        this.localStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
                     },
                     error: (errorFromInterceptor) => {
                         this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
@@ -206,10 +211,6 @@ export class ReservationFormComponent {
                 'description': value.port.description
             }
         })
-    }
-
-    public handleEmptyInput(event: any): void {
-        console.log('...', event)
     }
 
     //#endregion
@@ -466,6 +467,7 @@ export class ReservationFormComponent {
         this.reservationService.save(reservation).pipe(indicate(this.isLoading)).subscribe({
             next: (response) => {
                 this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.parentUrl, this.form)
+                this.localStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
             },
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)

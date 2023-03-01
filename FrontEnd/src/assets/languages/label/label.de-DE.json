@@ -2072,5 +2072,46 @@
                 "description": "Automatisch abmelden"
             }
         ]
+    },
+    {
+        "feature": "tempPassengersDialog",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Warnung"
+            },
+            {
+                "id": "subHeader",
+                "description": "Wir haben vorübergehend gerettete Passagiere gefunden."
+            },
+            {
+                "id": "actionMessage",
+                "description": "Was sollen wir tun?"
+            },
+            {
+                "id": "option1",
+                "description": "Hinzufügen"
+            },
+            {
+                "id": "option1message",
+                "description": "Alle temporären Passagiere werden zu den bereits vorhandenen hinzugefügt. Wenn doppelte Einträge erstellt werden, müssen Sie diese löschen."
+            },
+            {
+                "id": "option2",
+                "description": "Ersetzen"
+            },
+            {
+                "id": "option2message",
+                "description": "Alle möglicherweise vorhandenen Passagiere werden durch die temporären Passagiere ersetzt. Dadurch werden alle möglicherweise vorhandenen Passagiere gelöscht."
+            },
+            {
+                "id": "abortButton",
+                "description": "Abbrechen"
+            },
+            {
+                "id": "okButton",
+                "description": "OK"
+            }
+        ]
     }
 ]
