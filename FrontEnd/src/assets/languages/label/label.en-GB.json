@@ -408,7 +408,7 @@
             },
             {
                 "id": "hasTransfer",
-                "description": "Requires transfer"
+                "description": "Has transfer"
             },
             {
                 "id": "isActive",
@@ -421,14 +421,6 @@
             {
                 "id": "saveButton",
                 "description": "Save"
-            },
-            {
-                "id": "formTab",
-                "description": "Form"
-            },
-            {
-                "id": "mapTab",
-                "description": "Map"
             }
         ]
     },

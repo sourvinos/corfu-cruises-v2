@@ -408,7 +408,7 @@
             },
             {
                 "id": "hasTransfer",
-                "description": "avec du transfer"
+                "description": "A transfer"
             },
             {
                 "id": "isActive",
@@ -421,14 +421,6 @@
             {
                 "id": "saveButton",
                 "description": "Enregistrer"
-            },
-            {
-                "id": "formTab",
-                "description": "Des coordonnees"
-            },
-            {
-                "id": "mapTab",
-                "description": "Cartes"
             }
         ]
     },

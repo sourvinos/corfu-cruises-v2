@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, Subscription } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { CoachRouteReadDto } from '../../classes/dtos/coachRoute-read-dto'
@@ -16,8 +16,8 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { ValidationService } from 'src/app/shared/services/validation.service'
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
+import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
     selector: 'coach-route-form',
@@ -30,56 +30,41 @@ export class CoachRouteFormComponent {
     //#region variables
 
     private record: CoachRouteReadDto
-    private unsubscribe = new Subject<void>()
+    private recordId: number
+    private subscription = new Subscription()
     public feature = 'coachRouteForm'
     public featureIcon = 'coachRoutes'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public isAutoCompleteDisabled = true
     public isLoading = new Subject<boolean>()
+    public isNewRecord: boolean
     public parentUrl = '/coachRoutes'
 
-    public isAutoCompleteDisabled = true
-    public activePorts: Observable<PortActiveVM[]>
+    public dropdownPorts: Observable<PortActiveVM[]>
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private coachRouteService: CoachRouteService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
-        this.activatedRoute.params.subscribe(x => {
-            if (x.id) {
-                this.initForm()
-                this.getRecord()
-                this.populateFields(this.record)
-            } else {
-                this.initForm()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private coachRouteService: CoachRouteService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.populateDropdowns()
-        this.focusOnField('abbreviation')
+        this.initForm()
+        this.setRecordId()
+        this.setNewRecord()
+        this.getRecord()
+        this.populateFields()
+        this.populateDropDowns()
+    }
+
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-    }
-
-    canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-            return false
-        } else {
-            return true
-        }
     }
 
     //#endregion
@@ -130,8 +115,7 @@ export class CoachRouteFormComponent {
     //#region private methods
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -143,7 +127,7 @@ export class CoachRouteFormComponent {
     }
 
     private flattenForm(): CoachRouteWriteDto {
-        const coachRoute = {
+        return {
             id: this.form.value.id,
             portId: this.form.value.port.id,
             abbreviation: this.form.value.abbreviation,
@@ -151,25 +135,24 @@ export class CoachRouteFormComponent {
             hasTransfer: this.form.value.hasTransfer,
             isActive: this.form.value.isActive,
         }
-        return coachRoute
     }
 
-    private focusOnField(field: string): void {
-        this.helperService.focusOnField(field)
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
     }
 
     private getRecord(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const formResolved: FormResolved = this.activatedRoute.snapshot.data['coachRouteForm']
             if (formResolved.error == null) {
                 this.record = formResolved.record.body
                 resolve(this.record)
             } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok']).subscribe(() => {
+                    this.goBack()
+                })
             }
         })
-        return promise
     }
 
     private goBack(): void {
@@ -192,23 +175,21 @@ export class CoachRouteFormComponent {
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
-    private populateDropdowns(): void {
-        this.populateDropdownFromStorage('ports', 'activePorts', 'port', 'description')
+    private populateDropDowns(): void {
+        this.populateDropdownFromStorage('ports', 'dropdownPorts', 'port', 'description')
     }
 
-    private populateFields(result: CoachRouteReadDto): void {
-        this.form.setValue({
-            id: result.id,
-            abbreviation: result.abbreviation,
-            description: result.description,
-            port: { 'id': result.port.id, 'description': result.port.description },
-            hasTransfer: result.hasTransfer,
-            isActive: result.isActive
-        })
-    }
-
-    private resetForm(): void {
-        this.form.reset()
+    private populateFields(): void {
+        if (this.isNewRecord == false) {
+            this.form.setValue({
+                id: this.record.id,
+                abbreviation: this.record.abbreviation,
+                description: this.record.description,
+                port: { 'id': this.record.port.id, 'description': this.record.port.description },
+                hasTransfer: this.record.hasTransfer,
+                isActive: this.record.isActive
+            })
+        }
     }
 
     private saveRecord(coachRoute: CoachRouteWriteDto): void {
@@ -219,6 +200,16 @@ export class CoachRouteFormComponent {
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
+        })
+    }
+
+    private setNewRecord(): void {
+        this.isNewRecord = this.recordId == null
+    }
+
+    private setRecordId(): void {
+        this.activatedRoute.params.subscribe(x => {
+            this.recordId = x.id
         })
     }
 

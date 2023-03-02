@@ -408,7 +408,7 @@
             },
             {
                 "id": "hasTransfer",
-                "description": "Erfordert Übertragung"
+                "description": "Hat Transfer"
             },
             {
                 "id": "isActive",
@@ -421,14 +421,6 @@
             {
                 "id": "saveButton",
                 "description": "Speichern"
-            },
-            {
-                "id": "formTab",
-                "description": "Formular"
-            },
-            {
-                "id": "mapTab",
-                "description": "Karte"
             }
         ]
     },

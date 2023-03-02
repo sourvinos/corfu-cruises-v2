@@ -408,7 +408,7 @@
             },
             {
                 "id": "hasTransfer",
-                "description": "Vyžaduje převod"
+                "description": "Má transfer"
             },
             {
                 "id": "isActive",
@@ -421,14 +421,6 @@
             {
                 "id": "saveButton",
                 "description": "Uložit"
-            },
-            {
-                "id": "formTab",
-                "description": "Formulář"
-            },
-            {
-                "id": "mapTab",
-                "description": "Mapa"
             }
         ]
     },
