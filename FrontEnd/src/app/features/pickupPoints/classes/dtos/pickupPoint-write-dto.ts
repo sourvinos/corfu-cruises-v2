@@ -5,7 +5,7 @@ export interface PickupPointWriteDto {
     description: string
     exactPoint: string
     time: string
-    coordinates: string
+    remarks: string
     isActive: boolean
 
 }

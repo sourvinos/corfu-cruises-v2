@@ -1,13 +1,13 @@
-import { CoachRouteActiveVM } from '../../../coachRoutes/classes/view-models/coachRoute-active-vm'
+import { CoachRouteDropdownVM } from 'src/app/features/coachRoutes/classes/view-models/coachRoute-dropdown-vm'
 
 export interface PickupPointReadDto {
 
     id: number
     description: string
-    coachRoute: CoachRouteActiveVM
+    coachRoute: CoachRouteDropdownVM
     exactPoint: string
     time: string
-    coordinates: string
+    remarks: string
     isActive: boolean
 
 }

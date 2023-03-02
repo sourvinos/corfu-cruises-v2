@@ -264,7 +264,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Σημείο παραλαβής επιβατών"
+                "description": "Σημείο παραλαβής"
             },
             {
                 "id": "coachRoute",
@@ -283,8 +283,8 @@
                 "description": "Ώρα"
             },
             {
-                "id": "coordinates",
-                "description": "GPS Συντεταγμένες"
+                "id": "remarks",
+                "description": "Σχόλια"
             },
             {
                 "id": "isActive",
@@ -297,14 +297,6 @@
             {
                 "id": "saveButton",
                 "description": "Αποθήκευση"
-            },
-            {
-                "id": "formTab",
-                "description": "Στοιχεία"
-            },
-            {
-                "id": "mapTab",
-                "description": "Χάρτης"
             }
         ]
     },
@@ -1485,7 +1477,7 @@
             },
             {
                 "id": "headerRemarks",
-                "description": "Π"
+                "description": "Σ"
             },
             {
                 "id": "createPdfButton",

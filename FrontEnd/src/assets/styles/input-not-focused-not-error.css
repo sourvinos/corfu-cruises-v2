@@ -11,7 +11,7 @@
     font-weight: var(--font-weight-input-label);
 }
 
-.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input, .mat-form-field-wrapper .mat-form-field-flex textarea {
     color: var(--color-c);
     font-size: var(--font-size-input);
     padding-bottom: 6px !important;

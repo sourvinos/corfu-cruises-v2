@@ -283,8 +283,8 @@
                 "description": "Abholzeit"
             },
             {
-                "id": "coordinates",
-                "description": "GPS Koordinaten"
+                "id": "remarks",
+                "description": "Kommentare"
             },
             {
                 "id": "isActive",
@@ -297,14 +297,6 @@
             {
                 "id": "saveButton",
                 "description": "Speichern"
-            },
-            {
-                "id": "formTab",
-                "description": "Einzelheiten"
-            },
-            {
-                "id": "mapTab",
-                "description": "Karte"
             }
         ]
     },

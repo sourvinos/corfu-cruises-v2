@@ -15,7 +15,7 @@ namespace API.Features.PickupPoints {
             entity.Property(x => x.Description).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.ExactPoint).HasMaxLength(128).IsRequired(true);
             entity.Property(x => x.Time).HasMaxLength(5).IsRequired(true);
-            entity.Property(x => x.Coordinates).HasMaxLength(128).IsRequired(true);
+            entity.Property(x => x.Remarks).HasMaxLength(16063);
             entity.Property(x => x.IsActive);
             entity.Property(x => x.LastUpdate).HasMaxLength(19);
             // FK Constraints

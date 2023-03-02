@@ -98,6 +98,10 @@ ul {
     display: none !important;
 }
 
+.pi {
+    margin-top: -0.3125rem;
+}
+
 .instructions {
     color: var(--color-c);
     font-family: var(--font-family-ubuntu);

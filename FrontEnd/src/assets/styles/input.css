@@ -14,7 +14,7 @@ input::selection {
     background-color: var(--color-input-selected-background);
 }
 
-input.mat-input-element {
+input.mat-input-element, textarea.mat-input-element {
     caret-color: var(--color-c) !important;
     margin-top: -0.0625rem !important;
 }
@@ -31,6 +31,10 @@ input[type="text"], input[type="email"], input[type="number"], input[type="passw
 input:-internal-autofill-previewed, input:-internal-autofill-selected {
     -webkit-text-fill-color: var(--color-c) !important;
     transition: background-color var(--hover-change-delay) ease-in-out 0s !important;
+}
+
+textarea {
+    height: 100px;
 }
 
 .mat-form-field {
@@ -78,6 +82,10 @@ input:-internal-autofill-previewed, input:-internal-autofill-selected {
 
 .mat-form-field-label-wrapper {
     top: -20px !important;
+}
+
+.textarea .mat-form-field-wrapper {
+    padding-bottom: 32px !important;
 }
 
 .mat-date-range-input {

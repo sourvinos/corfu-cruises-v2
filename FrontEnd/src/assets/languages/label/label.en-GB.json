@@ -283,8 +283,8 @@
                 "description": "Time"
             },
             {
-                "id": "coordinates",
-                "description": "GPS Coordinates"
+                "id": "remarks",
+                "description": "Remarks"
             },
             {
                 "id": "isActive",
@@ -297,14 +297,6 @@
             {
                 "id": "saveButton",
                 "description": "Save"
-            },
-            {
-                "id": "formTab",
-                "description": "Details"
-            },
-            {
-                "id": "mapTab",
-                "description": "Map"
             }
         ]
     },

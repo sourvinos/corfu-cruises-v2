@@ -283,8 +283,8 @@
                 "description": "Heure"
             },
             {
-                "id": "coordinates",
-                "description": "Les coordonnees GPS"
+                "id": "remarks",
+                "description": "Remarques"
             },
             {
                 "id": "isActive",
@@ -297,14 +297,6 @@
             {
                 "id": "saveButton",
                 "description": "Enregistrer"
-            },
-            {
-                "id": "formTab",
-                "description": "Des détails"
-            },
-            {
-                "id": "mapTab",
-                "description": "Carte"
             }
         ]
     },

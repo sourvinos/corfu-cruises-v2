@@ -1,10 +1,10 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, Subscription } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
-import { CoachRouteActiveVM } from '../../coachRoutes/classes/view-models/coachRoute-active-vm'
+import { CoachRouteDropdownVM } from '../../coachRoutes/classes/view-models/coachRoute-dropdown-vm'
 import { DialogService } from '../../../shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -30,56 +30,41 @@ export class PickupPointFormComponent {
     //#region variables
 
     private record: PickupPointReadDto
-    private unsubscribe = new Subject<void>()
+    private recordId: number
+    private subscription = new Subscription()
     public feature = 'pickupPointForm'
     public featureIcon = 'pickupPoints'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public isAutoCompleteDisabled = true
     public isLoading = new Subject<boolean>()
+    public isNewRecord: boolean
     public parentUrl = '/pickupPoints'
 
-    public isAutoCompleteDisabled = true
-    public filteredRoutes: Observable<CoachRouteActiveVM[]>
+    public dropdownRoutes: Observable<CoachRouteDropdownVM[]>
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointService: PickupPointService, private router: Router,) {
-        this.activatedRoute.params.subscribe(x => {
-            if (x.id) {
-                this.initForm()
-                this.getRecord()
-                this.populateFields(this.record)
-            } else {
-                this.initForm()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointService: PickupPointService, private router: Router,) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.populateDropDowns()
-        this.focusOnField('coachRoute')
+        this.initForm()
+        this.setRecordId()
+        this.setNewRecord()
+        this.getRecord()
+        this.populateFields()
+        this.doPostInitTasks()
+    }
+
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-    }
-
-    canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-            return false
-        } else {
-            return true
-        }
     }
 
     //#endregion
@@ -130,8 +115,11 @@ export class PickupPointFormComponent {
     //#region private methods
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
+    }
+
+    private doPostInitTasks(): void {
+        this.populateDropDowns()
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -143,34 +131,33 @@ export class PickupPointFormComponent {
     }
 
     private flattenForm(): PickupPointWriteDto {
-        const pickupPoint = {
+        return {
             id: this.form.value.id,
             coachRouteId: this.form.value.coachRoute.id,
             description: this.form.value.description,
             exactPoint: this.form.value.exactPoint,
             time: this.form.value.time,
-            coordinates: this.form.value.coordinates,
+            remarks: this.form.value.remarks,
             isActive: this.form.value.isActive
         }
-        return pickupPoint
     }
 
-    private focusOnField(field: string): void {
-        this.helperService.focusOnField(field)
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
     }
 
     private getRecord(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const formResolved: FormResolved = this.activatedRoute.snapshot.data['pickupPointForm']
             if (formResolved.error == null) {
                 this.record = formResolved.record.body
                 resolve(this.record)
             } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok']).subscribe(() => {
+                    this.goBack()
+                })
             }
         })
-        return promise
     }
 
     private goBack(): void {
@@ -184,7 +171,7 @@ export class PickupPointFormComponent {
             description: ['', [Validators.required, Validators.maxLength(128)]],
             exactPoint: ['', [Validators.required, Validators.maxLength(128)]],
             time: ['', [Validators.required, ValidationService.isTime]],
-            coordinates: ['00.00000000000000,00.000000000000000', [Validators.required]],
+            remarks: ['', Validators.maxLength(16063)],
             isActive: true
         })
     }
@@ -195,23 +182,21 @@ export class PickupPointFormComponent {
     }
 
     private populateDropDowns(): void {
-        this.populateDropdownFromStorage('coachRoutes', 'filteredRoutes', 'coachRoute', 'abbreviation')
+        this.populateDropdownFromStorage('coachRoutes', 'dropdownRoutes', 'coachRoute', 'abbreviation')
     }
 
-    private populateFields(result: PickupPointReadDto): void {
-        this.form.setValue({
-            id: result.id,
-            coachRoute: { 'id': result.coachRoute.id, 'abbreviation': result.coachRoute.abbreviation },
-            description: result.description,
-            exactPoint: result.exactPoint,
-            time: result.time,
-            coordinates: result.coordinates,
-            isActive: result.isActive
-        })
-    }
-
-    private resetForm(): void {
-        this.form.reset()
+    private populateFields(): void {
+        if (this.isNewRecord == false) {
+            this.form.setValue({
+                id: this.record.id,
+                coachRoute: { 'id': this.record.coachRoute.id, 'abbreviation': this.record.coachRoute.abbreviation },
+                description: this.record.description,
+                exactPoint: this.record.exactPoint,
+                time: this.record.time,
+                remarks: this.record.remarks,
+                isActive: this.record.isActive
+            })
+        }
     }
 
     private saveRecord(pickupPoint: PickupPointWriteDto): void {
@@ -222,6 +207,16 @@ export class PickupPointFormComponent {
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
+        })
+    }
+
+    private setNewRecord(): void {
+        this.isNewRecord = this.recordId == null
+    }
+
+    private setRecordId(): void {
+        this.activatedRoute.params.subscribe(x => {
+            this.recordId = x.id
         })
     }
 
@@ -245,14 +240,10 @@ export class PickupPointFormComponent {
         return this.form.get('time')
     }
 
-    get coordinates(): AbstractControl {
-        return this.form.get('coordinates')
+    get remarks(): AbstractControl {
+        return this.form.get('remarks')
     }
 
     //#endregion
-
-    public focus(): void {
-        console.log('focus')
-    }
 
 }

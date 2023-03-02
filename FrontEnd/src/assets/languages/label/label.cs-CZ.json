@@ -283,8 +283,8 @@
                 "description": "Čas"
             },
             {
-                "id": "coordinates",
-                "description": "Souřadnice GPS"
+                "id": "remarks",
+                "description": "Komentáře"
             },
             {
                 "id": "isActive",
@@ -297,14 +297,6 @@
             {
                 "id": "saveButton",
                 "description": "Uložit"
-            },
-            {
-                "id": "formTab",
-                "description": "Podrobnosti"
-            },
-            {
-                "id": "mapTab",
-                "description": "Mapa"
             }
         ]
     },

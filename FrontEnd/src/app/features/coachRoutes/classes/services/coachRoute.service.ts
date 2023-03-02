@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
-import { CoachRouteActiveVM } from '../view-models/coachRoute-active-vm'
+import { CoachRouteDropdownVM } from '../view-models/coachRoute-dropdown-vm'
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
 
@@ -16,8 +16,8 @@ export class CoachRouteService extends HttpDataService {
 
     //#region public methods
 
-    public getActive(): Observable<CoachRouteActiveVM[]> {
-        return this.http.get<CoachRouteActiveVM[]>(environment.apiUrl + '/coachRoutes/getActive')
+    public getActive(): Observable<any[]> {
+        return this.http.get<CoachRouteDropdownVM[]>(environment.apiUrl + '/coachRoutes/getActive')
     }
 
     //#endregion
