@@ -34,7 +34,7 @@ namespace API.Features.PickupPoints {
 
         [HttpGet("[action]")]
         [Authorize(Roles = "user, admin")]
-        public async Task<IEnumerable<PickupPointActiveVM>> GetActiveAsync() {
+        public async Task<IEnumerable<PickupPointDropdownVM>> GetActiveAsync() {
             return await pickupPointRepo.GetActiveAsync();
         }
 

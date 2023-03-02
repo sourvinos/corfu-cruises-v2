@@ -31,12 +31,12 @@ export class PickupPointListComponent {
     public featureIcon = 'pickupPoints'
     public icon = 'home'
     public parentUrl = '/'
-    public records: PickupPointListVM[] = []
-    public recordsFiltered: PickupPointListVM[] = []
+    public records: PickupPointListVM[]
+    public recordsFiltered: PickupPointListVM[]
     public recordsFilteredCount: number
     private virtualElement: any
 
-    public distinctRoutes = []
+    public dropdownRoutes = []
 
     //#endregion
 
@@ -78,6 +78,7 @@ export class PickupPointListComponent {
 
     public filterRecords(event: { filteredValue: any[] }): void {
         this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
+        this.recordsFiltered = event.filteredValue
         this.recordsFilteredCount = event.filteredValue.length
         this.helperService.clearStyleFromVirtualTable()
     }
@@ -153,6 +154,7 @@ export class PickupPointListComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
+                // this.recordsFiltered = listResolved.list
                 this.recordsFilteredCount = this.records.length
                 resolve(this.records)
             } else {
@@ -168,7 +170,7 @@ export class PickupPointListComponent {
     }
 
     private populateDropdownFilters(): void {
-        this.distinctRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'abbreviation')
+        this.dropdownRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'abbreviation')
     }
 
     private scrollToSavedPosition(): void {

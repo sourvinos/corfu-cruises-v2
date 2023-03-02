@@ -59,7 +59,7 @@ namespace API.Features.Reservations {
                 .ForMember(x => x.Date, x => x.MapFrom(x => DateHelpers.DateToISOString(x.Date)))
                 .ForMember(x => x.Driver, x => x.NullSubstitute(new Driver { Id = 0, Description = "(EMPTY)" }))
                 .ForMember(x => x.Ship, x => x.NullSubstitute(new Ship { Id = 0, Description = "(EMPTY)" }))
-                .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointActiveVM {
+                .ForMember(x => x.PickupPoint, x => x.MapFrom(r => new PickupPointDropdownVM {
                     Id = r.PickupPoint.Id,
                     Description = r.PickupPoint.Description,
                     ExactPoint = r.PickupPoint.ExactPoint,

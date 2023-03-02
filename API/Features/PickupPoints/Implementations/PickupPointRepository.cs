@@ -27,14 +27,14 @@ namespace API.Features.PickupPoints {
             return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointListVM>>(pickupPoints);
         }
 
-        public async Task<IEnumerable<PickupPointActiveVM>> GetActiveAsync() {
+        public async Task<IEnumerable<PickupPointDropdownVM>> GetActiveAsync() {
             var pickupPoints = await context.PickupPoints
                 .AsNoTracking()
                 .Include(x => x.CoachRoute).ThenInclude(x => x.Port)
                 .Where(x => x.IsActive)
                 .OrderBy(x => x.Time).ThenBy(x => x.Description)
                 .ToListAsync();
-            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointActiveVM>>(pickupPoints);
+            return mapper.Map<IEnumerable<PickupPoint>, IEnumerable<PickupPointDropdownVM>>(pickupPoints);
         }
 
         public async Task<PickupPoint> GetByIdAsync(int id, bool includeTables) {

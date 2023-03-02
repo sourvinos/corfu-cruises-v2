@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 // Custom
 import { BooleanIconService } from 'src/app/shared/services/boolean-icon.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 import { PickupPointListVM } from '../view-models/pickupPoint-list-vm'
 // Fonts
@@ -16,11 +17,14 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class PickupPointPdfService {
 
-    constructor(private booleanIconService: BooleanIconService, private dateHelperService: DateHelperService, private logoService: LogoService) { }
+    private pdfVM: any[]
+
+    constructor(private booleanIconService: BooleanIconService, private dateHelperService: DateHelperService, private helperService: HelperService, private logoService: LogoService) { }
 
     //#region public methods
 
-    public createReport(pickupPoints: PickupPointListVM[]): void {
+    public createReport(pickupPoints: any[]): void {
+        this.pdfVM = this.flattedCoachRoutes(pickupPoints)
         this.setFonts()
         const dd = {
             background: this.setBackgroundImage(),
@@ -40,9 +44,9 @@ export class PickupPointPdfService {
                         layout: 'noBorders'
                     },
                     [
-                        this.createTable(pickupPoints,
-                            ['boolean', 'object', '', '', ''],
-                            ['isActive', 'coachRoute', 'description', 'exactPoint', 'time'],
+                        this.createTable(this.pdfVM,
+                            ['boolean', '', '', '', ''],
+                            ['isActive', 'coachRouteAbbreviation', 'description', 'exactPoint', 'time'],
                             ['center', 'center', 'left', 'left', 'center'])
                     ],
                 ],
@@ -125,6 +129,14 @@ export class PickupPointPdfService {
         }
     }
 
+    private flattedCoachRoutes(pickupPoints: any[]): any {
+        pickupPoints.forEach(pickupPoint => {
+            const coachRoute = this.helperService.flattenObject(pickupPoint.coachRoute)
+            pickupPoint.coachRouteAbbreviation = coachRoute.abbreviation
+        })
+        return pickupPoints
+    }
+
     private pageMetadata(): any {
         const pageInfo = {
             title: 'Pickup Points'
@@ -136,7 +148,7 @@ export class PickupPointPdfService {
         pdfMake.createPdf(document).open()
     }
 
-    private createTable(data: PickupPointListVM[], columnTypes: any[], columns: any[], align: any[]): any {
+    private createTable(data: any[], columnTypes: any[], columns: any[], align: any[]): any {
         return {
             table: {
                 headerRows: 1,
@@ -153,7 +165,7 @@ export class PickupPointPdfService {
         }
     }
 
-    private createTableRows(data: PickupPointListVM[], columnTypes: any[], columns: any[], align: any[]): void {
+    private createTableRows(data: any[], columnTypes: any[], columns: any[], align: any[]): void {
         const body: any = []
         body.push(this.createTableHeaders())
         data.forEach((row) => {
@@ -170,9 +182,6 @@ export class PickupPointPdfService {
                 dataRow.push(row[column] == true
                     ? { image: this.booleanIconService.getTrueIcon(), fit: [8, 8], alignment: 'center' }
                     : { image: this.booleanIconService.getFalseIcon(), fit: [8, 8], alignment: 'center' })
-            }
-            if (columnTypes[index] == 'object') {
-                dataRow.push({ text: this.formatField(columnTypes[index], row[column].description), alignment: align[index].toString(), color: '#000000', noWrap: false, margin: [0, 1, 0, 0] })
             }
             if (columnTypes[index] == '') {
                 dataRow.push({ text: this.formatField(columnTypes[index], row[column]), alignment: align[index].toString(), color: '#000000', noWrap: false, margin: [0, 1, 0, 0] })

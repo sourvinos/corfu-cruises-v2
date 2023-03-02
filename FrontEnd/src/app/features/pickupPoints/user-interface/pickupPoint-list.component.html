@@ -15,7 +15,7 @@
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-10" pSortableColumn="isActive">{{ getLabel("headerIsActive") }}</th>
-                        <th class="width-10" pSortableColumn="coachRouteAbbreviation">{{ getLabel("headerRouteAbbreviation") }}</th>
+                        <th class="width-10" pSortableColumn="coachRoute.abbreviation">{{ getLabel("headerRouteAbbreviation") }}</th>
                         <th class="width-25" pSortableColumn="description">{{ getLabel("headerDescription") }}</th>
                         <th class="width-24" pSortableColumn="exactPoint">{{ getLabel("headerExactPoint") }}</th>
                         <th class="width-6" pSortableColumn="time">{{ getLabel("headerTime") }}</th>
@@ -25,7 +25,7 @@
                         <th class="width-10">
                             <p-columnFilter [showMenu]="false" field="coachRoute" matchMode="in">
                                 <ng-template let-filter="filterCallback" let-value pTemplate="filter">
-                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="distinctRoutes" [placeholder]="getEmoji('wildcard')" optionLabel="description">
+                                    <p-multiSelect (onChange)="filter($event.value)" [ngModel]="value" [options]="dropdownRoutes" [placeholder]="getEmoji('wildcard')" optionLabel="abbreviation">
                                         <ng-template let-option pTemplate="item">
                                             <div class="p-multiselect-option">
                                                 <span>{{ option.abbreviation }}</span>

@@ -22,7 +22,7 @@ namespace API.Features.Reservations {
 
         public SimpleEntity Customer { get; set; }
         public SimpleEntity Destination { get; set; }
-        public PickupPointActiveVM PickupPoint { get; set; }
+        public PickupPointDropdownVM PickupPoint { get; set; }
         public SimpleEntity Driver { get; set; }
         public SimpleEntity Ship { get; set; }
 
