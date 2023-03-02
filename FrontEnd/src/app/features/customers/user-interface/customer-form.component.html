@@ -45,11 +45,13 @@
                     <mat-error *ngIf="!email.hasError('maxlength') && email.hasError('email')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
             </div>
-            <!-- Active -->
-            <div class="styled-input-square">
-                <div class="styled-input-single">
-                    <input formControlName="isActive" id="isActive" type="checkbox">
-                    <label for="isActive">{{ getLabel("isActive") }}</label>
+            <div id="checkboxes">
+                <!-- Active -->
+                <div class="styled-input-square">
+                    <div class="styled-input-single">
+                        <input formControlName="isActive" id="isActive" type="checkbox">
+                        <label for="isActive">{{ getLabel("isActive") }}</label>
+                    </div>
                 </div>
             </div>
         </form>

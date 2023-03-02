@@ -38,11 +38,13 @@
                 <textarea [placeholder]="getLabel('remarks')" formControlName="remarks" matInput></textarea>
                 <mat-error *ngIf="remarks.hasError('maxlength')">{{ getHint("maxLength", remarks.errors.maxlength.requiredLength) }}</mat-error>
             </mat-form-field>
-            <!-- Active -->
-            <div class="styled-input-square">
-                <div class="styled-input-single">
-                    <input formControlName="isActive" id="isActive" type="checkbox">
-                    <label for="isActive">{{ getLabel("isActive") }}</label>
+            <div id="checkboxes">
+                <!-- Active -->
+                <div class="styled-input-square">
+                    <div class="styled-input-single">
+                        <input formControlName="isActive" id="isActive" type="checkbox">
+                        <label for="isActive">{{ getLabel("isActive") }}</label>
+                    </div>
                 </div>
             </div>
         </form>
