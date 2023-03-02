@@ -56,7 +56,7 @@ export class PickupPointFormComponent {
         this.setNewRecord()
         this.getRecord()
         this.populateFields()
-        this.doPostInitTasks()
+        this.populateDropDowns()
     }
 
     ngAfterViewInit(): void {
@@ -116,10 +116,6 @@ export class PickupPointFormComponent {
 
     private cleanup(): void {
         this.subscription.unsubscribe()
-    }
-
-    private doPostInitTasks(): void {
-        this.populateDropDowns()
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {

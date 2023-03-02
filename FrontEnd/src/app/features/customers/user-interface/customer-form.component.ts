@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Subject } from 'rxjs'
+import { Subject, Subscription } from 'rxjs'
 // Custom
 import { CustomerReadDto } from '../classes/dtos/customer-read-dto'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
@@ -26,52 +26,37 @@ export class CustomerFormComponent {
     //#region variables
 
     private record: CustomerReadDto
-    private unsubscribe = new Subject<void>()
+    private recordId: number
+    private subscription = new Subscription()
     public feature = 'customerForm'
     public featureIcon = 'customers'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
+    public isNewRecord: boolean
     public parentUrl = '/customers'
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
-        this.activatedRoute.params.subscribe(x => {
-            if (x.id) {
-                this.initForm()
-                this.getRecord()
-                this.populateFields(this.record)
-            } else {
-                this.initForm()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private customerService: CustomerService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.focusOnField('description')
+        this.initForm()
+        this.setRecordId()
+        this.setNewRecord()
+        this.getRecord()
+        this.populateFields()
+    }
+
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-    }
-
-    canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-            return false
-        } else {
-            return true
-        }
     }
 
     //#endregion
@@ -110,8 +95,7 @@ export class CustomerFormComponent {
     //#region private methods
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private flattenForm(): CustomerWriteDto {
@@ -128,12 +112,12 @@ export class CustomerFormComponent {
         return customer
     }
 
-    private focusOnField(field: string): void {
-        this.helperService.focusOnField(field)
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
     }
 
     private getRecord(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const formResolved: FormResolved = this.activatedRoute.snapshot.data['customerForm']
             if (formResolved.error == null) {
                 this.record = formResolved.record.body
@@ -143,7 +127,6 @@ export class CustomerFormComponent {
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
-        return promise
     }
 
     private goBack(): void {
@@ -163,21 +146,19 @@ export class CustomerFormComponent {
         })
     }
 
-    private populateFields(result: CustomerReadDto): void {
-        this.form.setValue({
-            id: result.id,
-            description: result.description,
-            profession: result.profession,
-            address: result.address,
-            phones: result.phones,
-            personInCharge: result.personInCharge,
-            email: result.email,
-            isActive: result.isActive
-        })
-    }
-
-    private resetForm(): void {
-        this.form.reset()
+    private populateFields(): void {
+        if (this.isNewRecord == false) {
+            this.form.setValue({
+                id: this.record.id,
+                description: this.record.description,
+                profession: this.record.profession,
+                address: this.record.address,
+                phones: this.record.phones,
+                personInCharge: this.record.personInCharge,
+                email: this.record.email,
+                isActive: this.record.isActive
+            })
+        }
     }
 
     private saveRecord(customer: CustomerWriteDto): void {
@@ -188,6 +169,16 @@ export class CustomerFormComponent {
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
+        })
+    }
+
+    private setNewRecord(): void {
+        this.isNewRecord = this.recordId == null
+    }
+
+    private setRecordId(): void {
+        this.activatedRoute.params.subscribe(x => {
+            this.recordId = x.id
         })
     }
 
