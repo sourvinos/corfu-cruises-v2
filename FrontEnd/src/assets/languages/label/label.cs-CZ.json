@@ -1046,7 +1046,7 @@
                 "description": "Maximální počet cestujících"
             },
             {
-                "id": "departureTime",
+                "id": "time",
                 "description": "Čas odjezdu"
             },
             {
@@ -1988,7 +1988,7 @@
                 "description": "Maximální počet cestujících"
             },
             {
-                "id": "departureTime",
+                "id": "ime",
                 "description": "Čas odjezdu"
             },
             {

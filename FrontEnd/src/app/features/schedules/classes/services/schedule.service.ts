@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core'
 import { firstValueFrom, Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
-import { ScheduleDeleteVM } from './../form/schedule-delete-vm'
 import { ScheduleWriteVM } from '../form/schedule-write-vm'
 import { environment } from 'src/environments/environment'
 
@@ -27,10 +26,6 @@ export class ScheduleService extends HttpDataService {
 
     public addRange(scheduleObjects: ScheduleWriteVM[]): Observable<any[]> {
         return this.http.post<any[]>(this.url, scheduleObjects)
-    }
-
-    public deleteRange(scheduleObjects: ScheduleDeleteVM[]): Observable<any> {
-        return this.http.post<any>(this.url + '/range/', scheduleObjects)
     }
 
     //#endregion

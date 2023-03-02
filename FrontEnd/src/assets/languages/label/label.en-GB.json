@@ -1046,7 +1046,7 @@
                 "description": "Maximum number of passengers"
             },
             {
-                "id": "departureTime",
+                "id": "time",
                 "description": "Departure time"
             },
             {
@@ -1988,7 +1988,7 @@
                 "description": "Max number of passengers"
             },
             {
-                "id": "departureTime",
+                "id": "time",
                 "description": "Departure time"
             },
             {

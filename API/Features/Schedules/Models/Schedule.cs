@@ -15,7 +15,7 @@ namespace API.Features.Schedules {
         // Fields
         public DateTime Date { get; set; }
         public int MaxPax { get; set; }
-        public string DepartureTime { get; set; }
+        public string Time { get; set; }
         public bool IsActive { get; set; }
         public string LastUpdate { get; set; }
         // FKs

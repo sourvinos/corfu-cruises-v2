@@ -10,7 +10,7 @@ export class ScheduleReadDto {
         public port: PortActiveVM,
         public date: string,
         public maxPax: number,
-        public departureTime: string,
+        public time: string,
         public isActive: boolean
 
     ) { }

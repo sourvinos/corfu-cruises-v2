@@ -1046,7 +1046,7 @@
                 "description": "Μέγιστος αριθμός επιβατών"
             },
             {
-                "id": "departureTime",
+                "id": "time",
                 "description": "Ωρα αναχώρησης"
             },
             {
@@ -1988,7 +1988,7 @@
                 "description": "Μέγιστος αριθμός επιβατών"
             },
             {
-                "id": "departureTime",
+                "id": "time",
                 "description": "Ωρα αναχώρησης"
             },
             {

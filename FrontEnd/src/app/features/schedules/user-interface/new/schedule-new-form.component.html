@@ -1,0 +1,79 @@
+<div id="form-wrapper">
+
+    <div id="content">
+
+        <div id="header">
+            <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        </div>
+
+        <form [formGroup]="form" autocomplete="off">
+            <div class="group-field">
+                <!-- Destination -->
+                <mat-form-field>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" data-tabindex="1" formControlName="destination" matInput>
+                    <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                </mat-form-field>
+                <!-- Port -->
+                <mat-form-field>
+                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ports" [placeholder]="getLabel('port')" data-tabindex="2" formControlName="port" matInput>
+                    <mat-error *ngIf="port.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
+                </mat-form-field>
+            </div>
+            <mat-form-field>
+                <!-- Dates -->
+                <mat-label>{{ getLabel("dateRange") }}</mat-label>
+                <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+                    <input (dateInput)="createPeriod()" [inputTabStop]="input" class="center" data-tabindex="3" formControlName="fromDate" matInput matStartDate>
+                    <input (dateInput)="createPeriod()" [inputTabStop]="input" class="center" data-tabindex="4" formControlName="toDate" matEndDate matInput>
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error *ngIf="fromDate.hasError('required') || toDate.hasError('required')">{{ getHint("required") }}</mat-error>
+                <mat-error *ngIf="fromDate.hasError('matStartDateInvalid') || toDate.hasError('matEndDateInvalid')">{{ getHint("invalidPeriod") }}</mat-error>
+            </mat-form-field>
+            <div class="group-field">
+                <!-- MaxPax -->
+                <mat-form-field>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('maxPax')" class="number" data-tabindex="5" formControlName="maxPax" matInput type="number">
+                    <mat-error *ngIf="maxPax.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="!maxPax.hasError('required') && maxPax.hasError('min') || maxPax.hasError('max')">{{ getHint("invalid") }}</mat-error>
+                </mat-form-field>
+                <!-- Time -->
+                <mat-form-field>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('time')" data-tabindex="6" formControlName="time" matInput>
+                    <mat-error *ngIf="time.hasError('required')">{{ getHint("required") }}</mat-error>
+                    <mat-error *ngIf="!time.hasError('required') && !time.hasError('time')">{{ getHint("invalid") }}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mat-form-field" id="weekdays">
+                <div (click)="onDoPeriodTasks(weekDay, selectedWeekdays, toggledClassName)" *ngFor="let weekDay of weekDays" [id]="weekDay" class="selectable-day">
+                    <div class="description">{{ getWeekday(weekDay) }}</div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="footer">
+        <div class="button-group-right">
+            <button (click)="onSave()" [disabled]="!form.valid" class="primary" mat-flat-button>
+                <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("saveButton") }}</span>
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<mat-autocomplete #destinations="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of dropdownDestinations | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>
+
+<mat-autocomplete #ports="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of dropdownPorts | async" [value]="option">
+        {{ option.description }}
+    </mat-option>
+</mat-autocomplete>

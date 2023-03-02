@@ -9,7 +9,7 @@ namespace API.Features.Schedules {
         public SimpleEntity Destination { get; set; }
         public SimpleEntity Port { get; set; }
         public int MaxPax { get; set; }
-        public string DepartureTime { get; set; }
+        public string Time { get; set; }
         public bool IsActive { get; set; }
 
     }

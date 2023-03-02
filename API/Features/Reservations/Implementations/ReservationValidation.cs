@@ -300,7 +300,7 @@ namespace API.Features.Reservations {
                 .AsNoTracking()
                 .Where(x => x.Date.ToString() == reservation.Date && x.DestinationId == reservation.DestinationId && x.PortId.ToString() == portId)
                 .SingleOrDefault();
-            var departureTime = schedule.Date.ToString("yyyy-MM-dd") + " " + schedule.DepartureTime;
+            var departureTime = schedule.Date.ToString("yyyy-MM-dd") + " " + schedule.Time;
             var departureTimeAsDate = DateTime.Parse(departureTime);
             return departureTimeAsDate;
         }

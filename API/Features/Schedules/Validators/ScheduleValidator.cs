@@ -12,7 +12,7 @@ namespace API.Features.Schedules {
             // Fields
             RuleFor(x => x.Date).Must(DateHelpers.BeCorrectFormat);
             RuleFor(x => x.MaxPax).InclusiveBetween(0, 1000);
-            RuleFor(x => x.DepartureTime).Must(TimeHelpers.BeValidTime);
+            RuleFor(x => x.Time).Must(TimeHelpers.BeValidTime);
         }
 
     }

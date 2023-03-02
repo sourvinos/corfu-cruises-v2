@@ -19,7 +19,7 @@ import { ScheduleListVM } from './../../classes/view-models/schedule-list-vm'
 @Component({
     selector: 'pickuppoint-list',
     templateUrl: './schedule-list.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './schedule-list.component.css']
+    styleUrls: ['../../../../../assets/styles/lists.css']
 })
 
 export class ScheduleListComponent {

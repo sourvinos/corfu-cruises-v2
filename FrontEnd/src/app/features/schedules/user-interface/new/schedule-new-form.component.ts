@@ -1,13 +1,12 @@
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, Subscription } from 'rxjs'
 import { Router } from '@angular/router'
-import { map, startWith, takeUntil } from 'rxjs/operators'
+import { map, startWith } from 'rxjs/operators'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
-import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -23,27 +22,27 @@ import { ScheduleWriteVM } from '../../classes/form/schedule-write-vm'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
-    selector: 'new-schedule',
-    templateUrl: './new-schedule.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './new-schedule.component.css']
+    selector: 'schedule-new',
+    templateUrl: './schedule-new-form.component.html',
+    styleUrls: ['../../../../../assets/styles/forms.css', './schedule-new-form.component.css']
 })
 
-export class NewScheduleComponent {
+export class ScheduleNewFormComponent {
 
     //#region variables
 
-    private unsubscribe = new Subject<void>()
+    private subscription = new Subscription()
     public feature = 'scheduleCreateForm'
     public featureIcon = 'schedules'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public isAutoCompleteDisabled = true
     public isLoading = new Subject<boolean>()
     public parentUrl = '/schedules'
 
-    public isAutoCompleteDisabled = true
-    public activeDestinations: Observable<DestinationActiveVM[]>
-    public activePorts: Observable<PortActiveVM[]>
+    public dropdownDestinations: Observable<DestinationActiveVM[]>
+    public dropdownPorts: Observable<PortActiveVM[]>
 
     public toggledClassName = 'active-selectable-day'
     private daysToCreate = []
@@ -52,35 +51,23 @@ export class NewScheduleComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService) {
-        this.initForm()
-    }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
+        this.initForm()
         this.populateDropdowns()
         this.subscribeToInteractionService()
         this.setLocale()
     }
 
-    ngOnDestroy(): void {
-        this.cleanup()
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
-    canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-            return false
-        } else {
-            return true
-        }
+    ngOnDestroy(): void {
+        this.cleanup()
     }
 
     //#endregion
@@ -111,7 +98,7 @@ export class NewScheduleComponent {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
-    public onDoTasks(selectedWeekDay: string, selectedWeekdays: string[], toggledClassName: string): void {
+    public onDoPeriodTasks(selectedWeekDay: string, selectedWeekdays: string[], toggledClassName: string): void {
         this.buildSelectedWeekdays(selectedWeekDay, selectedWeekdays, toggledClassName)
         this.createPeriod()
         this.updateFormField()
@@ -137,7 +124,6 @@ export class NewScheduleComponent {
         }
     }
 
-
     //#endregion
 
     //#region private methods
@@ -152,7 +138,7 @@ export class NewScheduleComponent {
                 portId: formValue.port.id,
                 date: day,
                 maxPax: formValue.maxPax,
-                departureTime: formValue.departureTime,
+                time: formValue.time,
                 isActive: true
             }
             objects.push(x)
@@ -161,8 +147,7 @@ export class NewScheduleComponent {
     }
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private buildSelectedWeekdays(item: string, lookupArray: string[], className: string): void {
@@ -187,6 +172,10 @@ export class NewScheduleComponent {
         }
     }
 
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
+    }
+
     private goBack(): void {
         this.router.navigate([this.parentUrl])
     }
@@ -200,7 +189,7 @@ export class NewScheduleComponent {
             toDate: ['', Validators.required],
             daysToInsert: ['', Validators.required],
             maxPax: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
-            departureTime: ['', [Validators.required, ValidationService.isTime]]
+            time: ['', [Validators.required, ValidationService.isTime]]
         })
     }
 
@@ -210,12 +199,8 @@ export class NewScheduleComponent {
     }
 
     private populateDropdowns(): void {
-        this.populateDropdownFromStorage('destinations', 'activeDestinations', 'destination', 'description')
-        this.populateDropdownFromStorage('ports', 'activePorts', 'port', 'description')
-    }
-
-    private resetForm(): void {
-        this.form.reset()
+        this.populateDropdownFromStorage('destinations', 'dropdownDestinations', 'destination', 'description')
+        this.populateDropdownFromStorage('ports', 'dropdownPorts', 'port', 'description')
     }
 
     private saveRecord(): void {
@@ -234,7 +219,7 @@ export class NewScheduleComponent {
     }
 
     private subscribeToInteractionService(): void {
-        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+        this.interactionService.refreshDateAdapter.subscribe(() => {
             this.setLocale()
         })
     }
@@ -243,7 +228,6 @@ export class NewScheduleComponent {
         this.form.patchValue({
             daysToInsert: this.daysToCreate
         })
-
     }
 
     //#endregion
@@ -270,8 +254,8 @@ export class NewScheduleComponent {
         return this.form.get('maxPax')
     }
 
-    get departureTime(): AbstractControl {
-        return this.form.get('departureTime')
+    get time(): AbstractControl {
+        return this.form.get('time')
     }
 
     //#endregion
