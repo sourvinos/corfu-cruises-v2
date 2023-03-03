@@ -57,31 +57,31 @@
         "labels": [
             {
                 "id": "Mon",
-                "description": "Mo"
+                "description": "Montag"
             },
             {
                 "id": "Tue",
-                "description": "Di"
+                "description": "Dienstag"
             },
             {
                 "id": "Wed",
-                "description": "Mi"
+                "description": "Mittwoch"
             },
             {
                 "id": "Thu",
-                "description": "Do"
+                "description": "Donnerstag"
             },
             {
                 "id": "Fri",
-                "description": "Fr"
+                "description": "Freitag"
             },
             {
                 "id": "Sat",
-                "description": "Sa"
+                "description": "Samstag"
             },
             {
                 "id": "Sun",
-                "description": "So"
+                "description": "Sonntag"
             }
         ]
     }

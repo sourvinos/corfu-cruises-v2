@@ -1022,6 +1022,10 @@
                 "description": "Nouveau programme"
             },
             {
+                "id": "date",
+                "description": "Plage de dates"
+            },
+            {
                 "id": "destination",
                 "description": "Destination"
             },
@@ -1030,16 +1034,20 @@
                 "description": "Port"
             },
             {
-                "id": "dateRange",
-                "description": "Intervalle de calendrier"
-            },
-            {
                 "id": "maxPax",
                 "description": "Nombre maximal de passagers"
             },
             {
                 "id": "time",
                 "description": "Heure de départ"
+            },
+            {
+                "id": "weekdays",
+                "description": "Jours"
+            },
+            {
+                "id": "selected",
+                "description": "Sélectionné"
             },
             {
                 "id": "saveButton",

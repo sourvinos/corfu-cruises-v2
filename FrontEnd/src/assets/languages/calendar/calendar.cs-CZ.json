@@ -57,31 +57,31 @@
         "labels": [
             {
                 "id": "Mon",
-                "description": "Po"
+                "description": "Pondělí"
             },
             {
                 "id": "Tue",
-                "description": "Út"
+                "description": "Úterý"
             },
             {
                 "id": "Wed",
-                "description": "St"
+                "description": "Středa"
             },
             {
                 "id": "Thu",
-                "description": "Čt"
+                "description": "Čtvrtek"
             },
             {
                 "id": "Fri",
-                "description": "Pá"
+                "description": "Pátek"
             },
             {
                 "id": "Sat",
-                "description": "So"
+                "description": "Sobota"
             },
             {
                 "id": "Sun",
-                "description": "Ne"
+                "description": "Neděle"
             }
         ]
     }

@@ -1022,6 +1022,10 @@
                 "description": "Nový rozvrh"
             },
             {
+                "id": "date",
+                "description": "Rozsah dat"
+            },
+            {
                 "id": "destination",
                 "description": "Destinace"
             },
@@ -1030,16 +1034,20 @@
                 "description": "Přístav"
             },
             {
-                "id": "dateRange",
-                "description": "Kalendářní interval"
-            },
-            {
                 "id": "maxPax",
                 "description": "Maximální počet cestujících"
             },
             {
                 "id": "time",
                 "description": "Čas odjezdu"
+            },
+            {
+                "id": "weekdays",
+                "description": "Dny"
+            },
+            {
+                "id": "selected",
+                "description": "Vybrané"
             },
             {
                 "id": "saveButton",

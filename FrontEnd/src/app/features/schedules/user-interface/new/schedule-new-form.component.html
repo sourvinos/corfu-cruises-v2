@@ -6,50 +6,134 @@
             <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         </div>
 
-        <form [formGroup]="form" autocomplete="off">
-            <div class="group-field">
-                <!-- Destination -->
-                <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" data-tabindex="1" formControlName="destination" matInput>
-                    <mat-error *ngIf="destination.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!destination.hasError('required') && destination.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
-                </mat-form-field>
-                <!-- Port -->
-                <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ports" [placeholder]="getLabel('port')" data-tabindex="2" formControlName="port" matInput>
-                    <mat-error *ngIf="port.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
-                </mat-form-field>
-            </div>
-            <mat-form-field>
+        <form [formGroup]="form" autocomplete="off" id="form">
+            <div id="top">
                 <!-- Dates -->
-                <mat-label>{{ getLabel("dateRange") }}</mat-label>
-                <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
-                    <input (dateInput)="createPeriod()" [inputTabStop]="input" class="center" data-tabindex="3" formControlName="fromDate" matInput matStartDate>
-                    <input (dateInput)="createPeriod()" [inputTabStop]="input" class="center" data-tabindex="4" formControlName="toDate" matEndDate matInput>
-                </mat-date-range-input>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-date-range-picker #picker></mat-date-range-picker>
-                <mat-error *ngIf="fromDate.hasError('required') || toDate.hasError('required')">{{ getHint("required") }}</mat-error>
-                <mat-error *ngIf="fromDate.hasError('matStartDateInvalid') || toDate.hasError('matEndDateInvalid')">{{ getHint("invalidPeriod") }}</mat-error>
-            </mat-form-field>
-            <div class="group-field">
-                <!-- MaxPax -->
-                <mat-form-field>
-                    <input [inputTabStop]="input" [placeholder]="getLabel('maxPax')" class="number" data-tabindex="5" formControlName="maxPax" matInput type="number">
-                    <mat-error *ngIf="maxPax.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!maxPax.hasError('required') && maxPax.hasError('min') || maxPax.hasError('max')">{{ getHint("invalid") }}</mat-error>
-                </mat-form-field>
-                <!-- Time -->
-                <mat-form-field>
-                    <input [inputTabStop]="input" [placeholder]="getLabel('time')" data-tabindex="6" formControlName="time" matInput>
-                    <mat-error *ngIf="time.hasError('required')">{{ getHint("required") }}</mat-error>
-                    <mat-error *ngIf="!time.hasError('required') && !time.hasError('time')">{{ getHint("invalid") }}</mat-error>
-                </mat-form-field>
+                <div class="group-field">
+                    <mat-form-field id="date">
+                        <mat-label>{{ getLabel('date') }}</mat-label>
+                        <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+                            <input class="center" formControlName="fromDate" matInput matStartDate>
+                            <input class="center" formControlName="toDate" matEndDate matInput>
+                        </mat-date-range-input>
+                        <mat-date-range-picker #picker (closed)="patchFormWithSelectedDates(fromDate, toDate)"></mat-date-range-picker>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-error *ngIf="fromDate.hasError('required') || toDate.hasError('required')">{{ getHint("invalid") }}</mat-error>
+                        <button (click)="gotoToday()" class="transparent" id="goto-today" mat-mini-fab tabindex="-1">
+                            <mat-icon id="today">my_location</mat-icon>
+                        </button>
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="mat-form-field" id="weekdays">
-                <div (click)="onDoPeriodTasks(weekDay, selectedWeekdays, toggledClassName)" *ngFor="let weekDay of weekDays" [id]="weekDay" class="selectable-day">
-                    <div class="description">{{ getWeekday(weekDay) }}</div>
+            <div id="bottom">
+                <div id="left">
+                    <!-- Destination -->
+                    <fieldset class="fieldset">
+                        <legend>
+                            <span>{{ getLabel('destination') }}</span>
+                            <div class="selected">
+                                <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.destinations.length }}</span>
+                                <span class="icon">{{ getEmoji(form.value.destinations.length > 0 ? 'ok' : 'error') }}</span>
+                            </div>
+                        </legend>
+                        <div class="filter">
+                            <div class="styled-input-square">
+                                <div class="styled-input-single disabled">
+                                    <input id="all-destinations" type="checkbox" formControlName="allDestinationsCheckbox">
+                                    <label class="no-label" for="all-destinations"></label>
+                                </div>
+                            </div>
+                            <mat-form-field class="list-filter">
+                                <input (keyup)="filterList($event, 'destinations')" formControlName="destinationsFilter" id="destinationsFilter" matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="list-wrapper">
+                            <div *ngFor="let destination of destinations" [attr.id]=destination.description>
+                                <div class="styled-input-rounded">
+                                    <div class="styled-input-single rounded">
+                                        <input (click)="updateRadioButtons(form, 'destinations', 'destination', destination.id, destination.description)" class="destinations" formArrayName="destinations" type="radio" [value]="destination.id" [attr.id]="'destination' + destination.id">
+                                        <label [attr.for]="'destination' + destination.id" [attr.id]="'destination-label' + destination.id">{{ destination.description }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- Port -->
+                    <fieldset class="fieldset">
+                        <legend>
+                            <span>{{ getLabel('port') }}</span>
+                            <div class="selected">
+                                <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.ports.length }}</span>
+                                <span class="icon">{{ getEmoji(form.value.ports.length > 0 ? 'ok' : 'error') }}</span>
+                            </div>
+                        </legend>
+                        <div class="filter">
+                            <div class="styled-input-square">
+                                <div class="styled-input-single disabled">
+                                    <input id="all-ports" type="checkbox" formControlName="allPortsCheckbox">
+                                    <label class="no-label" for="all-ports"></label>
+                                </div>
+                            </div>
+                            <mat-form-field class="list-filter">
+                                <input (keyup)="filterList($event, 'ports')" formControlName="portsFilter" id="portsFilter" matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="list-wrapper">
+                            <div *ngFor="let port of ports" [attr.id]=port.description>
+                                <div class="styled-input-rounded">
+                                    <div class="styled-input-single rounded">
+                                        <input (click)="updateRadioButtons(form, 'ports', 'port', port.id, port.description)" class="ports" formArrayName="ports" type="radio" [value]="port.id" [attr.id]="'port' + port.id">
+                                        <label [attr.for]="'port' + port.id" [attr.id]="'port-label' + port.id">{{ port.description }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div id="right">
+                    <!-- Weekdays -->
+                    <fieldset class="fieldset">
+                        <legend>
+                            <span>{{ getLabel('weekdays') }}</span>
+                            <div class="selected">
+                                <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.weekdays.length }}</span>
+                                <span class="icon">{{ getEmoji(form.value.weekdays.length > 0 ? 'ok' : 'error') }}</span>
+                            </div>
+                        </legend>
+                        <div class="filter">
+                            <div class="styled-input-square">
+                                <div class="styled-input-single">
+                                    <input (click)="toggleAllCheckboxes(form, 'weekday', 'allWeekdaysCheckbox')" id="all-weekdays" type="checkbox" formControlName="allWeekdaysCheckbox">
+                                    <label class="no-label" for="all-weekdays"></label>
+                                </div>
+                            </div>
+                            <mat-form-field class="list-filter">
+                                <input (keyup)="filterList($event, 'weekdays')" formControlName="weekdaysFilter" id="weekdaysFilter" matInput>
+                            </mat-form-field>
+                        </div>
+                        <div class="list-wrapper">
+                            <div *ngFor="let weekday of weekdays" [attr.id]=weekday.description>
+                                <div class="styled-input-square">
+                                    <div class="styled-input-single" (change)="checkboxChange($event, 'allWeekdaysCheckbox', 'weekdays', weekdays, weekday.description)">
+                                        <input class="weekday" formArrayName="weekdays" type="checkbox" [value]="weekday.id" [attr.id]="'weekday' + weekday.id">
+                                        <label [attr.for]="'weekday' + weekday.id" [attr.id]="'weekday-label' + weekday.id">{{ getWeekday(weekday.description) | trimString:33 }}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                    <!-- MaxPax -->
+                    <mat-form-field>
+                        <input [placeholder]="getLabel('maxPax')" class="number" formControlName="maxPax" matInput type="number">
+                        <mat-error *ngIf="maxPax.hasError('required')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="!maxPax.hasError('required') && maxPax.hasError('min') || maxPax.hasError('max')">{{ getHint("invalid") }}</mat-error>
+                    </mat-form-field>
+                    <!-- Time -->
+                    <mat-form-field>
+                        <input [placeholder]="getLabel('time')" formControlName="time" matInput>
+                        <mat-error *ngIf="time.hasError('required')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="!time.hasError('required') && !time.hasError('time')">{{ getHint("invalid") }}</mat-error>
+                    </mat-form-field>
                 </div>
             </div>
         </form>
@@ -65,15 +149,3 @@
     </div>
 
 </div>
-
-<mat-autocomplete #destinations="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of dropdownDestinations | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #ports="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of dropdownPorts | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>

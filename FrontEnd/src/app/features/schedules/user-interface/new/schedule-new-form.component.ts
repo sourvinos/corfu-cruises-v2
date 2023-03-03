@@ -1,12 +1,12 @@
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject, Subscription } from 'rxjs'
-import { Router } from '@angular/router'
-import { map, startWith } from 'rxjs/operators'
+import { Subject, Subscription } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
+import { DateRange } from '@angular/material/datepicker'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
+import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -16,9 +16,9 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 import { ScheduleService } from '../../classes/services/schedule.service'
 import { ScheduleWriteVM } from '../../classes/form/schedule-write-vm'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
@@ -41,29 +41,29 @@ export class ScheduleNewFormComponent {
     public isLoading = new Subject<boolean>()
     public parentUrl = '/schedules'
 
-    public dropdownDestinations: Observable<DestinationActiveVM[]>
-    public dropdownPorts: Observable<PortActiveVM[]>
+    public destinations: SimpleEntity[]
+    public ports: SimpleEntity[]
+    public weekdays: SimpleEntity[]
 
-    public toggledClassName = 'active-selectable-day'
+    public selectedFromDate = new Date()
+    public selectedRangeValue: DateRange<Date>
+    public selectedToDate = new Date()
+
     private daysToCreate = []
-    public selectedWeekdays = []
-    public weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private scheduleService: ScheduleService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.initForm()
         this.populateDropdowns()
-        this.subscribeToInteractionService()
+        this.populateWeekdays()
+        this.setSelectedDates()
         this.setLocale()
-    }
-
-    ngAfterViewInit(): void {
-        this.focusOnField()
+        this.subscribeToInteractionService()
     }
 
     ngOnDestroy(): void {
@@ -74,16 +74,12 @@ export class ScheduleNewFormComponent {
 
     //#region public methods
 
-    public autocompleteFields(subject: { description: any }): any {
-        return subject ? subject.description : undefined
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
     }
 
-    public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
-        if (event.target.value == '') this.isAutoCompleteDisabled = true
-    }
-
-    public enableOrDisableAutoComplete(event: any): void {
-        this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
+    public filterList(event: { target: { value: any } }, list: string | number): void {
+        this.fieldsetCriteriaService.filterList(event.target.value, this[list])
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -98,30 +94,38 @@ export class ScheduleNewFormComponent {
         return this.messageCalendarService.getDescription('weekdays', id)
     }
 
-    public onDoPeriodTasks(selectedWeekDay: string, selectedWeekdays: string[], toggledClassName: string): void {
-        this.buildSelectedWeekdays(selectedWeekDay, selectedWeekdays, toggledClassName)
-        this.createPeriod()
-        this.updateFormField()
+    public gotoToday(): void {
+        this.form.patchValue({
+            fromDate: this.dateHelperService.formatDateToIso(new Date()),
+            toDate: this.dateHelperService.formatDateToIso(new Date())
+        })
     }
 
     public onSave(): void {
         this.saveRecord()
     }
 
-    public createPeriod(): void {
-        this.daysToCreate = []
-        if (this.fromDate.valid && this.toDate.valid) {
-            const period = this.buildPeriod(new Date(this.fromDate.value), new Date(this.toDate.value))
-            period.forEach((day: string) => {
-                if (this.selectedWeekdays.length != 0) {
-                    this.selectedWeekdays.forEach(weekday => {
-                        if (day.substring(0, 3) == weekday) {
-                            this.daysToCreate.push(day.substring(4))
-                        }
-                    })
-                }
-            })
-        }
+    public patchFormWithSelectedDates(fromDate: any, toDate: any): void {
+        this.form.patchValue({
+            fromDate: fromDate.value != null ? this.dateHelperService.formatDateToIso(new Date(fromDate.value)) : '',
+            toDate: toDate.value != null ? this.dateHelperService.formatDateToIso(new Date(toDate.value)) : ''
+        })
+        this.createPeriod()
+        this.updateFormField()
+    }
+
+    public toggleAllCheckboxes(form: FormGroup, array: string, allCheckboxes: string): void {
+        this.fieldsetCriteriaService.toggleAllCheckboxes(form, array, allCheckboxes)
+    }
+
+    public updateRadioButtons(form: FormGroup, classname: any, idName: any, id: any, description: any): void {
+        this.fieldsetCriteriaService.updateRadioButtons(form, classname, idName, id, description)
+    }
+
+    public checkboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
+        this.updateWeekdayCheckbox(event, allCheckbox, formControlsArray, array, description)
+        this.createPeriod()
+        this.updateFormField()
     }
 
     //#endregion
@@ -134,8 +138,8 @@ export class ScheduleNewFormComponent {
         this.form.value.daysToInsert.forEach((day: any) => {
             const x: ScheduleWriteVM = {
                 id: formValue.id,
-                destinationId: formValue.destination.id,
-                portId: formValue.port.id,
+                destinationId: formValue.destinations[0].id,
+                portId: formValue.ports[0].id,
                 date: day,
                 maxPax: formValue.maxPax,
                 time: formValue.time,
@@ -150,10 +154,6 @@ export class ScheduleNewFormComponent {
         this.subscription.unsubscribe()
     }
 
-    private buildSelectedWeekdays(item: string, lookupArray: string[], className: string): void {
-        this.helperService.toggleActiveItem(item, lookupArray, className)
-    }
-
     private buildPeriod(from: Date, to: Date): any {
         const dateArray = []
         const currentDate = from
@@ -164,43 +164,59 @@ export class ScheduleNewFormComponent {
         return dateArray
     }
 
-    private filterAutocomplete(array: string, field: string, value: any): any[] {
-        if (typeof value !== 'object') {
-            const filtervalue = value.toLowerCase()
-            return this[array].filter((element: { [x: string]: string }) =>
-                element[field].toLowerCase().startsWith(filtervalue))
+    private createPeriod(): void {
+        this.daysToCreate = []
+        if (this.fromDate.valid && this.toDate.valid && this.form.value.weekdays.length != 0) {
+            const period = this.buildPeriod(new Date(this.fromDate.value), new Date(this.toDate.value))
+            period.forEach((day: string) => {
+                this.form.value.weekdays.forEach((weekday: { description: string }) => {
+                    if (day.substring(0, 3) == weekday.description) {
+                        this.daysToCreate.push(day.substring(4))
+                    }
+                })
+            })
         }
-    }
-
-    private focusOnField(): void {
-        this.helperService.focusOnField('')
-    }
-
-    private goBack(): void {
-        this.router.navigate([this.parentUrl])
     }
 
     private initForm(): void {
         this.form = this.formBuilder.group({
             id: 0,
-            destination: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            port: ['', [Validators.required, ValidationService.RequireAutocomplete]],
+            destinations: this.formBuilder.array([], Validators.required),
+            ports: this.formBuilder.array([], Validators.required),
+            weekdays: this.formBuilder.array([], Validators.required),
             fromDate: ['', Validators.required],
             toDate: ['', Validators.required],
             daysToInsert: ['', Validators.required],
             maxPax: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
-            time: ['', [Validators.required, ValidationService.isTime]]
+            time: ['', [Validators.required, ValidationService.isTime]],
+            destinationsFilter: '',
+            allDestinationsCheckbox: '',
+            portsFilter: '',
+            allPortsCheckbox: '',
+            weekdaysFilter: '',
+            allWeekdaysCheckbox: ''
         })
     }
 
-    private populateDropdownFromStorage(table: string, filteredTable: string, formField: string, modelProperty: string): void {
+    private populateDropdownFromLocalStorage(table: string): void {
         this[table] = JSON.parse(this.localStorageService.getItem(table))
-        this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
     private populateDropdowns(): void {
-        this.populateDropdownFromStorage('destinations', 'dropdownDestinations', 'destination', 'description')
-        this.populateDropdownFromStorage('ports', 'dropdownPorts', 'port', 'description')
+        this.populateDropdownFromLocalStorage('destinations')
+        this.populateDropdownFromLocalStorage('ports')
+    }
+
+    private populateWeekdays(): void {
+        this.weekdays = [
+            { 'id': 1, 'description': 'Mon' },
+            { 'id': 2, 'description': 'Tue' },
+            { 'id': 3, 'description': 'Wed' },
+            { 'id': 4, 'description': 'Thu' },
+            { 'id': 5, 'description': 'Fri' },
+            { 'id': 6, 'description': 'Sat' },
+            { 'id': 7, 'description': 'Sun' }
+        ]
     }
 
     private saveRecord(): void {
@@ -218,6 +234,14 @@ export class ScheduleNewFormComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
+    private setSelectedDates(): void {
+        this.selectedRangeValue = new DateRange(new Date(), new Date())
+        this.form.patchValue({
+            fromDate: this.dateHelperService.formatDateToIso(new Date(), false),
+            toDate: this.dateHelperService.formatDateToIso(new Date(), false),
+        })
+    }
+
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.subscribe(() => {
             this.setLocale()
@@ -230,17 +254,13 @@ export class ScheduleNewFormComponent {
         })
     }
 
+    private updateWeekdayCheckbox(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
+        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
+    }
+
     //#endregion
 
     //#region getters
-
-    get destination(): AbstractControl {
-        return this.form.get('destination')
-    }
-
-    get port(): AbstractControl {
-        return this.form.get('port')
-    }
 
     get fromDate(): AbstractControl {
         return this.form.get('fromDate')

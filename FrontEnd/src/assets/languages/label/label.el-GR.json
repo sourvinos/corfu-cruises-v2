@@ -1022,6 +1022,10 @@
                 "description": "Νέο πρόγραμμα"
             },
             {
+                "id": "date",
+                "description": "Εύρος ημερομηνίας"
+            },
+            {
                 "id": "destination",
                 "description": "Προορισμός"
             },
@@ -1030,16 +1034,20 @@
                 "description": "Λιμάνι"
             },
             {
-                "id": "dateRange",
-                "description": "Ημερολογιακό διάστημα"
-            },
-            {
                 "id": "maxPax",
                 "description": "Μέγιστος αριθμός επιβατών"
             },
             {
                 "id": "time",
                 "description": "Ωρα αναχώρησης"
+            },
+            {
+                "id": "weekdays",
+                "description": "Ημέρες"
+            },
+            {
+                "id": "selected",
+                "description": "Επιλεγμένα"
             },
             {
                 "id": "saveButton",

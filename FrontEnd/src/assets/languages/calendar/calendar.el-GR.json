@@ -57,31 +57,31 @@
         "labels": [
             {
                 "id": "Mon",
-                "description": "Δευ"
+                "description": "Δευτέρα"
             },
             {
                 "id": "Tue",
-                "description": "Τρί"
+                "description": "Τρίτη"
             },
             {
                 "id": "Wed",
-                "description": "Τετ"
+                "description": "Τετάρτη"
             },
             {
                 "id": "Thu",
-                "description": "Πέμ"
+                "description": "Πέμπτη"
             },
             {
                 "id": "Fri",
-                "description": "Παρ"
+                "description": "Παρασκευή"
             },
             {
                 "id": "Sat",
-                "description": "Σάβ"
+                "description": "Σάββατο"
             },
             {
                 "id": "Sun",
-                "description": "Κυρ"
+                "description": "Κυριακή"
             }
         ]
     }

@@ -39,8 +39,9 @@
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
                         "allowedCommonJsDependencies": [
-                            "qrcode",
-                            "pdfmake"
+                            "moment",
+                            "pdfmake",
+                            "qrcode"
                         ],
                         "outputPath": "dist",
                         "index": "src/index.html",

@@ -1022,6 +1022,10 @@
                 "description": "New schedule"
             },
             {
+                "id": "date",
+                "description": "Date range"
+            },
+            {
                 "id": "destination",
                 "description": "Destination"
             },
@@ -1030,16 +1034,20 @@
                 "description": "Port"
             },
             {
-                "id": "dateRange",
-                "description": "Calendar period"
-            },
-            {
                 "id": "maxPax",
                 "description": "Maximum number of passengers"
             },
             {
                 "id": "time",
                 "description": "Departure time"
+            },
+            {
+                "id": "weekdays",
+                "description": "Days"
+            },
+            {
+                "id": "selected",
+                "description": "Selected"
             },
             {
                 "id": "saveButton",

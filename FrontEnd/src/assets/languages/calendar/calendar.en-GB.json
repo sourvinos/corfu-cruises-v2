@@ -57,31 +57,31 @@
         "labels": [
             {
                 "id": "Mon",
-                "description": "Mon"
+                "description": "Monday"
             },
             {
                 "id": "Tue",
-                "description": "Tue"
+                "description": "Tuesday"
             },
             {
                 "id": "Wed",
-                "description": "Wed"
+                "description": "Wednesday"
             },
             {
                 "id": "Thu",
-                "description": "Thu"
+                "description": "Thursday"
             },
             {
                 "id": "Fri",
-                "description": "Fri"
+                "description": "Friday"
             },
             {
                 "id": "Sat",
-                "description": "Sat"
+                "description": "Saturday"
             },
             {
                 "id": "Sun",
-                "description": "Sun"
+                "description": "Sunday"
             }
         ]
     }

@@ -57,31 +57,31 @@
         "labels": [
             {
                 "id": "Mon",
-                "description": "Lu"
+                "description": "Lundi"
             },
             {
                 "id": "Tue",
-                "description": "Ma"
+                "description": "Mardi"
             },
             {
                 "id": "Wed",
-                "description": "Me"
+                "description": "Mercredi"
             },
             {
                 "id": "Thu",
-                "description": "Je"
+                "description": "Jeudi"
             },
             {
                 "id": "Fri",
-                "description": "Ve"
+                "description": "Vendredi"
             },
             {
                 "id": "Sat",
-                "description": "Sa"
+                "description": "Samedi"
             },
             {
                 "id": "Sun",
-                "description": "Di"
+                "description": "Dimanche"
             }
         ]
     }
