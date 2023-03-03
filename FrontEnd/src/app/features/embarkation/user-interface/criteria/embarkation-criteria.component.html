@@ -1,10 +1,12 @@
 <div id="form-wrapper">
 
     <div id="content">
+
         <div id="header">
             <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         </div>
-        <form id="form" [formGroup]="form" autocomplete="off">
+
+        <form [formGroup]="form" autocomplete="off" id="form">
             <!-- Date -->
             <div class="group-field">
                 <mat-form-field id="date">
@@ -113,6 +115,7 @@
                 </fieldset>
             </div>
         </form>
+
     </div>
 
     <div id="footer">
