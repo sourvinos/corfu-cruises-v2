@@ -4,7 +4,7 @@ import { Subject } from 'rxjs'
 // Custom
 import { EmbarkationPassengerVM } from '../../../classes/view-models/list/embarkation-passenger-vm'
 import { EmbarkationService } from '../../../classes/services/embarkation.service'
-import { EmbarkationVM } from '../../../classes/view-models/list/embarkation-vm'
+import { EmbarkationReservationVM } from '../../../classes/view-models/list/embarkation-reservation-vm'
 import { EmojiService } from './../../../../../shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -21,8 +21,8 @@ export class EmbarkationPassengerListComponent {
     //#region variables
 
     private feature = 'embarkationList'
-    public reservation: EmbarkationVM
-    public initialReservation: EmbarkationVM
+    public reservation: EmbarkationReservationVM
+    public initialReservation: EmbarkationReservationVM
     public isLoading = new Subject<boolean>()
 
     //#endregion
@@ -41,7 +41,7 @@ export class EmbarkationPassengerListComponent {
     }
 
     public countMissingPassengers(): number {
-        return this.reservation.totalPersons - this.reservation.passengers.length
+        return this.reservation.totalPax - this.reservation.passengers.length
     }
 
     public doEmbarkation(ignoreCurrentStatus: boolean, passengers: EmbarkationPassengerVM[]): void {
@@ -82,7 +82,7 @@ export class EmbarkationPassengerListComponent {
     }
 
     public missingPassengers(): boolean {
-        return this.reservation.totalPersons != this.reservation.passengers.length
+        return this.reservation.totalPax != this.reservation.passengers.length
     }
 
     //#endregion

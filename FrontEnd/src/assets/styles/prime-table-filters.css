@@ -112,5 +112,6 @@
 .p-multiselect .p-multiselect-trigger {
     color: var(--color-c) !important;
     justify-content: flex-end;
+    margin-top: 0.3125rem;
     width: 1.1rem;
 }

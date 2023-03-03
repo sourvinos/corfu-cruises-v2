@@ -1213,7 +1213,7 @@
             },
             {
                 "id": "headerEmbarkationStatus",
-                "description": "S"
+                "description": ""
             },
             {
                 "id": "headerRefNo",
@@ -1248,7 +1248,7 @@
                 "description": "Schiff"
             },
             {
-                "id": "headerPersons",
+                "id": "headerPax",
                 "description": "Pax"
             },
             {

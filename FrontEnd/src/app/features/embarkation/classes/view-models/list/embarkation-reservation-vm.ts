@@ -3,7 +3,7 @@ import { EmbarkationPassengerVM } from './embarkation-passenger-vm'
 import { EmbarkationPortVM } from './embarkation-port-vm'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
-export interface EmbarkationVM {
+export interface EmbarkationReservationVM {
 
     refNo: string
     ticketNo: string
@@ -13,7 +13,7 @@ export interface EmbarkationVM {
     driver: SimpleEntity
     port: EmbarkationPortVM
     ship: SimpleEntity
-    totalPersons: number
+    totalPax: number
     embarkedPassengers: number
     embarkationStatus: boolean
     isCheckedIn: string

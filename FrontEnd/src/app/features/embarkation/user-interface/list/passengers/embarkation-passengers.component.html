@@ -11,10 +11,10 @@
         <p-table #table [scrollable]="true" [value]="reservation.passengers" [virtualScrollItemSize]="32" [virtualScroll]="true" scrollHeight="flex" selectionMode="single" sortMode="multiple">
             <ng-template pTemplate="header">
                 <tr>
-                    <th class="width-10" pSortableColumn="lastname">{{ getLabel('headerLastname')}}</th>
-                    <th class="width-10" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}</th>
-                    <th class="width-10" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}</th>
-                    <th class="width-5" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}</th>
+                    <th class="border-bottom width-10" pSortableColumn="lastname">{{ getLabel('headerLastname')}}</th>
+                    <th class="border-bottom width-10" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}</th>
+                    <th class="border-bottom width-10" pSortableColumn="nationalityDescription">{{ getLabel('headerCountry') }}</th>
+                    <th class="border-bottom width-5" pSortableColumn="isCheckedIn">{{ getLabel('headerStatus') }}</th>
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-passenger>
@@ -36,7 +36,7 @@
 
     <div id="dialog-footer">
         <div *ngIf="missingPassengers()" id="missing-passengers">
-            <span style="font-size: 2rem">{{ getEmoji('error') }}</span>
+            <span style="font-size: 1.75rem">{{ getEmoji('error') }}</span>
             <span *ngIf="countMissingPassengers() == 1">{{ getLabel("missingPassenger") }}</span>
             <span *ngIf="countMissingPassengers() > 1">{{ getLabel("missingPassengers", countMissingPassengers().toString()) }}</span>
         </div>

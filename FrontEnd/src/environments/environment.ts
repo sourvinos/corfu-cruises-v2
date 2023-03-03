@@ -10,7 +10,7 @@ export const environment = {
     emailFooter: {
         lineA: 'Problems or questions? Call us at +30 26620 61400',
         lineB: 'or email at info@corfucruises.com',
-        lineC: '© Corfu Cruises 2021, Corfu - Greece'
+        lineC: '© Corfu Cruises 2023, Corfu - Greece'
     },
     menuIconDirectory: 'assets/images/menu/',
     featuresIconDirectory: 'assets/images/features/',
@@ -32,6 +32,5 @@ export const environment = {
         password: '',
         confirmPassword: ''
     },
-    production: false,
-    scrollWheelSpeed: 0.50
+    production: false
 }

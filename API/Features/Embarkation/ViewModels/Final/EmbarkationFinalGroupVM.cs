@@ -6,9 +6,9 @@ namespace API.Features.Embarkation {
 
         public int TotalPax { get; set; }
         public int EmbarkedPassengers { get; set; }
-        public int PendingPersons { get; set; }
+        public int PendingPax { get; set; }
 
-        public IEnumerable<EmbarkationFinalVM> Reservations { get; set; } // Level 2 of 3
+        public IEnumerable<EmbarkationFinalVM> Reservations { get; set; }
 
     }
 

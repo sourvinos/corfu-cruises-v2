@@ -32,7 +32,7 @@
                         <th class="width-6" pSortableColumn="driver.description">{{ getLabel('headerDriver') }}</th>
                         <th class="width-5" pSortableColumn="port.description">{{ getLabel('headerPort') }}</th>
                         <th class="width-5" pSortableColumn="ship.description">{{ getLabel('headerShip') }}</th>
-                        <th class="width-3" pSortableColumn="totalPersons">{{ getLabel('headerPersons') }}</th>
+                        <th class="width-3" pSortableColumn="totalPax">{{ getLabel('headerPax') }}</th>
                         <th class="width-2"></th>
                     </tr>
                     <tr>
@@ -130,7 +130,7 @@
                                 </ng-template>
                             </p-columnFilter>
                         </th>
-                        <th class="width-3"><input (input)="table.filter($event.target.value, 'totalPersons', 'equals')" [disabled]="records.reservations.length==0" [value]="$any(table).filters['totalPersons']?.value" class="right p-inputtext">
+                        <th class="width-3"><input (input)="table.filter($event.target.value, 'totalPax', 'equals')" [disabled]="records.reservations.length==0" [value]="$any(table).filters['totalPax']?.value" class="right p-inputtext">
                         <th class="width-2"></th>
                     </tr>
                 </ng-template>
@@ -149,9 +149,9 @@
                         <td class="width-5">{{ reservation.port.abbreviation }}</td>
                         <td class="width-5">{{ reservation.ship.description }}</td>
                         <td class="right width-3">
-                            <span>{{ reservation.totalPersons | replaceZero }}</span>
-                            <span *ngIf="reservation.totalPersons - reservation.passengers.length == 0" class="emoji-with-text">{{ getEmoji('ok') }}</span>
-                            <span *ngIf="reservation.totalPersons - reservation.passengers.length != 0" class="emoji-with-text">{{ getEmoji('error') }}</span>
+                            <span>{{ reservation.totalPax | replaceZero }}</span>
+                            <span *ngIf="reservation.totalPax - reservation.passengers.length == 0" class="emoji-with-text">{{ getEmoji('ok') }}</span>
+                            <span *ngIf="reservation.totalPax - reservation.passengers.length != 0" class="emoji-with-text">{{ getEmoji('error') }}</span>
                         </td>
                         <td class="center width-2"><span (click)="showRemarks(reservation.remarks)" [ngClass]="hasRemarks(reservation.remarks)?'clickable':''" *ngIf="hasRemarks(reservation.remarks)">{{ getEmoji('remarks') }}</span></td>
                     </tr>

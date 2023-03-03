@@ -133,7 +133,7 @@ export class VoucherService extends HttpDataService {
                                 [{ qr: voucher.qr, alignment: 'center', width: 200, style: ['paddingTop'], foreground: 'darkslategray' }],
                                 [{ text: 'Problems or questions? Call us at +30 26620 61400', alignment: 'center', style: ['small', 'paddingTop'] }],
                                 [{ text: 'or email at info@corfucruises.com', alignment: 'center', style: 'small' }],
-                                [{ text: '© Corfu Cruises 2022, Corfu - Greece', alignment: 'center', style: 'small' }],
+                                [{ text: '© Corfu Cruises 2023, Corfu - Greece', alignment: 'center', style: 'small' }],
                             ],
                         },
                         layout: 'noBorders'

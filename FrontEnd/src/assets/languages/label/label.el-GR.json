@@ -1213,7 +1213,7 @@
             },
             {
                 "id": "headerEmbarkationStatus",
-                "description": "Κ"
+                "description": ""
             },
             {
                 "id": "headerRefNo",
@@ -1248,7 +1248,7 @@
                 "description": "Πλοίο"
             },
             {
-                "id": "headerPersons",
+                "id": "headerPax",
                 "description": "Pax"
             },
             {
@@ -1313,11 +1313,11 @@
             },
             {
                 "id": "missingPassenger",
-                "description": "Δεν υπάρχουν δεδομένα για 1 επιβάτη"
+                "description": "Δεν υπάρχουν στοιχεία για 1 επιβάτη"
             },
             {
                 "id": "missingPassengers",
-                "description": "Δεν υπάρχουν δεδομένα για xx επιβάτες"
+                "description": "Δεν υπάρχουν στοιχεία για xx επιβάτες"
             },
             {
                 "id": "okButton",

@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { EmbarkationCriteriaComponent } from './../../user-interface/criteria/embarkation-criteria.component'
-import { EmbarkationVM } from '../view-models/list/embarkation-vm'
+import { EmbarkationReservationVM } from '../view-models/list/embarkation-reservation-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
 // Fonts
@@ -17,15 +16,12 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class EmbarkationPDFService {
 
-    // private criteria: EmbarkationCriteriaComponent
-
     constructor(private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
 
     //#region public methods
 
-    public createPDF(records: EmbarkationVM[]): void {
+    public createPDF(records: EmbarkationReservationVM[]): void {
         this.setFonts()
-        // this.criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
         const dd = {
             background: this.setBackgroundImage(),
             info: this.setPageInfo(),
@@ -87,7 +83,7 @@ export class EmbarkationPDFService {
         }
     }
 
-    private createLines(records: EmbarkationVM[]): any[] {
+    private createLines(records: EmbarkationReservationVM[]): any[] {
         const rows = []
         rows.push([
             { text: 'RefNo', fontSize: 6, margin: [0, 0, 0, 0] },
@@ -112,7 +108,7 @@ export class EmbarkationPDFService {
                 { text: reservation.port.abbreviation, fontSize: 5 },
                 { text: reservation.ship.description, fontSize: 5 },
                 { text: reservation.remarks, fontSize: 5 },
-                { text: reservation.totalPersons, alignment: 'right', fontSize: 5 }
+                { text: reservation.totalPax, alignment: 'right', fontSize: 5 }
             ])
             if (reservation.passengers.length > 0) {
                 let index = 0

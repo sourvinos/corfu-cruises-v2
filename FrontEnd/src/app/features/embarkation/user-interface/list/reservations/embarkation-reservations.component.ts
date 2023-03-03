@@ -11,7 +11,7 @@ import { EmbarkationCriteriaVM } from '../../../classes/view-models/criteria/emb
 import { EmbarkationGroupVM } from '../../../classes/view-models/list/embarkation-group-vm'
 import { EmbarkationPDFService } from '../../../classes/services/embarkation-pdf.service'
 import { EmbarkationPassengerListComponent } from '../passengers/embarkation-passengers.component'
-import { EmbarkationVM } from '../../../classes/view-models/list/embarkation-vm'
+import { EmbarkationReservationVM } from '../../../classes/view-models/list/embarkation-reservation-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
@@ -164,7 +164,7 @@ export class EmbarkationReservationsComponent {
         this.helperService.clearTableTextFilters(this.table, ['refNo', 'ticketNo', 'totalPersons'])
     }
 
-    public showPassengers(reservation: EmbarkationVM): void {
+    public showPassengers(reservation: EmbarkationReservationVM): void {
         this.storeScrollTop()
         this.storeSelectedId(reservation.refNo)
         this.hightlightSavedRow()
@@ -286,7 +286,7 @@ export class EmbarkationReservationsComponent {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
-    private showPassengersDialog(reservation: EmbarkationVM): void {
+    private showPassengersDialog(reservation: EmbarkationReservationVM): void {
         const response = this.dialog.open(EmbarkationPassengerListComponent, {
             data: {
                 reservation: reservation
@@ -312,17 +312,14 @@ export class EmbarkationReservationsComponent {
         this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
-    private updateTotals(totalsArray: string, reservations: any[]): void {
+    private updateTotals(totalsArray: string, reservations: EmbarkationReservationVM[]): void {
         const x = [0, 0, 0]
         reservations.forEach(reservation => {
-            x[0] += reservation.totalPersons
+            x[0] += reservation.totalPax
+            reservation.passengers.forEach(passenger => {
+                passenger.isCheckedIn ? ++x[1] : x[1]
+            })
         })
-        reservations.reduce((_, reservation) => {
-            const embarkedPassengers = reservation.passengers.filter(({ isCheckedIn }) => isCheckedIn)
-            if (embarkedPassengers.length > 0) {
-                x[1] += embarkedPassengers.length
-            }
-        }, [])
         x[2] = x[0] - x[1]
         this[totalsArray] = x
     }

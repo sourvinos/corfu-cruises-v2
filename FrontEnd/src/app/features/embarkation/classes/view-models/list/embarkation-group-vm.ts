@@ -1,11 +1,11 @@
-import { EmbarkationVM } from './embarkation-vm'
+import { EmbarkationReservationVM } from './embarkation-reservation-vm'
 
 export interface EmbarkationGroupVM {
 
-    totalPersons: number
+    totalPax: number
     embarkedPassengers: number
-    pendingPersons: number
+    pendingPax: number
 
-    reservations: EmbarkationVM[]
+    reservations: EmbarkationReservationVM[]
 
 }
