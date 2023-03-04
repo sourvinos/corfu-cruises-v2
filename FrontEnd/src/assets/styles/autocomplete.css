@@ -32,3 +32,8 @@
 .mat-option.mat-active {
     background-color: var(--color-g);
 }
+
+.mat-icon.open-close-panel {
+    font-size: 1.5rem !important;
+    margin-top: 0.5rem;
+}

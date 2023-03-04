@@ -7,6 +7,8 @@ import { LocalStorageService } from './local-storage.service'
 import { ModalActionResultService } from './modal-action-result.service'
 import { environment } from 'src/environments/environment'
 import { MessageLabelService } from './messages-label.service'
+import { FormGroup } from '@angular/forms'
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 
 export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
     return (source: Observable<T>): Observable<T> => defer(() => {
@@ -296,6 +298,16 @@ export class HelperService {
                 })
             }, 500)
         }
+    }
+
+    public openOrCloseAutocomplete(form: FormGroup<any>, element: any, trigger: MatAutocompleteTrigger): void {
+        form.get(element).patchValue('')
+        trigger.panelOpen ? trigger.closePanel() : trigger.openPanel()
+    }
+
+    public goBackFromForm(form: FormGroup<any>): boolean {
+        form.reset()
+        return true
     }
 
     //#endregion
