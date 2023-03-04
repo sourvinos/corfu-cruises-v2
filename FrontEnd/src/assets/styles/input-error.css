@@ -9,7 +9,6 @@
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix .mat-form-field-label-wrapper .mat-form-field-label span {
     color: var(--color-input-error);
-    transition: all var(--theme-change-delay) ease-in;
 }
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix {
@@ -18,12 +17,10 @@
 
 .mat-form-field-appearance-legacy.mat-form-field-invalid .mat-form-field-ripple {
     background-color: var(--color-input-error);
-    transition: all var(--hover-change-delay) ease-in;
 }
 
 .mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple {
     background-color: var(--color-input-error);
-    transition: all var(--theme-change-delay) ease-in;
 }
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-subscript-wrapper div .mat-error {
@@ -36,7 +33,6 @@
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
     color: var(--color-input-error) !important;
-    transition: all var(--theme-change-delay) ease-in;
 }
 
 .mat-form-field-invalid .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix textarea {

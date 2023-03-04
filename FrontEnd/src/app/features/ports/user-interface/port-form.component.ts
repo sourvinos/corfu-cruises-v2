@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Subject } from 'rxjs'
+import { Subject, Subscription } from 'rxjs'
 // Custom
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
@@ -26,33 +26,33 @@ export class PortFormComponent {
     //#region variables
 
     private record: PortReadDto
-    private unsubscribe = new Subject<void>()
+    private recordId: number
+    private subscription = new Subscription()
     public feature = 'portForm'
     public featureIcon = 'ports'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
+    public isNewRecord: boolean
     public parentUrl = '/ports'
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private portService: PortService, private router: Router) {
-        this.activatedRoute.params.subscribe(x => {
-            if (x.id) {
-                this.initForm()
-                this.getRecord()
-                this.populateFields()
-            } else {
-                this.initForm()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private portService: PortService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.focusOnField('abbreviation')
+        this.initForm()
+        this.setRecordId()
+        this.setNewRecord()
+        this.getRecord()
+        this.populateFields()
+    }
+
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
@@ -60,18 +60,7 @@ export class PortFormComponent {
     }
 
     canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-            return false
-        } else {
-            return true
-        }
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -110,8 +99,7 @@ export class PortFormComponent {
     //#region private methods
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private flattenForm(): PortWriteDto {
@@ -125,22 +113,25 @@ export class PortFormComponent {
         return port
     }
 
-    private focusOnField(field: string): void {
-        this.helperService.focusOnField(field)
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
     }
 
     private getRecord(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            const formResolved: FormResolved = this.activatedRoute.snapshot.data['portForm']
-            if (formResolved.error == null) {
-                this.record = formResolved.record.body
-                resolve(this.record)
-            } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
-            }
-        })
-        return promise
+        if (this.isNewRecord == false) {
+            return new Promise((resolve) => {
+                const formResolved: FormResolved = this.activatedRoute.snapshot.data['portForm']
+                if (formResolved.error == null) {
+                    this.record = formResolved.record.body
+                    resolve(this.record)
+                } else {
+                    this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
+                        this.resetForm()
+                        this.goBack()
+                    })
+                }
+            })
+        }
     }
 
     private goBack(): void {
@@ -158,13 +149,15 @@ export class PortFormComponent {
     }
 
     private populateFields(): void {
-        this.form.setValue({
-            id: this.record.id,
-            abbreviation: this.record.abbreviation,
-            description: this.record.description,
-            stopOrder: this.record.stopOrder,
-            isActive: this.record.isActive
-        })
+        if (this.recordId != undefined) {
+            this.form.setValue({
+                id: this.record.id,
+                abbreviation: this.record.abbreviation,
+                description: this.record.description,
+                stopOrder: this.record.stopOrder,
+                isActive: this.record.isActive
+            })
+        }
     }
 
     private resetForm(): void {
@@ -179,6 +172,16 @@ export class PortFormComponent {
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
             }
+        })
+    }
+
+    private setNewRecord(): void {
+        this.isNewRecord = this.recordId == null
+    }
+
+    private setRecordId(): void {
+        this.activatedRoute.params.subscribe(x => {
+            this.recordId = x.id
         })
     }
 
