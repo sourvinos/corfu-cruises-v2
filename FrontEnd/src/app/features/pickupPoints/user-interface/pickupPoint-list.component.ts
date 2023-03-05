@@ -154,7 +154,7 @@ export class PickupPointListComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
-                // this.recordsFiltered = listResolved.list
+                this.recordsFiltered = listResolved.list
                 this.recordsFilteredCount = this.records.length
                 resolve(this.records)
             } else {

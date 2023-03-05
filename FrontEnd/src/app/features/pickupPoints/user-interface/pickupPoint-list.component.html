@@ -58,7 +58,10 @@
     <div id="footer">
         <table-total-filtered-records [filteredRecordCount]="recordsFilteredCount" [recordCount]="records.length"></table-total-filtered-records>
         <div class="button-group-right">
-            <button (click)="createPdf()" class="secondary" mat-flat-button>{{ getLabel("createPdf") }}</button>
+            <button (click)="createPdf()" [disabled]="recordsFilteredCount==0" class="secondary" mat-flat-button>
+                <mat-icon *ngIf="recordsFilteredCount==0" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("createPdf") }}</span>
+            </button>
             <button (click)="newRecord()" class="primary" mat-flat-button>{{ getLabel("newRecord") }}</button>
         </div>
     </div>
