@@ -5,16 +5,16 @@ import { catchError, map } from 'rxjs/operators'
 import { EmbarkationCriteriaVM } from '../view-models/criteria/embarkation-criteria-vm'
 import { EmbarkationListResolved } from './embarkation-list-resolved'
 import { EmbarkationService } from '../services/embarkation.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class EmbarkationListResolver {
 
-    constructor(private embarkationService: EmbarkationService, private localStorageService: LocalStorageService) { }
+    constructor(private embarkationService: EmbarkationService, private sessionStorageService: SessionStorageService) { }
 
     resolve(): Observable<EmbarkationListResolved> {
-        const criteria: EmbarkationCriteriaVM = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
+        const criteria: EmbarkationCriteriaVM = JSON.parse(this.sessionStorageService.getItem('embarkation-criteria'))
         return this.embarkationService.get(
             criteria.date,
             this.buildIds(criteria, 'destinations'),

@@ -11,10 +11,10 @@ import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
 @Component({
@@ -42,7 +42,7 @@ export class EmbarkationCriteriaComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -156,7 +156,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     private clearListFilters(): void {
-        this.localStorageService.deleteItems([
+        this.sessionStorageService.deleteItems([
             { 'item': 'embarkationList', 'when': 'always' }
         ])
     }
@@ -185,7 +185,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     private navigateToList(): void {
-        this.localStorageService.deleteItems([
+        this.sessionStorageService.deleteItems([
             { 'item': 'scrollTop', 'when': 'always' },
             { 'item': 'refNo', 'when': 'always' }
         ])
@@ -193,7 +193,7 @@ export class EmbarkationCriteriaComponent {
     }
 
     private populateDropdownFromLocalStorage(table: string): void {
-        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[table] = JSON.parse(this.sessionStorageService.getItem(table))
     }
 
     private populateDropdowns(): void {
@@ -203,8 +203,8 @@ export class EmbarkationCriteriaComponent {
     }
 
     private populateFieldsFromStoredVariables(): void {
-        if (this.localStorageService.getItem('embarkation-criteria')) {
-            this.criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
+        if (this.sessionStorageService.getItem('embarkation-criteria')) {
+            this.criteria = JSON.parse(this.sessionStorageService.getItem('embarkation-criteria'))
             this.form.patchValue({
                 date: this.criteria.date,
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
@@ -218,11 +218,11 @@ export class EmbarkationCriteriaComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
     }
 
     private storeCriteria(): void {
-        this.localStorageService.saveItem('embarkation-criteria', JSON.stringify(this.form.value))
+        this.sessionStorageService.saveItem('embarkation-criteria', JSON.stringify(this.form.value))
     }
 
     private subscribeToInteractionService(): void {

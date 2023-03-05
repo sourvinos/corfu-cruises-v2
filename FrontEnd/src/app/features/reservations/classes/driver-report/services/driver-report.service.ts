@@ -4,8 +4,8 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DriverReportDto } from '../dtos/driver-report-dto'
 import { DriverReportHeaderDto } from '../dtos/driver-report-header-dto'
 import { DriverReportReservationDto } from '../dtos/driver-report-reservation-dto'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ReservationService } from '../../services/reservation.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 // Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
@@ -23,14 +23,14 @@ export class DriverReportService {
 
     //#endregion
 
-    constructor(private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private reservationService: ReservationService) { }
+    constructor(private dateHelperService: DateHelperService, private reservationService: ReservationService, private sessionStorageService: SessionStorageService) { }
 
     //#region public methods
 
     public doReportTasks(driverIds: number[]): void {
         driverIds.sort(function (a, b) { return a - b })
         driverIds.forEach(driverId => {
-            this.reservationService.getByDateAndDriver(this.localStorageService.getItem('date'), driverId).subscribe(response => {
+            this.reservationService.getByDateAndDriver(this.sessionStorageService.getItem('date'), driverId).subscribe(response => {
                 this.mapObjectFromAPI(response)
                 this.createReport()
             })

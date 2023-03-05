@@ -11,7 +11,6 @@ import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -20,6 +19,7 @@ import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-ac
 import { ScheduleReadDto } from '../../classes/form/schedule-read-vm'
 import { ScheduleService } from '../../classes/services/schedule.service'
 import { ScheduleWriteVM } from '../../classes/form/schedule-write-vm'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ValidationService } from 'src/app/shared/services/validation.service'
 
 @Component({
@@ -50,7 +50,7 @@ export class ScheduleEditFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -180,7 +180,7 @@ export class ScheduleEditFormComponent {
     }
 
     private populateDropdownFromStorage(table: string, filteredTable: string, formField: string, modelProperty: string): void {
-        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[table] = JSON.parse(this.sessionStorageService.getItem(table))
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
@@ -219,7 +219,7 @@ export class ScheduleEditFormComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
     }
 
     private setRecordId(): void {

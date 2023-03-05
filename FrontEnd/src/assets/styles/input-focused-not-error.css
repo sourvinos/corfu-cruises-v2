@@ -7,7 +7,7 @@
 }
 
 .mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
-    color: var(--color-input-focus);
+    color: var(--color-input-focus) !important;
 }
 
 .mat-focused:not(.mat-form-field-invalid) .mat-form-field-wrapper .mat-form-field-underline .mat-form-field-ripple {

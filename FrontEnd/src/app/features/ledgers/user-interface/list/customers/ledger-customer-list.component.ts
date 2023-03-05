@@ -11,10 +11,10 @@ import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-c
 import { LedgerCustomerSummaryAndReservationsComponent } from '../summary-and-reservations/ledger-summary-and-reservations.component'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -45,7 +45,7 @@ export class LedgerCustomerListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.getConnectedUserRole()
         this.loadRecords()
         this.populateCriteriaPanelsFromStorage()
@@ -71,7 +71,7 @@ export class LedgerCustomerListComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
+        this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.recordsFilteredCount = event.filteredValue.length
         this.helperService.clearStyleFromVirtualTable()
     }
@@ -115,7 +115,7 @@ export class LedgerCustomerListComponent {
     }
 
     private storeSelectedId(id: number): void {
-        this.localStorageService.saveItem(this.feature + '-id', id.toString())
+        this.sessionStorageService.saveItem(this.feature + '-id', id.toString())
     }
 
     public unHighlightAllRows(): void {
@@ -165,8 +165,8 @@ export class LedgerCustomerListComponent {
     }
 
     private populateCriteriaPanelsFromStorage(): void {
-        if (this.localStorageService.getItem('ledger-criteria')) {
-            this.criteriaPanels = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
+        if (this.sessionStorageService.getItem('ledger-criteria')) {
+            this.criteriaPanels = JSON.parse(this.sessionStorageService.getItem('ledger-criteria'))
         }
     }
 

@@ -5,16 +5,16 @@ import { catchError, map } from 'rxjs/operators'
 import { LedgerCriteriaVM } from '../view-models/criteria/ledger-criteria-vm'
 import { LedgerListResolved } from './ledger-list-resolved'
 import { LedgerService } from '../services/ledger.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class LedgerListResolver {
 
-    constructor(private ledgerService: LedgerService, private localStorageService: LocalStorageService) { }
+    constructor(private ledgerService: LedgerService, private sessionStorageService: SessionStorageService) { }
 
     resolve(): Observable<LedgerListResolved> {
-        const criteria: LedgerCriteriaVM = JSON.parse(this.localStorageService.getItem('ledger-criteria'))
+        const criteria: LedgerCriteriaVM = JSON.parse(this.sessionStorageService.getItem('ledger-criteria'))
         return this.ledgerService.get(
             criteria.fromDate,
             criteria.toDate,

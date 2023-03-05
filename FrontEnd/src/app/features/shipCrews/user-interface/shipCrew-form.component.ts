@@ -11,12 +11,12 @@ import { GenderActiveVM } from '../../genders/classes/view-models/gender-active-
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { NationalityDropdownVM } from '../../nationalities/classes/view-models/nationality-dropdown-vm'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ShipActiveVM } from '../../ships/classes/view-models/ship-active-vm'
 import { ShipCrewReadDto } from '../classes/dtos/shipCrew-read-dto'
 import { ShipCrewService } from '../classes/services/shipCrew.service'
@@ -53,7 +53,7 @@ export class ShipCrewFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DATE_LOCALE) private locale: string, private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>,  private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipCrewService: ShipCrewService,) {
+    constructor(@Inject(MAT_DATE_LOCALE) private locale: string, private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private shipCrewService: ShipCrewService) {
         this.activatedRoute.params.subscribe(x => {
             if (x.id) {
                 this.initForm()
@@ -203,7 +203,7 @@ export class ShipCrewFormComponent {
     }
 
     private populateDropdownFromStorage(table: string, filteredTable: string, formField: string, modelProperty: string): void {
-        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[table] = JSON.parse(this.sessionStorageService.getItem(table))
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
@@ -242,7 +242,7 @@ export class ShipCrewFormComponent {
     }
 
     private setLocale(): void {
-        this.locale = this.localStorageService.getLanguage()
+        this.locale = this.sessionStorageService.getLanguage()
         this.dateAdapter.setLocale(this.locale)
     }
 

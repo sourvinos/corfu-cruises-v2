@@ -8,11 +8,11 @@ import { DayVM } from 'src/app/features/reservations/classes/view-models/calenda
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -45,7 +45,7 @@ export class CalendarComponent {
 
     // #endregion 
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.getActiveYear()
@@ -72,7 +72,7 @@ export class CalendarComponent {
     //#region public methods
 
     public currentYearIsNotDisplayedYear(): boolean {
-        return this.dateHelperService.getCurrentYear().toString() != this.localStorageService.getItem('year')
+        return this.dateHelperService.getCurrentYear().toString() != this.sessionStorageService.getItem('year')
     }
 
     public dayHasSchedule(day: DayVM): boolean {
@@ -168,9 +168,9 @@ export class CalendarComponent {
     }
 
     private getActiveYear(): void {
-        this.activeYear = isNaN(parseInt(this.localStorageService.getItem('year')))
+        this.activeYear = isNaN(parseInt(this.sessionStorageService.getItem('year')))
             ? this.dateHelperService.getCurrentYear()
-            : parseInt(this.localStorageService.getItem('year'))
+            : parseInt(this.sessionStorageService.getItem('year'))
     }
 
     private getMonthOffset(month: number): number {
@@ -205,7 +205,7 @@ export class CalendarComponent {
     }
 
     private mustRebuildCalendar(): boolean {
-        const storedYear = this.localStorageService.getItem('year')
+        const storedYear = this.sessionStorageService.getItem('year')
         if (storedYear != this.activeYear.toString()) {
             this.activeYear = parseInt(storedYear)
             return true
@@ -214,17 +214,17 @@ export class CalendarComponent {
     }
 
     private navigateToList(): void {
-        this.router.navigate(['reservations/date/', this.localStorageService.getItem('date')])
+        this.router.navigate(['reservations/date/', this.sessionStorageService.getItem('date')])
     }
 
     private saveYear(year?: string): void {
-        this.localStorageService.saveItem('year', year
+        this.sessionStorageService.saveItem('year', year
             ? year
             : this.dateHelperService.getCurrentYear().toString())
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
     }
 
     private scrollToMonth(month: number): void {
@@ -238,7 +238,7 @@ export class CalendarComponent {
             setTimeout(() => {
                 this.todayScrollPosition = this.getTodayLeftScroll() - 2
                 this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
-                this.localStorageService.deleteItems([
+                this.sessionStorageService.deleteItems([
                     { 'item': 'scrollLeft', 'when': 'always' }
                 ])
             }, 500)
@@ -249,11 +249,11 @@ export class CalendarComponent {
     }
 
     private storeVariables(date: string): void {
-        this.localStorageService.saveItem('date', date)
+        this.sessionStorageService.saveItem('date', date)
     }
 
     private storeScrollLeft(): void {
-        this.localStorageService.saveItem('scrollLeft', document.getElementById('days').scrollLeft.toString())
+        this.sessionStorageService.saveItem('scrollLeft', document.getElementById('days').scrollLeft.toString())
     }
 
     private subscribeToInteractionService(): void {

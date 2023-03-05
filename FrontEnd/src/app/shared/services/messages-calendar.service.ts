@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 // Custom
-import { LocalStorageService } from './local-storage.service'
+import { SessionStorageService } from './session-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,7 +14,7 @@ export class MessageCalendarService {
 
     //#endregion
 
-    constructor(private httpClient: HttpClient, private localStorageService: LocalStorageService) {
+    constructor(private httpClient: HttpClient, private sessionStorageService: SessionStorageService) {
         this.getMessages()
     }
 
@@ -38,7 +38,7 @@ export class MessageCalendarService {
 
     public getMessages(): Promise<any> {
         const promise = new Promise((resolve) => {
-            firstValueFrom(this.httpClient.get('assets/languages/calendar/calendar.' + this.localStorageService.getLanguage() + '.json')).then(response => {
+            firstValueFrom(this.httpClient.get('assets/languages/calendar/calendar.' + this.sessionStorageService.getLanguage() + '.json')).then(response => {
                 this.messages = response
                 resolve(this.messages)
             })

@@ -17,9 +17,10 @@ input::selection {
 input.mat-input-element, textarea.mat-input-element {
     caret-color: var(--color-c) !important;
     margin-top: -0.0625rem !important;
+    transition: all var(--theme-change-delay) ease-in;
 }
 
-input[type="text"], input[type="email"], input[type="number"], input[type="password"], input:-webkit-autofill, input:-webkit-autofill:active {
+input[type="text"], input[type="email"], input[type="number"], input[type="password"] {
     background-clip: content-box;
     cursor: text !important;
     font-family: var(--font-family-asty);
@@ -28,23 +29,18 @@ input[type="text"], input[type="email"], input[type="number"], input[type="passw
     outline: none;
 }
 
-input:-internal-autofill-previewed, input:-internal-autofill-selected {
-    -webkit-text-fill-color: var(--color-c) !important;
-    transition: background-color var(--hover-change-delay) ease-in-out 0s !important;
-}
-
 textarea {
     height: 100px;
 }
 
 .mat-form-field {
-    backdrop-filter: blur(var(--blur));
-    background-color: #cddc3905 !important;
+    background-color: var(--color-a) !important;
     border-radius: 10px;
     border: 1px solid var(--color-b) !important;
     line-height: 132%;
     margin-top: var(--form-field-margin) !important;
     padding: 0.5rem 1rem;
+    transition: all var(--theme-change-delay) ease-in;
     width: 100% !important;
 }
 
@@ -78,6 +74,10 @@ textarea {
     font-family: var(--font-family-asty);
     font-size: var(--font-size-input-hint);
     font-weight: 300;
+}
+
+.mat-form-field-label span {
+    transition: all var(--theme-change-delay) ease-in;
 }
 
 .mat-form-field-label-wrapper {

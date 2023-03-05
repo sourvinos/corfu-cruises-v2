@@ -4,7 +4,6 @@ import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 // Custom
 import { AccountService } from './../../../services/account.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from './../../../services/messages-label.service'
 
 @Component({
@@ -23,7 +22,7 @@ export class SearchByRefBoxComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private messageLabelService: MessageLabelService, private router: Router) { }
 
     //#region lifecycle hooks
 

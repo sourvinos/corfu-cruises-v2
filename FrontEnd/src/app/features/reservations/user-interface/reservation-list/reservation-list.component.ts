@@ -12,7 +12,6 @@ import { DriverService } from 'src/app/features/drivers/classes/services/driver.
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
@@ -25,6 +24,7 @@ import { ReservationListVM } from '../../classes/view-models/list/reservation-li
 import { ReservationService } from './../../classes/services/reservation.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { environment } from 'src/environments/environment'
@@ -65,7 +65,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private shipService: ShipService, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private shipService: ShipService, public dialog: MatDialog) {
         this.router.routeReuseStrategy.shouldReuseRoute = (): boolean => false
         this.subscription = this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
@@ -164,7 +164,7 @@ export class ReservationListComponent {
     public filterRecords(event?: { filteredValue: any[] }): void {
         this.helperService.clearStyleFromVirtualTable()
         this.helperService.clearTableCheckboxes()
-        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
+        this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.selectedRecords.splice(0)
         this.updateTotals(this.totalPax, event.filteredValue)
     }
@@ -178,7 +178,7 @@ export class ReservationListComponent {
     }
 
     public getDateFromStorage(): string {
-        return this.localStorageService.getItem('date')
+        return this.sessionStorageService.getItem('date')
     }
 
     public getEmoji(emoji: string): string {
@@ -202,7 +202,7 @@ export class ReservationListComponent {
     }
 
     public newRecord(): void {
-        this.localStorageService.saveItem('returnUrl', this.url)
+        this.sessionStorageService.saveItem('returnUrl', this.url)
         this.router.navigate([this.parentUrl, 'new'])
     }
 
@@ -229,7 +229,7 @@ export class ReservationListComponent {
     private calculateOverbookings(): void {
         this.overbookedDestinations = []
         this.dropdownDestinations.forEach((destination) => {
-            this.reservationService.isDestinationOverbooked(this.localStorageService.getItem('date'), destination.id).subscribe((response) => {
+            this.reservationService.isDestinationOverbooked(this.sessionStorageService.getItem('date'), destination.id).subscribe((response) => {
                 this.overbookedDestinations.push({
                     description: destination.abbreviation,
                     isOverbooked: response
@@ -272,7 +272,7 @@ export class ReservationListComponent {
     }
 
     private filterTableFromStoredFilters(): void {
-        const filters = this.localStorageService.getFilters(this.feature + '-' + 'filters')
+        const filters = this.sessionStorageService.getFilters(this.feature + '-' + 'filters')
         if (filters != undefined) {
             setTimeout(() => {
                 this.filterColumn(filters.refNo, 'refNo', 'contains')
@@ -357,11 +357,11 @@ export class ReservationListComponent {
     }
 
     private storeSelectedId(id: string): void {
-        this.localStorageService.saveItem(this.feature + '-id', id)
+        this.sessionStorageService.saveItem(this.feature + '-id', id)
     }
 
     private storeScrollTop(): void {
-        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
+        this.sessionStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     private updateTotals(totalPax: number[], filteredValue: any[]): void {

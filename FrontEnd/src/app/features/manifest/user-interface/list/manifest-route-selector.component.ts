@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
 // Custom
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
-import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ShipRouteActiveVM } from './../../../shipRoutes/classes/view-models/shipRoute-active-vm'
 
 @Component({
@@ -24,7 +24,7 @@ export class ManifestRouteSelectorComponent {
 
     //#endregion
 
-    constructor(private dialogRef: MatDialogRef<ManifestRouteSelectorComponent>, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private ngZone: NgZone) { }
+    constructor(private dialogRef: MatDialogRef<ManifestRouteSelectorComponent>, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private messageLabelService: MessageLabelService, private ngZone: NgZone, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -43,7 +43,7 @@ export class ManifestRouteSelectorComponent {
 
     public continue(): void {
         this.ngZone.run(() => {
-            const x = JSON.parse(this.localStorageService.getItem('shipRoutes'))
+            const x = JSON.parse(this.sessionStorageService.getItem('shipRoutes'))
             const z = x.find((z: any) => z.id == this.form.value.shipRoutes[0].id)
             this.dialogRef.close(z)
         })
@@ -74,7 +74,7 @@ export class ManifestRouteSelectorComponent {
     }
 
     private populateDropdownFromLocalStorage(table: string): void {
-        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[table] = JSON.parse(this.sessionStorageService.getItem(table))
     }
 
     private populateDropdowns(): void {

@@ -5,9 +5,9 @@ import { Subject, takeUntil } from 'rxjs'
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { Menu } from 'src/app/shared/classes/menu'
 import { MessageMenuService } from '../../../services/messages-menu.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -28,7 +28,7 @@ export class UserMenuComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageMenuService: MessageMenuService, private router: Router) { }
+    constructor(private accountService: AccountService, private interactionService: InteractionService, private messageMenuService: MessageMenuService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region listeners
 
@@ -59,13 +59,13 @@ export class UserMenuComponent {
         if (feature.substring(5) == 'logout') {
             this.accountService.logout()
         } else {
-            this.localStorageService.saveItem('returnUrl', '/')
+            this.sessionStorageService.saveItem('returnUrl', '/')
             this.router.navigate(['/users/' + this.userId])
         }
     }
 
     public editRecord(): void {
-        this.localStorageService.saveItem('returnUrl', '/')
+        this.sessionStorageService.saveItem('returnUrl', '/')
         this.router.navigate(['/users/' + this.userId])
     }
 

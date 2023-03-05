@@ -15,10 +15,10 @@ import { EmbarkationReservationVM } from '../../../classes/view-models/list/emba
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../../shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { environment } from 'src/environments/environment'
 
@@ -61,7 +61,7 @@ export class EmbarkationReservationsComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 this.url = navigation.url
@@ -97,7 +97,7 @@ export class EmbarkationReservationsComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
+        this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.updateTotals('totalsFiltered', event.filteredValue)
         this.helperService.clearStyleFromVirtualTable()
     }
@@ -149,7 +149,7 @@ export class EmbarkationReservationsComponent {
     }
 
     public isListFiltered(): boolean {
-        const filters = this.localStorageService.getItem(this.feature)
+        const filters = this.sessionStorageService.getItem(this.feature)
         if (filters != undefined && filters != '') {
             const x = []
             for (const i in JSON.parse(filters)) {
@@ -215,7 +215,7 @@ export class EmbarkationReservationsComponent {
     }
 
     private filterTableFromStoredFilters(): void {
-        const filters = this.localStorageService.getFilters(this.feature)
+        const filters = this.sessionStorageService.getFilters(this.feature)
         if (filters != undefined) {
             setTimeout(() => {
                 this.filterColumn(filters.embarkationStatusDescription, 'embarkationStatusDescription', 'in')
@@ -234,7 +234,7 @@ export class EmbarkationReservationsComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
     }
 
     private getVirtualElement(): void {
@@ -261,8 +261,8 @@ export class EmbarkationReservationsComponent {
     }
 
     private populateCriteriaPanelsFromStorage(): void {
-        if (this.localStorageService.getItem('embarkation-criteria')) {
-            this.criteriaPanels = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
+        if (this.sessionStorageService.getItem('embarkation-criteria')) {
+            this.criteriaPanels = JSON.parse(this.sessionStorageService.getItem('embarkation-criteria'))
         }
     }
 
@@ -305,11 +305,11 @@ export class EmbarkationReservationsComponent {
     }
 
     private storeSelectedId(refNo: string): void {
-        this.localStorageService.saveItem(this.feature + '-id', refNo)
+        this.sessionStorageService.saveItem(this.feature + '-id', refNo)
     }
 
     private storeScrollTop(): void {
-        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
+        this.sessionStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     private updateTotals(totalsArray: string, reservations: EmbarkationReservationVM[]): void {

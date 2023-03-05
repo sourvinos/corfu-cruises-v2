@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { firstValueFrom } from 'rxjs'
 // Custom
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,7 +14,7 @@ export class MessageMenuService {
 
     //#endregion
 
-    constructor(private localStorageService: LocalStorageService, private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, private sessionStorageService: SessionStorageService) { }
 
     //#region public methods
 
@@ -32,7 +32,7 @@ export class MessageMenuService {
 
     public getMessages(): Promise<any> {
         const promise = new Promise((resolve) => {
-            firstValueFrom(this.httpClient.get('assets/languages/menu/menu.' + this.localStorageService.getLanguage() + '.json')).then(response => {
+            firstValueFrom(this.httpClient.get('assets/languages/menu/menu.' + this.sessionStorageService.getLanguage() + '.json')).then(response => {
                 this.messages = response
                 resolve(this.messages)
             })

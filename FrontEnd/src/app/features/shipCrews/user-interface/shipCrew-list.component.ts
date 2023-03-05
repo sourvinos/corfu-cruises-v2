@@ -10,10 +10,10 @@ import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ShipCrewListVM } from '../classes/view-models/shipCrew-list-vm'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
@@ -44,7 +44,7 @@ export class ShipCrewListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.loadRecords().then(() => {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
@@ -76,7 +76,7 @@ export class ShipCrewListComponent {
     public clearDateFilter(): void {
         this.table.filter('', 'birthdate', 'equals')
         this.filterDate = ''
-        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
+        this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
     }
 
     public editRecord(id: number): void {
@@ -89,11 +89,11 @@ export class ShipCrewListComponent {
         const date = this.dateHelperService.formatDateToIso(new Date(event.value), false)
         this.table.filter(date, 'birthdate', 'equals')
         this.filterDate = date
-        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
+        this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
+        this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.recordsFilteredCount = event.filteredValue.length
         this.helperService.clearStyleFromVirtualTable()
     }
@@ -145,7 +145,7 @@ export class ShipCrewListComponent {
     }
 
     private filterTableFromStoredFilters(): void {
-        const filters = this.localStorageService.getFilters(this.feature + '-' + 'filters')
+        const filters = this.sessionStorageService.getFilters(this.feature + '-' + 'filters')
         if (filters != undefined) {
             setTimeout(() => {
                 this.filterColumn(filters.isActive, 'isActive', 'contains')
@@ -203,7 +203,7 @@ export class ShipCrewListComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
     }
 
     private scrollToSavedPosition(): void {
@@ -211,11 +211,11 @@ export class ShipCrewListComponent {
     }
 
     private storeSelectedId(id: number): void {
-        this.localStorageService.saveItem(this.feature + '-id', id.toString())
+        this.sessionStorageService.saveItem(this.feature + '-id', id.toString())
     }
 
     private storeScrollTop(): void {
-        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
+        this.sessionStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     private subscribeToInteractionService(): void {

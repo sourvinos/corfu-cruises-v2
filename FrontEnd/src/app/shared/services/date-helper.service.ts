@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core'
 // Custom
-import { LocalStorageService } from './local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
+import { SessionStorageService } from './session-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class DateHelperService {
 
-    constructor(private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService) { }
+    constructor(private messageCalendarService: MessageCalendarService, private sessionStorageService: SessionStorageService) { }
 
     //#region public methods
 
@@ -21,7 +21,7 @@ export class DateHelperService {
     public formatISODateToLocale(date: string, showWeekday = false, showYear = true): string {
         const parts = date.split('-')
         const rawDate = new Date(date)
-        const dateWithLeadingZeros = this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.localStorageService.getLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))), showYear)
+        const dateWithLeadingZeros = this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.sessionStorageService.getLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))), showYear)
         const weekday = this.messageCalendarService.getDescription('weekdays', rawDate.toDateString().substring(0, 3))
         return showWeekday ? weekday + ' ' + dateWithLeadingZeros : dateWithLeadingZeros
     }
@@ -91,7 +91,7 @@ export class DateHelperService {
     }
 
     private getDateLocaleSeperator(): string {
-        switch (this.localStorageService.getLanguage()) {
+        switch (this.sessionStorageService.getLanguage()) {
             case 'cs-CZ': return '.'
             case 'de-DE': return '.'
             case 'el-GR': return '/'

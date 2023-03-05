@@ -4,15 +4,13 @@ import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
-import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
-import { KeyboardShortcuts, Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
+import { Unlisten } from 'src/app/shared/services/keyboard-shortcuts.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -37,14 +35,13 @@ export class ForgotPasswordFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
+    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private sessionStorageService: SessionStorageService,) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.initForm()
         this.populateFields()
-        this.addShortcuts()
         this.focusOnField('email')
     }
 
@@ -81,24 +78,6 @@ export class ForgotPasswordFormComponent {
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'goBack')
-                }
-            },
-            'Alt.S': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'save')
-                }
-            }
-        }, {
-            priority: 0,
-            inputs: true
-        })
-    }
-
     private focusOnField(field: string): void {
         this.helperService.focusOnField(field)
     }
@@ -119,7 +98,7 @@ export class ForgotPasswordFormComponent {
         this.form.setValue({
             email: environment.login.email,
             returnUrl: environment.clientUrl,
-            language: this.localStorageService.getLanguage(),
+            language: this.sessionStorageService.getLanguage(),
         })
     }
 

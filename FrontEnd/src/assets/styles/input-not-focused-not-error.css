@@ -2,6 +2,10 @@
     color: var(--color-c);
 }
 
+.mat-form-field-wrapper .mat-form-field-flex .mat-form-field-infix input {
+    color: var(--color-c) !important;
+}
+
 .mat-form-field-wrapper .mat-form-field-flex .mat-form-field-suffix button .mat-button-wrapper .mat-icon {
     color: var(--color-c);
 }
@@ -26,4 +30,16 @@
     color: var(--color-c);
     font-size: var(--font-size-input-hint) !important;
     font-weight: var(--font-weight-mat-hint);
+}
+
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+    box-shadow: 0 0 0 1000px var(--color-a) inset !important;
+}
+
+input:-webkit-autofill {
+    -webkit-text-fill-color: var(--color-c) !important;
+}
+
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--color-input-focus) !important;
 }

@@ -10,10 +10,10 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
 @Component({
@@ -41,7 +41,7 @@ export class ManifestCriteriaComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -163,7 +163,7 @@ export class ManifestCriteriaComponent {
     }
 
     private populateDropdownFromLocalStorage(table: string): void {
-        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[table] = JSON.parse(this.sessionStorageService.getItem(table))
     }
 
     private populateDropdowns(): void {
@@ -173,8 +173,8 @@ export class ManifestCriteriaComponent {
     }
 
     private populateFieldsFromStoredVariables(): void {
-        if (this.localStorageService.getItem('manifest-criteria')) {
-            this.criteria = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+        if (this.sessionStorageService.getItem('manifest-criteria')) {
+            this.criteria = JSON.parse(this.sessionStorageService.getItem('manifest-criteria'))
             this.form.patchValue({
                 date: this.criteria.date,
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
@@ -186,11 +186,11 @@ export class ManifestCriteriaComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
     }
 
     private storeCriteria(): void {
-        this.localStorageService.saveItem('manifest-criteria', JSON.stringify(this.form.value))
+        this.sessionStorageService.saveItem('manifest-criteria', JSON.stringify(this.form.value))
     }
 
     private subscribeToInteractionService(): void {

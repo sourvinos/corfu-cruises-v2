@@ -1,18 +1,18 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component } from '@angular/core'
+import { DateAdapter } from '@angular/material/core'
 import { Subscription } from 'rxjs'
 // Custom
-import { DateAdapter } from '@angular/material/core'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DayVM } from '../classes/view-models/day-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from './../../../shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Component({
     selector: 'availability',
@@ -40,7 +40,7 @@ export class AvailabilityComponent {
 
     // #endregion 
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router,) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService,) {
         this.subscription = this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd) {
                 if (navigation.url == this.url) {
@@ -80,7 +80,7 @@ export class AvailabilityComponent {
     //#region public methods
 
     public currentYearIsNotDisplayedYear(): boolean {
-        return this.dateHelperService.getCurrentYear().toString() != this.localStorageService.getItem('activeYearAvailability')
+        return this.dateHelperService.getCurrentYear().toString() != this.sessionStorageService.getItem('activeYearAvailability')
     }
 
     public dayHasSchedule(day: DayVM): boolean {
@@ -89,17 +89,17 @@ export class AvailabilityComponent {
 
     public doActiveYearTasks(year?: any): void {
         if (year == undefined) {
-            const storedYear = parseInt(this.localStorageService.getItem('activeYearAvailability'))
+            const storedYear = parseInt(this.sessionStorageService.getItem('activeYearAvailability'))
             if (isNaN(storedYear)) {
                 this.activeYear = this.dateHelperService.getCurrentYear()
-                this.localStorageService.saveItem('activeYearAvailability', this.activeYear.toString())
+                this.sessionStorageService.saveItem('activeYearAvailability', this.activeYear.toString())
             } else {
                 this.activeYear = storedYear
             }
         } else {
             if (year != this.getActiveYear) {
                 this.activeYear = parseInt(year)
-                this.localStorageService.saveItem('activeYearAvailability', this.activeYear.toString())
+                this.sessionStorageService.saveItem('activeYearAvailability', this.activeYear.toString())
                 this.router.navigate([this.url])
             }
         }
@@ -169,9 +169,9 @@ export class AvailabilityComponent {
     }
 
     private getActiveYear(): void {
-        this.activeYear = isNaN(parseInt(this.localStorageService.getItem('activeYearAvailability')))
+        this.activeYear = isNaN(parseInt(this.sessionStorageService.getItem('activeYearAvailability')))
             ? this.dateHelperService.getCurrentYear()
-            : parseInt(this.localStorageService.getItem('activeYearAvailability'))
+            : parseInt(this.sessionStorageService.getItem('activeYearAvailability'))
     }
 
     private getMonthOffset(month: number): number {
@@ -224,7 +224,7 @@ export class AvailabilityComponent {
             setTimeout(() => {
                 this.todayScrollPosition = this.getTodayLeftScroll() - 2
                 this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
-                this.localStorageService.deleteItems([
+                this.sessionStorageService.deleteItems([
                     { 'item': 'scrollLeft', 'when': 'always' }
                 ])
             }, 500)
@@ -235,18 +235,18 @@ export class AvailabilityComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
     }
 
     private storeCriteria(date: string, destinationId: number, destinationDescription: string): void {
-        this.localStorageService.saveItem('date', date)
-        this.localStorageService.saveItem('destinationId', destinationId.toString())
-        this.localStorageService.saveItem('destinationDescription', destinationDescription.toString())
-        this.localStorageService.saveItem('returnUrl', '/availability')
+        this.sessionStorageService.saveItem('date', date)
+        this.sessionStorageService.saveItem('destinationId', destinationId.toString())
+        this.sessionStorageService.saveItem('destinationDescription', destinationDescription.toString())
+        this.sessionStorageService.saveItem('returnUrl', '/availability')
     }
 
     private storeScrollLeft(): void {
-        this.localStorageService.saveItem('scrollLeft', document.getElementById('days').scrollLeft.toString())
+        this.sessionStorageService.saveItem('scrollLeft', document.getElementById('days').scrollLeft.toString())
     }
 
     private subscribeToInteractionService(): void {

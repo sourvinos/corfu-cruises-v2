@@ -4,17 +4,17 @@ import { catchError, map } from 'rxjs/operators'
 // Custom
 import { DateHelperService } from './../../../../shared/services/date-helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { ReservationService } from '../services/reservation.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class ReservationCalendarResolver {
 
-    constructor(private reservationService: ReservationService, private localStorageService: LocalStorageService, private dateHelperService: DateHelperService) { }
+    constructor(private dateHelperService: DateHelperService, private reservationService: ReservationService, private sessionStorageService: SessionStorageService) { }
 
     resolve(): Observable<ListResolved> {
-        let year = parseInt(this.localStorageService.getItem('year'))
+        let year = parseInt(this.sessionStorageService.getItem('year'))
         if (isNaN(year)) {
             year = this.dateHelperService.getCurrentYear()
         }

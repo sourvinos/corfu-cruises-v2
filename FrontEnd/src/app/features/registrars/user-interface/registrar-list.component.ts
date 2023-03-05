@@ -6,11 +6,11 @@ import { Table } from 'primeng/table'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { RegistrarListVM } from '../classes/view-models/registrar-list-vm'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Component({
     selector: 'registrar-list',
@@ -38,7 +38,7 @@ export class RegistrarListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
+    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.loadRecords().then(() => {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
@@ -71,7 +71,7 @@ export class RegistrarListComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        this.localStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
+        this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.recordsFilteredCount = event.filteredValue.length
         this.helperService.clearStyleFromVirtualTable()
     }
@@ -118,7 +118,7 @@ export class RegistrarListComponent {
     }
 
     private filterTableFromStoredFilters(): void {
-        const filters = this.localStorageService.getFilters(this.feature + '-' + 'filters')
+        const filters = this.sessionStorageService.getFilters(this.feature + '-' + 'filters')
         if (filters != undefined) {
             setTimeout(() => {
                 this.filterColumn(filters.isActive, 'isActive', 'contains')
@@ -169,11 +169,11 @@ export class RegistrarListComponent {
     }
 
     private storeSelectedId(id: number): void {
-        this.localStorageService.saveItem(this.feature + '-id', id.toString())
+        this.sessionStorageService.saveItem(this.feature + '-id', id.toString())
     }
 
     private storeScrollTop(): void {
-        this.localStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
+        this.sessionStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
     }
 
     //#endregion

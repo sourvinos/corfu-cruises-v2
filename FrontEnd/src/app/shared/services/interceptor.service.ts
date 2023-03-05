@@ -96,37 +96,33 @@ export class InterceptorService {
             case 404:
                 return throwError(() => new Error('404')) // not found
             case 409:
-                return throwError(() => new Error('409')) // duplicate record (date, destination, customer, ticket no)
-            case 427:
-                return throwError(() => new Error('427')) // we don't have a departure for the selected date, destination and port
-            case 430:
-                return throwError(() => new Error('430')) // we don't have a trip for the selected date and destination
+                return throwError(() => new Error('409')) // duplicate record (date, destination, customer, ticket no) // OK
+            case 410:
+                return throwError(() => new Error('427')) // we don't have a departure for the selected date, destination and port // OK
             case 431:
-                return throwError(() => new Error('431')) // simple users can't add a reservation in the past
-            case 432:
-                return throwError(() => new Error('432')) // we don't have any trips for this day
+                return throwError(() => new Error('431')) // simple users can't add a reservation in the past // OK
             case 433:
-                return throwError(() => new Error('433')) // no vacancy for port
+                return throwError(() => new Error('433')) // simple user is causing overbooking // OK
             case 450:
-                return throwError(() => new Error('450')) // customer does not exist or is inactive
+                return throwError(() => new Error('450')) // customer does not exist or is inactive // OK
             case 451:
-                return throwError(() => new Error('451')) // destination does not exist or is inactive
+                return throwError(() => new Error('451')) // destination does not exist or is inactive // OK
             case 452:
-                return throwError(() => new Error('452')) // pickup point does not exist or is inactive
+                return throwError(() => new Error('452')) // pickup point does not exist or is inactive // OK
             case 453:
-                return throwError(() => new Error('453')) // driver does not exist or is inactive
+                return throwError(() => new Error('453')) // driver does not exist or is inactive // OK
             case 454:
-                return throwError(() => new Error('454')) // ship does not exist or is inactive
+                return throwError(() => new Error('454')) // ship does not exist or is inactive // OK
             case 455:
-                return throwError(() => new Error('455')) // invalid passenger count
+                return throwError(() => new Error('455')) // invalid passenger count // OK
             case 456:
-                return throwError(() => new Error('456')) // nationality does not exist or is inactive
+                return throwError(() => new Error('456')) // nationality does not exist or is inactive // OK
             case 457:
-                return throwError(() => new Error('457')) // gender does not exist or is inactive
+                return throwError(() => new Error('457')) // gender does not exist or is inactive // OK
             case 458:
                 return throwError(() => new Error('458')) // occupant does not exist or is inactive
             case 459:
-                return throwError(() => new Error('459')) // reservation with transfer has night restrictions for simple user
+                return throwError(() => new Error('459')) // reservation with transfer has night restrictions for simple user // OK
             case 490:
                 return throwError(() => new Error('490')) // reservation belongs to another user or simple user can't update reservation
             case 491:

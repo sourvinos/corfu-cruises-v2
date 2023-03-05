@@ -8,7 +8,6 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestRouteSelectorComponent } from './manifest-route-selector.component'
@@ -16,6 +15,7 @@ import { ManifestVM } from '../../classes/view-models/list/manifest-vm'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { environment } from 'src/environments/environment'
 
@@ -50,7 +50,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.toggleVirtualTable()
         this.populateCriteriaPanelsFromStorage()
     }
@@ -173,8 +173,8 @@ export class ManifestListComponent {
     }
 
     private populateCriteriaPanelsFromStorage(): void {
-        if (this.localStorageService.getItem('manifest-criteria')) {
-            this.criteriaPanels = JSON.parse(this.localStorageService.getItem('manifest-criteria'))
+        if (this.sessionStorageService.getItem('manifest-criteria')) {
+            this.criteriaPanels = JSON.parse(this.sessionStorageService.getItem('manifest-criteria'))
         }
     }
 
@@ -187,7 +187,7 @@ export class ManifestListComponent {
     }
 
     private storeFilters(): void {
-        this.localStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+        this.sessionStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
     }
 
     private toggleVirtualTable(): void {

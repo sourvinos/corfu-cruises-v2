@@ -13,7 +13,6 @@ import { DriverService } from 'src/app/features/drivers/classes/services/driver.
 import { GenderService } from 'src/app/features/genders/classes/services/gender.service'
 import { HttpDataService } from './http-data.service'
 import { InteractionService } from './interaction.service'
-import { LocalStorageService } from './local-storage.service'
 import { NationalityService } from 'src/app/features/nationalities/classes/services/nationality.service'
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/services/pickupPoint.service'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
@@ -41,7 +40,7 @@ export class AccountService extends HttpDataService {
 
     //#endregion
 
-    constructor(httpClient: HttpClient, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private driverService: DriverService, private genderService: GenderService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private nationalityService: NationalityService, private ngZone: NgZone, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private sessionStorageService: SessionStorageService, private shipOwnerService: ShipOwnerService, private shipRouteService: ShipRouteService, private shipService: ShipService) {
+    constructor(httpClient: HttpClient, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private driverService: DriverService, private genderService: GenderService, private interactionService: InteractionService, private nationalityService: NationalityService, private ngZone: NgZone, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private sessionStorageService: SessionStorageService, private shipOwnerService: ShipOwnerService, private shipRouteService: ShipRouteService, private shipService: ShipService) {
         super(httpClient, environment.apiUrl)
     }
 
@@ -52,11 +51,7 @@ export class AccountService extends HttpDataService {
     }
 
     public clearLocalStorage(): void {
-        this.localStorageService.deleteItems([
-            // Reservations
-            { 'item': 'date', 'when': 'always' },
-            { 'item': 'scrollLeft', 'when': 'always' },
-            { 'item': 'year', 'when': 'always' },
+        this.sessionStorageService.deleteItems([
             // Calendars
             { 'item': 'activeYearAvailability', 'when': 'always' },
             { 'item': 'activeYearReservations', 'when': 'always' },
@@ -177,12 +172,17 @@ export class AccountService extends HttpDataService {
 
     private clearSessionStorage(): void {
         this.sessionStorageService.deleteItems([
+            // Auth
             { 'item': 'expiration', 'when': 'always' },
             { 'item': 'jwt', 'when': 'always' },
             { 'item': 'loginStatus', 'when': 'always' },
             { 'item': 'refreshToken', 'when': 'always' },
             { 'item': 'returnUrl', 'when': 'always' },
             { 'item': 'isAdmin', 'when': 'always' },
+            // Reservations
+            { 'item': 'date', 'when': 'always' },
+            { 'item': 'scrollLeft', 'when': 'always' },
+            { 'item': 'year', 'when': 'always' },
         ])
     }
 
@@ -204,17 +204,17 @@ export class AccountService extends HttpDataService {
     }
 
     private populateStorageFromAPI(): void {
-        this.coachRouteService.getActive().subscribe(response => { this.localStorageService.saveItem('coachRoutes', JSON.stringify(response)) })
-        this.customerService.getActive().subscribe(response => { this.localStorageService.saveItem('customers', JSON.stringify(response)) })
-        this.destinationService.getActive().subscribe(response => { this.localStorageService.saveItem('destinations', JSON.stringify(response)) })
-        this.driverService.getActive().subscribe(response => { this.localStorageService.saveItem('drivers', JSON.stringify(response)) })
-        this.genderService.getActive().subscribe(response => { this.localStorageService.saveItem('genders', JSON.stringify(response)) })
-        this.nationalityService.getActive().subscribe(response => { this.localStorageService.saveItem('nationalities', JSON.stringify(response)) })
-        this.pickupPointService.getActive().subscribe(response => { this.localStorageService.saveItem('pickupPoints', JSON.stringify(response)) })
-        this.portService.getActive().subscribe(response => { this.localStorageService.saveItem('ports', JSON.stringify(response)) })
-        this.shipService.getActive().subscribe(response => { this.localStorageService.saveItem('ships', JSON.stringify(response)) })
-        this.shipOwnerService.getActive().subscribe(response => { this.localStorageService.saveItem('shipOwners', JSON.stringify(response)) })
-        this.shipRouteService.getActive().subscribe(response => { this.localStorageService.saveItem('shipRoutes', JSON.stringify(response)) })
+        this.coachRouteService.getActive().subscribe(response => { this.sessionStorageService.saveItem('coachRoutes', JSON.stringify(response)) })
+        this.customerService.getActive().subscribe(response => { this.sessionStorageService.saveItem('customers', JSON.stringify(response)) })
+        this.destinationService.getActive().subscribe(response => { this.sessionStorageService.saveItem('destinations', JSON.stringify(response)) })
+        this.driverService.getActive().subscribe(response => { this.sessionStorageService.saveItem('drivers', JSON.stringify(response)) })
+        this.genderService.getActive().subscribe(response => { this.sessionStorageService.saveItem('genders', JSON.stringify(response)) })
+        this.nationalityService.getActive().subscribe(response => { this.sessionStorageService.saveItem('nationalities', JSON.stringify(response)) })
+        this.pickupPointService.getActive().subscribe(response => { this.sessionStorageService.saveItem('pickupPoints', JSON.stringify(response)) })
+        this.portService.getActive().subscribe(response => { this.sessionStorageService.saveItem('ports', JSON.stringify(response)) })
+        this.shipService.getActive().subscribe(response => { this.sessionStorageService.saveItem('ships', JSON.stringify(response)) })
+        this.shipOwnerService.getActive().subscribe(response => { this.sessionStorageService.saveItem('shipOwners', JSON.stringify(response)) })
+        this.shipRouteService.getActive().subscribe(response => { this.sessionStorageService.saveItem('shipRoutes', JSON.stringify(response)) })
     }
 
     private setLoginStatus(status: boolean): void {

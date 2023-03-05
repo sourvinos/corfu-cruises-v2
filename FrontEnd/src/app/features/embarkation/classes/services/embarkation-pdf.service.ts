@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmbarkationReservationVM } from '../view-models/list/embarkation-reservation-vm'
-import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 // Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
@@ -16,7 +16,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs
 
 export class EmbarkationPDFService {
 
-    constructor(private dateHelperService: DateHelperService, private localStorageService: LocalStorageService, private logoService: LogoService) { }
+    constructor(private dateHelperService: DateHelperService, private logoService: LogoService, private sessionStorageService: SessionStorageService) { }
 
     //#region public methods
 
@@ -75,8 +75,8 @@ export class EmbarkationPDFService {
     }
 
     private populateCriteriaFromStoredVariables(): any {
-        if (this.localStorageService.getItem('embarkation-criteria')) {
-            const criteria = JSON.parse(this.localStorageService.getItem('embarkation-criteria'))
+        if (this.sessionStorageService.getItem('embarkation-criteria')) {
+            const criteria = JSON.parse(this.sessionStorageService.getItem('embarkation-criteria'))
             return {
                 'date': criteria.date
             }

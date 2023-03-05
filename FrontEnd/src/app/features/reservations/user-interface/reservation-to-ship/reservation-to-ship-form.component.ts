@@ -1,10 +1,10 @@
 import { Component, NgZone } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
 // Custom
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { LocalStorageService } from './../../../../shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ShipActiveVM } from '../../../ships/classes/view-models/ship-active-vm'
 
 @Component({
@@ -23,7 +23,7 @@ export class ReservationToShipComponent {
 
     //#endregion
 
-    constructor(private dialogRef: MatDialogRef<ReservationToShipComponent>, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private ngZone: NgZone) { }
+    constructor(private dialogRef: MatDialogRef<ReservationToShipComponent>, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private messageLabelService: MessageLabelService, private ngZone: NgZone, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -65,7 +65,7 @@ export class ReservationToShipComponent {
     }
 
     private populateDropdownFromLocalStorage(table: string): void {
-        this[table] = JSON.parse(this.localStorageService.getItem(table))
+        this[table] = JSON.parse(this.sessionStorageService.getItem(table))
     }
 
     private populateDropdowns(): void {

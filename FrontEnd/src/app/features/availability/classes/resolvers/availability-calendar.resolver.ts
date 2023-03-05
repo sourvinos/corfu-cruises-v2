@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 // Custom
+import { AvailabilityService } from '../services/availability.service'
 import { DateHelperService } from './../../../../shared/services/date-helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { LocalStorageService } from './../../../../shared/services/local-storage.service'
-import { AvailabilityService } from '../services/availability.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class AvailabilityCalendarResolver {
 
-    constructor(private availabilityService: AvailabilityService, private localStorageService: LocalStorageService, private dateHelperService: DateHelperService) { }
+    constructor(private availabilityService: AvailabilityService, private dateHelperService: DateHelperService, private sessionStorageService: SessionStorageService) { }
 
     resolve(): Observable<ListResolved> {
-        let year = parseInt(this.localStorageService.getItem('activeYearAvailability'))
+        let year = parseInt(this.sessionStorageService.getItem('activeYearAvailability'))
         if (isNaN(year)) {
             year = this.dateHelperService.getCurrentYear()
         }

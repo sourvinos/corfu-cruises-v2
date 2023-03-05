@@ -69,19 +69,19 @@ namespace API.Features.Reservations {
         public int IsValid(ReservationWriteDto reservation, IScheduleRepository scheduleRepo) {
             return true switch {
                 var x when x == !IsKeyUnique(reservation) => 409,
-                var x when x == !IsValidCustomer(reservation) => 450,
-                var x when x == !IsValidDestination(reservation) => 451,
-                var x when x == !IsValidPickupPoint(reservation) => 452,
-                var x when x == !IsValidDriver(reservation) => 453,
-                var x when x == !IsValidShip(reservation) => 454,
-                var x when x == !IsValidNationality(reservation) => 456,
-                var x when x == !IsValidGender(reservation) => 457,
-                var x when x == !IsCorrectPassengerCount(reservation) => 455,
-                var x when x == !PortHasDepartureForDateAndDestination(reservation) => 410,
-                var x when x == !SimpleUserHasGivenCorrectCustomerId(reservation) => 413,
-                var x when x == IsSimpleUserCausingOverbooking(reservation) => 433,
-                var x when x == SimpleUserHasNightRestrictions(reservation) => 459,
-                var x when x == SimpleUserCanNotAddReservationAfterDeparture(reservation) => 431,
+                var x when x == !IsValidCustomer(reservation) => 450, // OK
+                var x when x == !IsValidDestination(reservation) => 451, // OK
+                var x when x == !IsValidPickupPoint(reservation) => 452, // OK
+                var x when x == !IsValidDriver(reservation) => 453, // OK
+                var x when x == !IsValidShip(reservation) => 454, // OK
+                var x when x == !IsValidNationality(reservation) => 456, // OK
+                var x when x == !IsValidGender(reservation) => 457, // OK
+                var x when x == !IsCorrectPassengerCount(reservation) => 455, // OK
+                var x when x == !PortHasDepartureForDateAndDestination(reservation) => 410, // OK
+                var x when x == !SimpleUserHasGivenCorrectCustomerId(reservation) => 413, // Applies only to backend
+                var x when x == IsSimpleUserCausingOverbooking(reservation) => 433, // OK
+                var x when x == SimpleUserHasNightRestrictions(reservation) => 459, // OK
+                var x when x == SimpleUserCanNotAddReservationAfterDeparture(reservation) => 431, // OK
                 _ => 200,
             };
         }

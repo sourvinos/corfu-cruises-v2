@@ -3,12 +3,12 @@ import { Router } from '@angular/router'
 import { Table } from 'primeng/table'
 import { defer, finalize, Observable, Subject } from 'rxjs'
 // Custom
-import { LocalStorageService } from './local-storage.service'
-import { ModalActionResultService } from './modal-action-result.service'
-import { environment } from 'src/environments/environment'
-import { MessageLabelService } from './messages-label.service'
 import { FormGroup } from '@angular/forms'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
+import { MessageLabelService } from './messages-label.service'
+import { ModalActionResultService } from './modal-action-result.service'
+import { SessionStorageService } from './session-storage.service'
+import { environment } from 'src/environments/environment'
 
 export function prepare<T>(callback: () => void): (source: Observable<T>) => Observable<T> {
     return (source: Observable<T>): Observable<T> => defer(() => {
@@ -34,7 +34,7 @@ export class HelperService {
 
     //#endregion
 
-    constructor(private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private modalActionResultService: ModalActionResultService, private router: Router) { }
+    constructor(private messageLabelService: MessageLabelService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region public methods
 
@@ -219,7 +219,7 @@ export class HelperService {
     public storeScrollTop(element: string): void {
         setTimeout(() => {
             const body = document.getElementsByClassName(element)[0]
-            this.localStorageService.saveItem('scrollTop', body.scrollTop.toString())
+            this.sessionStorageService.saveItem('scrollTop', body.scrollTop.toString())
         }, 1000)
     }
 
@@ -254,7 +254,7 @@ export class HelperService {
 
     public highlightSavedRow(feature: string): void {
         setTimeout(() => {
-            const x = document.getElementById(this.localStorageService.getItem(feature + '-' + 'id'))
+            const x = document.getElementById(this.sessionStorageService.getItem(feature + '-' + 'id'))
             if (x != null) {
                 x.classList.add('p-highlight')
             }
@@ -292,7 +292,7 @@ export class HelperService {
         if (virtualElement != undefined) {
             setTimeout(() => {
                 virtualElement.scrollTo({
-                    top: parseInt(this.localStorageService.getItem(feature + '-scrollTop')) || 0,
+                    top: parseInt(this.sessionStorageService.getItem(feature + '-scrollTop')) || 0,
                     left: 0,
                     behavior: 'auto'
                 })

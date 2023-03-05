@@ -53,12 +53,6 @@ namespace API.Infrastructure.Auth {
             var user = await userManager.FindByNameAsync(model.Username);
             if (user?.IsActive == true && await userManager.IsEmailConfirmedAsync(user) && await userManager.CheckPasswordAsync(user, model.Password)) {
                 var newRefreshToken = CreateRefreshToken(settings.ClientId, user.Id);
-                var oldRefreshTokens = context.Tokens.Where(rt => rt.UserId == user.Id);
-                if (oldRefreshTokens != null) {
-                    foreach (var token in oldRefreshTokens) {
-                        context.Tokens.Remove(token);
-                    }
-                }
                 context.Tokens.Add(newRefreshToken);
                 await context.SaveChangesAsync();
                 var response = await CreateAccessToken(user, newRefreshToken.Value);
@@ -123,7 +117,6 @@ namespace API.Infrastructure.Auth {
             var user = await userManager.FindByIdAsync(refreshToken.UserId);
             if (user == null) AuthenticationFailed();
             var rtNew = CreateRefreshToken(refreshToken.ClientId, refreshToken.UserId);
-            context.Tokens.Remove(refreshToken);
             context.Tokens.Add(rtNew);
             context.SaveChanges();
             var token = await CreateAccessToken(user, rtNew.Value);
