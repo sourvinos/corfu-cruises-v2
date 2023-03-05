@@ -18,10 +18,11 @@ import { NationalityService } from 'src/app/features/nationalities/classes/servi
 import { PickupPointService } from 'src/app/features/pickupPoints/classes/services/pickupPoint.service'
 import { PortService } from 'src/app/features/ports/classes/services/port.service'
 import { ResetPasswordViewModel } from 'src/app/features/users/classes/view-models/reset-password-view-model'
+import { SessionStorageService } from './session-storage.service'
 import { ShipOwnerService } from 'src/app/features/shipOwners/classes/services/shipOwner.service'
+import { ShipRouteService } from 'src/app/features/shipRoutes/classes/services/shipRoute.service'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
-import { ShipRouteService } from 'src/app/features/shipRoutes/classes/services/shipRoute.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -40,7 +41,7 @@ export class AccountService extends HttpDataService {
 
     //#endregion
 
-    constructor(httpClient: HttpClient, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private driverService: DriverService, private genderService: GenderService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private nationalityService: NationalityService, private ngZone: NgZone, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private shipOwnerService: ShipOwnerService, private shipRouteService: ShipRouteService, private shipService: ShipService) {
+    constructor(httpClient: HttpClient, private coachRouteService: CoachRouteService, private customerService: CustomerService, private destinationService: DestinationService, private driverService: DriverService, private genderService: GenderService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private nationalityService: NationalityService, private ngZone: NgZone, private pickupPointService: PickupPointService, private portService: PortService, private router: Router, private sessionStorageService: SessionStorageService, private shipOwnerService: ShipOwnerService, private shipRouteService: ShipRouteService, private shipService: ShipService) {
         super(httpClient, environment.apiUrl)
     }
 
@@ -50,19 +51,12 @@ export class AccountService extends HttpDataService {
         return this.http.post<any>(environment.apiUrl + '/account/changePassword/', formData)
     }
 
-    public clearStoredVariables(): void {
+    public clearLocalStorage(): void {
         this.localStorageService.deleteItems([
-            // Auth
-            { 'item': 'expiration', 'when': 'always' },
-            { 'item': 'jwt', 'when': 'always' },
-            { 'item': 'loginStatus', 'when': 'always' },
-            { 'item': 'refreshToken', 'when': 'always' },
-            { 'item': 'returnUrl', 'when': 'always' },
-            { 'item': 'isAdmin', 'when': 'always' },
             // Reservations
-            { 'item': 'date', 'when': 'production' },
-            { 'item': 'scrollLeft', 'when': 'production' },
-            { 'item': 'year', 'when': 'production' },
+            { 'item': 'date', 'when': 'always' },
+            { 'item': 'scrollLeft', 'when': 'always' },
+            { 'item': 'year', 'when': 'always' },
             // Calendars
             { 'item': 'activeYearAvailability', 'when': 'always' },
             { 'item': 'activeYearReservations', 'when': 'always' },
@@ -118,7 +112,7 @@ export class AccountService extends HttpDataService {
 
     public getNewRefreshToken(): Observable<any> {
         const userId = ConnectedUser.id
-        const refreshToken = localStorage.getItem('refreshToken')
+        const refreshToken = sessionStorage.getItem('refreshToken')
         const grantType = 'refresh_token'
         return this.http.post<any>(this.urlToken, { userId, refreshToken, grantType }).pipe(
             map(response => {
@@ -153,7 +147,8 @@ export class AccountService extends HttpDataService {
 
     public logout(): void {
         this.setLoginStatus(false)
-        this.clearStoredVariables()
+        this.clearLocalStorage()
+        this.clearSessionStorage()
         this.refreshMenus()
         this.navigateToLogin()
     }
@@ -171,13 +166,24 @@ export class AccountService extends HttpDataService {
     //#region private methods
 
     private checkLoginStatus(): boolean {
-        const loginCookie = localStorage.getItem('loginStatus')
+        const loginCookie = sessionStorage.getItem('loginStatus')
         if (loginCookie === '1') {
-            if (localStorage.getItem('jwt') !== null || localStorage.getItem('jwt') !== undefined) {
+            if (sessionStorage.getItem('jwt') !== null || sessionStorage.getItem('jwt') !== undefined) {
                 return true
             }
         }
         return false
+    }
+
+    private clearSessionStorage(): void {
+        this.sessionStorageService.deleteItems([
+            { 'item': 'expiration', 'when': 'always' },
+            { 'item': 'jwt', 'when': 'always' },
+            { 'item': 'loginStatus', 'when': 'always' },
+            { 'item': 'refreshToken', 'when': 'always' },
+            { 'item': 'returnUrl', 'when': 'always' },
+            { 'item': 'isAdmin', 'when': 'always' },
+        ])
     }
 
     private navigateToLogin(): void {
@@ -191,10 +197,10 @@ export class AccountService extends HttpDataService {
     }
 
     private setAuthSettings(response: any): void {
-        localStorage.setItem('expiration', response.expiration)
-        localStorage.setItem('jwt', response.token)
-        localStorage.setItem('loginStatus', '1')
-        localStorage.setItem('refreshToken', response.refreshToken)
+        sessionStorage.setItem('expiration', response.expiration)
+        sessionStorage.setItem('jwt', response.token)
+        sessionStorage.setItem('loginStatus', '1')
+        sessionStorage.setItem('refreshToken', response.refreshToken)
     }
 
     private populateStorageFromAPI(): void {

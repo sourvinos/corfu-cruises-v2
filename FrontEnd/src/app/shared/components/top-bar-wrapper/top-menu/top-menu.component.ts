@@ -6,4 +6,4 @@ import { Component } from '@angular/core'
     styleUrls: ['./top-menu.component.css']
 })
 
-export class TopMenuComponent {}
+export class TopMenuComponent { }

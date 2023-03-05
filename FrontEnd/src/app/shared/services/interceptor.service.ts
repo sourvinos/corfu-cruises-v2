@@ -45,7 +45,7 @@ export class InterceptorService {
     //#region private methods
 
     private attachTokenToRequest(request: HttpRequest<any>): HttpRequest<any> {
-        const token = localStorage.getItem('jwt')
+        const token = sessionStorage.getItem('jwt')
         return request.clone({
             setHeaders: {
                 Authorization: `Bearer ${token}`
@@ -61,10 +61,10 @@ export class InterceptorService {
                 switchMap((tokenresponse: any) => {
                     if (tokenresponse) {
                         this.tokenSubject.next(tokenresponse.token)
-                        localStorage.setItem('loginStatus', '1')
-                        localStorage.setItem('jwt', tokenresponse.token)
-                        localStorage.setItem('expiration', tokenresponse.expiration)
-                        localStorage.setItem('refreshToken', tokenresponse.refreshToken)
+                        sessionStorage.setItem('loginStatus', '1')
+                        sessionStorage.setItem('jwt', tokenresponse.token)
+                        sessionStorage.setItem('expiration', tokenresponse.expiration)
+                        sessionStorage.setItem('refreshToken', tokenresponse.refreshToken)
                         console.log('Token refreshed after expiration')
                         return next.handle(this.attachTokenToRequest(request))
                     }
@@ -84,7 +84,7 @@ export class InterceptorService {
     }
 
     private isUserLoggedIn(): boolean {
-        return localStorage.getItem('loginStatus') === '1'
+        return sessionStorage.getItem('loginStatus') === '1'
     }
 
     private trapError(err: number): Observable<any> {
