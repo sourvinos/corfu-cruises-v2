@@ -1,21 +1,22 @@
 import { ActivatedRoute, Router } from '@angular/router'
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
-import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { UpdateUserDto } from '../../classes/dtos/update-user-dto'
 import { UserReadDto } from '../../classes/dtos/user-read-dto'
 import { UserService } from '../../classes/services/user.service'
@@ -29,10 +30,11 @@ import { ValidationService } from '../../../../shared/services/validation.servic
 
 export class EditUserFormComponent {
 
-    //#region variables
+    //#region variables@
 
     private record: UserReadDto
-    private unsubscribe = new Subject<void>()
+    private recordId: number
+    private subscription = new Subscription()
     public feature = 'editUserForm'
     public featureIcon = 'users'
     public form: FormGroup
@@ -41,27 +43,31 @@ export class EditUserFormComponent {
     public isLoading = new Subject<boolean>()
     public parentUrl = ''
 
+    public arrowIcon = new BehaviorSubject('arrow_drop_down')
+    public dropdownCustomers: Observable<SimpleEntity[]>
     public isAutoCompleteDisabled = true
-    public activeCustomers: Observable<CustomerActiveVM[]>
 
-    public header = ''
+    private header = ''
     public isAdmin: boolean
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private userService: UserService) {
-        this.initForm()
-        this.getRecord()
-        this.populateFields(this.record)
-        this.updateReturnUrl()
-        this.updateUserRole()
-    }
+    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private userService: UserService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
+        this.initForm()
+        this.setRecordId()
+        this.getRecord()
+        this.populateFields()
         this.populateDropDowns()
-        this.focusOnField('userName')
+        this.updateReturnUrl()
+        this.updateUserRole()
+    }
+
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
@@ -69,18 +75,7 @@ export class EditUserFormComponent {
     }
 
     canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-            return false
-        } else {
-            return true
-        }
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -121,23 +116,12 @@ export class EditUserFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-            if (response) {
-                this.userService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
-                    complete: () => {
-                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                    },
-                    error: (errorFromInterceptor) => {
-                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
-                    }
-                })
-            }
-        })
-    }
-
     public onSave(): void {
         this.saveRecord(this.flattenForm())
+    }
+
+    public openOrCloseAutoComplete(trigger: MatAutocompleteTrigger, element: any): void {
+        this.helperService.openOrCloseAutocomplete(this.form, element, trigger)
     }
 
     //#endregion
@@ -145,8 +129,7 @@ export class EditUserFormComponent {
     //#region private methods
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private editUserFromList(): void {
@@ -182,12 +165,12 @@ export class EditUserFormComponent {
         return user
     }
 
-    private focusOnField(field: string): void {
-        this.helperService.focusOnField(field)
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
     }
 
     private getRecord(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const formResolved: FormResolved = this.activatedRoute.snapshot.data['userEditForm']
             if (formResolved.error === null) {
                 this.record = formResolved.record.body
@@ -197,7 +180,6 @@ export class EditUserFormComponent {
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
-        return promise
     }
 
     private goBack(): void {
@@ -223,28 +205,19 @@ export class EditUserFormComponent {
     }
 
     private populateDropDowns(): void {
-        this.populateDropdownFromLocalStorage('customers', 'activeCustomers', 'customer', 'description', true)
+        this.populateDropdownFromLocalStorage('customers', 'dropdownCustomers', 'customer', 'description', true)
     }
 
-    private populateFields(result: UserReadDto): void {
+    private populateFields(): void {
         this.form.setValue({
-            id: result.id,
-            userName: result.userName,
-            displayname: result.displayname,
-            customer: {
-                'id': result.customer.id,
-                'description': result.customer.id == 0
-                    ? this.emojiService.getEmoji('wildcard')
-                    : result.customer.description
-            },
-            email: result.email,
-            isAdmin: result.isAdmin,
-            isActive: result.isActive
+            id: this.record.id,
+            userName: this.record.userName,
+            displayname: this.record.displayname,
+            customer: { 'id': this.record.customer.id, 'description': this.record.customer.id == 0 ? this.emojiService.getEmoji('wildcard') : this.record.customer.description },
+            email: this.record.email,
+            isAdmin: this.record.isAdmin,
+            isActive: this.record.isActive
         })
-    }
-
-    private resetForm(): void {
-        this.form.reset()
     }
 
     private saveRecord(user: UpdateUserDto): void {
@@ -255,6 +228,12 @@ export class EditUserFormComponent {
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
             }
+        })
+    }
+
+    private setRecordId(): void {
+        this.activatedRoute.params.subscribe(x => {
+            this.recordId = x.id
         })
     }
 

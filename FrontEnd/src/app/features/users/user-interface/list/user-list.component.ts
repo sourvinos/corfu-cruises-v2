@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
-import { Subject } from 'rxjs'
+import { Subscription } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -23,8 +23,8 @@ export class UserListComponent {
 
     @ViewChild('table') table: Table
 
-    private unsubscribe = new Subject<void>()
-    private url = '/users'
+    private subscription = new Subscription()
+    private url = 'users'
     public feature = 'userList'
     public featureIcon = 'users'
     public icon = 'home'
@@ -35,21 +35,21 @@ export class UserListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) {
-        this.loadRecords().then(() => {
-            this.filterTableFromStoredFilters()
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router) { }
 
     //#region lifecycle hooks
 
+    ngOnInit(): void {
+        this.loadRecords()
+    }
+
     ngAfterViewInit(): void {
-        setTimeout(() => {
-            this.getVirtualElement()
-            this.scrollToSavedPosition()
-            this.hightlightSavedRow()
-            this.enableDisableFilters()
-        }, 500)
+        this.filterTableFromStoredFilters()
+        this.getVirtualElement()
+        this.scrollToSavedPosition()
+        this.hightlightSavedRow()
+        this.enableDisableFilters()
+        this.storeReturnUrl()
     }
 
     ngOnDestroy(): void {
@@ -93,8 +93,7 @@ export class UserListComponent {
     //#region private methods
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private enableDisableFilters(): void {
@@ -142,8 +141,9 @@ export class UserListComponent {
                 this.recordsFilteredCount = this.records.length
                 resolve(this.records)
             } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
+                    this.goBack()
+                })
             }
         })
     }
@@ -154,6 +154,10 @@ export class UserListComponent {
 
     private scrollToSavedPosition(): void {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
+    }
+
+    private storeReturnUrl(): void {
+        this.localStorageService.saveItem('returnUrl', '/users')
     }
 
     private storeSelectedId(id: number): void {
