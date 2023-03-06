@@ -1,13 +1,14 @@
 import { ActivatedRoute, Router } from '@angular/router'
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -30,37 +31,38 @@ export class ShipFormComponent {
     //#region variables 
 
     private record: ShipReadDto
-    private unsubscribe = new Subject<void>()
+    private recordId: number
+    private subscription = new Subscription()
     public feature = 'shipForm'
     public featureIcon = 'ships'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
+    public isNewRecord: boolean
     public parentUrl = '/ships'
 
+    public arrowIcon = new BehaviorSubject('arrow_drop_down')
+    public dropdownShipOwners: Observable<ShipOwnerActiveVM[]>
     public isAutoCompleteDisabled = true
-    public activeShipOwners: Observable<ShipOwnerActiveVM[]>
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private shipService: ShipService) {
-        this.activatedRoute.params.subscribe(x => {
-            if (x.id) {
-                this.initForm()
-                this.getRecord()
-                this.populateFields()
-            } else {
-                this.initForm()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private shipService: ShipService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
+        this.initForm()
+        this.setRecordId()
+        this.setNewRecord()
+        this.getRecord()
+        this.populateFields()
         this.populateDropdowns()
-        this.focusOnField('description')
+    }
+
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
@@ -68,18 +70,7 @@ export class ShipFormComponent {
     }
 
     canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-            return false
-        } else {
-            return true
-        }
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -125,13 +116,16 @@ export class ShipFormComponent {
         this.saveRecord(this.flattenForm())
     }
 
+    public openOrCloseAutoComplete(trigger: MatAutocompleteTrigger, element: any): void {
+        this.helperService.openOrCloseAutocomplete(this.form, element, trigger)
+    }
+
     //#endregion
 
     //#region private methods
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -158,22 +152,25 @@ export class ShipFormComponent {
         return ship
     }
 
-    private focusOnField(field: string): void {
-        this.helperService.focusOnField(field)
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
     }
 
     private getRecord(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            const formResolved: FormResolved = this.activatedRoute.snapshot.data['shipForm']
-            if (formResolved.error == null) {
-                this.record = formResolved.record.body
-                resolve(this.record)
-            } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
-            }
-        })
-        return promise
+        if (this.isNewRecord == false) {
+            return new Promise((resolve) => {
+                const formResolved: FormResolved = this.activatedRoute.snapshot.data['shipForm']
+                if (formResolved.error == null) {
+                    this.record = formResolved.record.body
+                    resolve(this.record)
+                } else {
+                    this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
+                        this.resetForm()
+                        this.goBack()
+                    })
+                }
+            })
+        }
     }
 
     private goBack(): void {
@@ -201,22 +198,24 @@ export class ShipFormComponent {
     }
 
     private populateDropdowns(): void {
-        this.populateDropdownFromStorage('shipOwners', 'activeShipOwners', 'shipOwner', 'description')
+        this.populateDropdownFromStorage('shipOwners', 'dropdownShipOwners', 'shipOwner', 'description')
     }
 
     private populateFields(): void {
-        this.form.setValue({
-            id: this.record.id,
-            shipOwner: { 'id': this.record.shipOwner.id, 'description': this.record.shipOwner.description },
-            description: this.record.description,
-            imo: this.record.imo,
-            flag: this.record.flag,
-            registryNo: this.record.registryNo,
-            manager: this.record.manager,
-            managerInGreece: this.record.managerInGreece,
-            agent: this.record.agent,
-            isActive: this.record.isActive
-        })
+        if (this.isNewRecord == false) {
+            this.form.setValue({
+                id: this.record.id,
+                shipOwner: { 'id': this.record.shipOwner.id, 'description': this.record.shipOwner.description },
+                description: this.record.description,
+                imo: this.record.imo,
+                flag: this.record.flag,
+                registryNo: this.record.registryNo,
+                manager: this.record.manager,
+                managerInGreece: this.record.managerInGreece,
+                agent: this.record.agent,
+                isActive: this.record.isActive
+            })
+        }
     }
 
     private resetForm(): void {
@@ -231,6 +230,16 @@ export class ShipFormComponent {
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
+        })
+    }
+
+    private setNewRecord(): void {
+        this.isNewRecord = this.recordId == null
+    }
+
+    private setRecordId(): void {
+        this.activatedRoute.params.subscribe(x => {
+            this.recordId = x.id
         })
     }
 
