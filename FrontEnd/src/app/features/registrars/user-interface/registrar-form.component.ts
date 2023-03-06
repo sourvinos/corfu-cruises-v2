@@ -1,13 +1,14 @@
 import { ActivatedRoute, Router } from '@angular/router'
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -30,37 +31,38 @@ export class RegistrarFormComponent {
     //#region variables
 
     private record: RegistrarReadDto
-    private unsubscribe = new Subject<void>()
+    private recordId: number
+    private subscription = new Subscription()
     public feature = 'registrarForm'
     public featureIcon = 'registrars'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
+    public isNewRecord: boolean
     public parentUrl = '/registrars'
 
+    public arrowIcon = new BehaviorSubject('arrow_drop_down')
+    public dropdownShips: Observable<ShipActiveVM[]>
     public isAutoCompleteDisabled = true
-    public activeShips: Observable<ShipActiveVM[]>
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private registrarService: RegistrarService, private router: Router, private sessionStorageService: SessionStorageService) {
-        this.activatedRoute.params.subscribe(x => {
-            if (x.id) {
-                this.initForm()
-                this.getRecord()
-                this.populateFields()
-            } else {
-                this.initForm()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private registrarService: RegistrarService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
+        this.initForm()
+        this.setRecordId()
+        this.setNewRecord()
+        this.getRecord()
+        this.populateFields()
         this.populateDropdowns()
-        this.focusOnField('fullname')
+    }
+
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
@@ -68,18 +70,7 @@ export class RegistrarFormComponent {
     }
 
     canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-            return false
-        } else {
-            return true
-        }
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -125,13 +116,16 @@ export class RegistrarFormComponent {
         this.saveRecord(this.flattenForm())
     }
 
+    public openOrCloseAutoComplete(trigger: MatAutocompleteTrigger, element: any): void {
+        this.helperService.openOrCloseAutocomplete(this.form, element, trigger)
+    }
+
     //#endregion
 
     //#region private methods
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -157,22 +151,25 @@ export class RegistrarFormComponent {
         return registrar
     }
 
-    private focusOnField(field: string): void {
-        this.helperService.focusOnField(field)
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
     }
 
     private getRecord(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            const formResolved: FormResolved = this.activatedRoute.snapshot.data['registrarForm']
-            if (formResolved.error == null) {
-                this.record = formResolved.record.body
-                resolve(this.record)
-            } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
-            }
-        })
-        return promise
+        if (this.isNewRecord == false) {
+            return new Promise((resolve) => {
+                const formResolved: FormResolved = this.activatedRoute.snapshot.data['registrarForm']
+                if (formResolved.error == null) {
+                    this.record = formResolved.record.body
+                    resolve(this.record)
+                } else {
+                    this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
+                        this.resetForm()
+                        this.goBack()
+                    })
+                }
+            })
+        }
     }
 
     private goBack(): void {
@@ -199,21 +196,23 @@ export class RegistrarFormComponent {
     }
 
     private populateDropdowns(): void {
-        this.populateDropdownFromStorage('ships', 'activeShips', 'ship', 'description')
+        this.populateDropdownFromStorage('ships', 'dropdownShips', 'ship', 'description')
     }
 
     private populateFields(): void {
-        this.form.setValue({
-            id: this.record.id,
-            fullname: this.record.fullname,
-            ship: { 'id': this.record.ship.id, 'description': this.record.ship.description },
-            phones: this.record.phones,
-            email: this.record.email,
-            fax: this.record.fax,
-            address: this.record.address,
-            isPrimary: this.record.isPrimary,
-            isActive: this.record.isActive
-        })
+        if (this.isNewRecord == false) {
+            this.form.setValue({
+                id: this.record.id,
+                fullname: this.record.fullname,
+                ship: { 'id': this.record.ship.id, 'description': this.record.ship.description },
+                phones: this.record.phones,
+                email: this.record.email,
+                fax: this.record.fax,
+                address: this.record.address,
+                isPrimary: this.record.isPrimary,
+                isActive: this.record.isActive
+            })
+        }
     }
 
     private resetForm(): void {
@@ -228,6 +227,16 @@ export class RegistrarFormComponent {
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
+        })
+    }
+
+    private setNewRecord(): void {
+        this.isNewRecord = this.recordId == null
+    }
+
+    private setRecordId(): void {
+        this.activatedRoute.params.subscribe(x => {
+            this.recordId = x.id
         })
     }
 

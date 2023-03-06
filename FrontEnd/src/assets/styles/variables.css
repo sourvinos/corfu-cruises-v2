@@ -20,7 +20,7 @@
     --font-weight-snackbar: 300;
     /* Theme change delays */
     --hover-change-delay: 0.15s;
-    --theme-change-delay: 1s;
+    --theme-change-delay: 0;
     /* Common sizes in all screen resolutions */
     --font-size-button: 0.85rem;
     --font-size-calendar-day: 0.85rem;
