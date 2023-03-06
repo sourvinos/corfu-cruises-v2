@@ -15,7 +15,7 @@
     { "id": "tables-genders", "description": "Genders" },
     { "id": "tables-pickupPoints", "description": "Pickup points" },
     { "id": "tables-ports", "description": "Ports" },
-    { "id": "tables-schedules", "description": "Trips schedule" },
+    { "id": "tables-schedules", "description": "Schedules" },
     { "id": "tables-ships", "description": "Ships" },
     { "id": "tables-shipCrews", "description": "Crews" },
     { "id": "tables-registrars", "description": "Passenger registrars" },

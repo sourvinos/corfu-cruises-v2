@@ -868,10 +868,6 @@
         "feature": "dialog",
         "labels": [
             {
-                "id": "header",
-                "description": "Important:"
-            },
-            {
                 "id": "okButton",
                 "description": "OK"
             },
@@ -998,19 +994,6 @@
             {
                 "id": "saveButton",
                 "description": "Save"
-            }
-        ]
-    },
-    {
-        "feature": "calendarWrapper",
-        "labels": [
-            {
-                "id": "listButton",
-                "description": "EDIT SCHEDULES"
-            },
-            {
-                "id": "newButton",
-                "description": "New record"
             }
         ]
     },

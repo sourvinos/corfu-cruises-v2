@@ -15,7 +15,7 @@
     { "id": "tables-genders", "description": "Φύλα" },
     { "id": "tables-pickupPoints", "description": "Σημεία παραλαβής" },
     { "id": "tables-ports", "description": "Λιμάνια" },
-    { "id": "tables-schedules", "description": "Πρόγραμμα εκδρομών" },
+    { "id": "tables-schedules", "description": "Προγράμματα" },
     { "id": "tables-ships", "description": "Πλοία" },
     { "id": "tables-shipCrews", "description": "Πληρώματα" },
     { "id": "tables-registrars", "description": "Καταγραφείς επιβατών" },

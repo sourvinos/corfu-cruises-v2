@@ -15,7 +15,7 @@
     { "id": "tables-genders", "description": "Pohlaví" },
     { "id": "tables-pickupPoints", "description": "Nástupní místa" },
     { "id": "tables-ports", "description": "Přístavy" },
-    { "id": "tables-schedules", "description": "Plán výletů" },
+    { "id": "tables-schedules", "description": "Rozvrh" },
     { "id": "tables-ships", "description": "Lodě" },
     { "id": "tables-shipCrews", "description": "Posádky" },
     { "id": "tables-registrars", "description": "Registrátoři" },

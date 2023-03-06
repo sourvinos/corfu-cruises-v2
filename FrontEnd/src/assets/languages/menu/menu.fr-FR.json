@@ -15,7 +15,7 @@
     { "id": "tables-genders", "description": "Genres" },
     { "id": "tables-pickupPoints", "description": "Points de collecte" },
     { "id": "tables-ports", "description": "Ports" },
-    { "id": "tables-schedules", "description": "Programme des voyages" },
+    { "id": "tables-schedules", "description": "Horaires" },
     { "id": "tables-ships", "description": "Navires" },
     { "id": "tables-shipCrews", "description": "Équipes" },
     { "id": "tables-registrars", "description": "Enregistreurs de passagers" },

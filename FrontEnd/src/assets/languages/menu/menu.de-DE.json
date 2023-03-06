@@ -15,7 +15,7 @@
     { "id": "tables-genders", "description": "Geschlechter" },
     { "id": "tables-pickupPoints", "description": "Abholstellen" },
     { "id": "tables-ports", "description": "Häfen" },
-    { "id": "tables-schedules", "description": "Fahrplan" },
+    { "id": "tables-schedules", "description": "Fahrplanen" },
     { "id": "tables-ships", "description": "Schiffe" }, 
     { "id": "tables-shipCrews", "description": "Besatzungen" },
     { "id": "tables-registrars", "description": "Fahrgastregistrierer" },

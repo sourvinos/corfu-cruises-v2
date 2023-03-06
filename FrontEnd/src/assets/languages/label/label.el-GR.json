@@ -144,7 +144,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Προορισμός εκδρομής"
+                "description": "Προορισμός"
             },
             {
                 "id": "abbreviation",
@@ -551,7 +551,7 @@
             },
             {
                 "id": "sendLoginCredentials",
-                "description": "ΑΠΟΣΤΟΛΗ ΣΤΟ EMAIL"
+                "description": "Αποστολή στο email"
             },
             {
                 "id": "saveButton",
@@ -835,7 +835,7 @@
             },
             {
                 "id": "saveButton",
-                "description": "ΣΥΝΕΧΕΙΑ"
+                "description": "ΟΚ"
             },
             {
                 "id": "weNeedYourEmail",
@@ -867,10 +867,6 @@
     {
         "feature": "dialog",
         "labels": [
-            {
-                "id": "header",
-                "description": "Επιβεβαίωση"
-            },
             {
                 "id": "okButton",
                 "description": "OK"
@@ -998,19 +994,6 @@
             {
                 "id": "saveButton",
                 "description": "Αποθήκευση"
-            }
-        ]
-    },
-    {
-        "feature": "calendarWrapper",
-        "labels": [
-            {
-                "id": "listButton",
-                "description": "ΕΠΕΞΕΡΓΑΣΙΑ ΕΓΓΡΑΦΩΝ"
-            },
-            {
-                "id": "newButton",
-                "description": "Νέα εγγραφή"
             }
         ]
     },
