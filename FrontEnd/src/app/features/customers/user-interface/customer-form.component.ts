@@ -123,7 +123,8 @@ export class CustomerFormComponent {
                 this.record = formResolved.record.body
                 resolve(this.record)
             } else {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok']).subscribe(() => {
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
+                    this.resetForm()
                     this.goBack()
                 })
             }
@@ -160,6 +161,10 @@ export class CustomerFormComponent {
                 isActive: this.record.isActive
             })
         }
+    }
+
+    private resetForm(): void {
+        this.form.reset()
     }
 
     private saveRecord(customer: CustomerWriteDto): void {
