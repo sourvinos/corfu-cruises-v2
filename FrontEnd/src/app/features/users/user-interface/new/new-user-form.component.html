@@ -1,32 +1,42 @@
 <div id="form-wrapper">
 
-    <div id="header">
-        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-    </div>
-
     <div id="content">
-        <form id="form" [formGroup]="form" autocomplete="off">
+
+        <div id="header">
+            <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        </div>
+
+        <form [formGroup]="form" autocomplete="off">
             <div class="group-field">
+                <!-- Username -->
                 <mat-form-field>
-                    <input [inputTabStop]="input" [placeholder]="getLabel('userName')" data-cy="userName" data-tabindex="1" formControlName="userName" id="userName" matInput>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('userName')" data-tabindex="1" formControlName="userName" matInput>
                     <mat-error *ngIf="userName.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="userName.hasError('maxlength')">{{ getHint("maxLength", userName.errors.maxlength.requiredLength) }}</mat-error>
                     <mat-error *ngIf="!userName.hasError('maxlength') && userName.hasError('containsSpace')">{{ getHint("spacesNotAllowed") }}</mat-error>
                 </mat-form-field>
+                <!-- Display name -->
                 <mat-form-field>
-                    <input [inputTabStop]="input" [placeholder]="getLabel('displayname')" data-cy="displayname" data-tabindex="2" formControlName="displayname" id="displayname" matInput>
+                    <input [inputTabStop]="input" [placeholder]="getLabel('displayname')" data-tabindex="2" formControlName="displayname" matInput>
                     <mat-error *ngIf="displayname.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="displayname.hasError('maxlength')">{{ getHint("maxLength", displayname.errors.maxlength.requiredLength) }}</mat-error>
                 </mat-form-field>
             </div>
             <div class="group-field">
+                <!-- Customer -->
                 <mat-form-field>
-                    <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" data-cy="customer-description" data-tabindex="3" formControlName="customer" id="customer" matInput>
+                    <input #inputAutoComplete #trigger="matAutocompleteTrigger" (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" data-tabindex="3" formControlName="customer" matInput>
+                    <div matSuffix style="display:flex">
+                        <button (click)="openOrCloseAutoComplete(trigger, 'customer')" mat-icon-button type="button">
+                            <mat-icon class="open-close-panel">{{ arrowIcon.getValue() }}</mat-icon>
+                        </button>
+                    </div>
                     <mat-error *ngIf="customer.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="!customer.hasError('required') && customer.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
                 </mat-form-field>
+                <!-- Email -->
                 <mat-form-field>
-                    <input [inputTabStop]="input" [placeholder]="getLabel('email')" data-cy="email" data-tabindex="4" formControlName="email" id="email" matInput type="email">
+                    <input [inputTabStop]="input" [placeholder]="getLabel('email')" data-tabindex="4" formControlName="email" matInput>
                     <mat-error *ngIf="email.hasError('required')">{{ getHint("required") }}</mat-error>
                     <mat-error *ngIf="email.hasError('maxlength')">{{ getHint("maxLength", email.errors.maxlength.requiredLength) }}</mat-error>
                     <mat-error *ngIf="!email.hasError('required') && !email.hasError('maxlength') && email.hasError('email')">{{ getHint("invalid") }}</mat-error>
@@ -34,8 +44,9 @@
             </div>
             <div formGroupName="passwords" id="passwords">
                 <div class="group-field">
+                    <!-- Password -->
                     <mat-form-field>
-                        <input [inputTabStop]="input" [placeholder]="getLabel('password')" [type]="hidePassword ? 'password' : 'text'" data-cy="password" data-tabindex="5" formControlName="password" id="password" matInput>
+                        <input [inputTabStop]="input" [placeholder]="getLabel('password')" [type]="hidePassword ? 'password' : 'text'" data-tabindex="5" formControlName="password" matInput>
                         <button (click)="hidePassword = !hidePassword" mat-icon-button matSuffix type="button">
                             <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                         </button>
@@ -44,8 +55,9 @@
                         <mat-error *ngIf="password.hasError('minlength') && !password.hasError('containsSpace')">{{ getHint("minLength", password.errors.minlength.requiredLength) }}</mat-error>
                         <mat-error *ngIf="password.hasError('maxlength') && !password.hasError('containsSpace')">{{ getHint("maxLength", password.errors.maxlength.requiredLength) }}</mat-error>
                     </mat-form-field>
+                    <!-- Confirm password -->
                     <mat-form-field>
-                        <input [errorStateMatcher]="confirmValidParentMatcher" [inputTabStop]="input" [placeholder]="getLabel('confirmPassword')" [type]="hidePassword ? 'password' : 'text'" data-cy="confirmPassword" data-tabindex="6" formControlName="confirmPassword" id="confirmPassword" matInput>
+                        <input [errorStateMatcher]="confirmValidParentMatcher" [inputTabStop]="input" [placeholder]="getLabel('confirmPassword')" [type]="hidePassword ? 'password' : 'text'" data-tabindex="6" formControlName="confirmPassword" matInput>
                         <button (click)="hidePassword = !hidePassword" mat-icon-button matSuffix type="button">
                             <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                         </button>
@@ -55,22 +67,39 @@
                     </mat-form-field>
                 </div>
             </div>
-            <mat-slide-toggle data-cy="isAdmin" formControlName="isAdmin">{{ getLabel("isAdmin") }}</mat-slide-toggle>
-            <mat-slide-toggle data-cy="isActive" formControlName="isActive">{{ getLabel("isActive") }}</mat-slide-toggle>
+            <div id="checkboxes">
+                <!-- Admin -->
+                <div class="styled-input-square">
+                    <div class="styled-input-single">
+                        <input formControlName="isAdmin" id="isAdmin" type="checkbox">
+                        <label for="isAdmin">{{ getLabel("isAdmin") }}</label>
+                    </div>
+                </div>
+                <!-- Active -->
+                <div class="styled-input-square">
+                    <div class="styled-input-single">
+                        <input formControlName="isActive" id="isActive" type="checkbox">
+                        <label for="isActive">{{ getLabel("isActive") }}</label>
+                    </div>
+                </div>
+            </div>
         </form>
-        <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>
+
     </div>
 
     <div id="footer">
         <div class="button-group-right">
-            <button (click)="onSave()" [disabled]="!form.valid" class="primary" data-cy="save" id="save" mat-flat-button>{{ getLabel("saveButton") }}</button>
+            <button (click)="onSave()" [disabled]="!form.valid" class="primary" mat-flat-button>
+                <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("saveButton") }}</span>
+            </button>
         </div>
     </div>
 
 </div>
 
-<mat-autocomplete #customers="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of filteredCustomers | async" [value]="option">
+<mat-autocomplete #customers="matAutocomplete" (closed)="arrowIcon.next('arrow_drop_down')" (opened)="arrowIcon.next('arrow_drop_up')" (optionSelected)="arrowIcon.next('arrow_drop_down')" [displayWith]="autocompleteFields" autoActiveFirstOption>
+    <mat-option *ngFor="let option of dropdownCustomers | async" [value]="option">
         {{ option.description }}
     </mat-option>
 </mat-autocomplete>

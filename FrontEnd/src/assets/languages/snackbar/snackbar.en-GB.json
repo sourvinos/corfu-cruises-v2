@@ -27,6 +27,10 @@
                 "message": "This record in not unique."
             },
             {
+                "error": 412,
+                "message": "The password can't be changed. Perhaps the current password is wrong."
+            },
+            {
                 "error": 427,
                 "message": "For this day, destination and port, no trips are scheduled."
             },

@@ -27,6 +27,10 @@
                 "message": "L'enregistrement n'est pas unique."
             },
             {
+                "error": 412,
+                "message": "Le mot de passe ne peut pas être modifié. Le mot de passe actuel est peut-être erroné."
+            },
+            {
                 "error": 427,
                 "message": "Pour ce jour, destination et port, aucun trajet n'est prévu."
             },

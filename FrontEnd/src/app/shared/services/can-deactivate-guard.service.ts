@@ -9,7 +9,8 @@ export interface CanComponentDeactivate {
 export class CanDeactivateGuard {
 
     canDeactivate(component: CanComponentDeactivate): boolean {
-        return component.canDeactivate ? component.canDeactivate() : true
+        if (component != null)
+            return component.canDeactivate ? component.canDeactivate() : true
     }
 
 }

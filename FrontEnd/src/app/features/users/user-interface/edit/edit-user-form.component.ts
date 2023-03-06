@@ -176,8 +176,10 @@ export class EditUserFormComponent {
                 this.record = formResolved.record.body
                 resolve(this.record)
             } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
+                    this.resetForm()
+                    this.goBack()
+                })
             }
         })
     }
@@ -218,6 +220,10 @@ export class EditUserFormComponent {
             isAdmin: this.record.isAdmin,
             isActive: this.record.isActive
         })
+    }
+
+    private resetForm(): void {
+        this.form.reset()
     }
 
     private saveRecord(user: UpdateUserDto): void {

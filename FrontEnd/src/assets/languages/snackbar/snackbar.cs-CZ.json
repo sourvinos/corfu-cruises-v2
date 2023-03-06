@@ -27,6 +27,10 @@
                 "message": "Tento záznam není ojedinělý."
             },
             {
+                "error": 412,
+                "message": "Heslo nelze změnit. Možná je aktuální heslo špatné."
+            },
+            {
                 "error": 427,
                 "message": "Na tento den, cíl a přístav nejsou naplánovány žádné výlety."
             },

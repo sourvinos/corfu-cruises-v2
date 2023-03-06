@@ -27,6 +27,10 @@
                 "message": "Dieser Rekord ist nicht einzigartig."
             },
             {
+                "error": 412,
+                "message": "Das Passwort kann nicht geändert werden. Vielleicht ist das aktuelle Passwort falsch."
+            },
+            {
                 "error": 427,
                 "message": "Für diesen Tag, Zielort und Hafen sind keine Fahrten geplant."
             },

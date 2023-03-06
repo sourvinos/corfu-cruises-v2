@@ -1,16 +1,14 @@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
-import { Subject } from 'rxjs'
+import { Subject, Subscription } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
-import { ButtonClickService } from 'src/app/shared/services/button-click.service'
 import { ChangePasswordViewModel } from '../../classes/view-models/change-password-view-model'
 import { ConfirmValidParentMatcher, ValidationService } from 'src/app/shared/services/validation.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
-import { KeyboardShortcuts, Unlisten } from '../../../../shared/services/keyboard-shortcuts.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -25,13 +23,13 @@ export class ChangePasswordFormComponent {
 
     //#region variables
 
-    private unlisten: Unlisten
-    private unsubscribe = new Subject<void>()
+    private subscription = new Subscription()
     public feature = 'changePasswordForm'
     public featureIcon = 'password'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
+    public isLoading = new Subject<boolean>()
     public parentUrl = '/users'
 
     public confirmValidParentMatcher = new ConfirmValidParentMatcher()
@@ -40,38 +38,25 @@ export class ChangePasswordFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private buttonClickService: ButtonClickService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private keyboardShortcutsService: KeyboardShortcuts, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) {
-        this.activatedRoute.params.subscribe(response => {
-            this.parentUrl = this.parentUrl + '/' + response.id
-            this.userId = response.id
-        })
-    }
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.initForm()
-        this.addShortcuts()
-        this.focusOnField('currentPassword')
+        this.doPostInitTasks()
+    }
+
+    ngAfterViewInit(): void {
+        this.focusOnField()
     }
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.unlisten()
     }
 
     canDeactivate(): boolean {
-        if (this.form.dirty) {
-            this.dialogService.open(this.messageSnackbarService.askConfirmationToAbortEditing(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-                if (response) {
-                    this.resetForm()
-                    this.goBack()
-                    return true
-                }
-            })
-        } else {
-            return true
-        }
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -94,45 +79,31 @@ export class ChangePasswordFormComponent {
 
     //#region private methods
 
-    private addShortcuts(): void {
-        this.unlisten = this.keyboardShortcutsService.listen({
-            'Escape': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'goBack')
-                }
-            },
-            'Alt.S': (event: KeyboardEvent) => {
-                if (document.getElementsByClassName('cdk-overlay-pane').length === 0) {
-                    this.buttonClickService.clickOnButton(event, 'save')
-                }
-            }
-        }, {
-            priority: 0,
-            inputs: true
+
+    private cleanup(): void {
+        this.subscription.unsubscribe()
+    }
+
+    private doPostInitTasks(): void {
+        this.activatedRoute.params.subscribe(x => {
+            this.form.patchValue({
+                'userId': x.id
+            })
+            this.parentUrl = this.parentUrl + '/' + x.id
         })
     }
 
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
-
     private flattenForm(): ChangePasswordViewModel {
-        const vm = {
+        return {
             userId: this.form.value.userId,
             currentPassword: this.form.value.currentPassword,
             password: this.form.value.passwords.password,
             confirmPassword: this.form.value.passwords.confirmPassword
         }
-        return vm
     }
 
-    private focusOnField(field: string): void {
-        this.helperService.focusOnField(field)
-    }
-
-    private goBack(): void {
-        this.router.navigate([this.parentUrl])
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
     }
 
     private initForm(): void {
@@ -147,10 +118,6 @@ export class ChangePasswordFormComponent {
 
     }
 
-    private resetForm(): void {
-        this.form.reset()
-    }
-
     private saveRecord(vm: ChangePasswordViewModel): void {
         this.accountService.changePassword(vm).subscribe({
             complete: () => {
@@ -159,7 +126,7 @@ export class ChangePasswordFormComponent {
                 })
             },
             error: (errorFromInterceptor) => {
-                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
+                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
             }
         })
     }

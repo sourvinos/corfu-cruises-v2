@@ -25,7 +25,7 @@ namespace API.Features.Users {
 
         public int IsValid(IUser user) {
             return true switch {
-                var x when x == !IsValidCustomer(user) && user.CustomerId != 0 => 450,
+                var x when x == !IsValidCustomer(user) && user.CustomerId != null => 450,
                 _ => 200,
             };
         }

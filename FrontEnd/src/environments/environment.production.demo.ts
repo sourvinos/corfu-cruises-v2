@@ -25,12 +25,5 @@ export const environment = {
         password: '',
         noRobot: false
     },
-    newUser: {
-        userName: '',
-        displayname: '',
-        email: '',
-        password: '',
-        confirmPassword: ''
-    },
     production: true
 }

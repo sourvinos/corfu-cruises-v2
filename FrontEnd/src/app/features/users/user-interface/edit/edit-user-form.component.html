@@ -23,9 +23,9 @@
             </mat-form-field>
             <!-- Customer -->
             <mat-form-field>
-                <input #inputAutoComplete #trigger="matAutocompleteTrigger" (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" data-tabindex="3" formControlName="customer" matInput>
+                <input #inputAutoComplete #trigger="matAutocompleteTrigger" (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" [readonly]=!isAdmin data-tabindex="3" formControlName="customer" matInput>
                 <div matSuffix style="display:flex">
-                    <button (click)="openOrCloseAutoComplete(trigger, 'customer')" mat-icon-button type="button">
+                    <button (click)="openOrCloseAutoComplete(trigger, 'customer')" [disabled]="true" mat-icon-button type="button">
                         <mat-icon class="open-close-panel">{{ arrowIcon.getValue() }}</mat-icon>
                     </button>
                 </div>
