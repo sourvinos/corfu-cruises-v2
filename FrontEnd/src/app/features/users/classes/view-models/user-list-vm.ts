@@ -1,4 +1,4 @@
-export class UserListVM {
+export interface UserListVM {
 
     id: string
     isAdmin: boolean

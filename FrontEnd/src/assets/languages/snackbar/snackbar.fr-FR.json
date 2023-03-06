@@ -28,7 +28,7 @@
             },
             {
                 "error": 412,
-                "message": "Le mot de passe ne peut pas être modifié. Le mot de passe actuel est peut-être erroné."
+                "message": "Le mot de passe ne peut pas être modifié. Il est possible que le mot de passe actuel soit erroné."
             },
             {
                 "error": 427,
@@ -184,7 +184,7 @@
             },
             {
                 "id": "unableToResetPassword",
-                "message": "Impossible de réinitialiser le mot de passe."
+                "message": "Le mot de passe ne peut pas être réinitialisé. Il est possible que les informations que vous avez fournies ne soient plus valables."
             },
             {
                 "id": "wrongPassengerCount",

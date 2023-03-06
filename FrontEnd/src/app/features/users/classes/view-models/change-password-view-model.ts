@@ -1,4 +1,4 @@
-export class ChangePasswordViewModel {
+export interface ChangePasswordViewModel {
 
     userId: string
     currentPassword: string

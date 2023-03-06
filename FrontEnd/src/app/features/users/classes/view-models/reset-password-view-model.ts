@@ -1,5 +1,4 @@
-export class ResetPasswordViewModel {
-
+export interface ResetPasswordViewModel {
 
     email: string
     password: string

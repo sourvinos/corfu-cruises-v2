@@ -1,12 +1,11 @@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { ActivatedRoute, Router } from '@angular/router'
+import { ActivatedRoute } from '@angular/router'
 import { Component } from '@angular/core'
 import { Subject, Subscription } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ChangePasswordViewModel } from '../../classes/view-models/change-password-view-model'
 import { ConfirmValidParentMatcher, ValidationService } from 'src/app/shared/services/validation.service'
-import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
@@ -38,7 +37,7 @@ export class ChangePasswordFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService) { }
 
     //#region lifecycle hooks
 
@@ -78,7 +77,6 @@ export class ChangePasswordFormComponent {
     //#endregion
 
     //#region private methods
-
 
     private cleanup(): void {
         this.subscription.unsubscribe()

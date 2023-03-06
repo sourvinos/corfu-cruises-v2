@@ -28,7 +28,7 @@
             },
             {
                 "error": 412,
-                "message": "The password can't be changed. Perhaps the current password is wrong."
+                "message": "The password cannot be changed. Possibly, the current password id wrong."
             },
             {
                 "error": 427,
