@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject, Subscription } from 'rxjs'
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { CoachRouteReadDto } from '../../classes/dtos/coachRoute-read-dto'
@@ -11,6 +11,7 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -37,12 +38,13 @@ export class CoachRouteFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public isAutoCompleteDisabled = true
     public isLoading = new Subject<boolean>()
     public isNewRecord: boolean
     public parentUrl = '/coachRoutes'
 
+    public arrowIcon = new BehaviorSubject('arrow_drop_down')
     public dropdownPorts: Observable<PortActiveVM[]>
+    public isAutoCompleteDisabled = true
 
     //#endregion
 
@@ -65,6 +67,10 @@ export class CoachRouteFormComponent {
 
     ngOnDestroy(): void {
         this.cleanup()
+    }
+
+    canDeactivate(): boolean {
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -110,6 +116,10 @@ export class CoachRouteFormComponent {
         this.saveRecord(this.flattenForm())
     }
 
+    public openOrCloseAutoComplete(trigger: MatAutocompleteTrigger, element: any): void {
+        this.helperService.openOrCloseAutocomplete(this.form, element, trigger)
+    }
+
     //#endregion
 
     //#region private methods
@@ -142,17 +152,20 @@ export class CoachRouteFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        return new Promise((resolve) => {
-            const formResolved: FormResolved = this.activatedRoute.snapshot.data['coachRouteForm']
-            if (formResolved.error == null) {
-                this.record = formResolved.record.body
-                resolve(this.record)
-            } else {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok']).subscribe(() => {
-                    this.goBack()
-                })
-            }
-        })
+        if (this.isNewRecord == false) {
+            return new Promise((resolve) => {
+                const formResolved: FormResolved = this.activatedRoute.snapshot.data['coachRouteForm']
+                if (formResolved.error == null) {
+                    this.record = formResolved.record.body
+                    resolve(this.record)
+                } else {
+                    this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
+                        this.resetForm()
+                        this.goBack()
+                    })
+                }
+            })
+        }
     }
 
     private goBack(): void {
@@ -190,6 +203,10 @@ export class CoachRouteFormComponent {
                 isActive: this.record.isActive
             })
         }
+    }
+
+    private resetForm(): void {
+        this.form.reset()
     }
 
     private saveRecord(coachRoute: CoachRouteWriteDto): void {

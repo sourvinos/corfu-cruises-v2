@@ -1731,7 +1731,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Διαδρομή πλοίου"
+                "description": "Δρομολόγιο πλοίου"
             },
             {
                 "id": "description",

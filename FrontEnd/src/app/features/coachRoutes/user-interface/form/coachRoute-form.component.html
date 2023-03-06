@@ -21,7 +21,12 @@
             </mat-form-field>
             <!-- Port -->
             <mat-form-field>
-                <input (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ports" [placeholder]="getLabel('port')" data-tabindex="3" formControlName="port" matInput>
+                <input #inputAutoComplete #trigger="matAutocompleteTrigger" (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="ports" [placeholder]="getLabel('port')" data-tabindex="3" formControlName="port" matInput>
+                <div matSuffix style="display:flex">
+                    <button (click)="openOrCloseAutoComplete(trigger, 'port')" mat-icon-button type="button">
+                        <mat-icon class="open-close-panel">{{ arrowIcon.getValue() }}</mat-icon>
+                    </button>
+                </div>
                 <mat-error *ngIf="port.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="!port.hasError('required') && port.hasError('incorrect')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
