@@ -1919,7 +1919,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Plán výletů"
+                "description": "Rozvrh"
             },
             {
                 "id": "headerIsActive",
@@ -1968,7 +1968,7 @@
             },
             {
                 "id": "maxPax",
-                "description": "Maximální počet cestujících"
+                "description": "Max Pax"
             },
             {
                 "id": "ime",

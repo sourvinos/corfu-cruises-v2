@@ -1,8 +1,8 @@
 import { ActivatedRoute, Router } from '@angular/router'
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject, Subscription } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
@@ -11,6 +11,7 @@ import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -40,13 +41,13 @@ export class ScheduleEditFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public isAutoCompleteDisabled = true
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/schedules'
 
+    public arrowIcon = new BehaviorSubject('arrow_drop_down')
     public dropdownDestinations: Observable<DestinationActiveVM[]>
     public dropdownPorts: Observable<PortActiveVM[]>
+    public isAutoCompleteDisabled = true
 
     //#endregion
 
@@ -57,7 +58,6 @@ export class ScheduleEditFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
         this.populateDropdowns()
@@ -71,6 +71,10 @@ export class ScheduleEditFormComponent {
 
     ngOnDestroy(): void {
         this.cleanup()
+    }
+
+    canDeactivate(): boolean {
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -116,6 +120,10 @@ export class ScheduleEditFormComponent {
         this.saveRecord(this.flattenForm())
     }
 
+    public openOrCloseAutoComplete(trigger: MatAutocompleteTrigger, element: any): void {
+        this.helperService.openOrCloseAutocomplete(this.form, element, trigger)
+    }
+
     //#endregion
 
     //#region private methods
@@ -133,7 +141,7 @@ export class ScheduleEditFormComponent {
     }
 
     private flattenForm(): ScheduleWriteVM {
-        const schedule = {
+        return {
             id: this.form.value.id,
             date: this.form.value.date,
             destinationId: this.form.value.destination.id,
@@ -142,7 +150,6 @@ export class ScheduleEditFormComponent {
             time: this.form.value.time,
             isActive: this.form.value.isActive
         }
-        return schedule
     }
 
     private focusOnField(): void {
@@ -150,17 +157,20 @@ export class ScheduleEditFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        const promise = new Promise((resolve) => {
-            const formResolved: FormResolved = this.activatedRoute.snapshot.data['scheduleEditForm']
-            if (formResolved.error == null) {
-                this.record = formResolved.record.body
-                resolve(this.record)
-            } else {
-                this.goBack()
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
-            }
-        })
-        return promise
+        if (this.recordId != null) {
+            return new Promise((resolve) => {
+                const formResolved: FormResolved = this.activatedRoute.snapshot.data['scheduleEditForm']
+                if (formResolved.error == null) {
+                    this.record = formResolved.record.body
+                    resolve(this.record)
+                } else {
+                    this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
+                        this.resetForm()
+                        this.goBack()
+                    })
+                }
+            })
+        }
     }
 
     private goBack(): void {
@@ -190,7 +200,7 @@ export class ScheduleEditFormComponent {
     }
 
     private populateFields(): void {
-        if (this.isNewRecord == false) {
+        if (this.recordId != null) {
             this.form.setValue({
                 id: this.record.id,
                 date: this.record.date,
@@ -203,6 +213,10 @@ export class ScheduleEditFormComponent {
         }
     }
 
+    private resetForm(): void {
+        this.form.reset()
+    }
+
     private saveRecord(schedule: ScheduleWriteVM): void {
         this.scheduleService.save(schedule).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
@@ -212,10 +226,6 @@ export class ScheduleEditFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setLocale(): void {

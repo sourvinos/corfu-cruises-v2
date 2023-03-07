@@ -1919,7 +1919,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πρόγραμμα εκδρομών"
+                "description": "Πρόγραμμα"
             },
             {
                 "id": "headerIsActive",
@@ -1939,7 +1939,7 @@
             },
             {
                 "id": "headerMaxPax",
-                "description": "Χωρητικότητα"
+                "description": "Max Pax"
             },
             {
                 "id": "newRecord",
@@ -1952,7 +1952,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Πρόγραμμα εκδρομής"
+                "description": "Πρόγραμμα"
             },
             {
                 "id": "date",
@@ -1968,7 +1968,7 @@
             },
             {
                 "id": "maxPax",
-                "description": "Μέγιστος αριθμός επιβατών"
+                "description": "Max Pax"
             },
             {
                 "id": "time",
