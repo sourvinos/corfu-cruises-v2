@@ -184,7 +184,7 @@
             },
             {
                 "id": "unableToResetPassword",
-                "message": "Das Passwort kann nicht zurückgesetzt werden. Möglicherweise sind die von Ihnen angegebenen Daten nicht mehr gültig."
+                "message": "Das neue Passwort kann nicht gespeichert werden. Der Link in der E-Mail, die Sie erhalten haben, ist möglicherweise nicht mehr gültig."
             },
             {
                 "id": "wrongPassengerCount",

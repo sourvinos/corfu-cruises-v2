@@ -184,7 +184,7 @@
             },
             {
                 "id": "unableToResetPassword",
-                "message": "Le mot de passe ne peut pas être réinitialisé. Il est possible que les informations que vous avez fournies ne soient plus valables."
+                "message": "Le nouveau mot de passe ne peut pas être enregistré. Le lien contenu dans l'e-mail qui vous a été envoyé n'est peut-être plus valide."
             },
             {
                 "id": "wrongPassengerCount",

@@ -184,7 +184,7 @@
             },
             {
                 "id": "unableToResetPassword",
-                "message": "Heslo nelze resetovat. Je možné, že vámi zadané informace již nejsou platné."
+                "message": "Nové heslo nelze uložit. Odkaz v zaslaném e-mailu již nemusí být platný."
             },
             {
                 "id": "wrongPassengerCount",

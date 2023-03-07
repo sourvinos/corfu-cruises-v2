@@ -184,7 +184,7 @@
             },
             {
                 "id": "unableToResetPassword",
-                "message": "The password can not be reset."
+                "message": "The new password cannot be saved. The link in the email you were sent may no longer be valid."
             },
             {
                 "id": "wrongPassengerCount",

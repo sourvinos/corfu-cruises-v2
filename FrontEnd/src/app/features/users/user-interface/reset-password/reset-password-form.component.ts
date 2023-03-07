@@ -1,15 +1,16 @@
-import { MessageSnackbarService } from './../../../../shared/services/messages-snackbar.service'
-import { Component } from '@angular/core'
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { Component } from '@angular/core'
+// Custom
 import { AccountService } from 'src/app/shared/services/account.service'
+import { ConfirmValidParentMatcher, ValidationService } from 'src/app/shared/services/validation.service'
+import { DialogService } from 'src/app/shared/services/dialog.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
+import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { ConfirmValidParentMatcher, ValidationService } from 'src/app/shared/services/validation.service'
+import { MessageSnackbarService } from './../../../../shared/services/messages-snackbar.service'
 import { ResetPasswordViewModel } from '../../classes/view-models/reset-password-view-model'
-import { HelperService } from 'src/app/shared/services/helper.service'
-import { DialogService } from 'src/app/shared/services/dialog.service'
 
 @Component({
     selector: 'reset-password-form',
@@ -17,53 +18,40 @@ import { DialogService } from 'src/app/shared/services/dialog.service'
     styleUrls: ['../../../../../assets/styles/forms.css', '../../../../shared/styles/login-forgot-reset-password.css', '../../../../shared/styles/login-forgot-reset-password-logo.css']
 })
 
-
 export class ResetPasswordFormComponent {
 
-    public hidePassword = true
-    private email: string
-    private token: string
-    public form: FormGroup
+    //#region variables
+
     public feature = 'resetPasswordForm'
     public featureIcon = 'password'
+    public form: FormGroup
     public icon = null
     public input: InputTabStopDirective
+    public isLoading: boolean
     public parentUrl = null
-    public confirmValidParentMatcher = new ConfirmValidParentMatcher()
 
-    constructor(
-        private router: Router,
-        private helperService: HelperService,
-        private dialogService: DialogService,
-        private accountService: AccountService,
-        private activatedRoute: ActivatedRoute,
-        private messageSnackbarService: MessageSnackbarService,
-        private formBuilder: FormBuilder,
-        private messageLabelService: MessageLabelService,
-        private messageHintService: MessageHintService
-    ) {
-        this.activatedRoute.queryParams.subscribe((p) => {
-            this.email = p['email']
-            this.token = p['token']
-        })
-    }
+    public confirmValidParentMatcher = new ConfirmValidParentMatcher()
+    public hidePassword = true
+
+    //#endregion
+
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
+
+    //#region lifecycle hooks
 
     ngOnInit(): void {
-        console.log(this.email)
-        console.log(this.token)
         this.initForm()
+        this.setVariables()
     }
 
-    private initForm(): void {
-        this.form = this.formBuilder.group({
-            email: [this.email],
-            token: [this.token],
-            passwords: this.formBuilder.group({
-                password: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(128), ValidationService.containsSpace]],
-                confirmPassword: ['', [Validators.required]]
-            }, { validator: ValidationService.childrenEqual })
-        })
+    ngAfterViewInit(): void {
+        this.clearFields()
+        this.focusOnField()
     }
+
+    //#endregion
+
+    //#region public methods
 
     public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
@@ -77,27 +65,72 @@ export class ResetPasswordFormComponent {
         this.saveRecord(this.flattenForm())
     }
 
+    //#endregion
+
+    //#region private methods
+
+    private flattenForm(): ResetPasswordViewModel {
+        const vm = {
+            email: this.form.value.email,
+            password: this.form.value.passwords.password,
+            confirmPassword: this.form.value.passwords.confirmPassword,
+            token: this.form.value.token
+        }
+        return vm
+    }
+
+    private focusOnField(): void {
+        this.helperService.focusOnField('')
+    }
+
+    private clearFields(): void {
+        setTimeout(() => {
+            this.form.patchValue({
+                'passwords': {
+                    'password': '', // ALT + 08 = Backspace
+                    'confirmPassword': '' // ALT + 08 = Backspace
+                }
+            })
+        }, 800)
+    }
+
+    private initForm(): void {
+        this.form = this.formBuilder.group({
+            email: [''],
+            token: [''],
+            passwords: this.formBuilder.group({
+                password: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(128), ValidationService.containsSpace]],
+                confirmPassword: ['', [Validators.required]]
+            }, { validator: ValidationService.childrenEqual })
+        })
+    }
+
     private saveRecord(form: ResetPasswordViewModel): void {
+        this.isLoading = true
         this.accountService.resetPassword(form).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                 this.router.navigate(['/login'])
+                this.isLoading = false
             },
             error: () => {
                 this.dialogService.open(this.messageSnackbarService.unableToResetPassword(), 'error', 'right-buttons', ['ok'])
+                this.router.navigate(['/login'])
+                this.isLoading = false
             }
         })
     }
 
-    private flattenForm(): ResetPasswordViewModel {
-        const vm = {
-            email: this.email,
-            password: this.form.value.passwords.password,
-            confirmPassword: this.form.value.passwords.confirmPassword,
-            token: this.token
-        }
-        return vm
+    private setVariables(): void {
+        this.activatedRoute.queryParams.subscribe(x => {
+            this.form.patchValue({
+                'email': x.email,
+                'token': x.token
+            })
+        })
     }
+
+    //#endregion
 
     //#region getters
 
