@@ -23,6 +23,11 @@
     overflow: hidden;
     padding: 1rem 2.5rem;
     transition: all var(--theme-change-delay) ease-in;
+    width: 100%;
+}
+
+.styled-input-single .checkbox-with-lock-icon label {
+    padding: 1rem 0;
 }
 
 .styled-input-single label.no-label {

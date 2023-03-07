@@ -23,9 +23,10 @@
             </mat-form-field>
             <!-- Customer -->
             <mat-form-field>
-                <input #inputAutoComplete #trigger="matAutocompleteTrigger" (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" [readonly]=!isAdmin data-tabindex="3" formControlName="customer" matInput>
+                <mat-icon *ngIf="!isAdmin()" class=" lock">lock</mat-icon>
+                <input #inputAutoComplete #trigger="matAutocompleteTrigger" (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" [readonly]="!isAdmin()" data-tabindex="3" formControlName="customer" matInput>
                 <div matSuffix style="display:flex">
-                    <button (click)="openOrCloseAutoComplete(trigger, 'customer')" [disabled]="true" mat-icon-button type="button">
+                    <button (click)="openOrCloseAutoComplete(trigger, 'customer')" [disabled]="!isAdmin()" mat-icon-button type="button">
                         <mat-icon class="open-close-panel">{{ arrowIcon.getValue() }}</mat-icon>
                     </button>
                 </div>
@@ -34,7 +35,8 @@
             </mat-form-field>
             <!-- Email -->
             <mat-form-field>
-                <input [inputTabStop]="input" [placeholder]="getLabel('email')" [readonly]=!isAdmin data-tabindex="4" formControlName="email" matInput type="email">
+                <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
+                <input [inputTabStop]="input" [placeholder]="getLabel('email')" [readonly]="!isAdmin()" data-tabindex="4" formControlName="email" matInput type="email">
                 <mat-error *ngIf="email.hasError('required')">{{ getHint("required") }}</mat-error>
                 <mat-error *ngIf="email.hasError('email')">{{ getHint("invalid") }}</mat-error>
             </mat-form-field>
@@ -42,20 +44,25 @@
                 <!-- Admin -->
                 <div class="styled-input-square">
                     <div class="styled-input-single">
-                        <input [attr.disabled]="!isAdmin ? true : null" formControlName="isAdmin" id="isAdmin" type="checkbox">
-                        <label for="isAdmin">{{ getLabel("isAdmin") }}</label>
+                        <div class="checkbox-with-lock-icon">
+                            <input [attr.disabled]="!isAdmin() ? false : null" formControlName="isAdmin" id="isAdmin" type="checkbox">
+                            <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
+                            <label for="isAdmin">{{ getLabel("isAdmin") }}</label>
+                        </div>
                     </div>
                 </div>
                 <!-- Active -->
                 <div class="styled-input-square">
                     <div class="styled-input-single">
-                        <input [attr.disabled]="!isAdmin ? true : null" formControlName="isActive" id="isActive" type="checkbox">
-                        <label for="isActive">{{ getLabel("isActive") }}</label>
+                        <div class="checkbox-with-lock-icon">
+                            <input [attr.disabled]="!isAdmin() ? false : null" formControlName="isActive" id="isActive" type="checkbox">
+                            <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
+                            <label for="isActive">{{ getLabel("isActive") }}</label>
+                        </div>
                     </div>
                 </div>
             </div>
         </form>
-
     </div>
 
     <div id="footer">

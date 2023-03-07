@@ -30,10 +30,9 @@ import { ValidationService } from '../../../../shared/services/validation.servic
 
 export class EditUserFormComponent {
 
-    //#region variables@
+    //#region variables
 
     private record: UserReadDto
-    private recordId: number
     private subscription = new Subscription()
     public feature = 'editUserForm'
     public featureIcon = 'users'
@@ -47,9 +46,6 @@ export class EditUserFormComponent {
     public dropdownCustomers: Observable<SimpleEntity[]>
     public isAutoCompleteDisabled = true
 
-    private header = ''
-    public isAdmin: boolean
-
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private userService: UserService) { }
@@ -58,12 +54,10 @@ export class EditUserFormComponent {
 
     ngOnInit(): void {
         this.initForm()
-        this.setRecordId()
         this.getRecord()
         this.populateFields()
         this.populateDropDowns()
         this.updateReturnUrl()
-        this.updateUserRole()
     }
 
     ngAfterViewInit(): void {
@@ -116,6 +110,10 @@ export class EditUserFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public isAdmin(): boolean {
+        return ConnectedUser.isAdmin
+    }
+
     public onSave(): void {
         this.saveRecord(this.flattenForm())
     }
@@ -135,13 +133,11 @@ export class EditUserFormComponent {
     private editUserFromList(): void {
         this.parentUrl = '/users'
         this.icon = 'arrow_back'
-        this.header = 'header'
     }
 
     private editUserFromTopMenu(): void {
         this.parentUrl = '/'
         this.icon = 'home'
-        this.header = 'my-header'
     }
 
     private filterAutocomplete(array: string, field: string, value: any): any[] {
@@ -153,16 +149,15 @@ export class EditUserFormComponent {
     }
 
     private flattenForm(): UpdateUserDto {
-        const user = {
-            id: this.form.getRawValue().id,
-            userName: this.form.getRawValue().userName,
-            displayname: this.form.getRawValue().displayname,
-            customerId: this.form.getRawValue().customer.id,
-            email: this.form.getRawValue().email,
-            isAdmin: this.form.getRawValue().isAdmin,
-            isActive: this.form.getRawValue().isActive
+        return {
+            id: this.form.value.id,
+            userName: this.form.value.userName,
+            displayname: this.form.value.displayname,
+            customerId: this.form.value.customer.id == 0 ? null : this.form.value.customer.id,
+            email: this.form.value.email,
+            isAdmin: this.form.value.isAdmin,
+            isActive: this.form.value.isActive
         }
-        return user
     }
 
     private focusOnField(): void {
@@ -194,9 +189,9 @@ export class EditUserFormComponent {
             userName: ['', [Validators.required, Validators.maxLength(32), ValidationService.containsIllegalCharacters]],
             displayname: ['', [Validators.required, Validators.maxLength(32), ValidationService.beginsOrEndsWithSpace]],
             customer: ['', [Validators.required, ValidationService.RequireAutocomplete]],
-            email: [{ value: '' }, [Validators.required, Validators.email, Validators.maxLength(128)]],
-            isAdmin: [{ value: false }],
-            isActive: [{ value: true }]
+            email: ['', [Validators.required, Validators.email, Validators.maxLength(128)]],
+            isAdmin: false,
+            isActive: true
         })
     }
 
@@ -237,18 +232,8 @@ export class EditUserFormComponent {
         })
     }
 
-    private setRecordId(): void {
-        this.activatedRoute.params.subscribe(x => {
-            this.recordId = x.id
-        })
-    }
-
     private updateReturnUrl(): void {
         this.sessionStorageService.getItem('returnUrl') == '/' ? this.editUserFromTopMenu() : this.editUserFromList()
-    }
-
-    private updateUserRole(): void {
-        this.isAdmin = ConnectedUser.isAdmin
     }
 
     //#endregion

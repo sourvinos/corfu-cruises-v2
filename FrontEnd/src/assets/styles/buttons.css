@@ -111,6 +111,13 @@ button.button-icon {
     line-height: 1.375rem;
 }
 
+.mat-icon.lock {
+    color: var(--color-red);
+    font-size: 1rem;
+    line-height: 1.375rem;
+    margin-top: -0.1875rem;
+}
+
 .mat-form-field-prefix .mat-icon-button, .mat-form-field-suffix .mat-icon-button {
     height: 2rem !important;
     width: 2rem !important;
@@ -120,4 +127,14 @@ button.button-icon {
     display: flex;
     gap: 1rem;
     margin-left: auto;
+}
+
+.checkbox-with-lock-icon {
+    display: flex;
+    align-items: center;
+    margin-left: 40px;
+}
+
+.checkbox-with-lock-icon .mat-icon.lock {
+    margin-top: 0;
 }
