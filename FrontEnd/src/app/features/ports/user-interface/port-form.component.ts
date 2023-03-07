@@ -34,7 +34,6 @@ export class PortFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/ports'
 
     //#endregion
@@ -46,7 +45,6 @@ export class PortFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
     }
@@ -103,14 +101,13 @@ export class PortFormComponent {
     }
 
     private flattenForm(): PortWriteDto {
-        const port = {
+        return {
             id: this.form.value.id,
             abbreviation: this.form.value.abbreviation,
             description: this.form.value.description,
             stopOrder: this.form.value.stopOrder,
             isActive: this.form.value.isActive
         }
-        return port
     }
 
     private focusOnField(): void {
@@ -118,7 +115,7 @@ export class PortFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['portForm']
                 if (formResolved.error == null) {
@@ -173,10 +170,6 @@ export class PortFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {

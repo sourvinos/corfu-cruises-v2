@@ -34,7 +34,6 @@ export class GenderFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/genders'
 
     //#endregion
@@ -46,7 +45,6 @@ export class GenderFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
     }
@@ -89,7 +87,7 @@ export class GenderFormComponent {
             }
         })
     }
-
+    
     public onSave(): void {
         this.saveRecord(this.flattenForm())
     }
@@ -103,12 +101,11 @@ export class GenderFormComponent {
     }
 
     private flattenForm(): GenderWriteDto {
-        const gender = {
+        return {
             id: this.form.value.id,
             description: this.form.value.description,
             isActive: this.form.value.isActive
         }
-        return gender
     }
 
     private focusOnField(): void {
@@ -116,7 +113,7 @@ export class GenderFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['genderForm']
                 if (formResolved.error == null) {
@@ -145,7 +142,7 @@ export class GenderFormComponent {
     }
 
     private populateFields(): void {
-        if (this.isNewRecord == false) {
+        if (this.record != undefined) {
             this.form.setValue({
                 id: this.record.id,
                 description: this.record.description,
@@ -167,10 +164,6 @@ export class GenderFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {

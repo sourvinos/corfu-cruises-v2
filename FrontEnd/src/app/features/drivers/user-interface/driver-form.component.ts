@@ -34,7 +34,6 @@ export class DriverFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/drivers'
 
     //#endregion
@@ -46,7 +45,6 @@ export class DriverFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
     }
@@ -103,13 +101,12 @@ export class DriverFormComponent {
     }
 
     private flattenForm(): DriverWriteDto {
-        const driver = {
+        return {
             id: this.form.value.id,
             description: this.form.value.description,
             phones: this.form.value.phones,
             isActive: this.form.value.isActive
         }
-        return driver
     }
 
     private focusOnField(): void {
@@ -117,7 +114,7 @@ export class DriverFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['driverForm']
                 if (formResolved.error == null) {
@@ -170,10 +167,6 @@ export class DriverFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {

@@ -39,7 +39,6 @@ export class PickupPointFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/pickupPoints'
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
@@ -55,7 +54,6 @@ export class PickupPointFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
         this.populateDropDowns()
@@ -153,14 +151,15 @@ export class PickupPointFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['pickupPointForm']
                 if (formResolved.error == null) {
                     this.record = formResolved.record.body
                     resolve(this.record)
                 } else {
-                    this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok']).subscribe(() => {
+                    this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
+                        this.resetForm()
                         this.goBack()
                     })
                 }
@@ -194,7 +193,7 @@ export class PickupPointFormComponent {
     }
 
     private populateFields(): void {
-        if (this.isNewRecord == false) {
+        if (this.record != undefined) {
             this.form.setValue({
                 id: this.record.id,
                 coachRoute: { 'id': this.record.coachRoute.id, 'abbreviation': this.record.coachRoute.abbreviation },
@@ -207,6 +206,10 @@ export class PickupPointFormComponent {
         }
     }
 
+    private resetForm(): void {
+        this.form.reset()
+    }
+
     private saveRecord(pickupPoint: PickupPointWriteDto): void {
         this.pickupPointService.save(pickupPoint).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
@@ -216,10 +219,6 @@ export class PickupPointFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {

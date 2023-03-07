@@ -34,7 +34,6 @@ export class ShipOwnerFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/shipOwners'
 
     //#endregion
@@ -46,7 +45,6 @@ export class ShipOwnerFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
     }
@@ -57,6 +55,10 @@ export class ShipOwnerFormComponent {
 
     ngOnDestroy(): void {
         this.cleanup()
+    }
+
+    canDeactivate(): boolean {
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -117,7 +119,7 @@ export class ShipOwnerFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['shipOwnerForm']
                 if (formResolved.error == null) {
@@ -152,7 +154,7 @@ export class ShipOwnerFormComponent {
     }
 
     private populateFields(): void {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             this.form.setValue({
                 id: this.record.id,
                 description: this.record.description,
@@ -180,10 +182,6 @@ export class ShipOwnerFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {

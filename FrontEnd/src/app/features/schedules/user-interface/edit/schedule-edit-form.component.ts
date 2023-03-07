@@ -157,7 +157,7 @@ export class ScheduleEditFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.recordId != null) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['scheduleEditForm']
                 if (formResolved.error == null) {
@@ -200,7 +200,7 @@ export class ScheduleEditFormComponent {
     }
 
     private populateFields(): void {
-        if (this.recordId != null) {
+        if (this.record != undefined) {
             this.form.setValue({
                 id: this.record.id,
                 date: this.record.date,

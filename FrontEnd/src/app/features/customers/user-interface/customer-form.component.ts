@@ -34,7 +34,6 @@ export class CustomerFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/customers'
 
     //#endregion
@@ -46,7 +45,6 @@ export class CustomerFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
     }
@@ -57,6 +55,10 @@ export class CustomerFormComponent {
 
     ngOnDestroy(): void {
         this.cleanup()
+    }
+
+    canDeactivate(): boolean {
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -99,7 +101,7 @@ export class CustomerFormComponent {
     }
 
     private flattenForm(): CustomerWriteDto {
-        const customer = {
+        return {
             id: this.form.value.id,
             description: this.form.value.description,
             profession: this.form.value.profession,
@@ -109,7 +111,6 @@ export class CustomerFormComponent {
             email: this.form.value.email,
             isActive: this.form.value.isActive
         }
-        return customer
     }
 
     private focusOnField(): void {
@@ -117,18 +118,20 @@ export class CustomerFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        return new Promise((resolve) => {
-            const formResolved: FormResolved = this.activatedRoute.snapshot.data['customerForm']
-            if (formResolved.error == null) {
-                this.record = formResolved.record.body
-                resolve(this.record)
-            } else {
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
-                    this.resetForm()
-                    this.goBack()
-                })
-            }
-        })
+        if (this.recordId != undefined) {
+            return new Promise((resolve) => {
+                const formResolved: FormResolved = this.activatedRoute.snapshot.data['customerForm']
+                if (formResolved.error == null) {
+                    this.record = formResolved.record.body
+                    resolve(this.record)
+                } else {
+                    this.modalActionResultService.open(this.messageSnackbarService.filterResponse(formResolved.error), 'error', ['ok']).subscribe(() => {
+                        this.resetForm()
+                        this.goBack()
+                    })
+                }
+            })
+        }
     }
 
     private goBack(): void {
@@ -149,7 +152,7 @@ export class CustomerFormComponent {
     }
 
     private populateFields(): void {
-        if (this.isNewRecord == false) {
+        if (this.record != undefined) {
             this.form.setValue({
                 id: this.record.id,
                 description: this.record.description,
@@ -176,10 +179,6 @@ export class CustomerFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {

@@ -7,6 +7,7 @@ export interface ShipWriteDto {
     flag: string
     registryNo: string
     manager: string
+    managerInGreece: string
     agent: string
     isActive: boolean
 

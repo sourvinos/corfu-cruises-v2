@@ -44,7 +44,6 @@ export class ShipCrewFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/shipCrews'
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
@@ -65,7 +64,6 @@ export class ShipCrewFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
         this.populateDropdowns()
@@ -166,7 +164,7 @@ export class ShipCrewFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['shipCrewForm']
                 if (formResolved.error == null) {
@@ -211,7 +209,7 @@ export class ShipCrewFormComponent {
     }
 
     private populateFields(): void {
-        if (this.isNewRecord == false) {
+        if (this.record != undefined) {
             this.form.setValue({
                 id: this.record.id,
                 lastname: this.record.lastname,
@@ -243,10 +241,6 @@ export class ShipCrewFormComponent {
     private setLocale(): void {
         this.locale = this.sessionStorageService.getLanguage()
         this.dateAdapter.setLocale(this.locale)
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {

@@ -34,7 +34,6 @@ export class DestinationFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/destinations'
 
     //#endregion
@@ -46,7 +45,6 @@ export class DestinationFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
     }
@@ -57,6 +55,10 @@ export class DestinationFormComponent {
 
     ngOnDestroy(): void {
         this.cleanup()
+    }
+
+    canDeactivate(): boolean {
+        return this.helperService.goBackFromForm(this.form)
     }
 
     //#endregion
@@ -99,13 +101,12 @@ export class DestinationFormComponent {
     }
 
     private flattenForm(): DestinationWriteDto {
-        const destination = {
+        return {
             id: this.form.value.id,
             abbreviation: this.form.value.abbreviation,
             description: this.form.value.description,
             isActive: this.form.value.isActive
         }
-        return destination
     }
 
     private focusOnField(): void {
@@ -113,7 +114,7 @@ export class DestinationFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['destinationForm']
                 if (formResolved.error == null) {
@@ -143,7 +144,7 @@ export class DestinationFormComponent {
     }
 
     private populateFields(): void {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             this.form.setValue({
                 id: this.record.id,
                 abbreviation: this.record.abbreviation,
@@ -166,10 +167,6 @@ export class DestinationFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {

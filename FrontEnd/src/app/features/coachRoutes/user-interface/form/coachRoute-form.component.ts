@@ -39,7 +39,6 @@ export class CoachRouteFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/coachRoutes'
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
@@ -55,10 +54,9 @@ export class CoachRouteFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
-        this.populateDropDowns()
+        this.populateDropdowns()
     }
 
     ngAfterViewInit(): void {
@@ -152,7 +150,7 @@ export class CoachRouteFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['coachRouteForm']
                 if (formResolved.error == null) {
@@ -188,12 +186,12 @@ export class CoachRouteFormComponent {
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
     }
 
-    private populateDropDowns(): void {
+    private populateDropdowns(): void {
         this.populateDropdownFromStorage('ports', 'dropdownPorts', 'port', 'description')
     }
 
     private populateFields(): void {
-        if (this.isNewRecord == false) {
+        if (this.record != undefined) {
             this.form.setValue({
                 id: this.record.id,
                 abbreviation: this.record.abbreviation,
@@ -218,10 +216,6 @@ export class CoachRouteFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {

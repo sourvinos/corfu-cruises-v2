@@ -39,7 +39,6 @@ export class RegistrarFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isLoading = new Subject<boolean>()
-    public isNewRecord: boolean
     public parentUrl = '/registrars'
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
@@ -55,7 +54,6 @@ export class RegistrarFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.setRecordId()
-        this.setNewRecord()
         this.getRecord()
         this.populateFields()
         this.populateDropdowns()
@@ -137,7 +135,7 @@ export class RegistrarFormComponent {
     }
 
     private flattenForm(): RegistrarWriteDto {
-        const registrar = {
+        return {
             id: this.form.value.id,
             shipId: this.form.value.ship.id,
             fullname: this.form.value.fullname,
@@ -148,7 +146,6 @@ export class RegistrarFormComponent {
             isPrimary: this.form.value.isPrimary,
             isActive: this.form.value.isActive
         }
-        return registrar
     }
 
     private focusOnField(): void {
@@ -156,7 +153,7 @@ export class RegistrarFormComponent {
     }
 
     private getRecord(): Promise<any> {
-        if (this.isNewRecord == false) {
+        if (this.recordId != undefined) {
             return new Promise((resolve) => {
                 const formResolved: FormResolved = this.activatedRoute.snapshot.data['registrarForm']
                 if (formResolved.error == null) {
@@ -200,7 +197,7 @@ export class RegistrarFormComponent {
     }
 
     private populateFields(): void {
-        if (this.isNewRecord == false) {
+        if (this.record != undefined) {
             this.form.setValue({
                 id: this.record.id,
                 fullname: this.record.fullname,
@@ -228,10 +225,6 @@ export class RegistrarFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false)
             }
         })
-    }
-
-    private setNewRecord(): void {
-        this.isNewRecord = this.recordId == null
     }
 
     private setRecordId(): void {
