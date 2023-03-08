@@ -59,7 +59,7 @@ button .mat-button-wrapper img {
     margin-top: -0.1875rem !important;
 }
 
-button.mat-mini-fab:not(.transparent) {
+button.mat-mini-fab {
     background-color: var(--color-b) !important;
     box-shadow: none !important;
     color: var(--color-a) !important;

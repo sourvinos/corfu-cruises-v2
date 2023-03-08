@@ -21,7 +21,7 @@
 }
 
 .day {
-    background-color: var(--color-b);
+    background-color: var(--color-x);
     border-radius: 0.625rem;
     border: 1px solid var(--color-a);
     display: flex;
@@ -64,7 +64,7 @@
 
 .day.has-schedule:hover {
     border: 1px solid var(--color-c);
-    filter: brightness(1.1);
+    filter: brightness(0.8);
     transition: all var(--theme-change-delay) ease-in;
 }
 
@@ -75,7 +75,7 @@
 }
 
 .no-reservation-data span {
-    color: rgb(0 0 0 /0%);
+    color: #00000023;
     font-size: 4rem;
 }
 

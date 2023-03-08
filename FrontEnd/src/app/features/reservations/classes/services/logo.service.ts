@@ -7,12 +7,14 @@ export class LogoService {
 
     constructor(private sessionStorageService: SessionStorageService) { }
 
-    public getLogo(color?: string): string {
-        if (color == null) {
-            return this.sessionStorageService.getItem('my-theme') == 'light' ? this.getLogoLight() : this.getLogoDark()
-        } else {
-            return color == 'light' ? this.getLogoLight() : this.getLogoDark()
-        }
+    public getLogo(color?: string): any {
+        setTimeout(() => {
+            if (color == null) {
+                return this.sessionStorageService.getItem('my-theme') == 'light' ? this.getLogoLight() : this.getLogoDark()
+            } else {
+                return color == 'light' ? this.getLogoLight() : this.getLogoDark()
+            }
+        }, 1000)
     }
 
     private getLogoLight(): string {

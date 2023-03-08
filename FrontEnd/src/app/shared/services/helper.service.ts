@@ -165,10 +165,11 @@ export class HelperService {
         })
     }
 
-    public enableHorizontalScroll(element): void {
+    public enableHorizontalScroll(element): any {
         element.addEventListener('wheel', (evt: WheelEvent) => {
             evt.preventDefault()
             element.scrollLeft += evt.deltaY
+            this.sessionStorageService.saveItem('scrollLeft', element.scrollLeft)
         })
     }
 

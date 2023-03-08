@@ -60,11 +60,9 @@ export class CalendarComponent {
     //#region lifecycle hooks
 
     ngAfterViewInit(): void {
-        setTimeout(() => {
-            this.updateDayVariables()
-            this.scrollToTodayOrStoredDate(false)
-            this.enableHorizontalScroll()
-        }, 500)
+        this.updateDayVariables()
+        this.scrollToTodayOrStoredDate(false)
+        this.enableHorizontalScroll()
     }
 
     //#endregion
@@ -77,10 +75,6 @@ export class CalendarComponent {
 
     public dayHasSchedule(day: DayVM): boolean {
         return day.destinations?.length >= 1
-    }
-
-    public getIcon(filename: string): string {
-        return environment.calendarIconDirectory + filename + '.svg'
     }
 
     public getLabel(id: string): string {
@@ -112,10 +106,6 @@ export class CalendarComponent {
         this.scrollToTodayOrStoredDate(true)
     }
 
-    public imageIsLoading(): any {
-        return this.imgIsLoaded ? '' : 'skeleton'
-    }
-
     public isSaturday(day: any): boolean {
         return day.weekdayName == 'Sat'
     }
@@ -126,10 +116,6 @@ export class CalendarComponent {
 
     public isToday(day: any): boolean {
         return day.date == new Date().toISOString().substring(0, 10)
-    }
-
-    public loadImage(): void {
-        this.imgIsLoaded = true
     }
 
     public setActiveYear(year: string): void {
@@ -233,15 +219,11 @@ export class CalendarComponent {
     }
 
     private scrollToTodayOrStoredDate(ignoreStoredScrollLeft: boolean): void {
-        const scrollLeft = localStorage.getItem('scrollLeft')
+        const scrollLeft = sessionStorage.getItem('scrollLeft')
         if (ignoreStoredScrollLeft || scrollLeft == null) {
-            setTimeout(() => {
-                this.todayScrollPosition = this.getTodayLeftScroll() - 2
-                this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
-                this.sessionStorageService.deleteItems([
-                    { 'item': 'scrollLeft', 'when': 'always' }
-                ])
-            }, 500)
+            this.todayScrollPosition = this.getTodayLeftScroll() - 2
+            this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
+            this.sessionStorageService.saveItem('scrollLeft', this.days.scrollLeft)
         } else {
             const z = document.getElementById('days')
             z.scrollLeft = parseInt(scrollLeft)

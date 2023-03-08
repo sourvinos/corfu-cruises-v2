@@ -137,6 +137,7 @@ export class AccountService extends HttpDataService {
             this.setAuthSettings(response)
             this.populateStorageFromAPI()
             this.refreshMenus()
+            this.setCurrentYear()
         }))
     }
 
@@ -217,6 +218,9 @@ export class AccountService extends HttpDataService {
         this.shipRouteService.getActive().subscribe(response => { this.sessionStorageService.saveItem('shipRoutes', JSON.stringify(response)) })
     }
 
+    private setCurrentYear(): void {
+        this.sessionStorageService.saveItem('year', new Date().getUTCFullYear().toString())
+    }
     private setLoginStatus(status: boolean): void {
         this.loginStatus.next(status)
     }

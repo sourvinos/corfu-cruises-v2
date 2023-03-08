@@ -11,7 +11,7 @@
 
     <div id="content">
         <div id="days">
-            <div (click)="gotoReservationsList(day)" [attr.id]="day.date" class="day" *ngFor="let day of year" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }">
+            <div *ngFor="let day of year" (click)="gotoReservationsList(day)" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
                 <div class="day-data">
                     <div class="weekday">{{ getLocaleWeekdayName(day.weekdayName) }}</div>
                     <div class="date">{{ day.value }}</div>
