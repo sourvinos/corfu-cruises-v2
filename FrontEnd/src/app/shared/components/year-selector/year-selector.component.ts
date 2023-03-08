@@ -1,5 +1,6 @@
 import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core'
 import { environment } from 'src/environments/environment'
+import { SessionStorageService } from '../../services/session-storage.service'
 
 @Component({
     selector: 'year-selector',
@@ -17,6 +18,8 @@ export class YearSelectorComponent {
     public years: string[] = []
 
     //#endregion
+
+    constructor(private sessionStorageService: SessionStorageService) { }
 
     //#region listeners
 
@@ -50,6 +53,7 @@ export class YearSelectorComponent {
 
     public selectYear(year: string): any {
         this.yearEmitter.emit(year)
+        this.sessionStorageService.deleteItems([{ 'item': 'scrollLeft', 'when': 'always' }])
     }
 
     //#endregion

@@ -165,7 +165,7 @@ export class HelperService {
         })
     }
 
-    public enableHorizontalScroll(element): any {
+    public enableHorizontalScroll(element: any): any {
         element.addEventListener('wheel', (evt: WheelEvent) => {
             evt.preventDefault()
             element.scrollLeft += evt.deltaY

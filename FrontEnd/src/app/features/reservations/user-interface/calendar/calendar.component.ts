@@ -52,19 +52,15 @@ export class CalendarComponent {
                 this.updateCalendar()
                 this.setLocale()
                 this.subscribeToInteractionService()
+                setTimeout(() => {
+                    this.updateDayVariables()
+                    this.scrollToStoredDate()
+                    this.scrollToToday(false)
+                    this.enableHorizontalScroll()
+                }, 1000)
             }
         })
     }
-
-    //#region lifecycle hooks
-
-    ngAfterViewInit(): void {
-        this.updateDayVariables()
-        this.scrollToTodayOrStoredDate(false)
-        this.enableHorizontalScroll()
-    }
-
-    //#endregion
 
     //#region public methods
 
@@ -102,7 +98,7 @@ export class CalendarComponent {
     }
 
     public gotoToday(): void {
-        this.scrollToTodayOrStoredDate(true)
+        this.scrollToToday(true)
     }
 
     public isSaturday(day: any): boolean {
@@ -217,15 +213,22 @@ export class CalendarComponent {
         document.getElementById(this.activeYear.toString() + '-' + (month.toString().length == 1 ? '0' + month.toString() : month.toString()) + '-' + '01').scrollIntoView()
     }
 
-    private scrollToTodayOrStoredDate(ignoreStoredScrollLeft: boolean): void {
+    private scrollToStoredDate(): void {
         const scrollLeft = sessionStorage.getItem('scrollLeft')
-        if (ignoreStoredScrollLeft || scrollLeft == null) {
+        const days = document.getElementById('days')
+        if (scrollLeft != null) {
+            days.scrollLeft = parseInt(scrollLeft)
+        } else {
+            days.scrollLeft = 0
+            this.sessionStorageService.saveItem('scrollLeft', this.days.scrollLeft)
+        }
+    }
+
+    private scrollToToday(ignoreStoredLeft: boolean): void {
+        if (this.dateHelperService.getCurrentYear().toString() == this.sessionStorageService.getItem('year') && (this.sessionStorageService.getItem('scrollLeft') == '0' || ignoreStoredLeft)) {
             this.todayScrollPosition = this.getTodayLeftScroll() - 2
             this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
             this.sessionStorageService.saveItem('scrollLeft', this.days.scrollLeft)
-        } else {
-            const z = document.getElementById('days')
-            z.scrollLeft = parseInt(scrollLeft)
         }
     }
 
@@ -252,8 +255,10 @@ export class CalendarComponent {
     private updateCalendarWithReservations(): void {
         this.records.forEach(day => {
             const x = this.year.find(x => x.date == day.date)
-            this.year[this.year.indexOf(x)].destinations = day.destinations
-            this.year[this.year.indexOf(x)].pax = day.pax
+            if (x != undefined) {
+                this.year[this.year.indexOf(x)].destinations = day.destinations
+                this.year[this.year.indexOf(x)].pax = day.pax
+            }
         })
     }
 
