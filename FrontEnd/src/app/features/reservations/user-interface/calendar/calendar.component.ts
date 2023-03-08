@@ -13,7 +13,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
-import { environment } from 'src/environments/environment'
 
 @Component({
     selector: 'calendar',
@@ -47,7 +46,7 @@ export class CalendarComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd) {
+            if (navigation instanceof NavigationEnd && navigation.url == this.url) {
                 this.getActiveYear()
                 this.buildCalendar()
                 this.updateCalendar()

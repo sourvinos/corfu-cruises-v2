@@ -55,16 +55,15 @@ export class EmbarkationReservationsComponent {
     public distinctShips: string[]
     public distinctEmbarkationStatuses: string[]
 
-    public url = '/embarkation/list'
-    public scannerEnabled: boolean
-    public searchByTicketNo: string
+    private currentUrl = '/embarkation/list'
+    private scannerEnabled: boolean
+    private searchByTicketNo: string
 
     //#endregion
 
     constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd) {
-                this.url = navigation.url
+            if (navigation instanceof NavigationEnd && navigation.url == this.currentUrl) {
                 this.loadRecords().then(() => {
                     this.populateDropdownFilters()
                     this.filterTableFromStoredFilters()
@@ -141,7 +140,7 @@ export class EmbarkationReservationsComponent {
     }
 
     public goBack(): void {
-        this.router.navigate([this.url])
+        this.router.navigate([this.parentUrl])
     }
 
     public hasRemarks(remarks: string): boolean {
@@ -298,7 +297,7 @@ export class EmbarkationReservationsComponent {
         })
         response.afterClosed().subscribe(result => {
             if (result !== undefined && result == true) {
-                this.router.navigate([this.url])
+                this.router.navigate([this.currentUrl])
                 this.doVirtualTableTasks()
             }
         })
