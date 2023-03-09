@@ -50,13 +50,13 @@ export class CalendarComponent {
                 this.getActiveYear()
                 this.buildCalendar()
                 this.updateCalendar()
-                this.setLocale()
-                this.subscribeToInteractionService()
                 setTimeout(() => {
                     this.updateDayVariables()
                     this.scrollToStoredDate()
                     this.scrollToToday(false)
                     this.enableHorizontalScroll()
+                    this.setLocale()
+                    this.subscribeToInteractionService()
                 }, 1000)
             }
         })
@@ -76,12 +76,12 @@ export class CalendarComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public getLocaleMonthName(monthName: string): string {
-        return this.messageCalendarService.getDescription('months', monthName)
+    public getLocaleMonthName(day: any): string {
+        return this.messageCalendarService.getDescription('months', day.date.substring(5, 7))
     }
 
-    public getLocaleWeekdayName(weekdayName: string): string {
-        return this.messageCalendarService.getDescription('weekdays', weekdayName)
+    public getLocaleWeekdayName(day: any): string {
+        return this.messageCalendarService.getDescription('weekdays', new Date(day.date).getDay().toString())
     }
 
     public setActiveMonth(month: number): void {

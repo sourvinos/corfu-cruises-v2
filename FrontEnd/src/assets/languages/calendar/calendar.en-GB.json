@@ -3,52 +3,52 @@
         "feature": "months",
         "labels": [
             {
-                "id": "January",
-                "description": "Jan"
+                "id": "01",
+                "description": "January"
             },
             {
-                "id": "February",
-                "description": "Feb"
+                "id": "02",
+                "description": "February"
             },
             {
-                "id": "March",
-                "description": "Mar"
+                "id": "03",
+                "description": "March"
             },
             {
-                "id": "April",
-                "description": "Apr"
+                "id": "04",
+                "description": "April"
             },
             {
-                "id": "May",
+                "id": "05",
                 "description": "May"
             },
             {
-                "id": "June",
-                "description": "Jun"
+                "id": "06",
+                "description": "June"
             },
             {
-                "id": "July",
-                "description": "Jul"
+                "id": "07",
+                "description": "July"
             },
             {
-                "id": "August",
-                "description": "Aug"
+                "id": "08",
+                "description": "August"
             },
             {
-                "id": "September",
-                "description": "Sep"
+                "id": "09",
+                "description": "September"
             },
             {
-                "id": "October",
-                "description": "Oct"
+                "id": "10",
+                "description": "October"
             },
             {
-                "id": "November",
-                "description": "Nov"
+                "id": "11",
+                "description": "November"
             },
             {
-                "id": "December",
-                "description": "Dec"
+                "id": "12",
+                "description": "December"
             }
         ]
     },
@@ -56,32 +56,32 @@
         "feature": "weekdays",
         "labels": [
             {
-                "id": "Mon",
+                "id": "0",
+                "description": "Sunday"
+            },
+            {
+                "id": "1",
                 "description": "Monday"
             },
             {
-                "id": "Tue",
+                "id": "2",
                 "description": "Tuesday"
             },
             {
-                "id": "Wed",
+                "id": "3",
                 "description": "Wednesday"
             },
             {
-                "id": "Thu",
+                "id": "4",
                 "description": "Thursday"
             },
             {
-                "id": "Fri",
+                "id": "5",
                 "description": "Friday"
             },
             {
-                "id": "Sat",
+                "id": "6",
                 "description": "Saturday"
-            },
-            {
-                "id": "Sun",
-                "description": "Sunday"
             }
         ]
     }

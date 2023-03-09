@@ -3,52 +3,52 @@
         "feature": "months",
         "labels": [
             {
-                "id": "January",
-                "description": "Ιαν"
+                "id": "01",
+                "description": "Ιανουαρίου"
             },
             {
-                "id": "February",
-                "description": "Φεβ"
+                "id": "02",
+                "description": "Φεβρουαρίου"
             },
             {
-                "id": "March",
-                "description": "Μαρ"
+                "id": "03",
+                "description": "Μαρτίου"
             },
             {
-                "id": "April",
-                "description": "Απρ"
+                "id": "04",
+                "description": "Απριλίου"
             },
             {
-                "id": "May",
-                "description": "Μαι"
+                "id": "05",
+                "description": "Μαΐου"
             },
             {
-                "id": "June",
-                "description": "Ιουν"
+                "id": "06",
+                "description": "Ιουνίου"
             },
             {
-                "id": "July",
-                "description": "Ιουλ"
+                "id": "07",
+                "description": "Ιουλίου"
             },
             {
-                "id": "August",
-                "description": "Αυγ"
+                "id": "08",
+                "description": "Αυγούστου"
             },
             {
-                "id": "September",
-                "description": "Σεπ"
+                "id": "09",
+                "description": "Σεπτεμβρίου"
             },
             {
-                "id": "October",
-                "description": "Οκτ"
+                "id": "10",
+                "description": "Οκτωβρίου"
             },
             {
-                "id": "November",
-                "description": "Νοε"
+                "id": "11",
+                "description": "Νοεμβρίου"
             },
             {
-                "id": "December",
-                "description": "Δεκ"
+                "id": "12",
+                "description": "Δεκεμβρίου"
             }
         ]
     },
@@ -56,32 +56,32 @@
         "feature": "weekdays",
         "labels": [
             {
-                "id": "Mon",
+                "id": "0",
+                "description": "Κυριακή"
+            },
+            {
+                "id": "1",
                 "description": "Δευτέρα"
             },
             {
-                "id": "Tue",
+                "id": "2",
                 "description": "Τρίτη"
             },
             {
-                "id": "Wed",
+                "id": "3",
                 "description": "Τετάρτη"
             },
             {
-                "id": "Thu",
+                "id": "4",
                 "description": "Πέμπτη"
             },
             {
-                "id": "Fri",
+                "id": "5",
                 "description": "Παρασκευή"
             },
             {
-                "id": "Sat",
+                "id": "6",
                 "description": "Σάββατο"
-            },
-            {
-                "id": "Sun",
-                "description": "Κυριακή"
             }
         ]
     }

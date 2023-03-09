@@ -3,52 +3,52 @@
         "feature": "months",
         "labels": [
             {
-                "id": "January",
-                "description": "Led"
+                "id": "01",
+                "description": "Leden"
             },
             {
-                "id": "February",
-                "description": "Ún"
+                "id": "02",
+                "description": "Únor"
             },
             {
-                "id": "March",
-                "description": "Břez"
+                "id": "03",
+                "description": "Březen"
             },
             {
-                "id": "April",
-                "description": "Dub"
+                "id": "04",
+                "description": "Duben"
             },
             {
-                "id": "May",
-                "description": "Kvet"
+                "id": "05",
+                "description": "Květen"
             },
             {
-                "id": "June",
+                "id": "06",
                 "description": "Červen"
             },
             {
-                "id": "July",
-                "description": "Červen"
+                "id": "07",
+                "description": "Červenec"
             },
             {
-                "id": "August",
-                "description": "Srp"
+                "id": "08",
+                "description": "Srpen"
             },
             {
-                "id": "September",
-                "description": "Zár"
+                "id": "09",
+                "description": "Září"
             },
             {
-                "id": "October",
-                "description": "Říj"
+                "id": "10",
+                "description": "Říjen"
             },
             {
-                "id": "November",
-                "description": "List"
+                "id": "11",
+                "description": "Listopad"
             },
             {
-                "id": "December",
-                "description": "Pros"
+                "id": "12",
+                "description": "Prosinec"
             }
         ]
     },
@@ -56,32 +56,32 @@
         "feature": "weekdays",
         "labels": [
             {
-                "id": "Mon",
+                "id": "0",
+                "description": "Neděle"
+            },
+            {
+                "id": "1",
                 "description": "Pondělí"
             },
             {
-                "id": "Tue",
+                "id": "2",
                 "description": "Úterý"
             },
             {
-                "id": "Wed",
+                "id": "3",
                 "description": "Středa"
             },
             {
-                "id": "Thu",
+                "id": "4",
                 "description": "Čtvrtek"
             },
             {
-                "id": "Fri",
+                "id": "5",
                 "description": "Pátek"
             },
             {
-                "id": "Sat",
+                "id": "6",
                 "description": "Sobota"
-            },
-            {
-                "id": "Sun",
-                "description": "Neděle"
             }
         ]
     }

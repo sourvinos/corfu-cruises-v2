@@ -13,9 +13,9 @@
         <div id="days">
             <div *ngFor="let day of year" (click)="gotoReservationsList(day)" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
                 <div class="day-data">
-                    <div class="weekday">{{ getLocaleWeekdayName(day.weekdayName) }}</div>
+                    <div class="weekday">{{ getLocaleWeekdayName(day) }}</div>
                     <div class="date">{{ day.value }}</div>
-                    <div class="month">{{ getLocaleMonthName(day.monthName) }}</div>
+                    <div class="month">{{ getLocaleMonthName(day) }}</div>
                 </div>
                 <div *ngIf="day.destinations != undefined" class="reservation-data">
                     <div class="reservation">
