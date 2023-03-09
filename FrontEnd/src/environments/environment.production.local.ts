@@ -17,8 +17,6 @@ export const environment = {
     criteriaIconDirectory: 'assets/images/criteria/',
     stopOrdersIconDirectory: 'assets/images/stopOrders/',
     nationalitiesIconDirectory: 'assets/images/nationalities/',
-    calendarIconDirectory: 'assets/images/calendars/',
-    isWideScreen: 1920,
     cssUserSelect: 'none',
     login: {
         username: 'john',

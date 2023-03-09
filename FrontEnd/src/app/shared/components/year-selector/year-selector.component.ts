@@ -42,7 +42,7 @@ export class YearSelectorComponent {
     //#region public methods
 
     public getIcon(filename: string): string {
-        return environment.calendarIconDirectory + filename + '.svg'
+        return environment.menuIconDirectory + filename + '.svg'
     }
 
     public hideMenu(): void {
