@@ -2,6 +2,7 @@ import { Component, HostListener } from '@angular/core'
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router'
 // Custom
 import { AccountService } from '../shared/services/account.service'
+import { environment } from 'src/environments/environment'
 import { routeAnimation } from '../shared/animations/animations'
 
 @Component({
@@ -28,6 +29,10 @@ export class AppComponent {
 
     @HostListener('window:beforeunload', ['$event']) beforeUnloadHander(): any {
         this.accountService.logout()
+    }
+
+    ngOnInit(): void {
+        document.getElementById('main').style.userSelect = environment.cssUserSelect
     }
 
 }

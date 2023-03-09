@@ -19,6 +19,7 @@ export const environment = {
     nationalitiesIconDirectory: 'assets/images/nationalities/',
     calendarIconDirectory: 'assets/images/calendars/',
     isWideScreen: 1920,
+    cssUserSelect: 'none',
     login: {
         username: 'john',
         email: 'johnsourvinos@hotmail.com',
