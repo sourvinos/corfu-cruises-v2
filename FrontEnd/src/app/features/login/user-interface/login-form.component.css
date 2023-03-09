@@ -10,9 +10,9 @@
 
 #forgot-password {
     color: var(--color-c);
-    font-family: var(--font-family-manrope);
+    font-family: var(--font-family-asty);
     font-size: 0.8rem;
-    font-weight: 600;
+    font-weight: 100;
     margin-top: 1rem;
 }
 

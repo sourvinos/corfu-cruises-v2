@@ -1,6 +1,6 @@
 .mat-tooltip {
     color: var(--color-button-text) !important;
-    font-family: var(--font-family-handbook);
+    font-family: var(--font-family-asty);
     font-weight: var(--font-weight-tooltip);
 }
 

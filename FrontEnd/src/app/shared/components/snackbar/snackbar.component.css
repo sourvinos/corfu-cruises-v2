@@ -8,7 +8,7 @@
     align-items: center;
     color: var(--color-snackbar-text);
     display: flex;
-    font-family: var(--font-family-handbook);
+    font-family: var(--font-family-asty);
     font-size: var(--font-size-snackbar);
     font-weight: var(--font-weight-snackbar);
 }

@@ -1,7 +1,7 @@
 #criteria, #filters, #overbookings {
     align-items: center;
     display: flex;
-    font-family: var(--font-family-handbook);
+    font-family: var(--font-family-asty);
     gap: 0.5rem;
 }
 
@@ -74,5 +74,5 @@
     font-family: var(--font-family-inconsolata);
 }
 .normal {
-    font-family: var(--font-family-handbook);
+    font-family: var(--font-family-asty);
 }

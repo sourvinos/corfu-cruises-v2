@@ -18,8 +18,9 @@
     align-items: center;
     color: rgb(255 255 255 / 100%);
     display: flex;
-    font-family: var(--font-family-handbook);
-    font-size: 1rem;
+    font-family: var(--font-family-asty);
+    font-size: 0.8rem;
+    font-weight: 100;
     transform: scale(1, 1.4);
 }
 

@@ -29,9 +29,10 @@
     align-items: center;
     color: var(--color-button-text);
     display: flex;
-    font-family: var(--font-family-handbook);
+    font-family: var(--font-family-asty);
+    font-weight: 100;
     line-height: 0;
-    margin-left: auto;
+    margin: 0.0625rem 0 0 auto;
     transform: scale(1, 2.0);
 }
 

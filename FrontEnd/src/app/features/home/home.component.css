@@ -9,8 +9,9 @@
 
 #footer {
     color: var(--color-c);
-    font-family: var(--font-family-handbook);
-    font-size: 1.2rem;
+    font-family: var(--font-family-asty);
+    font-size: 0.8rem;
+    font-weight: 100;
 }
 
 a:link, a:visited {

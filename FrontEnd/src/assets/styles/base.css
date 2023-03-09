@@ -47,11 +47,6 @@
     src: url("/assets/fonts/ACCanterBold.ttf");
 }
 
-@font-face {
-    font-family: Pf-Handbook-Pro;
-    src: url("/assets/fonts/PFHandbookProThin.ttf");
-}
-
 * {
     box-sizing: border-box !important;
 }

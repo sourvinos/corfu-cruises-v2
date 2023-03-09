@@ -29,7 +29,6 @@
 }
 
 .mat-tab-label {
-    font-family: var(--font-family-handbook);
     font-weight: var(--font-weight-header);
     min-width: 3.125rem !important;
 }
@@ -49,7 +48,6 @@
 
 .mat-tab-label-content {
     color: var(--color-active-tab-text) !important;
-    font-family: var(--font-family-roboto) !important;
     font-size: var(--font-size-tab-label) !important;
     font-weight: var(--font-weight-button) !important;
 }
