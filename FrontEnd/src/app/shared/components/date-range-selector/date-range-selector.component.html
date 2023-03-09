@@ -1,3 +1,0 @@
-<mat-calendar #calendar (selectedChange)="selectedChange($event)" [selected]="selectedRangeValue" [startAt]="selectedRangeValue.start"></mat-calendar>
-<span *ngIf="selectedRangeValue.end==null" class="valid-range-icon">{{ getEmoji('warning') }}</span>
-<button (click)="gotoToday()" class="primary" mat-flat-button>{{ getLabel("todayButton") }}</button>

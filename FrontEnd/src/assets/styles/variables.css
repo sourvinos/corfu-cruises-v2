@@ -4,11 +4,7 @@
     --login-logo-text-size: 2.5rem;
     /* Font names */
     --font-family-asty: "Asty CF Std";
-    --font-family-handbook: "PF-Handbook-Pro";
-    --font-family-inconsolata: "Inconsolata";
     --font-family-logo: "Aka-Acid-CanterBold";
-    --font-family-manrope: "Manrope";
-    --font-family-montserrat: "Montserrat";
     --font-family-roboto: "Roboto";
     --font-family-ubuntu: "Ubuntu Condensed";
     /* Font weights */
@@ -38,7 +34,7 @@
     --font-size-map-tooltip: 1.1rem;
     --font-size-menu-headers: 1.4rem;
     --font-size-menu-items: 1.1rem;
-    --font-size-modal-text: 1.3rem;
+    --font-size-modal-text: 1.1rem;
     --font-size-paragraph: 0.7rem;
     --font-size-snackbar: 1.1rem;
     --font-size-sum-persons: 120%;

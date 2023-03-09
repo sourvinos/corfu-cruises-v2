@@ -29,6 +29,7 @@
     /* Date picker */
     --color-range-between: #ffeb3b;
     --color-day-selected: #ffc107;
+    --color-range: #000000;
     /* Custom calendar */
     --color-background-saturday: #f29c6b;
     --color-background-sunday: #f26513;

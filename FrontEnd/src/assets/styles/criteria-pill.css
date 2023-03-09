@@ -69,10 +69,3 @@
 .pi-filter::before {
     margin: 0 0.2rem 0 0.2rem;
 }
-
-.monotype {
-    font-family: var(--font-family-inconsolata);
-}
-.normal {
-    font-family: var(--font-family-asty);
-}

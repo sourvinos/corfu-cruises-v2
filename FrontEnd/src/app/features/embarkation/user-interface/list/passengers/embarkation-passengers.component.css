@@ -14,7 +14,8 @@
     align-items: center;
     color: var(--color-c);
     display: flex;
-    font-family: var(--font-family-manrope);
+    font-family: var(--font-family-asty);
+    font-weight: 100;
 }
 
 .embarkation-status:hover {

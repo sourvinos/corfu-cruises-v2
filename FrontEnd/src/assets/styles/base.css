@@ -1,6 +1,4 @@
 @import url("https://fonts.cdnfonts.com/css/asty-cf-std");
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Mono:wght@200&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
@@ -11,7 +9,6 @@
 
 @import url("autocomplete.css");
 @import url("buttons.css");
-@import url("card.css");
 @import url("checkbox.css");
 @import url("criteria-pill.css");
 @import url("date-picker.css");
@@ -33,11 +30,9 @@
 @import url("prime-table-filters.css");
 @import url("prime-table.css");
 @import url("radio.css");
-@import url("scrollable.css");
 @import url("skeleton.css");
 @import url("table-wrapper.css");
 @import url("tabs.css");
-@import url("tooltip.css");
 @import url("variables-narrow.css");
 @import url("variables-wide.css");
 @import url("variables.css");

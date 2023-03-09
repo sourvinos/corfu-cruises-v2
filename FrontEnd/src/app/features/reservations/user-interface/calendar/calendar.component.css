@@ -46,14 +46,17 @@
 
 .day-data .weekday, .day-data .month {
     color: var(--color-c);
-    font-family: var(--font-family-manrope);
+    font-family: var(--font-family-asty);
     font-size: 1rem;
+    font-weight: 100;
 }
 
 .day-data .date {
     color: var(--color-c);
-    font-family: var(--font-family-montserrat);
+    font-family: var(--font-family-asty);
     font-size: 1.8rem;
+    font-weight: 100;
+    margin-top: 0.3125rem;
     text-align: center;
     width: 3rem;
 }
@@ -97,8 +100,9 @@
 .destinations {
     color: var(--color-c);
     display: flex;
-    font-family: var(--font-family-montserrat);
+    font-family: var(--font-family-asty);
     font-size: 0.8rem;
+    font-weight: 100;
     justify-content: space-between;
     margin: 0.4rem 0;
 }
@@ -112,8 +116,9 @@
 
 .pax {
     color: var(--color-c);
-    font-family: var(--font-family-montserrat);
+    font-family: var(--font-family-asty);
     font-size: 1.5rem;
+    font-weight: 100;
     margin: auto auto 1rem auto;
     text-align: center;
 }
@@ -138,5 +143,5 @@
 .mat-icon#today {
     color: var(--color-background-today) !important;
     font-size: 1.4rem !important;
-    margin-top: 1px !important;
+    margin-top: -0.3125rem !important;
 }

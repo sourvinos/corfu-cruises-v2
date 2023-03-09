@@ -74,7 +74,7 @@
 .mat-calendar-body-cell {
     background-color: transparent !important;
     border-radius: 50%;
-    font-family: var(--font-family-manrope) !important;
+    font-family: var(--font-family-asty) !important;
     transition: background-color 0.4s ease-out;
 }
 
@@ -113,12 +113,15 @@
     background-color: var(--color-day-selected) !important;
     border: 0.0625rem solid var(--color-day-selected) !important;
     color: var(--color-a);
-    font-weight: bold !important;
 }
 
 .mat-calendar-body-in-range {
     background-color: var(--color-range-between) !important;
     border-radius: 50% !important;
+}
+
+.mat-calendar-body-in-range .mat-calendar-body-cell-content {
+    color: var(--color-range) !important;
 }
 
 .mat-calendar-body-cell::before, .mat-calendar-body-cell::after, .mat-calendar-body-cell-preview {
@@ -127,7 +130,6 @@
 }
 
 .mat-date-range-input-start-wrapper {
-    /* overflow: inherit !important; */
     width: 100% !important;
 }
 

@@ -23,9 +23,9 @@ button.trigger {
 
 #active-year {
     color: var(--color-c);
-    font-family: var(--font-family-montserrat);
+    font-family: var(--font-family-asty);
     font-size: 2rem;
-    font-weight: 600;
+    font-weight: 100;
     margin-left: auto;
     margin-right: 1rem;
     transform: scale(1.5, 1);
