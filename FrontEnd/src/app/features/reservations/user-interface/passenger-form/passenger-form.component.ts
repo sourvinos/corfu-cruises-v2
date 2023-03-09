@@ -46,8 +46,6 @@ export class PassengerFormComponent {
     public nationalities: NationalityVM[]
     public filteredNationalities: Observable<NationalityVM[]>
 
-    public isAdmin: boolean
-
     //#endregion
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: PassengerReadDto, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogRef: MatDialogRef<PassengerFormComponent>, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private ngZone: NgZone, private sessionStorageService: SessionStorageService) {
@@ -57,7 +55,6 @@ export class PassengerFormComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.getConnectedUserRole()
         this.initForm()
         this.populateDropdowns()
         this.populateFields()
@@ -100,6 +97,10 @@ export class PassengerFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public isAdmin(): boolean {
+        return ConnectedUser.isAdmin
+    }
+
     public updateFieldsAfterNationalitySelection(value: NationalityVM): void {
         this.form.patchValue({
             nationality: {
@@ -108,10 +109,6 @@ export class PassengerFormComponent {
                 'code': value.code,
             }
         })
-    }
-
-    public userMustBeAdminOrNewRecord(): boolean {
-        return this.isAdmin ? true : this.record.reservationId ? false : true
     }
 
     public save(): void {
@@ -160,10 +157,6 @@ export class PassengerFormComponent {
 
     private focusOnField(): void {
         this.helperService.focusOnField('')
-    }
-
-    private getConnectedUserRole(): void {
-        this.isAdmin = ConnectedUser.isAdmin ? true : false
     }
 
     private initForm(): void {

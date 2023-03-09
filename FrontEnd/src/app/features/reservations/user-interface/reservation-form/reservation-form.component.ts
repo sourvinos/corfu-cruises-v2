@@ -2,7 +2,8 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Observable, Subject, Subscription } from 'rxjs'
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
@@ -53,6 +54,7 @@ export class ReservationFormComponent {
     public isLoading = new Subject<boolean>()
     public parentUrl: string
 
+    public arrowIcon = new BehaviorSubject('arrow_drop_down')
     public dropdownCustomers: Observable<CustomerActiveVM[]>
     public dropdownDestinations: Observable<DestinationActiveVM[]>
     public dropdownDrivers: Observable<DriverActiveVM[]>
@@ -60,7 +62,6 @@ export class ReservationFormComponent {
     public dropdownPorts: Observable<PortActiveVM[]>
     public dropdownShips: Observable<DriverActiveVM[]>
 
-    public isAdmin: boolean
     public isNewRecord: boolean
     public passengerDifferenceIcon: string
     public isReservationTabVisible: boolean
@@ -152,12 +153,12 @@ export class ReservationFormComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public userMustBeAdmin(): boolean {
-        return this.isAdmin
+    public isAdmin(): boolean {
+        return ConnectedUser.isAdmin
     }
 
-    public userMustBeAdminOrNewRecord(): boolean {
-        return this.isAdmin ? true : this.recordId ? false : true
+    public isAdminOrNewRecord(): boolean {
+        return ConnectedUser.isAdmin || this.recordId == null
     }
 
     public onDelete(): void {
@@ -178,6 +179,10 @@ export class ReservationFormComponent {
 
     public onSave(): void {
         this.saveRecord(this.flattenForm())
+    }
+
+    public openOrCloseAutoComplete(trigger: MatAutocompleteTrigger, element: any): void {
+        this.helperService.openOrCloseAutocomplete(this.form, element, trigger)
     }
 
     public patchFormWithPassengers(passengers: any): void {
@@ -267,7 +272,6 @@ export class ReservationFormComponent {
     }
 
     private doPostInitTasks(): void {
-        this.getConnectedUserRole()
         this.getLinkedCustomer()
         this.populateDropDowns()
         this.setLocale()
@@ -344,10 +348,6 @@ export class ReservationFormComponent {
                 this.goBack()
             }
         })
-    }
-
-    private getConnectedUserRole(): void {
-        this.isAdmin = ConnectedUser.isAdmin ? true : false
     }
 
     private getStoredVariables(): void {

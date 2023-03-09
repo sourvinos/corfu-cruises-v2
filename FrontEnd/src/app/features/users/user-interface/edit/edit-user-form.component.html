@@ -23,7 +23,7 @@
             </mat-form-field>
             <!-- Customer -->
             <mat-form-field>
-                <mat-icon *ngIf="!isAdmin()" class=" lock">lock</mat-icon>
+                <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
                 <input #inputAutoComplete #trigger="matAutocompleteTrigger" (keydown)="enableOrDisableAutoComplete($event)" (keyup)="checkForEmptyAutoComplete($event)" [inputTabStop]="input" [matAutocompleteDisabled]="isAutoCompleteDisabled" [matAutocomplete]="customers" [placeholder]="getLabel('customer')" [readonly]="!isAdmin()" data-tabindex="3" formControlName="customer" matInput>
                 <div matSuffix style="display:flex">
                     <button (click)="openOrCloseAutoComplete(trigger, 'customer')" [disabled]="!isAdmin()" mat-icon-button type="button">

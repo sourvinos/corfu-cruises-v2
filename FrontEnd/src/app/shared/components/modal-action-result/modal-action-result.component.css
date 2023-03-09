@@ -91,10 +91,11 @@ svg {
 #dialog-content {
     color: var(--color-c);
     display: flex;
-    font-family: var(--font-family-handbook) !important;
+    font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-modal-text) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     justify-content: center;
+    line-height: 1.8rem;
     overflow: hidden;
     text-align: center;
 }
