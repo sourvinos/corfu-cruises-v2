@@ -43,7 +43,7 @@ export class ScheduleNewFormComponent {
 
     public destinations: SimpleEntity[]
     public ports: SimpleEntity[]
-    public weekdays: SimpleEntity[]
+    public weekdays: any[]
 
     public selectedFromDate = new Date()
     public selectedRangeValue: DateRange<Date>
@@ -209,13 +209,13 @@ export class ScheduleNewFormComponent {
 
     private populateWeekdays(): void {
         this.weekdays = [
-            { 'id': 1, 'description': 'Mon' },
-            { 'id': 2, 'description': 'Tue' },
-            { 'id': 3, 'description': 'Wed' },
-            { 'id': 4, 'description': 'Thu' },
-            { 'id': 5, 'description': 'Fri' },
-            { 'id': 6, 'description': 'Sat' },
-            { 'id': 7, 'description': 'Sun' }
+            { 'id': '0', 'description': 'Sun' },
+            { 'id': '1', 'description': 'Mon' },
+            { 'id': '2', 'description': 'Tue' },
+            { 'id': '3', 'description': 'Wed' },
+            { 'id': '4', 'description': 'Thu' },
+            { 'id': '5', 'description': 'Fri' },
+            { 'id': '6', 'description': 'Sat' }
         ]
     }
 

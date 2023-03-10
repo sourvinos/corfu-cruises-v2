@@ -129,7 +129,7 @@ export class VoucherService extends HttpDataService {
                         table: {
                             body: [
                                 [{ image: voucher.validPassengerIcon, fit: [32, 32], alignment: 'center' }],
-                                [{ text: 'Adults: ' + voucher.adults + ' ' + 'Kids: ' + voucher.kids + ' ' + 'Free: ' + voucher.free + ' ' + 'Total persons: ' + voucher.totalPersons, alignment: 'center' }],
+                                [{ text: 'Adults: ' + voucher.adults + ' ' + 'Kids: ' + voucher.kids + ' ' + 'Free: ' + voucher.free + ' ' + 'Total pax: ' + voucher.totalPax, alignment: 'center' }],
                                 [{ qr: voucher.qr, alignment: 'center', width: 200, style: ['paddingTop'], foreground: 'darkslategray' }],
                                 [{ text: 'Problems or questions? Call us at +30 26620 61400', alignment: 'center', style: ['small', 'paddingTop'] }],
                                 [{ text: 'or email at info@corfucruises.com', alignment: 'center', style: 'small' }],

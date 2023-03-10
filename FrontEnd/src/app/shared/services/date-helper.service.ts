@@ -22,7 +22,7 @@ export class DateHelperService {
         const parts = date.split('-')
         const rawDate = new Date(date)
         const dateWithLeadingZeros = this.addLeadingZerosToDateParts(new Intl.DateTimeFormat(this.sessionStorageService.getLanguage()).format(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))), showYear)
-        const weekday = this.messageCalendarService.getDescription('weekdays', rawDate.toDateString().substring(0, 3))
+        const weekday = this.messageCalendarService.getDescription('weekdays', rawDate.getDay().toString())
         return showWeekday ? weekday + ' ' + dateWithLeadingZeros : dateWithLeadingZeros
     }
 

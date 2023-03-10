@@ -1,13 +1,14 @@
 import { ActivatedRoute, Router } from '@angular/router'
+import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverActiveVM } from '../../../drivers/classes/view-models/driver-active-vm'
@@ -70,7 +71,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService, private warningIconService: WarningIconService) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService, private warningIconService: WarningIconService) { }
 
     //#region lifecycle hooks
 
@@ -89,7 +90,6 @@ export class ReservationFormComponent {
 
     ngOnDestroy(): void {
         this.cleanup()
-        this.clearStoredVariables()
     }
 
     //#endregion
@@ -227,13 +227,6 @@ export class ReservationFormComponent {
         this.form.patchValue({ totalPax: Number(totalPax) ? totalPax : 0 })
     }
 
-    private clearStoredVariables(): void {
-        this.sessionStorageService.deleteItems([
-            { 'item': 'destinationId', 'when': 'always' },
-            { 'item': 'destinationDescription', 'when': 'always' }
-        ])
-    }
-
     private cleanup(): void {
         this.subscription.unsubscribe()
     }
@@ -241,13 +234,13 @@ export class ReservationFormComponent {
     private createVoucherFromReservation(): any {
         const form = this.form.value
         const voucher = {
-            'date': form.date,
+            'date': this.dateHelperService.formatISODateToLocale(form.date),
             'refNo': form.refNo,
             'destinationDescription': form.destination.description,
             'customerDescription': form.customer.description,
             'pickupPointDescription': form.pickupPoint.description,
-            'pickupPointExactPoint': form.pickupPoint.exactPoint,
-            'pickupPointTime': form.pickupPoint.time,
+            'pickupPointExactPoint': form.exactPoint,
+            'pickupPointTime': form.time,
             'adults': form.adults,
             'kids': form.kids,
             'free': form.free,
@@ -264,7 +257,8 @@ export class ReservationFormComponent {
 
     private doNewOrEditTasks(): void {
         if (this.isNewRecord) {
-            this.getStoredVariables()
+            this.getStoredDate()
+            this.getStoredDestination()
         } else {
             this.getRecord()
             this.populateFields()
@@ -298,7 +292,7 @@ export class ReservationFormComponent {
             pickupPointId: form.pickupPoint.id,
             portId: form.port.id,
             shipId: form.ship ? form.ship.id : null,
-            date: form.date,
+            date: this.dateHelperService.formatDateToIso(new Date(this.form.value.date)),
             refNo: form.refNo,
             ticketNo: form.ticketNo,
             email: form.email,
@@ -317,7 +311,7 @@ export class ReservationFormComponent {
     }
 
     private getLinkedCustomer(): void {
-        if (this.isNewRecord) {
+        if (ConnectedUser.isAdmin == false && this.isNewRecord) {
             const x = JSON.parse(this.sessionStorageService.getItem('customers'))
             const z = x.filter(x => x.id == ConnectedUser.customerId)
             this.form.patchValue({
@@ -350,14 +344,26 @@ export class ReservationFormComponent {
         })
     }
 
-    private getStoredVariables(): void {
-        this.form.patchValue({
-            date: this.sessionStorageService.getItem('date'),
-            destination: {
-                'id': this.sessionStorageService.getItem('destinationId'),
-                'description': this.sessionStorageService.getItem('destinationDescription')
-            }
-        })
+
+    private getStoredDate(): void {
+        if (this.sessionStorageService.getItem('date') != '') {
+            const x = this.sessionStorageService.getItem('date')
+            this.form.patchValue({
+                'date': x
+            })
+        }
+    }
+
+    private getStoredDestination(): void {
+        if (this.sessionStorageService.getItem('destination') != '') {
+            const x = JSON.parse(this.sessionStorageService.getItem('destination'))
+            this.form.patchValue({
+                'destination': {
+                    'id': x.id,
+                    'description': x.description
+                }
+            })
+        }
     }
 
     private goBack(): void {
@@ -471,6 +477,7 @@ export class ReservationFormComponent {
             },
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
+                this.sessionStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
             }
         })
     }

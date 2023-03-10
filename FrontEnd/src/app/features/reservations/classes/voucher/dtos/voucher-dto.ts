@@ -17,7 +17,7 @@ export interface VoucherDto {
     adults: string
     kids: string
     free: string
-    totalPersons: string
+    totalPax: string
     validPassengerIcon: string
 
 }

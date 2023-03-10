@@ -28,7 +28,7 @@
                         </mat-form-field>
                         <!-- Date -->
                         <mat-form-field>
-                            <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
+                            <mat-icon *ngIf="!isAdminOrNewRecord()" class="lock">lock</mat-icon>
                             <input [inputTabStop]="input" [matDatepicker]="picker" [placeholder]="getLabel('date')" [readonly]="!isAdmin()" data-tabindex="1" formControlName="date" matInput>
                             <mat-datepicker-toggle [disabled]="!isAdminOrNewRecord()" matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
@@ -177,7 +177,10 @@
 
     <div id="footer">
         <div class="button-group-right">
-            <button *ngIf="form.value.reservationId != ''" (click)="onDelete()" class="delete" mat-flat-button>{{ getLabel('deleteButton') }}</button>
+            <button *ngIf="form.value.reservationId != ''" (click)="onDelete()" [disabled]="!isAdmin()" class="delete" mat-flat-button>
+                <mat-icon *ngIf="!isAdmin()" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel('deleteButton') }}</span>
+            </button>
             <button (click)="onSave()" [disabled]="!form.valid || !checkTotalPaxAgainstPassengerCount()" class="primary" mat-flat-button>
                 <mat-icon *ngIf="!form.valid || !checkTotalPaxAgainstPassengerCount()" class="button-icon">lock</mat-icon>
                 <mat-icon *ngIf="checkForTempPassengers()" class="button-icon">warning</mat-icon>

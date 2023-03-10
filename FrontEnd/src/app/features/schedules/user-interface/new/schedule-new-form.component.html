@@ -116,7 +116,7 @@
                                 <div class="styled-input-square">
                                     <div class="styled-input-single" (change)="checkboxChange($event, 'allWeekdaysCheckbox', 'weekdays', weekdays, weekday.description)">
                                         <input class="weekday" formArrayName="weekdays" type="checkbox" [value]="weekday.id" [attr.id]="'weekday' + weekday.id">
-                                        <label [attr.for]="'weekday' + weekday.id" [attr.id]="'weekday-label' + weekday.id">{{ getWeekday(weekday.description) | trimString:33 }}</label>
+                                        <label [attr.for]="'weekday' + weekday.id" [attr.id]="'weekday-label' + weekday.id">{{ getWeekday(weekday.id) | trimString:33 }}</label>
                                     </div>
                                 </div>
                             </div>

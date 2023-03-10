@@ -211,6 +211,7 @@
 }
 
 #goto-today {
+    background-color: transparent !important;
     box-shadow: none;
     position: absolute;
     right: -0.8125rem;

@@ -330,7 +330,6 @@ export class ReservationListComponent {
         return promise
     }
 
-
     private populateDropdownFilters(): void {
         this.dropdownCoachRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'description')
         this.dropdownCustomers = this.helperService.getDistinctRecords(this.records, 'customer', 'description')
