@@ -33,21 +33,21 @@
     font-weight: 100;
     line-height: 0;
     margin: 0.0625rem 0 0 auto;
-    transform: scale(1, 1.8);
+    transform: scale(0.8, 1.5);
 }
 
-.filter-pill .pill .pill:nth-child(1) {
-    background-color: var(--color-criteria-a) !important;
+.filter-pill .pill:nth-child(1) {
+    background-image: var(--color-criteria-a) !important;
 }
 
 .filter-pill .pill:nth-child(2) {
-    background-color: var(--color-criteria-b) !important;
+    background-image: var(--color-criteria-b) !important;
 }
 
 .filter-pill .pill:nth-child(3) {
-    background-color: var(--color-criteria-c) !important;
+    background-image: var(--color-criteria-c) !important;
 }
 
 .filter-pill .pill:nth-child(4) {
-    background-color: var(--color-criteria-d) !important;
+    background-image: var(--color-criteria-d) !important;
 }
