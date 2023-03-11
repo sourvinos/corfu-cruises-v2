@@ -16,6 +16,10 @@
     top: -0.0625rem;
 }
 
-tr:hover {
-    cursor: pointer;
+.mat-menu-item span {
+    font-size: 0.75rem !important;
+}
+
+.button-icon.no-right-margin {
+    margin-right: 0;
 }

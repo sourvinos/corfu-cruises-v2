@@ -52,7 +52,6 @@ export class ReservationListComponent {
     private virtualElement: any
 
     public totalPax = [0, 0, 0]
-    public isAdmin: boolean
     public overbookedDestinations: ReservationListOverbookedDestinationVM[] = []
 
     public dropdownCoachRoutes: ReservationListCoachRouteVM[] = []
@@ -70,7 +69,6 @@ export class ReservationListComponent {
         this.subscription = this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
                 this.updateRouter()
-                this.getConnectedUserRole()
                 this.loadRecords()
                 this.populateDropdownFilters()
                 this.filterTableFromStoredFilters()
@@ -288,10 +286,6 @@ export class ReservationListComponent {
         }
     }
 
-    private getConnectedUserRole(): void {
-        this.isAdmin = ConnectedUser.isAdmin ? true : false
-    }
-
     private getDistinctDriverIds(): any[] {
         const driverIds = []
         this.dropdownDrivers.forEach(driver => {
@@ -306,6 +300,10 @@ export class ReservationListComponent {
 
     private hightlightSavedRow(): void {
         this.helperService.highlightSavedRow(this.feature)
+    }
+
+    public isAdmin(): boolean {
+        return ConnectedUser.isAdmin
     }
 
     private isAnyRowSelected(): boolean {

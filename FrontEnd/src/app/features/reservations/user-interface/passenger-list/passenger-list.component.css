@@ -35,10 +35,6 @@
     color: var(--color-red);
 }
 
-.passenger-count-wrapper .material-icons.error:hover {
-    cursor: pointer;
-}
-
 .passenger-count-wrapper .material-icons.error:first-child {
     font-size: 1.4rem;
     margin-top: 2px;
@@ -51,10 +47,6 @@
     font-weight: 300;
     margin-top: 0.1875rem;
     transition: all var(--theme-change-delay) ease-in;
-}
-
-tr:hover {
-    cursor: pointer;
 }
 
 .fa-trash-alt {

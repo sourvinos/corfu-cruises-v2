@@ -90,6 +90,10 @@
     background-color: transparent !important;
 }
 
+.p-datatable .p-datatable-tbody > tr:hover {
+    cursor: pointer !important;
+}
+
 .p-datatable .p-datatable-tbody > tr:focus {
     outline: none !important;
 }

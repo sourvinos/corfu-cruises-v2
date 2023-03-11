@@ -23,10 +23,10 @@
                         <th class="width-8" pSortableColumn="ticketNo">{{ getLabel('headerTicketNo') }}</th>
                         <th class="width-5" pSortableColumn="customer.description">{{ getLabel('headerCustomer') }}</th>
                         <th class="width-6" pSortableColumn="destination.description">{{ getLabel('headerDestination') }}</th>
-                        <th class="width-5" pSortableColumn="coachRoute.description">{{ getLabel('headerRoute') }}</th>
+                        <th class="width-5" pSortableColumn="coachRoute.abbreviation">{{ getLabel('headerRoute') }}</th>
                         <th class="width-8" pSortableColumn="pickupPoint.description">{{ getLabel('headerPickupPoint') }}</th>
-                        <th class="width-3" pSortableColumn="time">{{ getLabel('headerTime') }}</th>
-                        <th class="width-2" pSortableColumn="totalPersons">{{ getLabel('headerTotal') }}</th>
+                        <th class="width-3" pSortableColumn="pickupPoint.time">{{ getLabel('headerTime') }}</th>
+                        <th class="width-2" pSortableColumn="totalPax">{{ getLabel('headerTotal') }}</th>
                         <th class="width-4" pSortableColumn="passengerCount">{{ getLabel('headerTotal') }}1</th>
                         <th class="width-5" pSortableColumn="driver.description">{{ getLabel('headerDriver') }}</th>
                         <th class="width-5" pSortableColumn="port.description">{{ getLabel('headerPort') }}</th>
@@ -142,7 +142,7 @@
                         <td class="center width-5">{{ reservation.coachRoute.abbreviation }}</td>
                         <td class="width-8">{{ reservation.pickupPoint.description }}</td>
                         <td class="center width-3">{{ reservation.pickupPoint.time }}</td>
-                        <td class="right width-2">{{ reservation.totalPersons }}</td>
+                        <td class="right width-2">{{ reservation.totalPax }}</td>
                         <td class="right width-4">
                             <span>{{ reservation.passengerCount }} ({{ reservation.passengerDifference }})</span>
                             <span class="passenger-difference-icon">&nbsp;&nbsp;{{ showEmoji(reservation.passengerDifference) }}</span>
@@ -195,7 +195,16 @@
 </div>
 
 <ng-template #contextMenu>
-    <button mat-menu-item class="reverse" (click)="assignToDriver()"><span>{{ getLabel('assignToDriverButton') }}</span></button>
-    <button mat-menu-item class="reverse" (click)="assignToShip()"><span>{{ getLabel('assignToShipButton') }}</span></button>
-    <button mat-menu-item class="reverse" (click)="createPdf()"><span>{{ getLabel('createPdfButton') }}</span></button>
+    <button (click)="assignToDriver()" [disabled]="!isAdmin()" class="reverse" mat-menu-item>
+        <mat-icon *ngIf="!isAdmin()" class="button-icon no-right-margin">lock</mat-icon>
+        <span>{{ getLabel('assignToDriverButton') }}</span>
+    </button>
+    <button (click)="assignToShip()" [disabled]="!isAdmin()" class="reverse" mat-menu-item>
+        <mat-icon *ngIf="!isAdmin()" class="button-icon no-right-margin">lock</mat-icon>
+        <span>{{ getLabel('assignToShipButton') }}</span>
+    </button>
+    <button (click)="createPdf()" [disabled]="!isAdmin()" class="reverse" mat-menu-item>
+        <mat-icon *ngIf="!isAdmin()" class="button-icon no-right-margin">lock</mat-icon>
+        <span>{{ getLabel('createPdfButton') }}</span>
+    </button>
 </ng-template>
