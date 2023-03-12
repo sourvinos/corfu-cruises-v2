@@ -88,7 +88,7 @@ export class LoginFormComponent {
     }
 
     private clearStoredVariables(): void {
-        this.accountService.clearLocalStorage()
+        this.accountService.clearSessionStorage()
     }
 
     private focusOnField(field: string): void {

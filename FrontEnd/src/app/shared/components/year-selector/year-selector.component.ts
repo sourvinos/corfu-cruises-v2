@@ -52,8 +52,8 @@ export class YearSelectorComponent {
     }
 
     public selectYear(year: string): any {
+        // this.sessionStorageService.saveItem('year', year)
         this.yearEmitter.emit(year)
-        this.sessionStorageService.deleteItems([{ 'item': 'scrollLeft', 'when': 'always' }])
     }
 
     //#endregion

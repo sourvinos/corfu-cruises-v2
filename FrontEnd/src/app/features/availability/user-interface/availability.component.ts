@@ -1,7 +1,6 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
-import { Subscription } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DayVM } from '../classes/view-models/day-vm'
@@ -13,6 +12,7 @@ import { MessageLabelService } from './../../../shared/services/messages-label.s
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
+import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 
 @Component({
     selector: 'availability',
@@ -24,7 +24,6 @@ export class AvailabilityComponent {
 
     // #region variables
 
-    private subscription = new Subscription()
     private url = '/availability'
     public feature = 'availabilityCalendar'
     public featureIcon = 'availability'
@@ -32,81 +31,51 @@ export class AvailabilityComponent {
     public parentUrl = '/'
     private records: DayVM[] = []
 
-    private days: any
+    private daysWrapper: any
     public activeYear: number
     public dayWidth: number
+    public days: DayVM[] = []
     public todayScrollPosition: number
-    public year: DayVM[] = []
 
     // #endregion 
 
     constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService,) {
-        this.subscription = this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd) {
-                if (navigation.url == this.url) {
-                    this.doActiveYearTasks()
-                    this.buildCalendar()
-                    this.updateCalendar()
-                }
+        this.router.events.subscribe((navigation) => {
+            if (navigation instanceof NavigationEnd && navigation.url == this.url) {
+                this.setYear()
+                this.buildCalendar()
+                this.updateCalendar()
+                this.setLocale()
+                this.subscribeToInteractionService()
+                setTimeout(() => {
+                    this.updateDayVariables()
+                    this.scrollToToday()
+                    this.enableHorizontalScroll()
+                    this.setLocale()
+                    this.subscribeToInteractionService()
+                }, 1000)
             }
         })
     }
 
-    //#region lifecycle hooks
-
-    ngOnInit(): void {
-        this.setLocale()
-        this.subscribeToInteractionService()
-    }
-
-    ngAfterViewInit(): void {
-        setTimeout(() => {
-            this.updateDayVariables()
-            this.scrollToTodayOrStoredDate(false)
-            this.enableHorizontalScroll()
-        }, 500)
-    }
-
-    ngOnDestroy(): void {
-        this.cleanup()
-    }
-
-    private cleanup(): void {
-        this.subscription.unsubscribe()
-    }
-
-    //#endregion 
-
     //#region public methods
 
     public currentYearIsNotDisplayedYear(): boolean {
-        return this.dateHelperService.getCurrentYear().toString() != this.sessionStorageService.getItem('activeYearAvailability')
+        return this.dateHelperService.getCurrentYear().toString() != this.sessionStorageService.getItem('year')
     }
 
     public dayHasSchedule(day: DayVM): boolean {
         return day.destinations?.length >= 1
     }
 
-    public doActiveYearTasks(year?: any): void {
-        if (year == undefined) {
-            const storedYear = parseInt(this.sessionStorageService.getItem('activeYearAvailability'))
-            if (isNaN(storedYear)) {
-                this.activeYear = this.dateHelperService.getCurrentYear()
-                this.sessionStorageService.saveItem('activeYearAvailability', this.activeYear.toString())
-            } else {
-                this.activeYear = storedYear
-            }
-        } else {
-            if (year != this.getActiveYear) {
-                this.activeYear = parseInt(year)
-                this.sessionStorageService.saveItem('activeYearAvailability', this.activeYear.toString())
-                this.router.navigate([this.url])
-            }
-        }
+    public doTasksAfterYearSelection(event: any): void {
+        this.activeYear = parseInt(event)
+        this.sessionStorageService.saveItem('year', event)
+        this.router.navigate([this.url])
     }
 
-    public doReservationTasks(date: string, destinationId: number, destinationDescription: string): void {
-        this.storeCriteria(date, destinationId, destinationDescription)
+    public doReservationTasks(date: string, destination: SimpleEntity): void {
+        this.storeCriteria(date, destination)
         this.navigateToNewReservation()
     }
 
@@ -114,8 +83,16 @@ export class AvailabilityComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
+    public getLocaleMonthName(day: any): string {
+        return this.messageCalendarService.getDescription('months', day.date.substring(5, 7))
+    }
+
+    public getLocaleWeekdayName(day: any): string {
+        return this.messageCalendarService.getDescription('weekdays', new Date(day.date).getDay().toString())
+    }
+
     public gotoToday(): void {
-        this.scrollToTodayOrStoredDate(true)
+        this.scrollToToday()
     }
 
     public isSaturday(day: any): boolean {
@@ -136,7 +113,6 @@ export class AvailabilityComponent {
 
     public setActiveMonth(month: number): void {
         this.scrollToMonth(month)
-        this.storeScrollLeft()
     }
 
     //#endregion
@@ -144,7 +120,7 @@ export class AvailabilityComponent {
     //#region private methods
 
     private buildCalendar(): void {
-        this.year = []
+        this.days = []
         for (let index = 0; index < 12; index++) {
             const startDate = new Date().setFullYear((this.activeYear), index, 1)
             const endDate = new Date().setFullYear((this.activeYear), index + 1, 0)
@@ -152,7 +128,7 @@ export class AvailabilityComponent {
             Object.keys([...Array(diffDays)]).map((a: any) => {
                 a = parseInt(a) + 1
                 const dayObject = new Date((this.activeYear), index, a)
-                this.year.push({
+                this.days.push({
                     date: this.dateHelperService.formatDateToIso(dayObject, false),
                     weekdayName: dayObject.toLocaleString('default', { weekday: 'short' }),
                     value: a,
@@ -168,18 +144,12 @@ export class AvailabilityComponent {
         this.helperService.enableHorizontalScroll(document.querySelector('#days'))
     }
 
-    private getActiveYear(): void {
-        this.activeYear = isNaN(parseInt(this.sessionStorageService.getItem('activeYearAvailability')))
-            ? this.dateHelperService.getCurrentYear()
-            : parseInt(this.sessionStorageService.getItem('activeYearAvailability'))
-    }
-
     private getMonthOffset(month: number): number {
         return this.dateHelperService.getMonthFirstDayOffset(month, this.activeYear.toString())
     }
 
     private getReservations(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error == null) {
                 this.records = listResolved.list
@@ -189,15 +159,6 @@ export class AvailabilityComponent {
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
             }
         })
-        return promise
-    }
-
-    public getLocaleMonthName(monthName: string): string {
-        return this.messageCalendarService.getDescription('months', monthName)
-    }
-
-    public getLocaleWeekdayName(weekdayName: string): string {
-        return this.messageCalendarService.getDescription('weekdays', weekdayName)
     }
 
     private getTodayLeftScroll(): number {
@@ -214,23 +175,15 @@ export class AvailabilityComponent {
     }
 
     private scrollToMonth(month: number): void {
-        this.days.scrollLeft = this.getMonthOffset(month) * this.dayWidth
+        this.daysWrapper.scrollLeft = this.getMonthOffset(month) * this.dayWidth
         document.getElementById(this.activeYear.toString() + '-' + (month.toString().length == 1 ? '0' + month.toString() : month.toString()) + '-' + '01').scrollIntoView()
     }
 
-    private scrollToTodayOrStoredDate(ignoreStoredScrollLeft: boolean): void {
-        const scrollLeft = localStorage.getItem('scrollLeft')
-        if (ignoreStoredScrollLeft || scrollLeft == null) {
-            setTimeout(() => {
-                this.todayScrollPosition = this.getTodayLeftScroll() - 2
-                this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
-                this.sessionStorageService.deleteItems([
-                    { 'item': 'scrollLeft', 'when': 'always' }
-                ])
-            }, 500)
-        } else {
-            const z = document.getElementById('days')
-            z.scrollLeft = parseInt(scrollLeft)
+    private scrollToToday(): void {
+        if (this.dateHelperService.getCurrentYear() == this.activeYear) {
+            this.todayScrollPosition = this.getTodayLeftScroll() - 2
+            this.daysWrapper.scrollLeft = this.todayScrollPosition * this.dayWidth
+            this.sessionStorageService.saveItem('scrollLeft', this.daysWrapper.scrollLeft)
         }
     }
 
@@ -238,15 +191,16 @@ export class AvailabilityComponent {
         this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
     }
 
-    private storeCriteria(date: string, destinationId: number, destinationDescription: string): void {
-        this.sessionStorageService.saveItem('date', date)
-        this.sessionStorageService.saveItem('destinationId', destinationId.toString())
-        this.sessionStorageService.saveItem('destinationDescription', destinationDescription.toString())
-        this.sessionStorageService.saveItem('returnUrl', '/availability')
+    private setYear(): void {
+        this.activeYear = parseInt(this.sessionStorageService.getItem('year'))
     }
 
-    private storeScrollLeft(): void {
-        this.sessionStorageService.saveItem('scrollLeft', document.getElementById('days').scrollLeft.toString())
+    private storeCriteria(date: string, destination: SimpleEntity): void {
+        this.sessionStorageService.saveItem('date', date)
+        this.sessionStorageService.saveItem('destination', JSON.stringify({
+            'id': destination.id,
+            'description': destination.description
+        }))
     }
 
     private subscribeToInteractionService(): void {
@@ -262,15 +216,15 @@ export class AvailabilityComponent {
     }
 
     private updateDayVariables(): void {
-        this.days = document.querySelector('#days')
+        this.daysWrapper = document.querySelector('#days')
         this.dayWidth = document.querySelectorAll('.day')[0].getBoundingClientRect().width
     }
 
     private updateCalendarWithReservations(): void {
         this.records.forEach(day => {
-            const x = this.year.find(x => x.date == day.date)
+            const x = this.days.find(x => x.date == day.date)
             if (x != undefined) {
-                this.year[this.year.indexOf(x)].destinations = day.destinations
+                this.days[this.days.indexOf(x)].destinations = day.destinations
             }
         })
     }

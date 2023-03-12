@@ -50,11 +50,20 @@ export class AccountService extends HttpDataService {
         return this.http.post<any>(environment.apiUrl + '/account/changePassword/', formData)
     }
 
-    public clearLocalStorage(): void {
+    public clearSessionStorage(): void {
         this.sessionStorageService.deleteItems([
-            // Calendars
-            { 'item': 'activeYearAvailability', 'when': 'always' },
-            { 'item': 'activeYearReservations', 'when': 'always' },
+            // Auth
+            { 'item': 'expiration', 'when': 'always' },
+            { 'item': 'jwt', 'when': 'always' },
+            { 'item': 'loginStatus', 'when': 'always' },
+            { 'item': 'refreshToken', 'when': 'always' },
+            { 'item': 'returnUrl', 'when': 'always' },
+            { 'item': 'isAdmin', 'when': 'always' },
+            // Reservations
+            { 'item': 'date', 'when': 'always' },
+            { 'item': 'scrollLeft', 'when': 'always' },
+            { 'item': 'year', 'when': 'always' },
+            { 'item': 'destination', 'when': 'always' },
             // Criteria
             { 'item': 'embarkation-criteria', 'when': 'production' },
             { 'item': 'ledger-criteria', 'when': 'production' },
@@ -143,7 +152,6 @@ export class AccountService extends HttpDataService {
 
     public logout(): void {
         this.setLoginStatus(false)
-        this.clearLocalStorage()
         this.clearSessionStorage()
         this.refreshMenus()
         this.navigateToLogin()
@@ -169,22 +177,6 @@ export class AccountService extends HttpDataService {
             }
         }
         return false
-    }
-
-    private clearSessionStorage(): void {
-        this.sessionStorageService.deleteItems([
-            // Auth
-            { 'item': 'expiration', 'when': 'always' },
-            { 'item': 'jwt', 'when': 'always' },
-            { 'item': 'loginStatus', 'when': 'always' },
-            { 'item': 'refreshToken', 'when': 'always' },
-            { 'item': 'returnUrl', 'when': 'always' },
-            { 'item': 'isAdmin', 'when': 'always' },
-            // Reservations
-            { 'item': 'date', 'when': 'always' },
-            { 'item': 'scrollLeft', 'when': 'always' },
-            { 'item': 'year', 'when': 'always' },
-        ])
     }
 
     private navigateToLogin(): void {

@@ -14,7 +14,7 @@ export class AvailabilityCalendarResolver {
     constructor(private availabilityService: AvailabilityService, private dateHelperService: DateHelperService, private sessionStorageService: SessionStorageService) { }
 
     resolve(): Observable<ListResolved> {
-        let year = parseInt(this.sessionStorageService.getItem('activeYearAvailability'))
+        let year = parseInt(this.sessionStorageService.getItem('year'))
         if (isNaN(year)) {
             year = this.dateHelperService.getCurrentYear()
         }
