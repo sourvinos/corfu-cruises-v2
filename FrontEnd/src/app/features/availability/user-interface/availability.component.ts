@@ -24,12 +24,12 @@ export class AvailabilityComponent {
 
     // #region variables
 
+    private records: DayVM[] = []
     private url = '/availability'
     public feature = 'availabilityCalendar'
     public featureIcon = 'availability'
     public icon = 'home'
     public parentUrl = '/'
-    private records: DayVM[] = []
 
     private daysWrapper: any
     public activeYear: number
@@ -45,8 +45,6 @@ export class AvailabilityComponent {
                 this.setYear()
                 this.buildCalendar()
                 this.updateCalendar()
-                this.setLocale()
-                this.subscribeToInteractionService()
                 setTimeout(() => {
                     this.updateDayVariables()
                     this.scrollToToday()

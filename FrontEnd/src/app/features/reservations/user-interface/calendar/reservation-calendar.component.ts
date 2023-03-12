@@ -1,7 +1,6 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
-import { Subject, takeUntil } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DayVM } from 'src/app/features/reservations/classes/view-models/calendar/day-vm'
@@ -16,38 +15,33 @@ import { SessionStorageService } from 'src/app/shared/services/session-storage.s
 
 @Component({
     selector: 'calendar',
-    templateUrl: './calendar.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './calendar.component.css']
+    templateUrl: './reservation-calendar.component.html',
+    styleUrls: ['../../../../../assets/styles/lists.css', './reservation-calendar.component.css']
 })
 
-export class CalendarComponent {
+export class ReservationCalendarComponent {
 
     // #region variables
 
-    private unsubscribe = new Subject<void>()
+    private records: DayVM[] = []
+    private url = '/reservations'
     public feature = 'reservationsCalendar'
     public featureIcon = 'reservations'
     public icon = 'home'
     public parentUrl = '/'
-    private records: DayVM[] = []
 
-    private days: any
-    private url = '/reservations'
+    private daysWrapper: any
     public activeYear: number
-    public activeMonth: number
     public dayWidth: number
-    public imgIsLoaded = false
-    public isLoading: boolean
-    public months: any[]
+    public days: DayVM[] = []
     public todayScrollPosition: number
-    public year: DayVM[] = []
 
     // #endregion 
 
     constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && navigation.url == this.url) {
-                this.getActiveYear()
+                this.setYear()
                 this.buildCalendar()
                 this.updateCalendar()
                 setTimeout(() => {
@@ -72,6 +66,12 @@ export class CalendarComponent {
         return day.destinations?.length >= 1
     }
 
+    public doTasksAfterYearSelection(event: any): void {
+        this.activeYear = parseInt(event)
+        this.sessionStorageService.saveItem('year', event)
+        this.router.navigate([this.url])
+    }
+
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
@@ -89,12 +89,10 @@ export class CalendarComponent {
         this.storeScrollLeft()
     }
 
-    public gotoReservationsList(date: any): void {
-        if (this.dayHasSchedule(date)) {
-            this.storeVariables(date.date)
-            this.storeScrollLeft()
-            this.navigateToList()
-        }
+    public doReservationTasks(date: string): void {
+        this.storeCriteria(date)
+        this.storeScrollLeft()
+        this.navigateToList()
     }
 
     public gotoToday(): void {
@@ -125,7 +123,7 @@ export class CalendarComponent {
     //#region private methods
 
     private buildCalendar(): void {
-        this.year = []
+        this.days = []
         for (let index = 0; index < 12; index++) {
             const startDate = new Date().setFullYear((this.activeYear), index, 1)
             const endDate = new Date().setFullYear((this.activeYear), index + 1, 0)
@@ -133,7 +131,7 @@ export class CalendarComponent {
             Object.keys([...Array(diffDays)]).map((a: any) => {
                 a = parseInt(a) + 1
                 const dayObject = new Date((this.activeYear), index, a)
-                this.year.push({
+                this.days.push({
                     date: this.dateHelperService.formatDateToIso(dayObject, false),
                     weekdayName: dayObject.toLocaleString('default', { weekday: 'short' }),
                     value: a,
@@ -146,12 +144,6 @@ export class CalendarComponent {
 
     private enableHorizontalScroll(): void {
         this.helperService.enableHorizontalScroll(document.querySelector('#days'))
-    }
-
-    private getActiveYear(): void {
-        this.activeYear = isNaN(parseInt(this.sessionStorageService.getItem('year')))
-            ? this.dateHelperService.getCurrentYear()
-            : parseInt(this.sessionStorageService.getItem('year'))
     }
 
     private getMonthOffset(month: number): number {
@@ -208,8 +200,12 @@ export class CalendarComponent {
         this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
     }
 
+    private setYear(): void {
+        this.activeYear = parseInt(this.sessionStorageService.getItem('year'))
+    }
+
     private scrollToMonth(month: number): void {
-        this.days.scrollLeft = this.getMonthOffset(month) * this.dayWidth
+        this.daysWrapper.scrollLeft = this.getMonthOffset(month) * this.dayWidth
         document.getElementById(this.activeYear.toString() + '-' + (month.toString().length == 1 ? '0' + month.toString() : month.toString()) + '-' + '01').scrollIntoView()
     }
 
@@ -220,19 +216,19 @@ export class CalendarComponent {
             days.scrollLeft = parseInt(scrollLeft)
         } else {
             days.scrollLeft = 0
-            this.sessionStorageService.saveItem('scrollLeft', this.days.scrollLeft)
+            this.sessionStorageService.saveItem('scrollLeft', this.daysWrapper.scrollLeft)
         }
     }
 
     private scrollToToday(ignoreStoredLeft: boolean): void {
         if (this.dateHelperService.getCurrentYear().toString() == this.sessionStorageService.getItem('year') && (this.sessionStorageService.getItem('scrollLeft') == '0' || ignoreStoredLeft)) {
             this.todayScrollPosition = this.getTodayLeftScroll() - 2
-            this.days.scrollLeft = this.todayScrollPosition * this.dayWidth
-            this.sessionStorageService.saveItem('scrollLeft', this.days.scrollLeft)
+            this.daysWrapper.scrollLeft = this.todayScrollPosition * this.dayWidth
+            this.sessionStorageService.saveItem('scrollLeft', this.daysWrapper.scrollLeft)
         }
     }
 
-    private storeVariables(date: string): void {
+    private storeCriteria(date: string): void {
         this.sessionStorageService.saveItem('date', date)
     }
 
@@ -241,7 +237,7 @@ export class CalendarComponent {
     }
 
     private subscribeToInteractionService(): void {
-        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+        this.interactionService.refreshDateAdapter.subscribe(() => {
             this.setLocale()
         })
     }
@@ -254,16 +250,16 @@ export class CalendarComponent {
 
     private updateCalendarWithReservations(): void {
         this.records.forEach(day => {
-            const x = this.year.find(x => x.date == day.date)
+            const x = this.days.find(x => x.date == day.date)
             if (x != undefined) {
-                this.year[this.year.indexOf(x)].destinations = day.destinations
-                this.year[this.year.indexOf(x)].pax = day.pax
+                this.days[this.days.indexOf(x)].destinations = day.destinations
+                this.days[this.days.indexOf(x)].pax = day.pax
             }
         })
     }
 
     private updateDayVariables(): void {
-        this.days = document.querySelector('#days')
+        this.daysWrapper = document.querySelector('#days')
         this.dayWidth = document.querySelectorAll('.day')[0].getBoundingClientRect().width
     }
 

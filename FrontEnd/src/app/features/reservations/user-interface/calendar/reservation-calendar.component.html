@@ -5,13 +5,13 @@
         <button (click)="gotoToday()" [disabled]="currentYearIsNotDisplayedYear()" class="transparent" id="goto-today-button" mat-mini-fab>
             <mat-icon id="today">my_location</mat-icon>
         </button>
-        <year-selector (yearEmitter)="setActiveYear($event)" [activeYear]="activeYear"></year-selector>
+        <year-selector (yearEmitter)="doTasksAfterYearSelection($event)" [activeYear]="activeYear"></year-selector>
         <month-selector (monthEmitter)="setActiveMonth($event)"></month-selector>
     </div>
 
     <div id="content">
         <div id="days">
-            <div *ngFor="let day of year" (click)="gotoReservationsList(day)" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
+            <div *ngFor="let day of days" (click)="doReservationTasks(day.date)" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
                 <div class="day-data">
                     <div class="weekday">{{ getLocaleWeekdayName(day) }}</div>
                     <div class="date">{{ day.value }}</div>
@@ -39,8 +39,4 @@
         </div>
     </div>
 
-</div>
-
-<div *ngIf="isLoading">
-    <loading-spinner></loading-spinner>
 </div>

@@ -23,17 +23,26 @@
 .day {
     background-color: var(--color-x);
     border-radius: 0.625rem;
-    border: 1px solid var(--color-a);
+    border: 0.0625rem solid var(--color-z);
     display: flex;
     flex-direction: column;
     max-width: 11rem;
     min-width: 11rem;
-    padding: 1.8rem;
+    padding: 1.5rem 1rem;
     scroll-snap-align: start;
 }
 
-.day:hover {
-    cursor: no-drop;
+.day.has-schedule:hover {
+    background-color: var(--color-e);
+    transition: all var(--theme-change-delay) ease-in;
+}
+
+.day.has-schedule:hover * {
+    color: var(--color-c) !important;
+}
+
+.day:not(.has-schedule) {
+    pointer-events: none;
 }
 
 .day-data {
@@ -48,27 +57,21 @@
     color: var(--color-c);
     font-family: var(--font-family-asty);
     font-size: 1rem;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 .day-data .date {
     color: var(--color-c);
     font-family: var(--font-family-asty);
     font-size: 1.8rem;
-    font-weight: 100;
-    margin-top: 0.3125rem;
+    font-weight: 300;
+    margin: 0.5625rem 0 0.375rem 0;
     text-align: center;
     width: 3rem;
 }
 
 .day.has-schedule {
     cursor: pointer;
-}
-
-.day.has-schedule:hover {
-    border: 1px solid var(--color-c);
-    filter: brightness(0.8);
-    transition: all var(--theme-change-delay) ease-in;
 }
 
 .no-reservation-data {
@@ -78,7 +81,7 @@
 }
 
 .no-reservation-data span {
-    color: #00000023;
+    color: #00000023 !important;
     font-size: 4rem;
 }
 
@@ -98,20 +101,28 @@
 }
 
 .destinations {
+    border-radius: 0.625rem;
     color: var(--color-c);
     display: flex;
+    flex-direction: column;
     font-family: var(--font-family-asty);
     font-size: 0.8rem;
-    font-weight: 100;
+    font-weight: 300;
     justify-content: space-between;
-    margin: 0.4rem 0;
+    padding: 1rem;
 }
 
 .destination-description {
-    width: 20rem;
-    white-space: nowrap;
+    margin-bottom: 0.8rem;
     overflow: hidden;
     text-overflow: ellipsis;
+    transform: scale(1, 1.5);
+    white-space: nowrap;
+}
+
+.ports {
+    display: flex;
+    justify-content: space-between;
 }
 
 .pax {
@@ -133,6 +144,11 @@
 
 .is-today {
     background-color: var(--color-background-today) !important;
+}
+
+.saturday *, .sunday *, .today * {
+    color: var(--color-a) !important;
+    font-weight: 300;
 }
 
 #goto-today-button {
