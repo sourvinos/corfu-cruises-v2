@@ -48,13 +48,20 @@ export class ReservationCalendarComponent {
                     this.updateDayVariables()
                     this.scrollToStoredDate()
                     this.scrollToToday(false)
-                    this.enableHorizontalScroll()
                     this.setLocale()
                     this.subscribeToInteractionService()
                 }, 1000)
             }
         })
     }
+
+    //#region lifecycle hooks
+
+    ngAfterViewInit(): void {
+        this.enableHorizontalScroll()
+    }
+
+    //#endregion
 
     //#region public methods
 
@@ -143,7 +150,9 @@ export class ReservationCalendarComponent {
     }
 
     private enableHorizontalScroll(): void {
-        this.helperService.enableHorizontalScroll(document.querySelector('#days'))
+        setTimeout(() => {
+            this.helperService.enableHorizontalScroll(document.querySelector('#days'), this.feature)
+        }, 500)
     }
 
     private getMonthOffset(month: number): number {

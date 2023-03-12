@@ -165,12 +165,13 @@ export class HelperService {
         })
     }
 
-    public enableHorizontalScroll(element: any): any {
+    public enableHorizontalScroll(element: any, variable: string): any {
         element.addEventListener('wheel', (evt: WheelEvent) => {
             evt.preventDefault()
             element.scrollLeft += evt.deltaY
             this.sessionStorageService.saveItem('scrollLeft', element.scrollLeft)
-        })
+            console.log(variable)
+        }, 1000)
     }
 
     public flattenObject(object: any): any {

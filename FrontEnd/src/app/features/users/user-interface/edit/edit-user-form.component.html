@@ -45,8 +45,8 @@
                 <div class="styled-input-square">
                     <div class="styled-input-single">
                         <div class="checkbox-with-lock-icon">
-                            <input [attr.disabled]="!isAdmin() ? false : null" formControlName="isAdmin" id="isAdmin" type="checkbox">
                             <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
+                            <input [attr.disabled]="!isAdmin() ? false : null" formControlName="isAdmin" id="isAdmin" type="checkbox">
                             <label for="isAdmin">{{ getLabel("isAdmin") }}</label>
                         </div>
                     </div>
@@ -55,8 +55,8 @@
                 <div class="styled-input-square">
                     <div class="styled-input-single">
                         <div class="checkbox-with-lock-icon">
-                            <input [attr.disabled]="!isAdmin() ? false : null" formControlName="isActive" id="isActive" type="checkbox">
                             <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
+                            <input [attr.disabled]="!isAdmin() ? false : null" formControlName="isActive" id="isActive" type="checkbox">
                             <label for="isActive">{{ getLabel("isActive") }}</label>
                         </div>
                     </div>

@@ -48,13 +48,20 @@ export class AvailabilityComponent {
                 setTimeout(() => {
                     this.updateDayVariables()
                     this.scrollToToday()
-                    this.enableHorizontalScroll()
                     this.setLocale()
                     this.subscribeToInteractionService()
                 }, 1000)
             }
         })
     }
+
+    //#region lifecycle hooks
+
+    ngAfterViewInit(): void {
+        this.enableHorizontalScroll()
+    }
+
+    //#endregion
 
     //#region public methods
 
@@ -74,6 +81,7 @@ export class AvailabilityComponent {
 
     public doReservationTasks(date: string, destination: SimpleEntity): void {
         this.storeCriteria(date, destination)
+        this.storeScrollLeft()
         this.navigateToNewReservation()
     }
 
@@ -139,7 +147,9 @@ export class AvailabilityComponent {
     }
 
     private enableHorizontalScroll(): void {
-        this.helperService.enableHorizontalScroll(document.querySelector('#days'))
+        setTimeout(() => {
+            this.helperService.enableHorizontalScroll(document.querySelector('#days'), this.feature)
+        }, 500)
     }
 
     private getMonthOffset(month: number): number {
@@ -181,7 +191,6 @@ export class AvailabilityComponent {
         if (this.dateHelperService.getCurrentYear() == this.activeYear) {
             this.todayScrollPosition = this.getTodayLeftScroll() - 2
             this.daysWrapper.scrollLeft = this.todayScrollPosition * this.dayWidth
-            this.sessionStorageService.saveItem('scrollLeft', this.daysWrapper.scrollLeft)
         }
     }
 
@@ -199,6 +208,10 @@ export class AvailabilityComponent {
             'id': destination.id,
             'description': destination.description
         }))
+    }
+
+    private storeScrollLeft(): void {
+        this.sessionStorageService.saveItem('scrollLeft', document.getElementById('days').scrollLeft.toString())
     }
 
     private subscribeToInteractionService(): void {

@@ -15,8 +15,9 @@
 #days {
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
+    overflow-x: hidden;
     overflow-y: hidden;
+    scroll-margin: 11rem;
     scroll-snap-type: x mandatory;
 }
 
