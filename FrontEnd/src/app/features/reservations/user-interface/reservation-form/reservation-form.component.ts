@@ -17,6 +17,7 @@ import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -71,7 +72,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService, private warningIconService: WarningIconService) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService, private warningIconService: WarningIconService) { }
 
     //#region lifecycle hooks
 
@@ -105,7 +106,7 @@ export class ReservationFormComponent {
     }
 
     public checkForTempPassengers(): boolean {
-        return this.sessionStorageService.getItem('passengers') != ''
+        return this.localStorageService.getItem('passengers') != ''
     }
 
     public checkTotalPaxAgainstPassengerCount(element?: any): boolean {
@@ -167,7 +168,7 @@ export class ReservationFormComponent {
                 this.reservationService.delete(this.form.value.reservationId).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                        this.sessionStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
+                        this.localStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
                     },
                     error: (errorFromInterceptor) => {
                         this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])

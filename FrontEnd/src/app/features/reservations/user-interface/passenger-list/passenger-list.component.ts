@@ -6,6 +6,7 @@ import { Table } from 'primeng/table'
 // Custom
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
 import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
@@ -35,7 +36,7 @@ export class PassengerListComponent {
 
     //#endregion
 
-    constructor(private dialog: MatDialog, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private sessionStorageService: SessionStorageService) { }
+    constructor(private dialog: MatDialog, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -92,13 +93,13 @@ export class PassengerListComponent {
     //#region private methods
 
     private checkForTempPassengers(): void {
-        if (this.sessionStorageService.getItem('passengers') != '') {
-            this.tempPassengers = JSON.parse(this.sessionStorageService.getItem('passengers'))
+        if (this.localStorageService.getItem('passengers') != '') {
+            this.tempPassengers = JSON.parse(this.localStorageService.getItem('passengers'))
         }
     }
 
     public showTempPassengersDialog(): void {
-        if (this.sessionStorageService.getItem('passengers') != '') {
+        if (this.localStorageService.getItem('passengers') != '') {
             const dialogRef = this.dialog.open(StoredPassengersModalComponent, {
                 height: '550px',
                 width: '500px',
@@ -110,17 +111,17 @@ export class PassengerListComponent {
             dialogRef.afterClosed().subscribe(result => {
                 if (result !== undefined) {
                     if (result.options[0].id == 1) {
-                        this.passengers.push(...JSON.parse(this.sessionStorageService.getItem('passengers')))
+                        this.passengers.push(...JSON.parse(this.localStorageService.getItem('passengers')))
                         this.outputPassengerCount.emit(this.passengers.length)
                         this.outputPassengers.emit(this.passengers)
                     }
                     if (result.options[0].id == 2) {
-                        this.passengers = JSON.parse(this.sessionStorageService.getItem('passengers'))
+                        this.passengers = JSON.parse(this.localStorageService.getItem('passengers'))
                         this.outputPassengerCount.emit(this.passengers.length)
                         this.outputPassengers.emit(this.passengers)
                     }
                     if (result.options[0].id == 3) {
-                        this.sessionStorageService.deleteItems([{ 'passengers': 'always' }])
+                        this.localStorageService.deleteItems([{ 'passengers': 'always' }])
                     }
                 }
             })
@@ -194,7 +195,7 @@ export class PassengerListComponent {
     }
 
     private updateStorageWithPassengers(): void {
-        this.sessionStorageService.saveItem('passengers', JSON.stringify(this.passengers))
+        this.localStorageService.saveItem('passengers', JSON.stringify(this.passengers))
     }
 
     //#endregion
