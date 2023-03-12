@@ -474,11 +474,11 @@ export class ReservationFormComponent {
         this.reservationService.save(reservation).pipe(indicate(this.isLoading)).subscribe({
             next: (response) => {
                 this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.parentUrl, this.form)
-                this.sessionStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
+                this.localStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
             },
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
-                this.sessionStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
+                this.localStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
             }
         })
     }
