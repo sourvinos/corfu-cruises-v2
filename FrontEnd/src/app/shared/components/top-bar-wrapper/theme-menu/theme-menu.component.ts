@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core'
 import { DOCUMENT } from '@angular/common'
 // Custom
-import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -19,7 +19,7 @@ export class ThemeMenuComponent {
 
     //#endregion
 
-    constructor(@Inject(DOCUMENT) private document: Document, private sessionStorageService: SessionStorageService) { }
+    constructor(@Inject(DOCUMENT) private document: Document, private localStorageService: LocalStorageService) { }
 
     //#region lifecycle hooks
 
@@ -53,11 +53,11 @@ export class ThemeMenuComponent {
     }
 
     private readTheme(): string {
-        return this.sessionStorageService.getItem('my-theme') == '' ? this.saveTheme() : this.sessionStorageService.getItem('my-theme')
+        return this.localStorageService.getItem('theme') == '' ? this.saveTheme() : this.localStorageService.getItem('theme')
     }
 
     private saveTheme(): string {
-        this.sessionStorageService.saveItem('my-theme', this.theme)
+        this.localStorageService.saveItem('theme', this.theme)
         return this.theme
     }
 

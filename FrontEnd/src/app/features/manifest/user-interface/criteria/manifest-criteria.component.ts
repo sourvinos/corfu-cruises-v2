@@ -10,6 +10,7 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -41,7 +42,7 @@ export class ManifestCriteriaComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -186,7 +187,7 @@ export class ManifestCriteriaComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private storeCriteria(): void {

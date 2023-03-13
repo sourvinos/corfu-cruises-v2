@@ -15,6 +15,7 @@ import { EmbarkationReservationVM } from '../../../classes/view-models/list/emba
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from '../../../../../shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
@@ -61,7 +62,7 @@ export class EmbarkationReservationsComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && navigation.url == this.currentUrl) {
                 this.loadRecords().then(() => {
@@ -233,7 +234,7 @@ export class EmbarkationReservationsComponent {
     }
 
     private getLocale(): void {
-        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private getVirtualElement(): void {

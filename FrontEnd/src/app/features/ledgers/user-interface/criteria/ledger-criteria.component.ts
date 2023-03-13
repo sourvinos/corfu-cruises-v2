@@ -12,6 +12,7 @@ import { EmojiService } from './../../../../shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../classes/view-models/criteria/ledger-criteria-vm'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
@@ -48,7 +49,7 @@ export class LedgerCriteriaComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private messageHintService: MessageHintService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private messageHintService: MessageHintService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -223,7 +224,7 @@ export class LedgerCriteriaComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private setSelectedDates(): void {

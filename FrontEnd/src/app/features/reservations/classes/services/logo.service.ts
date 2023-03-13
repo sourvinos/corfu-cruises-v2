@@ -9,7 +9,7 @@ export class LogoService {
 
     public getLogo(color?: string): any {
         if (color == null) {
-            return this.sessionStorageService.getItem('my-theme') == 'light' ? this.getLogoLight() : this.getLogoDark()
+            return this.sessionStorageService.getItem('theme') == 'light' ? this.getLogoLight() : this.getLogoDark()
         } else {
             return color == 'light' ? this.getLogoLight() : this.getLogoDark()
         }

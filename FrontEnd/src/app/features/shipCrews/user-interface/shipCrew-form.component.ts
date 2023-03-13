@@ -12,6 +12,7 @@ import { GenderActiveVM } from '../../genders/classes/view-models/gender-active-
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -57,7 +58,7 @@ export class ShipCrewFormComponent {
 
     //#endregion
 
-    constructor(@Inject(MAT_DATE_LOCALE) private locale: string, private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private shipCrewService: ShipCrewService) { }
+    constructor(@Inject(MAT_DATE_LOCALE) private locale: string, private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private shipCrewService: ShipCrewService) { }
 
     //#region lifecycle hooks
 
@@ -239,7 +240,7 @@ export class ShipCrewFormComponent {
     }
 
     private setLocale(): void {
-        this.locale = this.sessionStorageService.getLanguage()
+        this.locale = this.localStorageService.getLanguage()
         this.dateAdapter.setLocale(this.locale)
     }
 

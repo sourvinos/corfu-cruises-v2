@@ -7,6 +7,7 @@ import { DayVM } from 'src/app/features/reservations/classes/view-models/calenda
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -38,7 +39,7 @@ export class ReservationCalendarComponent {
 
     // #endregion 
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && navigation.url == this.url) {
                 this.setYear()
@@ -206,7 +207,7 @@ export class ReservationCalendarComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private setYear(): void {

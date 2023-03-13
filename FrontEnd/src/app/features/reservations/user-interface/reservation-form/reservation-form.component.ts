@@ -484,7 +484,7 @@ export class ReservationFormComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private setNewRecord(): void {

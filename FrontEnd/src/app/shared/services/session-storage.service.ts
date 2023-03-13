@@ -19,15 +19,6 @@ export class SessionStorageService {
         }
     }
 
-    public getLanguage(): string {
-        const language = sessionStorage.getItem('language')
-        if (language == null) {
-            sessionStorage.setItem('language', environment.defaultLanguage)
-            return environment.defaultLanguage
-        }
-        return language
-    }
-
     public saveItem(key: string, value: string): void {
         sessionStorage.setItem(key, value)
     }

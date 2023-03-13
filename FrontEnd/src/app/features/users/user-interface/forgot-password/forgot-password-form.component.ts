@@ -4,10 +4,10 @@ import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/fo
 import { AccountService } from 'src/app/shared/services/account.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -30,7 +30,7 @@ export class ForgotPasswordFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private sessionStorageService: SessionStorageService,) { }
+    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService) { }
 
     //#region lifecycle hooks
 
@@ -88,7 +88,7 @@ export class ForgotPasswordFormComponent {
     private populateFields(): void {
         this.form.patchValue({
             returnUrl: environment.clientUrl,
-            language: this.sessionStorageService.getLanguage(),
+            language: this.localStorageService.getLanguage(),
         })
     }
 

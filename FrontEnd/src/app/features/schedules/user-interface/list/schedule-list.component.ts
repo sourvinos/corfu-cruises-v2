@@ -10,6 +10,7 @@ import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
@@ -44,7 +45,7 @@ export class ScheduleListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.loadRecords().then(() => {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
@@ -204,7 +205,7 @@ export class ScheduleListComponent {
     }
 
     private setLocale(): void {
-        this.dateAdapter.setLocale(this.sessionStorageService.getLanguage())
+        this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private scrollToSavedPosition(): void {

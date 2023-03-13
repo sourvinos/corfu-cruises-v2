@@ -1,11 +1,11 @@
 import { Component, HostListener } from '@angular/core'
 // Custom
 import { InteractionService } from '../../../services/interaction.service'
+import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageCalendarService } from '../../../services/messages-calendar.service'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
-import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Component({
     selector: 'language-menu',
@@ -21,7 +21,7 @@ export class LanguageMenuComponent {
 
     //#endregion
 
-    constructor(private interactionService: InteractionService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private sessionStorageService: SessionStorageService) { }
+    constructor(private interactionService: InteractionService, private localStorageStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService) { }
 
     //#region listeners
 
@@ -42,7 +42,7 @@ export class LanguageMenuComponent {
     }
 
     public getStoredLanguage(): string {
-        return this.sessionStorageService.getItem('language') == '' ? this.doLanguageTasks('en-GB') : this.sessionStorageService.getItem('language')
+        return this.localStorageStorageService.getItem('language') == '' ? this.doLanguageTasks('en-GB') : this.localStorageStorageService.getItem('language')
     }
 
     public hideMenu(): void {
@@ -73,7 +73,7 @@ export class LanguageMenuComponent {
     }
 
     private saveLanguage(language: string): void {
-        this.sessionStorageService.saveItem('language', language)
+        this.localStorageStorageService.saveItem('language', language)
     }
 
     //#endregion
