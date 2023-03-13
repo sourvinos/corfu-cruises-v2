@@ -12,7 +12,7 @@
                 <th class="width-3" pSortableColumn="adults">{{ getLabel('headerAdults') }}</th>
                 <th class="width-3" pSortableColumn="kids">{{ getLabel('headerKids') }}</th>
                 <th class="width-3" pSortableColumn="free">{{ getLabel('headerFree') }}</th>
-                <th class="width-3" pSortableColumn="totalPersons">Σ</th>
+                <th class="width-3" pSortableColumn="totalPax">Σ</th>
                 <th class="width-3" pSortableColumn="embarkedPassengers">Σ<span class="subscript">1</span></th>
                 <th class="width-3" pSortableColumn="totalNoShow">{{ getLabel('headerNoShow') }}</th>
                 <th class="width-3">{{ getLabel('headerRemarks') }}</th>
@@ -33,12 +33,12 @@
                 <td class="number width-3">{{ reservation.adults | replaceZero }}</td>
                 <td class="number width-3">{{ reservation.kids | replaceZero }}</td>
                 <td class="number width-3">{{ reservation.free | replaceZero }}</td>
-                <td class="number width-3">{{ reservation.totalPersons }}</td>
+                <td class="number width-3">{{ reservation.totalPax }}</td>
                 <td class="number width-3">{{ reservation.embarkedPassengers }}</td>
                 <td class="text-with-emoji number width-3">
                     <span>{{ reservation.totalNoShow | replaceZero }}</span>
-                    <span *ngIf="reservation.totalPersons - reservation.embarkedPassengers == 0" class="emoji"></span>
-                    <span *ngIf="reservation.totalPersons - reservation.embarkedPassengers != 0" class="emoji">&nbsp;{{ getEmoji('error') }}</span>
+                    <span *ngIf="reservation.totalPax - reservation.embarkedPassengers == 0" class="emoji"></span>
+                    <span *ngIf="reservation.totalPax - reservation.embarkedPassengers != 0" class="emoji">&nbsp;{{ getEmoji('error') }}</span>
                 </td>
                 <td class="center width-3">
                     <span (click)="showRemarks(reservation.remarks)" [ngClass]="hasRemarks(reservation.remarks)?'clickable':''" *ngIf="hasRemarks(reservation.remarks)" class="remarks">{{ getEmoji('remarks') }}</span>

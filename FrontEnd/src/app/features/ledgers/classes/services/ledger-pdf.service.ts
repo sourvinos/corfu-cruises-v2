@@ -206,7 +206,7 @@ export class LedgerPDFService {
             { text: this.formatZeroAsEmpty(reservation.adults), alignment: 'right' },
             { text: this.formatZeroAsEmpty(reservation.kids), alignment: 'right' },
             { text: this.formatZeroAsEmpty(reservation.free), alignment: 'right' },
-            { text: this.formatZeroAsEmpty(reservation.totalPersons), alignment: 'right' },
+            { text: this.formatZeroAsEmpty(reservation.totalPax), alignment: 'right' },
             { text: this.formatZeroAsEmpty(reservation.embarkedPassengers), alignment: 'right' },
             { text: this.formatZeroAsEmpty(reservation.totalNoShow), alignment: 'right' },
             { text: reservation.hasTransfer ? 'Yes' : 'No', alignment: 'center' },

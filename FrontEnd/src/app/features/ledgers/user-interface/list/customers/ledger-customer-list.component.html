@@ -32,7 +32,7 @@
                     </tr>
                 </ng-template>
                 <ng-template let-customer pTemplate="body">
-                    <tr [attr.id]="customer.customer.id" (click)="unHighlightAllRows()" (dblclick)="showCustomerReservations(customer)" style="height:32px">
+                    <tr [attr.id]="customer.customer.id" (click)="highlightRow(customer.customer.id)" (dblclick)="showCustomerReservations(customer)" style="height:32px">
                         <td class="center width-3"><p-tableCheckbox [value]="customer"></p-tableCheckbox></td>
                         <td (click)="highlightRow(customer.customer.id)">{{ customer.customer.description }}</td>
                     </tr>

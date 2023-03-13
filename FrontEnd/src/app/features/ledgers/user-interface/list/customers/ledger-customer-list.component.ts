@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
-import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-criteria-vm'
@@ -36,7 +35,6 @@ export class LedgerCustomerListComponent {
     public parentUrl = '/ledgers'
     public records: LedgerVM[] = []
     public recordsFilteredCount: number
-    private virtualElement: any
 
     public criteriaPanels: LedgerCriteriaVM
 
@@ -45,16 +43,13 @@ export class LedgerCustomerListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
-        this.getConnectedUserRole()
-        this.loadRecords()
-        this.populateCriteriaPanelsFromStorage()
-    }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
-    ngAfterViewInit(): void {
-        this.doVirtualTableTasks()
+    ngOnInit(): void {
+        this.loadRecords()
+        this.populateCriteriaPanelsFromStorage()
     }
 
     ngOnDestroy(): void {
@@ -92,9 +87,8 @@ export class LedgerCustomerListComponent {
         this.router.navigate([this.parentUrl])
     }
 
-    public highlightRow(id: number): void {
-        this.storeSelectedId(id)
-        this.hightlightSavedRow()
+    public highlightRow(id: any): void {
+        this.helperService.highlightRow(id)
     }
 
     public resetTableFilters(): void {
@@ -104,22 +98,14 @@ export class LedgerCustomerListComponent {
     public showCustomerReservations(customer: LedgerVM): void {
         this.dialog.open(LedgerCustomerSummaryAndReservationsComponent, {
             height: '600px',
-            width: '1010px',
-            maxWidth: '1010px',
+            width: '1110px',
+            maxWidth: '1110px',
             data: {
                 customer: customer,
                 actions: ['abort', 'ok']
             },
             panelClass: 'dialog'
         })
-    }
-
-    private storeSelectedId(id: number): void {
-        this.sessionStorageService.saveItem(this.feature + '-id', id.toString())
-    }
-
-    public unHighlightAllRows(): void {
-        this.helperService.unHighlightAllRows()
     }
 
     //#endregion
@@ -129,24 +115,6 @@ export class LedgerCustomerListComponent {
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private doVirtualTableTasks(): void {
-        setTimeout(() => {
-            this.getVirtualElement()
-        }, 1000)
-    }
-
-    private getConnectedUserRole(): void {
-        this.isAdmin = ConnectedUser.isAdmin
-    }
-
-    private getVirtualElement(): void {
-        this.virtualElement = document.getElementsByClassName('p-scroller-inline')[0]
-    }
-
-    private hightlightSavedRow(): void {
-        this.helperService.highlightSavedRow(this.feature)
     }
 
     private loadRecords(): Promise<any> {

@@ -14,7 +14,7 @@ export interface LedgerReservationVM {
     adults: number
     kids: number
     free: number
-    totalPersons: number
+    totalPax: number
     embarkedPassengers: number
     totalNoShow: number
     remarks: string
