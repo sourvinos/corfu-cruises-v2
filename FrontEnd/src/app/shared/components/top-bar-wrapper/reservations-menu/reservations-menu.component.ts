@@ -43,6 +43,7 @@ export class ReservationsMenuComponent {
     ngOnInit(): void {
         this.messageMenuService.getMessages().then((response) => {
             this.createMenu(response)
+            this.removeMenuItemIfAdmin()
             this.subscribeToInteractionService()
         })
     }
@@ -94,11 +95,18 @@ export class ReservationsMenuComponent {
         })
     }
 
+    private removeMenuItemIfAdmin(): void {
+        if (this.isAdmin()) {
+            this.menuItems.splice(2)
+        }
+    }
+
     private subscribeToInteractionService(): void {
         this.interactionService.refreshMenus.pipe(takeUntil(this.ngunsubscribe)).subscribe(() => {
             this.messageMenuService.getMessages().then((response) => {
                 this.menuItems = response
                 this.createMenu(response)
+                this.removeMenuItemIfAdmin()
             })
         })
     }

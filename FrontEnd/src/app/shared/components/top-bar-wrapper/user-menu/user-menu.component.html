@@ -7,7 +7,7 @@
         </button>
         <ul (click)="hideMenu()" class="sub-menu">
             <button *ngFor="let item of menuItems" (click)="doNavigationTasks(item.id)" class="hoverable">
-                <img width="20px" [src]="getIcon(item.id.substring(5))">
+                <img [src]="getIcon(item.id.substring(5))" width="20px">
                 <span>{{ item.description }}</span>
             </button>
         </ul>
