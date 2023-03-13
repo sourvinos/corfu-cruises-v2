@@ -7,7 +7,7 @@ export interface LedgerPortGroupVM {
     adults: number
     kids: number
     free: number
-    totalPersons: number
+    totalPax: number
     totalPassengers: number
     totalNoShow: number
 
@@ -19,7 +19,7 @@ export interface HasTransferGroupVM {
     adults: number
     kids: number
     free: number
-    totalPersons: number
+    totalPax: number
     totalPassengers: number
     totalNoShow: number
 
