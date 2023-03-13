@@ -126,7 +126,7 @@ export class NewUserFormComponent {
     }
 
     private focusOnField(): void {
-        this.helperService.focusOnField('')
+        this.helperService.focusOnField()
     }
 
     private initForm(): void {

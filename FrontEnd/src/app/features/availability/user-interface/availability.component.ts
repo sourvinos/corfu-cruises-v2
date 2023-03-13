@@ -149,7 +149,7 @@ export class AvailabilityComponent {
 
     private enableHorizontalScroll(): void {
         setTimeout(() => {
-            this.helperService.enableHorizontalScroll(document.querySelector('#days'), this.feature)
+            this.helperService.enableHorizontalScroll(document.querySelector('#days'))
         }, 500)
     }
 

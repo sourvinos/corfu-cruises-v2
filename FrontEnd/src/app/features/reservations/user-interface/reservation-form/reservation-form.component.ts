@@ -308,7 +308,7 @@ export class ReservationFormComponent {
     }
 
     private focusOnField(): void {
-        this.helperService.focusOnField('')
+        this.helperService.focusOnField()
     }
 
     private getLinkedCustomer(): void {

@@ -161,7 +161,7 @@ export class EditUserFormComponent {
     }
 
     private focusOnField(): void {
-        this.helperService.focusOnField('')
+        this.helperService.focusOnField()
     }
 
     private getRecord(): Promise<any> {

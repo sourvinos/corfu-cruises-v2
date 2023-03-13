@@ -85,7 +85,7 @@ export class HelperService {
         return distinctRecords
     }
 
-    public focusOnField(field: string): void {
+    public focusOnField(): void {
         setTimeout(() => {
             const input = Array.prototype.slice.apply(document.querySelectorAll('input[data-tabindex]'))[0]
             if (input != null) {
@@ -165,12 +165,11 @@ export class HelperService {
         })
     }
 
-    public enableHorizontalScroll(element: any, variable: string): any {
+    public enableHorizontalScroll(element: any): any {
         element.addEventListener('wheel', (evt: WheelEvent) => {
             evt.preventDefault()
             element.scrollLeft += evt.deltaY
             this.sessionStorageService.saveItem('scrollLeft', element.scrollLeft)
-            console.log(variable)
         }, 1000)
     }
 

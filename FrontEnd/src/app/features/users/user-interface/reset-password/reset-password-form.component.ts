@@ -80,7 +80,7 @@ export class ResetPasswordFormComponent {
     }
 
     private focusOnField(): void {
-        this.helperService.focusOnField('')
+        this.helperService.focusOnField()
     }
 
     private clearFields(): void {

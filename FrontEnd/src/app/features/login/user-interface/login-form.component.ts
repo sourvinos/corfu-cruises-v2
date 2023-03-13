@@ -43,7 +43,7 @@ export class LoginFormComponent {
     ngOnInit(): void {
         this.initForm()
         this.clearStoredVariables()
-        this.focusOnField('username')
+        this.focusOnField()
         this.setWindowTitle()
     }
 
@@ -91,8 +91,8 @@ export class LoginFormComponent {
         this.accountService.clearSessionStorage()
     }
 
-    private focusOnField(field: string): void {
-        this.helperService.focusOnField(field)
+    private focusOnField(): void {
+        this.helperService.focusOnField()
     }
 
     private goHome(): void {

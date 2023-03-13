@@ -74,7 +74,7 @@ export class ForgotPasswordFormComponent {
     //#region private methods
 
     private focusOnField(): void {
-        this.helperService.focusOnField('')
+        this.helperService.focusOnField()
     }
 
     private initForm(): void {
