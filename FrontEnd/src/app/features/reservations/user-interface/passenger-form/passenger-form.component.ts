@@ -1,8 +1,9 @@
 import { Component, Inject, NgZone } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Observable, Subject } from 'rxjs'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
@@ -41,11 +42,10 @@ export class PassengerFormComponent {
     public maxBirthDate = new Date()
 
     public isAutoCompleteDisabled = true
+    public arrowIcon = new BehaviorSubject('arrow_drop_down')
 
-    public genders: SimpleEntity[]
-    public filteredGenders: Observable<SimpleEntity[]>
-    public nationalities: NationalityVM[]
-    public filteredNationalities: Observable<NationalityVM[]>
+    public dropdownGenders: Observable<SimpleEntity[]>
+    public dropdownNationalities: Observable<NationalityVM[]>
 
     //#endregion
 
@@ -100,6 +100,10 @@ export class PassengerFormComponent {
 
     public isAdmin(): boolean {
         return ConnectedUser.isAdmin
+    }
+
+    public openOrCloseAutoComplete(trigger: MatAutocompleteTrigger, element: any): void {
+        this.helperService.openOrCloseAutocomplete(this.form, element, trigger)
     }
 
     public updateFieldsAfterNationalitySelection(value: NationalityVM): void {
@@ -181,8 +185,8 @@ export class PassengerFormComponent {
     }
 
     private populateDropdowns(): void {
-        this.populateDropdownFromLocalStorage('genders', 'filteredGenders', 'gender', 'description')
-        this.populateDropdownFromLocalStorage('nationalities', 'filteredNationalities', 'nationality', 'description')
+        this.populateDropdownFromLocalStorage('genders', 'dropdownGenders', 'gender', 'description')
+        this.populateDropdownFromLocalStorage('nationalities', 'dropdownNationalities', 'nationality', 'description')
     }
 
     private populateFields(): void {
