@@ -73,6 +73,11 @@ export class DateHelperService {
         return (0 == year % 4) && (0 != year % 100) || (0 == year % 400) ? true : false
     }
 
+    public getWeekdayIndex(date: string): any {
+        const [year, month, day] = date.split('-')
+        return new Date(parseInt(year), parseInt(month) - 1, parseInt(day)).getDay()
+    }
+
     //#endregion
 
     //#region private methods

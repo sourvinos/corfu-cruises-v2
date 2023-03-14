@@ -13,6 +13,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
+import { BehaviorSubject } from 'rxjs'
 
 @Component({
     selector: 'calendar',
@@ -37,6 +38,7 @@ export class ReservationCalendarComponent {
     public activeYear: number
     public dayWidth: number
     public days: DayVM[] = []
+    public daysObservable = new BehaviorSubject(this.days)
     public todayScrollPosition: number
 
     // #endregion 
@@ -46,13 +48,13 @@ export class ReservationCalendarComponent {
             if (navigation instanceof NavigationEnd && navigation.url == this.url) {
                 this.setYear()
                 this.buildCalendar()
-                // this.updateCalendar()
+                this.updateCalendar()
                 setTimeout(() => {
                     this.updateDayVariables()
-                    //     this.scrollToStoredDate()
-                    //     this.scrollToToday(false)
-                    //     this.setLocale()
-                    //     this.subscribeToInteractionService()
+                    this.scrollToStoredDate()
+                    this.scrollToToday(false)
+                    this.setLocale()
+                    this.subscribeToInteractionService()
                 }, 1000)
             }
         })
@@ -62,6 +64,7 @@ export class ReservationCalendarComponent {
 
     ngAfterViewInit(): void {
         this.enableHorizontalScroll()
+        this.setListWidth()
     }
 
     //#endregion
@@ -114,11 +117,11 @@ export class ReservationCalendarComponent {
     }
 
     public isSaturday(day: any): boolean {
-        return day.weekdayName == 'Sat'
+        return this.dateHelperService.getWeekdayIndex(day) == 6
     }
 
     public isSunday(day: any): boolean {
-        return day.weekdayName == 'Sun'
+        return this.dateHelperService.getWeekdayIndex(day) == 0
     }
 
     public isToday(day: any): boolean {
@@ -138,6 +141,7 @@ export class ReservationCalendarComponent {
 
     private buildCalendar(): void {
         this.days = []
+        this.daysObservable.next(this.days)
         for (let index = 0; index < 12; index++) {
             const startDate = new Date().setFullYear((this.activeYear), index, 1)
             const endDate = new Date().setFullYear((this.activeYear), index + 1, 0)
@@ -171,7 +175,6 @@ export class ReservationCalendarComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error == null) {
                 this.records = listResolved.list
-                console.log(this.records.length)
                 resolve(this.records)
             } else {
                 this.goBack()
@@ -286,5 +289,10 @@ export class ReservationCalendarComponent {
     // }
 
     //#endregion
+
+
+    private setListWidth(): void {
+        document.getElementById('virtual-scroll-wrapper').style.width = window.innerWidth - 64 + 'px'
+    }
 
 }
