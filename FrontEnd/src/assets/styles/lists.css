@@ -3,7 +3,7 @@
     flex-direction: column;
     height: 100%;
     overflow: hidden;
-    width: 100%;
+    width: 1920px;
 }
 
 #header {
@@ -13,13 +13,13 @@
     padding: 0 4rem 1rem 4rem !important;
 }
 
-.content, #content {
+#content {
     display: flex;
     flex-direction: row;
     height: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    width: auto;
+    width: 100%;
 }
 
 #table-wrapper {
@@ -43,6 +43,6 @@
 
 @media only screen and (min-width: 1920px) {
     #table-wrapper {
-        margin: 0 2rem 0 3rem;
+        margin: 0 2rem 0 2.3rem;
     }
 }

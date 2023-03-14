@@ -16,10 +16,6 @@
     overflow-x: hidden !important;
 }
 
-.cdk-virtual-scroll-content-wrapper {
-    height: 100% !important;
-}
-
 .p-datatable-scrollable-footer, .p-datatable-scrollable-header {
     overflow: visible !important;
 }

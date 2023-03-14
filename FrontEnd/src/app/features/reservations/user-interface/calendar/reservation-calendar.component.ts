@@ -46,9 +46,9 @@ export class ReservationCalendarComponent {
             if (navigation instanceof NavigationEnd && navigation.url == this.url) {
                 this.setYear()
                 this.buildCalendar()
-                this.updateCalendar()
+                // this.updateCalendar()
                 setTimeout(() => {
-                    //     this.updateDayVariables()
+                    this.updateDayVariables()
                     //     this.scrollToStoredDate()
                     //     this.scrollToToday(false)
                     //     this.setLocale()
@@ -92,6 +92,10 @@ export class ReservationCalendarComponent {
 
     public getLocaleWeekdayName(day: any): string {
         return this.messageCalendarService.getDescription('weekdays', new Date(day.date).getDay().toString())
+    }
+
+    public getYear(day: any): string {
+        return day.year
     }
 
     public setActiveMonth(month: number): void {
@@ -167,6 +171,7 @@ export class ReservationCalendarComponent {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error == null) {
                 this.records = listResolved.list
+                console.log(this.records.length)
                 resolve(this.records)
             } else {
                 this.goBack()
@@ -274,6 +279,11 @@ export class ReservationCalendarComponent {
         this.daysWrapper = document.querySelector('#days')
         this.dayWidth = document.querySelectorAll('.day')[0].getBoundingClientRect().width
     }
+
+    // private updateDayVariables(): void {
+    //     this.daysWrapper = document.querySelector('#days')
+    //     this.dayWidth = document.querySelectorAll('.day')[0].getBoundingClientRect().width
+    // }
 
     //#endregion
 

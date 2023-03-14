@@ -10,40 +10,30 @@
     </div>
 
     <div id="content">
-        <div id="table-wrapper">
-            <div class="cdk-virtual-scroll-data-source-example">
-                <cdk-virtual-scroll-viewport orientation="horizontal" itemSize="50" class="example-viewport">
-                    <div *cdkVirtualFor="let day of days" class="example-item">
-                        <div class="day-data">
-                            <div class="weekday">{{ getLocaleWeekdayName(day) }}</div>
-                            <div class="date">{{ day.value }}</div>
-                            <div class="month">{{ getLocaleMonthName(day) }}</div>
-                        </div>
+        <div id="virtual-scroll-wrapper">
+            <cdk-virtual-scroll-viewport id="days" itemSize="0" orientation="horizontal">
+                <div *cdkVirtualFor="let day of days" (click)="doReservationTasks(day.date)" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
+                    <div class="day-data">
+                        <div class="weekday">{{ getLocaleWeekdayName(day) }}</div>
+                        <div class="date">{{ day.value }}</div>
+                        <div class="month">{{ getLocaleMonthName(day) }}</div>
+                        <div class="year">{{ getYear(day) }}</div>
                     </div>
-                </cdk-virtual-scroll-viewport>
-            </div>
+                    <div *ngIf="day.destinations != undefined" class="reservation-data">
+                        <div class="reservation">
+                            <div class="destinations" *ngFor="let destination of day.destinations">
+                                <div class="destination-description">{{ destination.abbreviation }}</div>
+                                <div class="destination-pax">{{ destination.pax }}</div>
+                            </div>
+                        </div>
+                        <div class="pax">{{ day.pax }}</div>
+                    </div>
+                    <div *ngIf="day.destinations == undefined" class="no-reservation-data">
+                        <span class="material-icons-outlined">do_not_disturb</span>
+                    </div>
+                </div>
+            </cdk-virtual-scroll-viewport>
         </div>
-        <!-- <div id="days">
-            <div *ngFor="let day of days" (click)="doReservationTasks(day.date)" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
-                <div class="day-data">
-                    <div class="weekday">{{ getLocaleWeekdayName(day) }}</div>
-                    <div class="date">{{ day.value }}</div>
-                    <div class="month">{{ getLocaleMonthName(day) }}</div>
-                </div>
-                <div *ngIf="day.destinations != undefined" class="reservation-data">
-                    <div class="reservation">
-                        <div class="destinations" *ngFor="let destination of day.destinations">
-                            <div class="destination-description">{{ destination.abbreviation }}</div>
-                            <div class="destination-pax">{{ destination.pax }}</div>
-                        </div>
-                    </div>
-                    <div class="pax">{{ day.pax }}</div>
-                </div>
-                <div *ngIf="day.destinations == undefined" class="no-reservation-data">
-                    <span class="material-icons-outlined">do_not_disturb</span>
-                </div>
-            </div>
-        </div> -->
     </div>
 
     <div id="footer">
