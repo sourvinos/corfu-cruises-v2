@@ -1,5 +1,5 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
@@ -17,7 +17,9 @@ import { SessionStorageService } from 'src/app/shared/services/session-storage.s
 @Component({
     selector: 'calendar',
     templateUrl: './reservation-calendar.component.html',
-    styleUrls: ['../../../../../assets/styles/lists.css', './reservation-calendar.component.css']
+    styleUrls: ['../../../../../assets/styles/lists.css', './reservation-calendar.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
 
 export class ReservationCalendarComponent {
@@ -46,11 +48,11 @@ export class ReservationCalendarComponent {
                 this.buildCalendar()
                 this.updateCalendar()
                 setTimeout(() => {
-                    this.updateDayVariables()
-                    this.scrollToStoredDate()
-                    this.scrollToToday(false)
-                    this.setLocale()
-                    this.subscribeToInteractionService()
+                    //     this.updateDayVariables()
+                    //     this.scrollToStoredDate()
+                    //     this.scrollToToday(false)
+                    //     this.setLocale()
+                    //     this.subscribeToInteractionService()
                 }, 1000)
             }
         })
@@ -152,7 +154,7 @@ export class ReservationCalendarComponent {
 
     private enableHorizontalScroll(): void {
         setTimeout(() => {
-            this.helperService.enableHorizontalScroll(document.querySelector('#days'))
+            this.helperService.enableHorizontalScroll(document.querySelector('.cdk-virtual-scrollable'))
         }, 500)
     }
 
