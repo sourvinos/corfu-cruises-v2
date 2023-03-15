@@ -1,8 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component, HostListener, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
-import { Subject, takeUntil } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
@@ -30,13 +29,13 @@ export class ShipCrewListComponent {
 
     @ViewChild('table') table: Table
 
-    private unsubscribe = new Subject<void>()
     private url = 'shipCrews'
     public feature = 'shipCrewList'
     public featureIcon = 'shipCrews'
     public icon = 'home'
     public parentUrl = '/'
     public records: ShipCrewListVM[] = []
+
     public recordsFilteredCount: number
     private virtualElement: any
 
@@ -45,17 +44,28 @@ export class ShipCrewListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
+
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
+    //#region lifecycle hooks
+
+    ngOnInit(): void {
         this.loadRecords().then(() => {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
             this.formatDatesToLocale()
             this.subscribeToInteractionService()
             this.setLocale()
+            this.setWindowWidth()
         })
     }
-
-    //#region lifecycle hooks
 
     ngAfterViewInit(): void {
         setTimeout(() => {
@@ -64,10 +74,6 @@ export class ShipCrewListComponent {
             this.hightlightSavedRow()
             this.enableDisableFilters()
         }, 500)
-    }
-
-    ngOnDestroy(): void {
-        this.cleanup()
     }
 
     //#endregion
@@ -128,11 +134,6 @@ export class ShipCrewListComponent {
 
     //#region private methods
 
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
-
     private enableDisableFilters(): void {
         if (this.records.length == 0) {
             this.helperService.disableTableFilters()
@@ -183,7 +184,7 @@ export class ShipCrewListComponent {
     private loadRecords(): Promise<any> {
         return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
-            if (listResolved.error === null) {
+            if (listResolved.error == null) {
                 this.records = listResolved.list
                 this.recordsFilteredCount = this.records.length
                 resolve(this.records)
@@ -211,6 +212,10 @@ export class ShipCrewListComponent {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('list')
+    }
+
     private storeSelectedId(id: number): void {
         this.sessionStorageService.saveItem(this.feature + '-id', id.toString())
     }
@@ -220,7 +225,7 @@ export class ShipCrewListComponent {
     }
 
     private subscribeToInteractionService(): void {
-        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+        this.interactionService.refreshDateAdapter.subscribe(() => {
             this.formatDatesToLocale()
             this.setLocale()
         })

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
@@ -32,15 +32,21 @@ export class ForgotPasswordFormComponent {
 
     constructor(private accountService: AccountService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService) { }
 
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.initForm()
-        this.populateFields()
-    }
-
-    ngAfterViewInit(): void {
         this.focusOnField()
+        this.populateFields()
+        this.setWindowWidth()
     }
 
     //#endregion
@@ -90,6 +96,10 @@ export class ForgotPasswordFormComponent {
             returnUrl: environment.clientUrl,
             language: this.localStorageService.getLanguage(),
         })
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('form-wrapper')
     }
 
     //#endregion

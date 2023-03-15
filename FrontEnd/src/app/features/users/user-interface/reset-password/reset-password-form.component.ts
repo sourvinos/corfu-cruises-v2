@@ -1,6 +1,6 @@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ConfirmValidParentMatcher, ValidationService } from 'src/app/shared/services/validation.service'
@@ -37,16 +37,25 @@ export class ResetPasswordFormComponent {
 
     constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
 
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.initForm()
         this.setVariables()
+        this.focusOnField()
+        this.setWindowWidth()
     }
 
     ngAfterViewInit(): void {
         this.clearFields()
-        this.focusOnField()
     }
 
     //#endregion
@@ -130,6 +139,10 @@ export class ResetPasswordFormComponent {
         })
     }
 
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('form-wrapper')
+    }
+
     //#endregion
 
     //#region getters
@@ -147,7 +160,7 @@ export class ResetPasswordFormComponent {
     }
 
     get matchingPasswords(): boolean {
-        return this.form.get('passwords.password').value === this.form.get('passwords.confirmPassword').value
+        return this.form.get('passwords.password').value == this.form.get('passwords.confirmPassword').value
     }
 
     //#endregion

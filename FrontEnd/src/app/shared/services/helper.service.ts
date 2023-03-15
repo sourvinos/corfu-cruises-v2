@@ -311,6 +311,13 @@ export class HelperService {
         return true
     }
 
+    public setWindowWidth(element: string): void {
+        const x = document.getElementById(element)
+        if (typeof (x) != 'undefined' && x != null) {
+            x.style.width = window.innerWidth + 'px'
+        }
+    }
+
     //#endregion
 
     //#region private methods

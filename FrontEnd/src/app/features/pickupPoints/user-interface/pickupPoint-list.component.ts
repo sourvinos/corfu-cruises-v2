@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
-import { Subject } from 'rxjs'
+import { Component, HostListener, ViewChild } from '@angular/core'
 import { Table } from 'primeng/table'
 // Custom
 import { EmojiService } from 'src/app/shared/services/emoji.service'
@@ -25,7 +24,6 @@ export class PickupPointListComponent {
 
     @ViewChild('table') table: Table
 
-    private unsubscribe = new Subject<void>()
     private url = 'pickupPoints'
     public feature = 'pickupPointList'
     public featureIcon = 'pickupPoints'
@@ -40,14 +38,25 @@ export class PickupPointListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointPdfService: PickupPointPdfService, private router: Router, private sessionStorageService: SessionStorageService) {
+    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointPdfService: PickupPointPdfService, private router: Router, private sessionStorageService: SessionStorageService) { }
+
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
+    //#region lifecycle hooks
+
+    ngOnInit(): void {
         this.loadRecords().then(() => {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
+            this.setWindowWidth()
         })
     }
-
-    //#region lifecycle hooks
 
     ngAfterViewInit(): void {
         setTimeout(() => {
@@ -56,10 +65,6 @@ export class PickupPointListComponent {
             this.hightlightSavedRow()
             this.enableDisableFilters()
         }, 500)
-    }
-
-    ngOnDestroy(): void {
-        this.cleanup()
     }
 
     //#endregion
@@ -107,11 +112,6 @@ export class PickupPointListComponent {
 
     //#region private methods
 
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
-
     private enableDisableFilters(): void {
         if (this.records.length == 0) {
             this.helperService.disableTableFilters()
@@ -152,7 +152,7 @@ export class PickupPointListComponent {
     private loadRecords(): Promise<any> {
         return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
-            if (listResolved.error === null) {
+            if (listResolved.error == null) {
                 this.records = listResolved.list
                 this.recordsFiltered = listResolved.list
                 this.recordsFilteredCount = this.records.length
@@ -175,6 +175,10 @@ export class PickupPointListComponent {
 
     private scrollToSavedPosition(): void {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('list')
     }
 
     private storeSelectedId(id: number): void {

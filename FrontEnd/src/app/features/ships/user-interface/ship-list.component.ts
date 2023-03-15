@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
-import { Subject } from 'rxjs'
+import { Component, HostListener, ViewChild } from '@angular/core'
 import { Table } from 'primeng/table'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -23,7 +22,6 @@ export class ShipListComponent {
 
     @ViewChild('table') table: Table
 
-    private unsubscribe = new Subject<void>()
     private url = 'ships'
     public feature = 'shipList'
     public featureIcon = 'ships'
@@ -35,13 +33,24 @@ export class ShipListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
-        this.loadRecords().then(() => {
-            this.filterTableFromStoredFilters()
-        })
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
+
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
     }
 
+    //#endregion
+
     //#region lifecycle hooks
+
+    ngOnInit(): void {
+        this.loadRecords().then(() => {
+            this.filterTableFromStoredFilters()
+            this.setWindowWidth()
+        })
+    }
 
     ngAfterViewInit(): void {
         setTimeout(() => {
@@ -50,10 +59,6 @@ export class ShipListComponent {
             this.hightlightSavedRow()
             this.enableDisableFilters()
         }, 500)
-    }
-
-    ngOnDestroy(): void {
-        this.cleanup()
     }
 
     //#endregion
@@ -91,11 +96,6 @@ export class ShipListComponent {
     //#endregion
 
     //#region private methods
-
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
 
     private enableDisableFilters(): void {
         if (this.records.length == 0) {
@@ -153,6 +153,10 @@ export class ShipListComponent {
 
     private scrollToSavedPosition(): void {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('list')
     }
 
     private storeSelectedId(id: number): void {

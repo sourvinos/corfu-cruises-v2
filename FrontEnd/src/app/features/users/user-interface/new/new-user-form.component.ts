@@ -199,7 +199,7 @@ export class NewUserFormComponent {
     }
 
     get matchingPasswords(): boolean {
-        return this.form.get('passwords.password').value === this.form.get('passwords.confirmPassword').value
+        return this.form.get('passwords.password').value == this.form.get('passwords.confirmPassword').value
     }
 
     //#endregion

@@ -1,8 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component, HostListener, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
-import { Subject, takeUntil } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
@@ -29,7 +28,6 @@ export class ScheduleListComponent {
 
     @ViewChild('table') table: Table
 
-    private unsubscribe = new Subject<void>()
     private url = 'schedules'
     public feature = 'scheduleList'
     public featureIcon = 'schedules'
@@ -40,22 +38,33 @@ export class ScheduleListComponent {
     private virtualElement: any
 
     public filterDate = ''
-    public distinctDestinations = []
-    public distinctPorts = []
+    public dropdownDestinations = []
+    public dropdownPorts = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
+
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
+    //#region lifecycle hooks
+
+    ngOnInit(): void {
         this.loadRecords().then(() => {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
             this.formatDatesToLocale()
             this.subscribeToInteractionService()
             this.setLocale()
+            this.setWindowWidth()
         })
     }
-
-    //#region lifecycle hooks
 
     ngAfterViewInit(): void {
         setTimeout(() => {
@@ -64,10 +73,6 @@ export class ScheduleListComponent {
             this.hightlightSavedRow()
             this.enableDisableFilters()
         }, 500)
-    }
-
-    ngOnDestroy(): void {
-        this.cleanup()
     }
 
     //#endregion
@@ -127,11 +132,6 @@ export class ScheduleListComponent {
     //#endregion
 
     //#region private methods
-
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
 
     private enableDisableFilters(): void {
         if (this.records.length == 0) {
@@ -200,8 +200,8 @@ export class ScheduleListComponent {
     }
 
     private populateDropdownFilters(): void {
-        this.distinctDestinations = this.helperService.getDistinctRecords(this.records, 'destination', 'description')
-        this.distinctPorts = this.helperService.getDistinctRecords(this.records, 'port', 'description')
+        this.dropdownDestinations = this.helperService.getDistinctRecords(this.records, 'destination', 'description')
+        this.dropdownPorts = this.helperService.getDistinctRecords(this.records, 'port', 'description')
     }
 
     private setLocale(): void {
@@ -210,6 +210,10 @@ export class ScheduleListComponent {
 
     private scrollToSavedPosition(): void {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('list')
     }
 
     private storeSelectedId(id: number): void {
@@ -221,7 +225,7 @@ export class ScheduleListComponent {
     }
 
     private subscribeToInteractionService(): void {
-        this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
+        this.interactionService.refreshDateAdapter.subscribe(() => {
             this.formatDatesToLocale()
             this.setLocale()
         })

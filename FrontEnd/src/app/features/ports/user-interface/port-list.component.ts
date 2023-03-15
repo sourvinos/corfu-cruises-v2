@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
-import { Subject } from 'rxjs'
+import { Component, HostListener, ViewChild } from '@angular/core'
 import { Table } from 'primeng/table'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -24,7 +23,6 @@ export class PortListComponent {
 
     @ViewChild('table') table: Table
 
-    private unsubscribe = new Subject<void>()
     private url = 'ports'
     public feature = 'portList'
     public featureIcon = 'ports'
@@ -36,13 +34,24 @@ export class PortListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
-        this.loadRecords().then(() => {
-            this.filterTableFromStoredFilters()
-        })
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
+
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
     }
 
+    //#endregion
+
     //#region lifecycle hooks
+
+    ngOnInit(): void {
+        this.loadRecords().then(() => {
+            this.filterTableFromStoredFilters()
+            this.setWindowWidth()
+        })
+    }
 
     ngAfterViewInit(): void {
         setTimeout(() => {
@@ -51,10 +60,6 @@ export class PortListComponent {
             this.hightlightSavedRow()
             this.enableDisableFilters()
         }, 500)
-    }
-
-    ngOnDestroy(): void {
-        this.cleanup()
     }
 
     //#endregion
@@ -97,11 +102,6 @@ export class PortListComponent {
 
     //#region private methods
 
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
-
     private enableDisableFilters(): void {
         if (this.records.length == 0) {
             this.helperService.disableTableFilters()
@@ -140,7 +140,7 @@ export class PortListComponent {
     private loadRecords(): Promise<any> {
         return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
-            if (listResolved.error === null) {
+            if (listResolved.error == null) {
                 this.records = listResolved.list
                 this.recordsFilteredCount = this.records.length
                 resolve(this.records)
@@ -158,6 +158,10 @@ export class PortListComponent {
 
     private scrollToSavedPosition(): void {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('list')
     }
 
     private storeSelectedId(id: number): void {

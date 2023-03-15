@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
-import { Subscription } from 'rxjs'
+import { Component, HostListener, ViewChild } from '@angular/core'
 import { Table } from 'primeng/table'
 // Custom
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -23,7 +22,6 @@ export class UserListComponent {
 
     @ViewChild('table') table: Table
 
-    private subscription = new Subscription()
     private url = 'users'
     public feature = 'userList'
     public featureIcon = 'users'
@@ -37,23 +35,31 @@ export class UserListComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.loadRecords()
+        this.loadRecords().then(() => {
+            this.filterTableFromStoredFilters()
+            this.setWindowWidth()
+        })
     }
 
     ngAfterViewInit(): void {
-        this.filterTableFromStoredFilters()
-        this.getVirtualElement()
-        this.scrollToSavedPosition()
-        this.hightlightSavedRow()
-        this.enableDisableFilters()
-        this.storeReturnUrl()
-    }
-
-    ngOnDestroy(): void {
-        this.cleanup()
+        setTimeout(() => {
+            this.getVirtualElement()
+            this.scrollToSavedPosition()
+            this.hightlightSavedRow()
+            this.enableDisableFilters()
+            this.storeReturnUrl()
+        })
     }
 
     //#endregion
@@ -91,10 +97,6 @@ export class UserListComponent {
     //#endregion
 
     //#region private methods
-
-    private cleanup(): void {
-        this.subscription.unsubscribe()
-    }
 
     private enableDisableFilters(): void {
         if (this.records.length == 0) {
@@ -136,7 +138,7 @@ export class UserListComponent {
     private loadRecords(): Promise<any> {
         return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
-            if (listResolved.error === null) {
+            if (listResolved.error == null) {
                 this.records = listResolved.list
                 this.recordsFilteredCount = this.records.length
                 resolve(this.records)
@@ -154,6 +156,10 @@ export class UserListComponent {
 
     private scrollToSavedPosition(): void {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('list')
     }
 
     private storeReturnUrl(): void {

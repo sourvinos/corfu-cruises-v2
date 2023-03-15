@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
@@ -38,6 +38,14 @@ export class LoginFormComponent {
 
     constructor(private accountService: AccountService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router, private titleService: Title) { }
 
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
@@ -45,10 +53,7 @@ export class LoginFormComponent {
         this.clearStoredVariables()
         this.focusOnField()
         this.setWindowTitle()
-    }
-
-    ngOnDestroy(): void {
-        this.cleanup()
+        this.setWindowWidth()
     }
 
     //#endregion
@@ -82,11 +87,6 @@ export class LoginFormComponent {
 
     //#region private methods
 
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
-    }
-
     private clearStoredVariables(): void {
         this.accountService.clearSessionStorage()
     }
@@ -96,6 +96,7 @@ export class LoginFormComponent {
     }
 
     private goHome(): void {
+        console.log('going home')
         this.router.navigate(['/'])
     }
 
@@ -111,7 +112,11 @@ export class LoginFormComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle())
     }
 
-     private showError(error: any): void {
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('form-wrapper')
+    }
+
+    private showError(error: any): void {
         switch (error.status) {
             case 0:
                 this.dialogService.open(this.messageSnackbarService.noContactWithServer(), 'error', 'center-buttons', ['ok'])

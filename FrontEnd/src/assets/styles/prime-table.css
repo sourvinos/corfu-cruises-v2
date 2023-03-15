@@ -74,6 +74,10 @@
     border-right: 1px solid var(--color-e) !important;
 }
 
+.p-datatable .p-datatable-thead > tr > th.header-datepicker {
+    padding-top: 0.875rem !important;
+}
+
 .p-datatable .p-sortable-column.p-highlight {
     background-color: var(--color-x) !important;
 }
