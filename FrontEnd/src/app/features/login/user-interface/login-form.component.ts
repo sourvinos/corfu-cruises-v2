@@ -23,7 +23,6 @@ export class LoginFormComponent {
 
     //#region variables
 
-    private unsubscribe = new Subject<void>()
     public feature = 'loginForm'
     public featureIcon = 'login'
     public form: FormGroup
@@ -96,7 +95,6 @@ export class LoginFormComponent {
     }
 
     private goHome(): void {
-        console.log('going home')
         this.router.navigate(['/'])
     }
 

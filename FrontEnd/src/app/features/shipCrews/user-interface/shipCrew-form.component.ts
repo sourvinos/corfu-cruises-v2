@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
-import { Component, Inject } from '@angular/core'
+import { Component, HostListener, Inject } from '@angular/core'
 import { DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { map, startWith } from 'rxjs/operators'
@@ -60,6 +60,14 @@ export class ShipCrewFormComponent {
 
     constructor(@Inject(MAT_DATE_LOCALE) private locale: string, private activatedRoute: ActivatedRoute, private crewService: ShipCrewService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private shipCrewService: ShipCrewService) { }
 
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
@@ -70,6 +78,7 @@ export class ShipCrewFormComponent {
         this.populateDropdowns()
         this.subscribeToInteractionService()
         this.setLocale()
+        this.setWindowWidth()
     }
 
     ngAfterViewInit(): void {
@@ -254,6 +263,10 @@ export class ShipCrewFormComponent {
         this.interactionService.refreshDateAdapter.subscribe(() => {
             this.setLocale()
         })
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('form-wrapper')
     }
 
     //#endregion

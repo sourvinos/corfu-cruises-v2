@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { map, startWith } from 'rxjs/operators'
 // Custom
@@ -49,6 +49,14 @@ export class PickupPointFormComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointService: PickupPointService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
@@ -57,6 +65,7 @@ export class PickupPointFormComponent {
         this.getRecord()
         this.populateFields()
         this.populateDropDowns()
+        this.setWindowWidth()
     }
 
     ngAfterViewInit(): void {
@@ -225,6 +234,10 @@ export class PickupPointFormComponent {
         this.activatedRoute.params.subscribe(x => {
             this.recordId = x.id
         })
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('form-wrapper')
     }
 
     //#endregion

@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { map, startWith } from 'rxjs/operators'
 // Custom
@@ -50,6 +50,14 @@ export class EditUserFormComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private userService: UserService) { }
 
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
@@ -58,6 +66,7 @@ export class EditUserFormComponent {
         this.populateFields()
         this.populateDropDowns()
         this.updateReturnUrl()
+        this.setWindowWidth()
     }
 
     ngAfterViewInit(): void {
@@ -230,6 +239,10 @@ export class EditUserFormComponent {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
             }
         })
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('form-wrapper')
     }
 
     private updateReturnUrl(): void {

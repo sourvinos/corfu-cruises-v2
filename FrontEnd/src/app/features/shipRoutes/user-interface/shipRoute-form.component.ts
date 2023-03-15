@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Subject, Subscription } from 'rxjs'
 // Custom
@@ -41,6 +41,14 @@ export class ShipRouteFormComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private shipRouteService: ShipRouteService) { }
 
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
@@ -48,6 +56,7 @@ export class ShipRouteFormComponent {
         this.setRecordId()
         this.getRecord()
         this.populateFields()
+        this.setWindowWidth()
     }
 
     ngAfterViewInit(): void {
@@ -183,6 +192,10 @@ export class ShipRouteFormComponent {
         this.activatedRoute.params.subscribe(x => {
             this.recordId = x.id
         })
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('form-wrapper')
     }
 
     //#endregion
