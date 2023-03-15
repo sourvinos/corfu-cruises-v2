@@ -5,12 +5,12 @@
         <button (click)="gotoToday()" [disabled]="currentYearIsNotDisplayedYear()" class="transparent" id="goto-today-button" mat-mini-fab>
             <mat-icon id="today">my_location</mat-icon>
         </button>
-        <year-selector (yearEmitter)="doTasksAfterYearSelection($event)" [activeYear]="activeYear"></year-selector>
+        <year-selector (yearEmitter)="doTasksAfterYearSelection($event)" [selectedYear]="selectedYear"></year-selector>
         <month-selector (monthEmitter)="setActiveMonth($event)"></month-selector>
     </div>
 
     <div id="content">
-        <div id="virtual-scroll-wrapper">
+        <div id="table-wrapper">
             <cdk-virtual-scroll-viewport id="days" itemSize="0" orientation="horizontal">
                 <div *cdkVirtualFor="let day of daysObservable | async;" (click)="doReservationTasks(day.date)" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day.date), 'sunday':isSunday(day.date), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
                     <div class="day-data">

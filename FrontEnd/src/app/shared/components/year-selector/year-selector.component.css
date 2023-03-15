@@ -21,7 +21,7 @@ button.trigger {
     border-bottom: 1px solid var(--color-dropdown-menu-border);
 }
 
-#active-year {
+#selected-year {
     color: var(--color-c);
     font-family: var(--font-family-asty);
     font-size: 2rem;

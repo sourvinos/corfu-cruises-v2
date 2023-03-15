@@ -13,15 +13,6 @@
     width: 100%;
 }
 
-#virtual-scroll-wrapper {
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    justify-content: center;
-    margin: 0 2rem 0 2rem;
-    width: 1856px;
-}
-
 #days {
     display: flex;
     flex-direction: row;

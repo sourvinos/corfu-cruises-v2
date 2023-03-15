@@ -1,5 +1,6 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core'
+import { BehaviorSubject } from 'rxjs'
+import { ChangeDetectionStrategy, Component, HostListener, ViewEncapsulation } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
@@ -13,7 +14,6 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
-import { BehaviorSubject } from 'rxjs'
 
 @Component({
     selector: 'calendar',
@@ -35,11 +35,11 @@ export class ReservationCalendarComponent {
     public parentUrl = '/'
 
     private daysWrapper: any
-    public activeYear: number
     public dayWidth: number
     public days: DayVM[] = []
     public daysObservable = new BehaviorSubject(this.days)
-    public todayScrollPosition: number
+    public selectedYear: number
+    public todayLeftOffset: number
 
     // #endregion 
 
@@ -55,16 +55,23 @@ export class ReservationCalendarComponent {
                     this.scrollToToday(false)
                     this.setLocale()
                     this.subscribeToInteractionService()
+                    this.setCalendarWidth()
                 }, 1000)
             }
         })
     }
 
+    //#region listeners
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setCalendarWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngAfterViewInit(): void {
         this.enableHorizontalScroll()
-        this.setListWidth()
     }
 
     //#endregion
@@ -80,7 +87,7 @@ export class ReservationCalendarComponent {
     }
 
     public doTasksAfterYearSelection(event: any): void {
-        this.activeYear = parseInt(event)
+        this.selectedYear = parseInt(event)
         this.sessionStorageService.saveItem('year', event)
         this.router.navigate([this.url])
     }
@@ -128,7 +135,7 @@ export class ReservationCalendarComponent {
         return day.date == new Date().toISOString().substring(0, 10)
     }
 
-    public setActiveYear(year: string): void {
+    public setSelectedYear(year: string): void {
         this.saveYear(year)
         if (this.mustRebuildCalendar()) {
             this.router.navigate([this.url])
@@ -143,18 +150,18 @@ export class ReservationCalendarComponent {
         this.days = []
         this.daysObservable.next(this.days)
         for (let index = 0; index < 12; index++) {
-            const startDate = new Date().setFullYear((this.activeYear), index, 1)
-            const endDate = new Date().setFullYear((this.activeYear), index + 1, 0)
+            const startDate = new Date().setFullYear((this.selectedYear), index, 1)
+            const endDate = new Date().setFullYear((this.selectedYear), index + 1, 0)
             const diffDays = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24) + 1)
             Object.keys([...Array(diffDays)]).map((a: any) => {
                 a = parseInt(a) + 1
-                const dayObject = new Date((this.activeYear), index, a)
+                const dayObject = new Date((this.selectedYear), index, a)
                 this.days.push({
                     date: this.dateHelperService.formatDateToIso(dayObject, false),
                     weekdayName: dayObject.toLocaleString('default', { weekday: 'short' }),
                     value: a,
                     monthName: dayObject.toLocaleString('default', { month: 'long' }),
-                    year: this.activeYear.toString()
+                    year: this.selectedYear.toString()
                 })
             })
         }
@@ -167,7 +174,7 @@ export class ReservationCalendarComponent {
     }
 
     private getMonthOffset(month: number): number {
-        return this.dateHelperService.getMonthFirstDayOffset(month, this.activeYear.toString())
+        return this.dateHelperService.getMonthFirstDayOffset(month, this.selectedYear.toString())
     }
 
     private getReservations(): Promise<any> {
@@ -199,8 +206,8 @@ export class ReservationCalendarComponent {
 
     private mustRebuildCalendar(): boolean {
         const storedYear = this.sessionStorageService.getItem('year')
-        if (storedYear != this.activeYear.toString()) {
-            this.activeYear = parseInt(storedYear)
+        if (storedYear != this.selectedYear.toString()) {
+            this.selectedYear = parseInt(storedYear)
             return true
         }
         return false
@@ -216,17 +223,21 @@ export class ReservationCalendarComponent {
             : this.dateHelperService.getCurrentYear().toString())
     }
 
+    private setCalendarWidth(): void {
+        document.getElementById('table-wrapper').style.width = window.innerWidth - 64 + 'px'
+    }
+
     private setLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
     private setYear(): void {
-        this.activeYear = parseInt(this.sessionStorageService.getItem('year'))
+        this.selectedYear = parseInt(this.sessionStorageService.getItem('year'))
     }
 
     private scrollToMonth(month: number): void {
         this.daysWrapper.scrollLeft = this.getMonthOffset(month) * this.dayWidth
-        document.getElementById(this.activeYear.toString() + '-' + (month.toString().length == 1 ? '0' + month.toString() : month.toString()) + '-' + '01').scrollIntoView()
+        document.getElementById(this.selectedYear.toString() + '-' + (month.toString().length == 1 ? '0' + month.toString() : month.toString()) + '-' + '01').scrollIntoView()
     }
 
     private scrollToStoredDate(): void {
@@ -242,8 +253,8 @@ export class ReservationCalendarComponent {
 
     private scrollToToday(ignoreStoredLeft: boolean): void {
         if (this.dateHelperService.getCurrentYear().toString() == this.sessionStorageService.getItem('year') && (this.sessionStorageService.getItem('scrollLeft') == '0' || ignoreStoredLeft)) {
-            this.todayScrollPosition = this.getTodayLeftScroll() - 2
-            this.daysWrapper.scrollLeft = this.todayScrollPosition * this.dayWidth
+            this.todayLeftOffset = this.getTodayLeftScroll() - 2
+            this.daysWrapper.scrollLeft = this.todayLeftOffset * this.dayWidth
             this.sessionStorageService.saveItem('scrollLeft', this.daysWrapper.scrollLeft)
         }
     }
@@ -283,16 +294,6 @@ export class ReservationCalendarComponent {
         this.dayWidth = document.querySelectorAll('.day')[0].getBoundingClientRect().width
     }
 
-    // private updateDayVariables(): void {
-    //     this.daysWrapper = document.querySelector('#days')
-    //     this.dayWidth = document.querySelectorAll('.day')[0].getBoundingClientRect().width
-    // }
-
     //#endregion
-
-
-    private setListWidth(): void {
-        document.getElementById('virtual-scroll-wrapper').style.width = window.innerWidth - 64 + 'px'
-    }
 
 }
