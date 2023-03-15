@@ -111,7 +111,7 @@ export class LoginFormComponent {
         this.titleService.setTitle(this.helperService.getApplicationTitle())
     }
 
-    private showError(error: any): void {
+     private showError(error: any): void {
         switch (error.status) {
             case 0:
                 this.dialogService.open(this.messageSnackbarService.noContactWithServer(), 'error', 'center-buttons', ['ok'])
