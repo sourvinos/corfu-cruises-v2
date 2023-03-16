@@ -138,3 +138,7 @@ button.button-icon {
 .checkbox-with-lock-icon .mat-icon.lock {
     margin-top: 0;
 }
+
+button.reset-table-filters span i {
+    margin-top: -6px;
+}
