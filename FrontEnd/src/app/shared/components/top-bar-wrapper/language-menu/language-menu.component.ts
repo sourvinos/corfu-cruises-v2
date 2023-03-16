@@ -70,6 +70,7 @@ export class LanguageMenuComponent {
         this.messageSnackbarService.getMessages()
         this.interactionService.updateDateAdapters()
         this.interactionService.updateMenus()
+        this.interactionService.updateTabTitle()
     }
 
     private saveLanguage(language: string): void {

@@ -3,7 +3,7 @@
 export const environment = {
     apiUrl: 'http://spacetravels-001-site1.btempurl.com/api',
     url: 'http://spacetravels-001-site1.btempurl.com',
-    appName: 'CORFU CRUISES',
+    appName: 'Corfu Cruises',
     clientUrl: 'http://spacetravels-001-site1.btempurl.com',
     defaultLanguage: 'en-GB',
     defaultTheme: 'light',

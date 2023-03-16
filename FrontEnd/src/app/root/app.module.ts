@@ -1,6 +1,6 @@
 // Base
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule, Title } from '@angular/platform-browser'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { NgModule } from '@angular/core'
@@ -48,6 +48,7 @@ import { InterceptorService } from '../shared/services/interceptor.service'
         SharedModule
     ],
     providers: [
+        Title,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: InterceptorService, multi: true

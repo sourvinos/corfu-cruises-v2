@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { Router } from '@angular/router'
 import { Table } from 'primeng/table'
+import { Title } from '@angular/platform-browser'
 import { defer, finalize, Observable, Subject } from 'rxjs'
 // Custom
 import { MessageLabelService } from './messages-label.service'
@@ -34,7 +35,7 @@ export class HelperService {
 
     //#endregion
 
-    constructor(private messageLabelService: MessageLabelService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private messageLabelService: MessageLabelService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private titleService: Title) { }
 
     //#region public methods
 
@@ -316,6 +317,10 @@ export class HelperService {
         if (typeof (x) != 'undefined' && x != null) {
             x.style.width = window.innerWidth + 'px'
         }
+    }
+
+    public setTabTitle(feature: string): void {
+        this.titleService.setTitle(environment.appName + ': ' + this.messageLabelService.getDescription(feature, 'header'))
     }
 
     //#endregion

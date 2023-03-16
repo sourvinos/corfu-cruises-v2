@@ -9,6 +9,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
+import { Title } from '@angular/platform-browser'
 
 @Component({
     selector: 'customer-list',
@@ -33,7 +34,7 @@ export class CustomerListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private titleService: Title) { }
 
     //#region listeners
 
@@ -49,6 +50,7 @@ export class CustomerListComponent {
         this.loadRecords().then(() => {
             this.filterTableFromStoredFilters()
             this.setWindowWidth()
+            this.titleService.setTitle(this.messageLabelService.getDescription(this.feature, 'header'))
         })
     }
 
