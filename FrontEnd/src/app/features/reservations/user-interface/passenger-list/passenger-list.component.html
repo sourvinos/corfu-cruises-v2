@@ -37,7 +37,6 @@
 
     <div id="footer">
         <div class="passenger-count-wrapper">
-            <span *ngIf="tempPassengers.length != 0" (click)="showTempPassengersDialog()" class="error material-icons">warning</span>
             <span class="primary material-icons">group</span>
             <span class="passenger-count">{{ passengers != null ? passengers.length : 0 }}</span>
         </div>

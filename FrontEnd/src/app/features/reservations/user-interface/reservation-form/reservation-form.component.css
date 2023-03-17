@@ -85,3 +85,11 @@
 .hide-autocomplete {
     display: none;
 }
+
+.material-icons.warning {
+    color: var(--color-warning);
+}
+
+.material-icons.warning:hover {
+    cursor: pointer;
+}

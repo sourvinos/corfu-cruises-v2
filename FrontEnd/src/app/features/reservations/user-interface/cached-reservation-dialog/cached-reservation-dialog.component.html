@@ -25,9 +25,6 @@
     <div id="dialog-footer">
         <div class="button-group-right">
             <mat-dialog-actions>
-                <button (click)="cancel()" class="transparent" mat-flat-button tabindex="-1">
-                    <span>{{ getLabel("abortButton") }}</span>
-                </button>
                 <button (click)="save()" [disabled]="!form.valid" class="primary" mat-flat-button>
                     <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
                     <span>{{ getLabel("okButton") }}</span>

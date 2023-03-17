@@ -18,6 +18,7 @@ import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { MatDialog } from '@angular/material/dialog'
 import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -28,6 +29,7 @@ import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/vie
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 import { ReservationReadDto } from '../../classes/dtos/form/reservation-read-dto'
 import { ReservationService } from '../../classes/services/reservation.service'
+import { CachedReservationDialogComponent } from '../cached-reservation-dialog/cached-reservation-dialog.component'
 import { ReservationWriteDto } from '../../classes/dtos/form/reservation-write-dto'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
@@ -72,7 +74,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService, private warningIconService: WarningIconService) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialog: MatDialog, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService, private warningIconService: WarningIconService) { }
 
     //#region lifecycle hooks
 
@@ -104,10 +106,6 @@ export class ReservationFormComponent {
 
     public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
-    }
-
-    public checkForTempPassengers(): boolean {
-        return this.localStorageService.getItem('passengers') != ''
     }
 
     public checkTotalPaxAgainstPassengerCount(element?: any): boolean {
@@ -143,6 +141,11 @@ export class ReservationFormComponent {
         this.modalActionResultService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok'])
     }
 
+    public doTasksAfterPassengerFormIsClosed(passengers: any): void {
+        this.patchFormWithPassengers(passengers)
+        this.saveRecordToStorage()
+    }
+
     public enableOrDisableAutoComplete(event: any): void {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
@@ -163,13 +166,29 @@ export class ReservationFormComponent {
         return ConnectedUser.isAdmin || this.recordId == null
     }
 
+    public isReservationInStorage(): boolean {
+        try {
+            const x = JSON.parse(this.localStorageService.getItem('reservation'))
+            if (this.isNewRecord == true && x.reservationId == '') {
+                return true
+            }
+            if (this.isNewRecord == false && x.reservationId == this.record.reservationId) {
+                return true
+            }
+        } catch (e) {
+            return false
+        }
+    }
+
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.warning(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.reservationService.delete(this.form.value.reservationId).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                        this.localStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
+                        this.localStorageService.deleteItems([
+                            { 'item': 'reservation', 'when': 'always' }
+                        ])
                     },
                     error: (errorFromInterceptor) => {
                         this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
@@ -185,10 +204,6 @@ export class ReservationFormComponent {
 
     public openOrCloseAutoComplete(trigger: MatAutocompleteTrigger, element: any): void {
         this.helperService.openOrCloseAutocomplete(this.form, element, trigger)
-    }
-
-    public patchFormWithPassengers(passengers: any): void {
-        this.form.patchValue({ passengers: passengers })
     }
 
     public showReservationTab(): void {
@@ -207,6 +222,28 @@ export class ReservationFormComponent {
         this.isReservationTabVisible = false
         this.isPassengersTabVisible = false
         this.isMiscTabVisible = true
+    }
+
+    public showReservationStoredDialog(): void {
+        const dialogRef = this.dialog.open(CachedReservationDialogComponent, {
+            width: '500px',
+            height: '550px',
+            data: { actions: ['abort', 'ok'] },
+            panelClass: 'dialog',
+        })
+        dialogRef.afterClosed().subscribe(result => {
+            if (result !== undefined) {
+                if (result.options[0].id == 1) {
+                    this.getRecordFromStorage()
+                    this.populateFields()
+                }
+                if (result.options[0].id == 2) {
+                    this.localStorageService.deleteItems([
+                        { 'item': 'reservation', 'when': 'always' }
+                    ])
+                }
+            }
+        })
     }
 
     public updateFieldsAfterPickupPointSelection(value: PickupPointDropdownVM): void {
@@ -231,6 +268,39 @@ export class ReservationFormComponent {
 
     private cleanup(): void {
         this.subscription.unsubscribe()
+    }
+
+    private createCachedReservation(): ReservationReadDto {
+        const x: ReservationReadDto = {
+            reservationId: this.form.value.reservationId,
+            customer: this.form.value.customer,
+            destination: this.form.value.destination,
+            driver: this.form.value.driver,
+            pickupPoint: {
+                id: this.form.value.pickupPoint.id,
+                description: this.form.value.pickupPoint.description,
+                exactPoint: this.form.value.exactPoint,
+                time: this.form.value.time,
+                port: {
+                    id: this.form.value.port.id,
+                    description: this.form.value.port.description
+                }
+            },
+            port: this.form.value.port,
+            ship: this.form.value.ship,
+            date: this.form.value.date,
+            refNo: this.form.value.refNo,
+            email: this.form.value.email,
+            phones: this.form.value.phones,
+            remarks: this.form.value.remarks,
+            adults: this.form.value.adults,
+            kids: this.form.value.kids,
+            free: this.form.value.free,
+            totalPax: this.form.value.totalPax,
+            ticketNo: this.form.value.ticketNo,
+            passengers: this.form.value.passengers
+        }
+        return x
     }
 
     private createVoucherFromReservation(): any {
@@ -346,6 +416,9 @@ export class ReservationFormComponent {
         })
     }
 
+    private getRecordFromStorage(): void {
+        this.record = JSON.parse(this.localStorageService.getItem('reservation'))
+    }
 
     private getStoredDate(): void {
         if (this.sessionStorageService.getItem('date') != '') {
@@ -431,6 +504,10 @@ export class ReservationFormComponent {
         return passengers
     }
 
+    private patchFormWithPassengers(passengers: any): void {
+        this.form.patchValue({ passengers: passengers })
+    }
+
     private populateDropdownFromStorage(table: string, filteredTable: string, formField: string, modelProperty: string): void {
         this[table] = JSON.parse(this.sessionStorageService.getItem(table))
         this[filteredTable] = this.form.get(formField).valueChanges.pipe(startWith(''), map(value => this.filterAutocomplete(table, modelProperty, value)))
@@ -475,13 +552,20 @@ export class ReservationFormComponent {
         this.reservationService.save(reservation).pipe(indicate(this.isLoading)).subscribe({
             next: (response) => {
                 this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.parentUrl, this.form)
-                this.localStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
+                this.localStorageService.deleteItems([
+                    { 'item': 'reservation', 'when': 'always' }
+                ])
+
             },
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)
-                this.localStorageService.deleteItems([{ 'item': 'passengers', 'when': 'always' }])
             }
         })
+    }
+
+    private saveRecordToStorage(): void {
+        const x = this.createCachedReservation()
+        this.localStorageService.saveItem('reservation', JSON.stringify(x))
     }
 
     private setLocale(): void {

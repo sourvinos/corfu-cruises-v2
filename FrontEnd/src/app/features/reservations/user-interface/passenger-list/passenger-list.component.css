@@ -31,10 +31,6 @@
     color: var(--color-input-focus);
 }
 
-.passenger-count-wrapper .material-icons.error {
-    color: var(--color-red);
-}
-
 .passenger-count-wrapper .material-icons.error:first-child {
     font-size: 1.4rem;
     margin-top: 2px;

@@ -2049,7 +2049,7 @@
         ]
     },
     {
-        "feature": "tempPassengersDialog",
+        "feature": "cachedReservationDialog",
         "labels": [
             {
                 "id": "header",
@@ -2057,7 +2057,7 @@
             },
             {
                 "id": "subHeader",
-                "description": "Našli jsme dočasně uložené cestující."
+                "description": "Našli jsme rezervaci v keši."
             },
             {
                 "id": "actionMessage",
@@ -2065,23 +2065,27 @@
             },
             {
                 "id": "option1",
-                "description": "Přidat"
+                "description": "Nahradit"
             },
             {
                 "id": "option1message",
-                "description": "Všichni dočasní cestující budou přidáni ke všem stávajícím. Pokud se vytvoří duplicitní záznamy, budete je muset odstranit."
+                "description": "Pole formuláře budou nahrazena rezervací uloženou v mezipaměti. Ta zůstane v nezměněné podobě, dokud neprovedete normální uložení. Poté, pokud je uložení úspěšně dokončeno, bude rezervace uložená v mezipaměti odstraněna."
             },
             {
                 "id": "option2",
-                "description": "Vyměnit"
+                "description": "Odstranit"
             },
             {
                 "id": "option2message",
-                "description": "Všichni případní stávající cestující budou nahrazeni dočasnými. Tím se odstraní všechny případně existující."
+                "description": "Budeme mít za to, že rezervace uložená v mezipaměti vás nezajímá, a trvale ji odstraníme."
             },
             {
-                "id": "abortButton",
-                "description": "Zrušit"
+                "id": "option3",
+                "description": "Nic"
+            },
+            {
+                "id": "option3message",
+                "description": "Ničeho se nedotkneme. Pole formuláře a rezervace uložená v mezipaměti zůstanou tak, jak jsou."
             },
             {
                 "id": "okButton",

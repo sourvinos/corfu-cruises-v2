@@ -5,6 +5,7 @@
         <div id="header">
             <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
             <div id="header-buttons">
+                <span *ngIf="isReservationInStorage()" (click)="showReservationStoredDialog()" class="material-icons warning">warning</span>
                 <div id="tab-scroller">
                     <button (click)="showReservationTab()" mat-flat-button id="tab-overview">{{ getLabel("tabGeneral") }}</button>
                     <button (click)="showPassengersTab()" mat-flat-button id="tab-passengers">{{ getLabel("tabPassengers") }}</button>
@@ -146,7 +147,7 @@
             </div>
             <div *ngIf="isPassengersTabVisible" id="passengers">
                 <div class="tab-content">
-                    <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="checkTotalPaxAgainstPassengerCount($event)" (outputPassengers)="patchFormWithPassengers($event)"></passenger-list>
+                    <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="checkTotalPaxAgainstPassengerCount($event)" (outputPassengers)="doTasksAfterPassengerFormIsClosed($event)"></passenger-list>
                 </div>
             </div>
             <div *ngIf="isMiscTabVisible" id="misc">
@@ -183,7 +184,6 @@
             </button>
             <button (click)="onSave()" [disabled]="!form.valid || !checkTotalPaxAgainstPassengerCount()" class="primary" mat-flat-button>
                 <mat-icon *ngIf="!form.valid || !checkTotalPaxAgainstPassengerCount()" class="button-icon">lock</mat-icon>
-                <mat-icon *ngIf="checkForTempPassengers()" class="button-icon">warning</mat-icon>
                 <span>{{ getLabel("saveButton") }}</span>
             </button>
         </div>

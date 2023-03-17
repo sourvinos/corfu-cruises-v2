@@ -2049,7 +2049,7 @@
         ]
     },
     {
-        "feature": "tempPassengersDialog",
+        "feature": "cachedReservationDialog",
         "labels": [
             {
                 "id": "header",
@@ -2057,7 +2057,7 @@
             },
             {
                 "id": "subHeader",
-                "description": "Nous avons trouvé des passagers sauvés temporairement."
+                "description": "Nous avons trouvé une réservation en cache."
             },
             {
                 "id": "actionMessage",
@@ -2065,23 +2065,27 @@
             },
             {
                 "id": "option1",
-                "description": "Ajouter"
-            },
-            {
-                "id": "option1message",
-                "description": "Tous les passagers temporaires seront ajoutés à ceux qui existent déjà. Si des entrées en double sont créées, vous devrez les supprimer."
-            },
-            {
-                "id": "option2",
                 "description": "Remplacer"
             },
             {
-                "id": "option2message",
-                "description": "Tous les passagers existants éventuels seront remplacés par les passagers temporaires. Ceci supprimera tous les passagers existants possibles."
+                "id": "option1message",
+                "description": "Les champs du formulaire seront remplacés par la réservation mise en cache. Cette dernière restera telle quelle jusqu'à ce que vous procédiez à un enregistrement normal. Ensuite, si l'enregistrement est terminé avec succès, la réservation mise en cache sera supprimée."
             },
             {
-                "id": "abortButton",
-                "description": "Annuler"
+                "id": "option2",
+                "description": "Supprimer"
+            },
+            {
+                "id": "option2message",
+                "description": "Nous considérons que la réservation mise en cache ne présente aucun intérêt pour vous et nous la supprimons définitivement."
+            },
+            {
+                "id": "option3",
+                "description": "Rien"
+            },
+            {
+                "id": "option3message",
+                "description": "Nous ne toucherons à rien. Les champs du formulaire et la réservation mise en cache resteront tels quels."
             },
             {
                 "id": "okButton",

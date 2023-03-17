@@ -6,22 +6,22 @@ import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criter
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 
 @Component({
-    selector: 'stored-passengers-modal',
-    templateUrl: './stored-passengers-modal.component.html',
-    styleUrls: ['../../../../../assets/styles/dialogs.css', './stored-passengers-modal.component.css']
+    selector: 'cached-reservation-dialog',
+    templateUrl: './cached-reservation-dialog.component.html',
+    styleUrls: ['../../../../../assets/styles/dialogs.css', './cached-reservation-dialog.component.css']
 })
 
-export class StoredPassengersModalComponent {
+export class CachedReservationDialogComponent {
 
     //#region variables
 
-    private feature = 'tempPassengersDialog'
+    private feature = 'cachedReservationDialog'
     public form: FormGroup
     public options: any[]
 
     //#endregion
 
-    constructor(private dialogRef: MatDialogRef<StoredPassengersModalComponent>, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private messageLabelService: MessageLabelService, private ngZone: NgZone) { }
+    constructor(private dialogRef: MatDialogRef<CachedReservationDialogComponent>, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private messageLabelService: MessageLabelService, private ngZone: NgZone) { }
 
     //#region lifecycle hooks
 
@@ -33,10 +33,6 @@ export class StoredPassengersModalComponent {
     //#endregion
 
     //#region public methods
-
-    public cancel(): void {
-        this.dialogRef.close()
-    }
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
@@ -64,8 +60,9 @@ export class StoredPassengersModalComponent {
 
     private populateOptions(): void {
         this.options = [
-            { 'id': 1, 'description': 'Add' },
-            { 'id': 2, 'description': 'Replace' }
+            { 'id': 1, 'description': 'Replace' },
+            { 'id': 2, 'description': 'Delete' },
+            { 'id': 3, 'description': 'Nothing' }
         ]
     }
 
