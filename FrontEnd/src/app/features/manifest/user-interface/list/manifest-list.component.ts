@@ -7,6 +7,7 @@ import { Table } from 'primeng/table'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
@@ -50,7 +51,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.toggleVirtualTable()
         this.populateCriteriaPanelsFromStorage()
     }
@@ -65,6 +66,8 @@ export class ManifestListComponent {
             this.updateTotals(this.totals, this.records.passengers)
             this.updateTotals(this.totalsFiltered, this.records.passengers)
         })
+        this.subscribeToInteractionService()
+        this.setTabTitle()
     }
 
     ngAfterViewInit(): void {
@@ -186,8 +189,18 @@ export class ManifestListComponent {
         }
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private storeFilters(): void {
         this.sessionStorageService.saveItem(this.feature, JSON.stringify(this.table.filters))
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
+        })
     }
 
     private toggleVirtualTable(): void {

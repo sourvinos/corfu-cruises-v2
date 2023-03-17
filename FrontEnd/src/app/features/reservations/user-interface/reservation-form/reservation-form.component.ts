@@ -83,6 +83,7 @@ export class ReservationFormComponent {
         this.setNewRecord()
         this.doNewOrEditTasks()
         this.doPostInitTasks()
+        this.setTabTitle()
     }
 
     ngAfterViewInit(): void {
@@ -501,9 +502,16 @@ export class ReservationFormComponent {
         })
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.subscribe(() => {
             this.setLocale()
+        })
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
         })
     }
 

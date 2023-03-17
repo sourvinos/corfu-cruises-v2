@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs/operators'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
@@ -42,7 +43,7 @@ export class ManifestCriteriaComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -51,6 +52,7 @@ export class ManifestCriteriaComponent {
         this.populateDropdowns()
         this.populateFieldsFromStoredVariables()
         this.setLocale()
+        this.setTabTitle()
         this.subscribeToInteractionService()
     }
 
@@ -190,6 +192,10 @@ export class ManifestCriteriaComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private storeCriteria(): void {
         this.sessionStorageService.saveItem('manifest-criteria', JSON.stringify(this.form.value))
     }
@@ -197,6 +203,9 @@ export class ManifestCriteriaComponent {
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
             this.setLocale()
+        })
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
         })
     }
 

@@ -49,6 +49,7 @@ export class ReservationCalendarComponent {
                 this.setYear()
                 this.buildCalendar()
                 this.updateCalendar()
+                this.setTabTitle()
                 setTimeout(() => {
                     this.updateDayVariables()
                     this.scrollToStoredDate()
@@ -259,6 +260,10 @@ export class ReservationCalendarComponent {
         }
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private storeCriteria(date: string): void {
         this.sessionStorageService.saveItem('date', date)
     }
@@ -270,6 +275,9 @@ export class ReservationCalendarComponent {
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.subscribe(() => {
             this.setLocale()
+        })
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
         })
     }
 

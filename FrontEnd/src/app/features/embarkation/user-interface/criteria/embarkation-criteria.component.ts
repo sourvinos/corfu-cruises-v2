@@ -53,6 +53,7 @@ export class EmbarkationCriteriaComponent {
         this.populateFieldsFromStoredVariables()
         this.setLocale()
         this.subscribeToInteractionService()
+        this.setTabTitle()
     }
 
     ngAfterViewInit(): void {
@@ -222,6 +223,10 @@ export class EmbarkationCriteriaComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private storeCriteria(): void {
         this.sessionStorageService.saveItem('embarkation-criteria', JSON.stringify(this.form.value))
     }
@@ -229,6 +234,9 @@ export class EmbarkationCriteriaComponent {
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
             this.setLocale()
+        })
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
         })
     }
 

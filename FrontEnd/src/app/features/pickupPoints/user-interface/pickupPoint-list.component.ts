@@ -4,6 +4,7 @@ import { Table } from 'primeng/table'
 // Custom
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -38,7 +39,7 @@ export class PickupPointListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointPdfService: PickupPointPdfService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointPdfService: PickupPointPdfService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region listeners
 
@@ -55,6 +56,8 @@ export class PickupPointListComponent {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
             this.setWindowWidth()
+            this.subscribeToInteractionService()
+            this.setTabTitle()
         })
     }
 
@@ -177,6 +180,10 @@ export class PickupPointListComponent {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private setWindowWidth(): void {
         this.helperService.setWindowWidth('list')
     }
@@ -187,6 +194,12 @@ export class PickupPointListComponent {
 
     private storeScrollTop(): void {
         this.sessionStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
+        })
     }
 
     //#endregion

@@ -14,6 +14,7 @@ import { EmbarkationPassengerListComponent } from '../passengers/embarkation-pas
 import { EmbarkationReservationVM } from '../../../classes/view-models/list/embarkation-reservation-vm'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
@@ -62,7 +63,7 @@ export class EmbarkationReservationsComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && navigation.url == this.currentUrl) {
                 this.loadRecords().then(() => {
@@ -79,6 +80,11 @@ export class EmbarkationReservationsComponent {
     }
 
     //#region lifecycle hooks
+
+    ngOnInit(): void {
+        this.subscribeToInteractionService()
+        this.setTabTitle()
+    }
 
     ngAfterViewInit(): void {
         this.doVirtualTableTasks()
@@ -286,6 +292,10 @@ export class EmbarkationReservationsComponent {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private showPassengersDialog(reservation: EmbarkationReservationVM): void {
         const response = this.dialog.open(EmbarkationPassengerListComponent, {
             data: {
@@ -310,6 +320,12 @@ export class EmbarkationReservationsComponent {
 
     private storeScrollTop(): void {
         this.sessionStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
+        })
     }
 
     private updateTotals(totalsArray: string, reservations: EmbarkationReservationVM[]): void {

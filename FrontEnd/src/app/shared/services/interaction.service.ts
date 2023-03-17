@@ -28,7 +28,7 @@ export class InteractionService {
     public updateTabTitle(): void {
         setTimeout(() => {
             this._refreshTabTitle.next(null)
-        }, 1000)
+        }, 500)
     }
 
 }

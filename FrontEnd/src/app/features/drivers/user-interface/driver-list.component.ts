@@ -4,6 +4,7 @@ import { Table } from 'primeng/table'
 // Custom
 import { DriverListVM } from '../classes/view-models/driver-list-vm'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -33,7 +34,7 @@ export class DriverListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region listeners
 
@@ -49,6 +50,8 @@ export class DriverListComponent {
         this.loadRecords().then(() => {
             this.filterTableFromStoredFilters()
             this.setWindowWidth()
+            this.subscribeToInteractionService()
+            this.setTabTitle()
         })
     }
 
@@ -155,6 +158,10 @@ export class DriverListComponent {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private setWindowWidth(): void {
         this.helperService.setWindowWidth('list')
     }
@@ -165,6 +172,12 @@ export class DriverListComponent {
 
     private storeScrollTop(): void {
         this.sessionStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
+        })
     }
 
     //#endregion

@@ -46,6 +46,7 @@ export class AvailabilityComponent {
                 this.setYear()
                 this.buildCalendar()
                 this.updateCalendar()
+                this.setTabTitle()
                 setTimeout(() => {
                     this.updateDayVariables()
                     this.scrollToToday()
@@ -199,6 +200,10 @@ export class AvailabilityComponent {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private setYear(): void {
         this.activeYear = parseInt(this.sessionStorageService.getItem('year'))
     }
@@ -218,6 +223,9 @@ export class AvailabilityComponent {
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.subscribe(() => {
             this.setLocale()
+        })
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
         })
     }
 

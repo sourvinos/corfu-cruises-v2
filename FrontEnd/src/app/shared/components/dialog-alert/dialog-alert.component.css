@@ -95,6 +95,7 @@ svg {
     font-size: var(--font-size-modal-text) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     justify-content: center;
+    line-height: 2rem;
     overflow: hidden;
     text-align: center;
 }

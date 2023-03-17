@@ -61,6 +61,7 @@ export class ScheduleListComponent {
             this.filterTableFromStoredFilters()
             this.formatDatesToLocale()
             this.subscribeToInteractionService()
+            this.setTabTitle()
             this.setLocale()
             this.setWindowWidth()
         })
@@ -212,6 +213,10 @@ export class ScheduleListComponent {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private setWindowWidth(): void {
         this.helperService.setWindowWidth('list')
     }
@@ -228,6 +233,9 @@ export class ScheduleListComponent {
         this.interactionService.refreshDateAdapter.subscribe(() => {
             this.formatDatesToLocale()
             this.setLocale()
+            this.interactionService.refreshTabTitle.subscribe(() => {
+                this.setTabTitle()
+            })
         })
     }
 

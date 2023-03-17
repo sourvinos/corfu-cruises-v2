@@ -6,6 +6,7 @@ import { Table } from 'primeng/table'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-criteria-vm'
 import { LedgerCustomerSummaryAndReservationsComponent } from '../summary-and-reservations/ledger-summary-and-reservations.component'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
@@ -43,13 +44,15 @@ export class LedgerCustomerListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
         this.populateCriteriaPanelsFromStorage()
+        this.subscribeToInteractionService()
+        this.setTabTitle()
     }
 
     ngOnDestroy(): void {
@@ -136,6 +139,16 @@ export class LedgerCustomerListComponent {
         if (this.sessionStorageService.getItem('ledger-criteria')) {
             this.criteriaPanels = JSON.parse(this.sessionStorageService.getItem('ledger-criteria'))
         }
+    }
+
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
+        })
     }
 
     //#endregion

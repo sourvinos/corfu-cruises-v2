@@ -11,6 +11,7 @@ import { DriverReportService } from '../../classes/driver-report/services/driver
 import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
@@ -64,7 +65,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private shipService: ShipService, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private shipService: ShipService, public dialog: MatDialog) {
         this.router.routeReuseStrategy.shouldReuseRoute = (): boolean => false
         this.subscription = this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
@@ -91,6 +92,8 @@ export class ReservationListComponent {
 
     ngOnInit(): void {
         this.setWindowWidth()
+        this.subscribeToInteractionService()
+        this.setTabTitle()
     }
 
     ngAfterViewInit(): void {
@@ -385,6 +388,16 @@ export class ReservationListComponent {
 
     private updateRouter(): void {
         this.router.navigated = false
+    }
+
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
+    private subscribeToInteractionService(): void {
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
+        })
     }
 
     //#endregion

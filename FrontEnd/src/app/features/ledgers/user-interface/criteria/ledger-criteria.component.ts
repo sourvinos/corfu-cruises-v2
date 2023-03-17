@@ -10,6 +10,7 @@ import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../classes/view-models/criteria/ledger-criteria-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -49,7 +50,7 @@ export class LedgerCriteriaComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private messageHintService: MessageHintService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -62,6 +63,7 @@ export class LedgerCriteriaComponent {
         this.setSelectedDates()
         this.setLocale()
         this.subscribeToInteractionService()
+        this.setTabTitle()
     }
 
     ngAfterViewInit(): void {
@@ -239,6 +241,10 @@ export class LedgerCriteriaComponent {
         }
     }
 
+    private setTabTitle(): void {
+        this.helperService.setTabTitle(this.feature)
+    }
+
     private storeCriteria(): void {
         this.sessionStorageService.saveItem('ledger-criteria', JSON.stringify(this.form.value))
     }
@@ -246,6 +252,9 @@ export class LedgerCriteriaComponent {
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
             this.setLocale()
+        })
+        this.interactionService.refreshTabTitle.subscribe(() => {
+            this.setTabTitle()
         })
     }
 
