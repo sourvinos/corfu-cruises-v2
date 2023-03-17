@@ -1371,7 +1371,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Kritéria pro vytváření knih zákazníků"
+                "description": "Vyúčtování zákazníkům"
             },
             {
                 "id": "date",

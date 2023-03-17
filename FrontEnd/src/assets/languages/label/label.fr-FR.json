@@ -1371,7 +1371,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Critères de création des registres des clients"
+                "description": "Registres des clients"
             },
             {
                 "id": "date",

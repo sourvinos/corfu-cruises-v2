@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
+import { Component, HostListener, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
@@ -29,7 +29,6 @@ export class LedgerCustomerListComponent {
 
     @ViewChild('table') table: Table | undefined
 
-    private unsubscribe = new Subject<void>()
     public feature = 'ledgerList'
     public featureIcon = 'ledgers'
     public icon = 'arrow_back'
@@ -46,17 +45,23 @@ export class LedgerCustomerListComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
 
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.setWindowWidth()
+    }
+
+    //#endregion
+
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
-        this.populateCriteriaPanelsFromStorage()
         this.subscribeToInteractionService()
         this.setTabTitle()
-    }
-
-    ngOnDestroy(): void {
-        this.cleanup()
+        this.setWindowWidth()
+        this.populateCriteriaPanelsFromStorage()
+        this.enableDisableFilters()
     }
 
     //#endregion
@@ -115,9 +120,10 @@ export class LedgerCustomerListComponent {
 
     //#region private methods
 
-    private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+    private enableDisableFilters(): void {
+        if (this.records.length == 0) {
+            this.helperService.disableTableFilters()
+        }
     }
 
     private loadRecords(): Promise<any> {
@@ -143,6 +149,10 @@ export class LedgerCustomerListComponent {
 
     private setTabTitle(): void {
         this.helperService.setTabTitle(this.feature)
+    }
+
+    private setWindowWidth(): void {
+        this.helperService.setWindowWidth('list')
     }
 
     private subscribeToInteractionService(): void {

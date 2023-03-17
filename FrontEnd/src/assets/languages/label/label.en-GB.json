@@ -1371,7 +1371,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Criteria for creating customer ledgers"
+                "description": "Customer ledgers"
             },
             {
                 "id": "date",
