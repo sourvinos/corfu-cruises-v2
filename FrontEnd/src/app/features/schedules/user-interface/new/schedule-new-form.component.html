@@ -9,21 +9,19 @@
         <form [formGroup]="form" autocomplete="off" id="form">
             <div id="top">
                 <!-- Dates -->
-                <div class="group-field">
-                    <mat-form-field id="date">
-                        <mat-label>{{ getLabel('date') }}</mat-label>
-                        <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
-                            <input class="center" formControlName="fromDate" matInput matStartDate>
-                            <input class="center" formControlName="toDate" matEndDate matInput>
-                        </mat-date-range-input>
-                        <mat-date-range-picker #picker (closed)="patchFormWithSelectedDates(fromDate, toDate)"></mat-date-range-picker>
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-error *ngIf="fromDate.hasError('required') || toDate.hasError('required')">{{ getHint("invalid") }}</mat-error>
-                        <button (click)="gotoToday()" class="transparent" id="goto-today" mat-mini-fab tabindex="-1">
-                            <mat-icon id="today">my_location</mat-icon>
-                        </button>
-                    </mat-form-field>
-                </div>
+                <mat-form-field id="date">
+                    <mat-label>{{ getLabel('date') }}</mat-label>
+                    <mat-date-range-input [formGroup]="form" [rangePicker]="picker">
+                        <input class="center" formControlName="fromDate" matInput matStartDate tabindex="-1">
+                        <input class="center" formControlName="toDate" matEndDate matInput tabindex="-1">
+                    </mat-date-range-input>
+                    <mat-date-range-picker #picker (closed)="patchFormWithSelectedDates(fromDate, toDate)"></mat-date-range-picker>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-error *ngIf="fromDate.hasError('required') || toDate.hasError('required')">{{ getHint("invalid") }}</mat-error>
+                    <button (click)="gotoToday()" class="transparent" id="goto-today" mat-mini-fab tabindex="-1">
+                        <mat-icon id="today">my_location</mat-icon>
+                    </button>
+                </mat-form-field>
             </div>
             <div id="bottom">
                 <div id="left">
@@ -124,13 +122,13 @@
                     </fieldset>
                     <!-- MaxPax -->
                     <mat-form-field>
-                        <input [placeholder]="getLabel('maxPax')" class="number" formControlName="maxPax" matInput type="number">
+                        <input [placeholder]="getLabel('maxPax')" class="number" formControlName="maxPax" matInput type="number" tabindex="-1">
                         <mat-error *ngIf="maxPax.hasError('required')">{{ getHint("required") }}</mat-error>
                         <mat-error *ngIf="!maxPax.hasError('required') && maxPax.hasError('min') || maxPax.hasError('max')">{{ getHint("invalid") }}</mat-error>
                     </mat-form-field>
                     <!-- Time -->
                     <mat-form-field>
-                        <input [placeholder]="getLabel('time')" formControlName="time" matInput>
+                        <input [placeholder]="getLabel('time')" class="right" formControlName="time" matInput tabindex="-1">
                         <mat-error *ngIf="time.hasError('required')">{{ getHint("required") }}</mat-error>
                         <mat-error *ngIf="!time.hasError('required') && !time.hasError('time')">{{ getHint("invalid") }}</mat-error>
                     </mat-form-field>

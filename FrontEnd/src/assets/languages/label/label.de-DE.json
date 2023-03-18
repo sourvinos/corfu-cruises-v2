@@ -1018,7 +1018,7 @@
             },
             {
                 "id": "maxPax",
-                "description": "Maximale Anzahl von Passagieren"
+                "description": "Max pax"
             },
             {
                 "id": "time",

@@ -171,7 +171,7 @@ export class ScheduleNewFormComponent {
             const period = this.buildPeriod(new Date(this.fromDate.value), new Date(this.toDate.value))
             period.forEach((day: string) => {
                 this.form.value.weekdays.forEach((weekday: { description: string }) => {
-                    if (day.substring(0, 3) == weekday.description) {
+                    if (day.substring(0, 3) == weekday.description.substring(0, 3)) {
                         this.daysToCreate.push(day.substring(4))
                     }
                 })
@@ -189,7 +189,7 @@ export class ScheduleNewFormComponent {
             toDate: ['', Validators.required],
             daysToInsert: ['', Validators.required],
             maxPax: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
-            time: ['', [Validators.required, ValidationService.isTime]],
+            time: ['00:00', [Validators.required, ValidationService.isTime]],
             destinationsFilter: '',
             allDestinationsCheckbox: '',
             portsFilter: '',
@@ -210,13 +210,13 @@ export class ScheduleNewFormComponent {
 
     private populateWeekdays(): void {
         this.weekdays = [
-            { 'id': '0', 'description': 'Sun' },
-            { 'id': '1', 'description': 'Mon' },
-            { 'id': '2', 'description': 'Tue' },
-            { 'id': '3', 'description': 'Wed' },
-            { 'id': '4', 'description': 'Thu' },
-            { 'id': '5', 'description': 'Fri' },
-            { 'id': '6', 'description': 'Sat' }
+            { id: '0', description: this.messageCalendarService.getDescription('weekdays', '0') },
+            { id: '1', description: this.messageCalendarService.getDescription('weekdays', '1') },
+            { id: '2', description: this.messageCalendarService.getDescription('weekdays', '2') },
+            { id: '3', description: this.messageCalendarService.getDescription('weekdays', '3') },
+            { id: '4', description: this.messageCalendarService.getDescription('weekdays', '4') },
+            { id: '5', description: this.messageCalendarService.getDescription('weekdays', '5') },
+            { id: '6', description: this.messageCalendarService.getDescription('weekdays', '6') }
         ]
     }
 
