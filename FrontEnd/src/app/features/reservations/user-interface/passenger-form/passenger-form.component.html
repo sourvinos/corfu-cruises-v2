@@ -83,10 +83,10 @@
 
     <div id="dialog-footer">
         <div class="button-group-right">
-            <button (click)="close()" class="transparent" mat-flat-button tabindex="-1">
+            <button (click)="onClose()" class="transparent" mat-flat-button tabindex="-1">
                 <span>{{ getLabel("cancelButton") }}</span>
             </button>
-            <button (click)="save()" [disabled]="!form.valid" class="primary" mat-flat-button tabindex="-1">
+            <button (click)="onSave()" [disabled]="!form.valid" class="primary" mat-flat-button tabindex="-1">
                 <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("okButton") }}</span>
             </button>

@@ -186,9 +186,8 @@ export class ReservationFormComponent {
                 this.reservationService.delete(this.form.value.reservationId).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                        this.localStorageService.deleteItems([
-                            { 'item': 'reservation', 'when': 'always' }
-                        ])
+                        this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
+                        this.sessionStorageService.deleteItems([{ 'item': 'nationality', 'when': 'always' }])
                     },
                     error: (errorFromInterceptor) => {
                         this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
@@ -238,9 +237,8 @@ export class ReservationFormComponent {
                     this.populateFields()
                 }
                 if (result.options[0].id == 2) {
-                    this.localStorageService.deleteItems([
-                        { 'item': 'reservation', 'when': 'always' }
-                    ])
+                    this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
+                    this.sessionStorageService.deleteItems([{ 'item': 'nationality', 'when': 'always' }])
                 }
             }
         })
@@ -552,10 +550,8 @@ export class ReservationFormComponent {
         this.reservationService.save(reservation).pipe(indicate(this.isLoading)).subscribe({
             next: (response) => {
                 this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.parentUrl, this.form)
-                this.localStorageService.deleteItems([
-                    { 'item': 'reservation', 'when': 'always' }
-                ])
-
+                this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
+                this.sessionStorageService.deleteItems([{ 'item': 'nationality', 'when': 'always' }])
             },
             error: (errorFromInterceptor) => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', this.parentUrl, this.form, false, false)

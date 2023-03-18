@@ -1,9 +1,9 @@
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { Component, Inject, NgZone } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
@@ -59,6 +59,7 @@ export class PassengerFormComponent {
         this.initForm()
         this.populateDropdowns()
         this.populateFields()
+        this.getNationalityFromStorage()
         this.setLocale()
     }
 
@@ -82,10 +83,6 @@ export class PassengerFormComponent {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
-    public close(): void {
-        this.dialogRef.close()
-    }
-
     public enableOrDisableAutoComplete(event: any): void {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
@@ -106,6 +103,15 @@ export class PassengerFormComponent {
         this.helperService.openOrCloseAutocomplete(this.form, element, trigger)
     }
 
+    public onClose(): void {
+        this.dialogRef.close()
+    }
+
+    public onSave(): void {
+        this.storeNationality()
+        this.closeDialog()
+    }
+
     public updateFieldsAfterNationalitySelection(value: NationalityVM): void {
         this.form.patchValue({
             nationality: {
@@ -113,12 +119,6 @@ export class PassengerFormComponent {
                 'description': value.description,
                 'code': value.code,
             }
-        })
-    }
-
-    public save(): void {
-        this.ngZone.run(() => {
-            this.dialogRef.close(this.flattenForm(this.form))
         })
     }
 
@@ -135,6 +135,12 @@ export class PassengerFormComponent {
         this.unsubscribe.unsubscribe()
     }
 
+    private closeDialog(): void {
+        this.ngZone.run(() => {
+            this.dialogRef.close(this.flattenForm())
+        })
+    }
+
     private filterAutocomplete(array: string, field: string, value: any): any[] {
         if (typeof value !== 'object') {
             const filtervalue = value.toLowerCase()
@@ -143,25 +149,43 @@ export class PassengerFormComponent {
         }
     }
 
-    private flattenForm(form: FormGroup): any {
-        const passenger = {
-            'id': form.value.id == 0 ? this.assignTempIdToNewPassenger() : form.value.id,
-            'reservationId': form.value.reservationId,
-            'lastname': form.value.lastname,
-            'firstname': form.value.firstname,
+    private flattenForm(): any {
+        return {
+            'id': this.form.value.id == 0
+                ? this.assignTempIdToNewPassenger()
+                : this.form.value.id,
+            'reservationId': this.form.value.reservationId,
+            'lastname': this.form.value.lastname,
+            'firstname': this.form.value.firstname,
             'occupantId': 2,
             'birthdate': this.dateHelperService.formatDateToIso(new Date(this.form.value.birthdate)),
-            'nationality': form.value.nationality,
-            'gender': form.value.gender,
-            'specialCare': form.value.specialCare,
-            'remarks': form.value.remarks,
-            'isCheckedIn': form.value.isCheckedIn
+            'nationality': this.form.value.nationality,
+            'gender': this.form.value.gender,
+            'specialCare': this.form.value.specialCare,
+            'remarks': this.form.value.remarks,
+            'isCheckedIn': this.form.value.isCheckedIn
         }
-        return passenger
     }
 
     private focusOnField(): void {
         this.helperService.focusOnField()
+    }
+
+    private getNationalityFromStorage(): void {
+        if (this.form.value.id == 0) {
+            try {
+                const x = JSON.parse(this.sessionStorageService.getItem('nationality'))
+                this.form.patchValue({
+                    nationality: {
+                        'id': x.id,
+                        'description': x.description,
+                        'code': x.code
+                    }
+                })
+            } catch {
+                // 
+            }
+        }
     }
 
     private initForm(): void {
@@ -190,22 +214,28 @@ export class PassengerFormComponent {
     }
 
     private populateFields(): void {
-        this.form.setValue({
-            id: this.record.id,
-            reservationId: this.record.reservationId,
-            gender: { 'id': this.record.gender.id, 'description': this.record.gender.description },
-            nationality: { 'id': this.record.nationality.id, 'code': this.record.nationality.code, 'description': this.record.nationality.description },
-            lastname: this.record.lastname,
-            firstname: this.record.firstname,
-            birthdate: this.record.birthdate,
-            specialCare: this.record.specialCare,
-            remarks: this.record.remarks,
-            isCheckedIn: this.record.isCheckedIn
-        })
+        if (this.record.id != 0) {
+            this.form.setValue({
+                id: this.record.id,
+                reservationId: this.record.reservationId,
+                gender: { 'id': this.record.gender.id, 'description': this.record.gender.description },
+                nationality: { 'id': this.record.nationality.id, 'code': this.record.nationality.code, 'description': this.record.nationality.description },
+                lastname: this.record.lastname,
+                firstname: this.record.firstname,
+                birthdate: this.record.birthdate,
+                specialCare: this.record.specialCare,
+                remarks: this.record.remarks,
+                isCheckedIn: this.record.isCheckedIn
+            })
+        }
     }
 
     private setLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
+    }
+
+    private storeNationality(): void {
+        this.sessionStorageService.saveItem('nationality', JSON.stringify(this.form.value.nationality))
     }
 
     //#endregion
