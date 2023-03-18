@@ -1993,7 +1993,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Réservations"
+                "description": "Calendrier des réservations"
             },
             {
                 "id": "newRecord",

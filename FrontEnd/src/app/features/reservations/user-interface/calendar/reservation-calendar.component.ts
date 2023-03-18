@@ -46,23 +46,20 @@ export class ReservationCalendarComponent {
     constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && navigation.url == this.url) {
-                this.setYear()
+                this.getStoredYear()
                 this.buildCalendar()
                 this.updateCalendar()
-                this.setTabTitle()
                 setTimeout(() => {
                     this.updateDayVariables()
                     this.scrollToStoredDate()
                     this.scrollToToday(false)
-                    this.setLocale()
-                    this.subscribeToInteractionService()
-                    this.setCalendarWidth()
                 }, 1000)
             }
         })
     }
 
     //#region listeners
+
     @HostListener('window:resize', ['$event']) onResize(): void {
         this.setCalendarWidth()
     }
@@ -70,6 +67,13 @@ export class ReservationCalendarComponent {
     //#endregion
 
     //#region lifecycle hooks
+
+    ngOnInit(): void {
+        this.setCalendarWidth()
+        this.setTabTitle()
+        this.setLocale()
+        this.subscribeToInteractionService()
+    }
 
     ngAfterViewInit(): void {
         this.enableHorizontalScroll()
@@ -201,6 +205,10 @@ export class ReservationCalendarComponent {
         return differenceInDays
     }
 
+    private getStoredYear(): void {
+        this.selectedYear = parseInt(this.sessionStorageService.getItem('year'))
+    }
+
     private goBack(): void {
         this.router.navigate([this.parentUrl])
     }
@@ -225,15 +233,13 @@ export class ReservationCalendarComponent {
     }
 
     private setCalendarWidth(): void {
-        document.getElementById('table-wrapper').style.width = window.innerWidth - 64 + 'px'
+        setTimeout(() => {
+            document.getElementById('table-wrapper').style.width = window.innerWidth - 64 + 'px'
+        }, 500)
     }
 
     private setLocale(): void {
         this.dateAdapter.setLocale(this.localStorageService.getLanguage())
-    }
-
-    private setYear(): void {
-        this.selectedYear = parseInt(this.sessionStorageService.getItem('year'))
     }
 
     private scrollToMonth(month: number): void {

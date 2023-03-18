@@ -1993,7 +1993,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Κρατήσεις"
+                "description": "Ημερολόγιο κρατήσεων"
             },
             {
                 "id": "newRecord",

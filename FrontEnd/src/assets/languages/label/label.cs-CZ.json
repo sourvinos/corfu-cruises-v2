@@ -1993,7 +1993,7 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Rezervace"
+                "description": "Kalendář rezervací"
             },
             {
                 "id": "newRecord",
