@@ -115,7 +115,6 @@ export class ReservationListComponent {
                 height: '550px',
                 width: '500px',
                 data: {
-                    drivers: this.driverService.getActiveFromStorage(),
                     actions: ['abort', 'ok']
                 },
                 panelClass: 'dialog'
@@ -141,7 +140,6 @@ export class ReservationListComponent {
                 height: '550px',
                 width: '500px',
                 data: {
-                    ships: this.shipService.getActiveFromStorage(),
                     actions: ['abort', 'ok']
                 },
                 panelClass: 'dialog'
