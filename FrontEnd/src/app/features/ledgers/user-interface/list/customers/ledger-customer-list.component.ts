@@ -121,9 +121,7 @@ export class LedgerCustomerListComponent {
     //#region private methods
 
     private enableDisableFilters(): void {
-        if (this.records.length == 0) {
-            this.helperService.disableTableFilters()
-        }
+        this.records.length == 0 ? this.helperService.disableTableFilters() : this.helperService.enableTableFilters()
     }
 
     private loadRecords(): Promise<any> {

@@ -109,9 +109,7 @@ export class RegistrarListComponent {
     //#region private methods
 
     private enableDisableFilters(): void {
-        if (this.records.length == 0) {
-            this.helperService.disableTableFilters()
-        }
+        this.records.length == 0 ? this.helperService.disableTableFilters() : this.helperService.enableTableFilters()
     }
 
     private filterColumn(element: { value: any }, field: string, matchMode: string): void {

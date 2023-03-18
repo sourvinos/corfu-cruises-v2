@@ -155,9 +155,7 @@ export class ManifestListComponent {
     }
 
     private enableDisableFilters(): void {
-        if (this.records.passengers.length == 0) {
-            this.helperService.disableTableFilters()
-        }
+        this.records.passengers.length == 0 ? this.helperService.disableTableFilters() : this.helperService.enableTableFilters()
     }
 
     private loadRecords(): Promise<any> {

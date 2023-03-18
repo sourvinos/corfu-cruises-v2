@@ -266,14 +266,7 @@ export class ReservationListComponent {
     }
 
     private enableDisableFilters(): void {
-        setTimeout(() => {
-            const x = document.querySelectorAll<HTMLElement>('.p-multiselect-label')
-            x.forEach(element => {
-                if (element.innerText == 'empty') {
-                    element.innerHTML = ''
-                }
-            })
-        }, 1000)
+        this.records.length == 0 ? this.helperService.disableTableFilters() : this.helperService.enableTableFilters()
     }
 
     private filterColumn(element: { value: any }, field: string, matchMode: string): void {
