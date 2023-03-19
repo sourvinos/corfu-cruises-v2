@@ -6,7 +6,8 @@
     --color-table-active: #9bcf6f;
     --color-table-inactive: #ff7a7a;
     --color-table-delete-icon: #ff7a7a;
-    --color-warning: #d94040;
+    --color-red: #d94040;
+    --color-green: #37b19b;
     /*  Buttons */
     --color-button-text: #ffffff;
     --color-button-background-secondary: linear-gradient(to top, #5f80a7, #6388b4, #6891c1, #6c99cf, #71a2dc);

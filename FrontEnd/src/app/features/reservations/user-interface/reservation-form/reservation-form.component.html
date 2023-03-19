@@ -23,10 +23,10 @@
                 <div class="tab-content">
                     <div class="group-field">
                         <!-- RefNo -->
-                        <mat-form-field style="width: 30% !important;">
-                            <mat-label>{{ getLabel('refNo') }}</mat-label>
-                            <input formControlName="refNo" matInput readonly>
-                        </mat-form-field>
+                        <div id="ref-no" style="width: 30% !important;">
+                            <span id="ref-no-label">{{ getLabel('refNo') }}</span>
+                            <span id="ref-no-body">{{ form.value.refNo }}</span>
+                        </div>
                         <!-- Date -->
                         <mat-form-field>
                             <mat-icon *ngIf="!isAdminOrNewRecord()" class="lock">lock</mat-icon>
