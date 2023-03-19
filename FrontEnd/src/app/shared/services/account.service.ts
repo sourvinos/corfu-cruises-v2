@@ -155,6 +155,7 @@ export class AccountService extends HttpDataService {
         this.clearSessionStorage()
         this.refreshMenus()
         this.navigateToLogin()
+        this.clearConnectedUser()
     }
 
     public add(formData: any): Observable<any> {
@@ -177,6 +178,13 @@ export class AccountService extends HttpDataService {
             }
         }
         return false
+    }
+
+    private clearConnectedUser(): void {
+        ConnectedUser.id = null
+        ConnectedUser.displayname = null
+        ConnectedUser.isAdmin = null
+        ConnectedUser.customerId = null
     }
 
     private navigateToLogin(): void {
