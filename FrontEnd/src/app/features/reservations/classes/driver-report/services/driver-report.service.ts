@@ -4,7 +4,7 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DriverReportDto } from '../dtos/driver-report-dto'
 import { DriverReportHeaderDto } from '../dtos/driver-report-header-dto'
 import { DriverReportReservationDto } from '../dtos/driver-report-reservation-dto'
-import { ReservationService } from '../../services/reservation.service'
+import { ReservationHttpService } from '../../services/reservation.http.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 // Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
@@ -23,7 +23,7 @@ export class DriverReportService {
 
     //#endregion
 
-    constructor(private dateHelperService: DateHelperService, private reservationService: ReservationService, private sessionStorageService: SessionStorageService) { }
+    constructor(private dateHelperService: DateHelperService, private reservationService: ReservationHttpService, private sessionStorageService: SessionStorageService) { }
 
     //#region public methods
 

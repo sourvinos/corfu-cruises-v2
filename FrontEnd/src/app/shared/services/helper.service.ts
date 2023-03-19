@@ -307,9 +307,11 @@ export class HelperService {
         trigger.panelOpen ? trigger.closePanel() : trigger.openPanel()
     }
 
-    public goBackFromForm(form: FormGroup<any>): boolean {
+    public goBackFromForm(form: FormGroup<any>): any {
         form.reset()
-        return true
+        setTimeout(() => {
+            return true
+        }, 1000)
     }
 
     public setWindowWidth(element: string): void {

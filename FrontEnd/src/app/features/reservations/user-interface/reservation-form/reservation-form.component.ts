@@ -1,18 +1,18 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
+import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { map, startWith } from 'rxjs/operators'
 // Custom
+import { CachedReservationDialogComponent } from '../cached-reservation-dialog/cached-reservation-dialog.component'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverActiveVM } from '../../../drivers/classes/view-models/driver-active-vm'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
@@ -23,18 +23,15 @@ import { MessageHintService } from 'src/app/shared/services/messages-hint.servic
 import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { OkIconService } from '../../classes/services/ok-icon.service'
-import { PassengerWriteDto } from '../../classes/dtos/form/passenger-write-dto'
 import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
+import { ReservationHelperService } from '../../classes/services/reservation.helper.service'
+import { ReservationHttpService } from '../../classes/services/reservation.http.service'
 import { ReservationReadDto } from '../../classes/dtos/form/reservation-read-dto'
-import { ReservationService } from '../../classes/services/reservation.service'
-import { CachedReservationDialogComponent } from '../cached-reservation-dialog/cached-reservation-dialog.component'
 import { ReservationWriteDto } from '../../classes/dtos/form/reservation-write-dto'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from '../../classes/voucher/services/voucher.service'
-import { WarningIconService } from '../../classes/services/warning-icon.service'
 
 @Component({
     selector: 'reservation-form',
@@ -48,7 +45,6 @@ export class ReservationFormComponent {
 
     private record: ReservationReadDto
     private recordId: string
-    private subscription = new Subscription()
     public feature = 'reservationForm'
     public featureIcon = 'reservations'
     public form: FormGroup
@@ -74,7 +70,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialog: MatDialog, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private okIconService: OkIconService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService, private warningIconService: WarningIconService) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialog: MatDialog, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationHelperService: ReservationHelperService, private reservationService: ReservationHttpService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService) { }
 
     //#region lifecycle hooks
 
@@ -108,33 +104,21 @@ export class ReservationFormComponent {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
-    public checkTotalPaxAgainstPassengerCount(element?: any): boolean {
-        if (this.form.value.passengers.length > 0) {
-            const passengerDifference = this.form.value.totalPax - (element != null ? element : this.form.value.passengers.length)
-            switch (true) {
-                case passengerDifference == 0:
-                    this.passengerDifferenceIcon = this.emojiService.getEmoji('green-circle')
-                    return true
-                case passengerDifference < 0:
-                    this.passengerDifferenceIcon = this.emojiService.getEmoji('red-circle')
-                    return false
-                case passengerDifference > 0:
-                    this.passengerDifferenceIcon = this.emojiService.getEmoji('yellow-circle')
-                    return true
-            }
-        } else {
-            this.passengerDifferenceIcon = this.emojiService.getEmoji('yellow-circle')
-            return true
-        }
+    public checkForDifferenceBetweenTotalPaxAndPassengers(element?: any): boolean {
+        return this.reservationHelperService.checkForDifferenceBetweenTotalPaxAndPassengers(element, this.form.value.totalPax, this.form.value.passengers.length)
+    }
+
+    public getPassengerDifferenceIcon(element?: any): void {
+        this.passengerDifferenceIcon = this.reservationHelperService.getPassengerDifferenceIcon(element, this.form.value.totalPax, this.form.value.passengers.length)
     }
 
     public doPaxCalculations(): void {
         this.calculateTotalPax()
-        this.checkTotalPaxAgainstPassengerCount()
+        this.getPassengerDifferenceIcon()
     }
 
     public doVoucherTasksOnClient(): void {
-        this.voucherService.createVoucherOnClient(this.createVoucherFromReservation())
+        this.voucherService.createVoucherOnClient(this.reservationHelperService.createVoucher(this.form.value))
     }
 
     public doVoucherTasksOnServer(): void {
@@ -143,7 +127,7 @@ export class ReservationFormComponent {
 
     public doTasksAfterPassengerFormIsClosed(passengers: any): void {
         this.patchFormWithPassengers(passengers)
-        this.saveRecordToStorage()
+        this.saveCachedReservation()
     }
 
     public enableOrDisableAutoComplete(event: any): void {
@@ -223,18 +207,18 @@ export class ReservationFormComponent {
         this.isMiscTabVisible = true
     }
 
-    public showReservationStoredDialog(): void {
+    public showCachedReservationDialog(): void {
         const dialogRef = this.dialog.open(CachedReservationDialogComponent, {
             width: '500px',
             height: '550px',
-            data: { actions: ['abort', 'ok'] },
             panelClass: 'dialog',
         })
         dialogRef.afterClosed().subscribe(result => {
             if (result !== undefined) {
                 if (result.options[0].id == 1) {
-                    this.getRecordFromStorage()
+                    this.getCachedReservation()
                     this.populateFields()
+                    this.getPassengerDifferenceIcon()
                 }
                 if (result.options[0].id == 2) {
                     this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
@@ -265,64 +249,7 @@ export class ReservationFormComponent {
     }
 
     private cleanup(): void {
-        this.subscription.unsubscribe()
-    }
-
-    private createCachedReservation(): ReservationReadDto {
-        const x: ReservationReadDto = {
-            reservationId: this.form.value.reservationId,
-            customer: this.form.value.customer,
-            destination: this.form.value.destination,
-            driver: this.form.value.driver,
-            pickupPoint: {
-                id: this.form.value.pickupPoint.id,
-                description: this.form.value.pickupPoint.description,
-                exactPoint: this.form.value.exactPoint,
-                time: this.form.value.time,
-                port: {
-                    id: this.form.value.port.id,
-                    description: this.form.value.port.description
-                }
-            },
-            port: this.form.value.port,
-            ship: this.form.value.ship,
-            date: this.form.value.date,
-            refNo: this.form.value.refNo,
-            email: this.form.value.email,
-            phones: this.form.value.phones,
-            remarks: this.form.value.remarks,
-            adults: this.form.value.adults,
-            kids: this.form.value.kids,
-            free: this.form.value.free,
-            totalPax: this.form.value.totalPax,
-            ticketNo: this.form.value.ticketNo,
-            passengers: this.form.value.passengers
-        }
-        return x
-    }
-
-    private createVoucherFromReservation(): any {
-        const form = this.form.value
-        const voucher = {
-            'date': this.dateHelperService.formatISODateToLocale(form.date),
-            'refNo': form.refNo,
-            'destinationDescription': form.destination.description,
-            'customerDescription': form.customer.description,
-            'pickupPointDescription': form.pickupPoint.description,
-            'pickupPointExactPoint': form.exactPoint,
-            'pickupPointTime': form.time,
-            'adults': form.adults,
-            'kids': form.kids,
-            'free': form.free,
-            'totalPax': form.totalPax,
-            'driverDescription': form.driver.description,
-            'ticketNo': form.ticketNo,
-            'remarks': form.remarks,
-            'validPassengerIcon': this.getValidPassengerIconForVoucher(this.validatePassengerCountForVoucher(form.totalPax, form.passengers)),
-            'qr': form.ticketNo,
-            'passengers': this.mapVoucherPassengers()
-        }
-        return voucher
+        this.sessionStorageService.deleteItems([{ 'item': 'nationality', 'when': 'always' }])
     }
 
     private doNewOrEditTasks(): void {
@@ -332,6 +259,7 @@ export class ReservationFormComponent {
         } else {
             this.getRecord()
             this.populateFields()
+            this.getPassengerDifferenceIcon()
         }
     }
 
@@ -353,27 +281,7 @@ export class ReservationFormComponent {
     }
 
     private flattenForm(): ReservationWriteDto {
-        const form = this.form.value
-        const reservation: ReservationWriteDto = {
-            reservationId: form.reservationId != '' ? form.reservationId : null,
-            customerId: form.customer.id,
-            destinationId: form.destination.id,
-            driverId: form.driver ? form.driver.id : null,
-            pickupPointId: form.pickupPoint.id,
-            portId: form.port.id,
-            shipId: form.ship ? form.ship.id : null,
-            date: this.dateHelperService.formatDateToIso(new Date(this.form.value.date)),
-            refNo: form.refNo,
-            ticketNo: form.ticketNo,
-            email: form.email,
-            phones: form.phones,
-            adults: form.adults,
-            kids: form.kids,
-            free: form.free,
-            remarks: form.remarks,
-            passengers: this.mapPassengers()
-        }
-        return reservation
+        return this.reservationHelperService.flattenForm(this.form.value)
     }
 
     private focusOnField(): void {
@@ -381,23 +289,14 @@ export class ReservationFormComponent {
     }
 
     private getLinkedCustomer(): void {
-        if (ConnectedUser.isAdmin == false && this.isNewRecord) {
-            const x = JSON.parse(this.sessionStorageService.getItem('customers'))
-            const z = x.filter(x => x.id == ConnectedUser.customerId)
+        const connectedCustomer = this.reservationHelperService.getLinkedCustomer(this.isNewRecord)
+        if (connectedCustomer != undefined) {
             this.form.patchValue({
                 customer: {
-                    'id': z.length > 0 ? z[0].id : 0,
-                    'description': z.length > 0 ? z[0].description : ''
+                    'id': connectedCustomer.length > 0 ? connectedCustomer[0].id : 0,
+                    'description': connectedCustomer.length > 0 ? connectedCustomer[0].description : ''
                 }
             })
-        }
-    }
-
-    private getValidPassengerIconForVoucher(isValid: boolean): string {
-        if (isValid) {
-            return this.okIconService.getIcon()
-        } else {
-            return this.warningIconService.getIcon()
         }
     }
 
@@ -414,7 +313,7 @@ export class ReservationFormComponent {
         })
     }
 
-    private getRecordFromStorage(): void {
+    private getCachedReservation(): void {
         this.record = JSON.parse(this.localStorageService.getItem('reservation'))
     }
 
@@ -467,39 +366,6 @@ export class ReservationFormComponent {
             imageBase64: '',
             passengers: [[]]
         })
-    }
-
-    private mapPassengers(): any {
-        const form = this.form.value.passengers
-        const passengers: PassengerWriteDto[] = []
-        form.forEach((passenger: any) => {
-            const x: PassengerWriteDto = {
-                reservationId: passenger.reservationId,
-                genderId: passenger.gender.id,
-                nationalityId: passenger.nationality.id,
-                occupantId: 2,
-                lastname: passenger.lastname,
-                firstname: passenger.firstname,
-                birthdate: passenger.birthdate,
-                specialCare: passenger.specialCare,
-                remarks: passenger.remarks,
-                isCheckedIn: passenger.isCheckedIn
-            }
-            passengers.push(x)
-        })
-        return passengers
-    }
-
-    private mapVoucherPassengers(): any {
-        const passengers = []
-        this.form.value.passengers.forEach((element: any) => {
-            const passenger = {
-                'lastname': element.lastname,
-                'firstname': element.firstname
-            }
-            passengers.push(passenger)
-        })
-        return passengers
     }
 
     private patchFormWithPassengers(passengers: any): void {
@@ -559,9 +425,8 @@ export class ReservationFormComponent {
         })
     }
 
-    private saveRecordToStorage(): void {
-        const x = this.createCachedReservation()
-        this.localStorageService.saveItem('reservation', JSON.stringify(x))
+    private saveCachedReservation(): void {
+        this.localStorageService.saveItem('reservation', JSON.stringify(this.reservationHelperService.createCachedReservation(this.form.value)))
     }
 
     private setLocale(): void {
@@ -610,10 +475,6 @@ export class ReservationFormComponent {
     private updateTabVisibility(): void {
         this.isReservationTabVisible = true
         this.isPassengersTabVisible = false
-    }
-
-    private validatePassengerCountForVoucher(reservationPax: any, passengerCount: any): boolean {
-        return reservationPax == passengerCount.length ? true : false
     }
 
     //#endregion

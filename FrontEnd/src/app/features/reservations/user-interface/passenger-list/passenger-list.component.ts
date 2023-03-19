@@ -58,7 +58,9 @@ export class PassengerListComponent {
     }
 
     public getNationalityIcon(nationalityCode: string): any {
-        return environment.nationalitiesIconDirectory + nationalityCode.toLowerCase() + '.png'
+        if (nationalityCode != undefined) {
+            return environment.nationalitiesIconDirectory + nationalityCode.toLowerCase() + '.png'
+        }
     }
 
     public highlightRow(id: any): void {

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
-export class ReservationService extends HttpDataService {
+export class ReservationHttpService extends HttpDataService {
 
     constructor(httpClient: HttpClient) {
         super(httpClient, environment.apiUrl + '/reservations')

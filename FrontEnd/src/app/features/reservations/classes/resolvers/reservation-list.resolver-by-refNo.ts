@@ -4,13 +4,13 @@ import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 // Custom
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { ReservationService } from '../services/reservation.service'
+import { ReservationHttpService } from '../services/reservation.http.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class ReservationListResolverByRefNo {
 
-    constructor(private reservationService: ReservationService) { }
+    constructor(private reservationService: ReservationHttpService) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<ListResolved> {
         return this.reservationService.getByRefNo(route.params.refNo)

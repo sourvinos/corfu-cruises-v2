@@ -8,7 +8,6 @@ import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DriverDistinctVM } from 'src/app/features/drivers/classes/view-models/driver-distinct-vm'
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
-import { DriverService } from 'src/app/features/drivers/classes/services/driver.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
@@ -22,11 +21,10 @@ import { ReservationListOverbookedDestinationVM } from '../../classes/view-model
 import { ReservationListPickupPointVM } from '../../classes/view-models/list/reservation-list-pickupPoint-vm'
 import { ReservationListPortVM } from '../../classes/view-models/list/reservation-list-port-vm'
 import { ReservationListVM } from '../../classes/view-models/list/reservation-list-vm'
-import { ReservationService } from './../../classes/services/reservation.service'
+import { ReservationHttpService } from '../../classes/services/reservation.http.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
-import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { environment } from 'src/environments/environment'
 
@@ -65,7 +63,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private driverService: DriverService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationService, private router: Router, private sessionStorageService: SessionStorageService, private shipService: ShipService, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationHttpService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.router.routeReuseStrategy.shouldReuseRoute = (): boolean => false
         this.subscription = this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {

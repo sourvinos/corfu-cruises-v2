@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core'
 import { catchError, map, of } from 'rxjs'
 // Custom
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { ReservationService } from '../services/reservation.service'
+import { ReservationHttpService } from '../services/reservation.http.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class ReservationFormResolver {
 
-    constructor(private reservationService: ReservationService) { }
+    constructor(private reservationService: ReservationHttpService) { }
 
     resolve(route: ActivatedRouteSnapshot): any {
         return this.reservationService.getSingle(route.params.id)
