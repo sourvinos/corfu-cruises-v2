@@ -170,8 +170,8 @@ export class ScheduleNewFormComponent {
         if (this.fromDate.valid && this.toDate.valid && this.form.value.weekdays.length != 0) {
             const period = this.buildPeriod(new Date(this.fromDate.value), new Date(this.toDate.value))
             period.forEach((day: string) => {
-                this.form.value.weekdays.forEach((weekday: { description: string }) => {
-                    if (day.substring(0, 3) == weekday.description.substring(0, 3)) {
+                this.form.value.weekdays.forEach((weekday: any) => {
+                    if (this.dateHelperService.getWeekdayIndex(day.substring(4)) == weekday.id) {
                         this.daysToCreate.push(day.substring(4))
                     }
                 })
