@@ -92,14 +92,14 @@ export class ReservationHelperService {
             const passengerDifference = totalPax - (element != null ? element : totalPassengers)
             switch (true) {
                 case passengerDifference == 0:
-                    return this.emojiService.getEmoji('green-circle')
+                    return 'green'
                 case passengerDifference < 0:
-                    return this.emojiService.getEmoji('red-circle')
+                    return 'red'
                 case passengerDifference > 0:
-                    return this.emojiService.getEmoji('yellow-circle')
+                    return 'yellow'
             }
         } else {
-            return this.emojiService.getEmoji('yellow-circle')
+            return 'yellow'
         }
     }
 

@@ -63,7 +63,7 @@ export class ReservationFormComponent {
     public dropdownShips: Observable<DriverActiveVM[]>
 
     public isNewRecord: boolean
-    public passengerDifferenceIcon: string
+    public passengerDifferenceColor: string
     public isReservationTabVisible: boolean
     public isPassengersTabVisible: boolean
     public isMiscTabVisible: boolean
@@ -108,13 +108,13 @@ export class ReservationFormComponent {
         return this.reservationHelperService.checkForDifferenceBetweenTotalPaxAndPassengers(element, this.form.value.totalPax, this.form.value.passengers.length)
     }
 
-    public getPassengerDifferenceIcon(element?: any): void {
-        this.passengerDifferenceIcon = this.reservationHelperService.getPassengerDifferenceIcon(element, this.form.value.totalPax, this.form.value.passengers.length)
+    public getPassengerDifferenceColor(element?: any): void {
+        this.passengerDifferenceColor = this.reservationHelperService.getPassengerDifferenceIcon(element, this.form.value.totalPax, this.form.value.passengers.length)
     }
 
     public doPaxCalculations(): void {
         this.calculateTotalPax()
-        this.getPassengerDifferenceIcon()
+        this.getPassengerDifferenceColor()
     }
 
     public doVoucherTasksOnClient(): void {
@@ -218,7 +218,7 @@ export class ReservationFormComponent {
                 if (result.options[0].id == 1) {
                     this.getCachedReservation()
                     this.populateFields()
-                    this.getPassengerDifferenceIcon()
+                    this.getPassengerDifferenceColor()
                 }
                 if (result.options[0].id == 2) {
                     this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
@@ -256,10 +256,11 @@ export class ReservationFormComponent {
         if (this.isNewRecord) {
             this.getStoredDate()
             this.getStoredDestination()
+            this.getPassengerDifferenceColor()
         } else {
             this.getRecord()
             this.populateFields()
-            this.getPassengerDifferenceIcon()
+            this.getPassengerDifferenceColor()
         }
     }
 
@@ -355,7 +356,7 @@ export class ReservationFormComponent {
             adults: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             kids: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
             free: [0, [Validators.required, Validators.min(0), Validators.max(999)]],
-            totalPax: ['0', ValidationService.isGreaterThanZero],
+            totalPax: [0, ValidationService.isGreaterThanZero],
             driver: '',
             port: '',
             ship: '',

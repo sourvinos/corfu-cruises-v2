@@ -115,10 +115,11 @@
                             <mat-error *ngIf="!free.hasError('required') && free.hasError('min') || free.hasError('max')">{{ getHint("invalid") }}</mat-error>
                         </mat-form-field>
                         <!-- Total Pax -->
-                        <mat-form-field>
-                            <input [placeholder]="getLabel('totalPax')" formControlName="totalPax" class="number" matInput readonly type="number">
-                            <span id="passenger-check-total-icon">{{ passengerDifferenceIcon }}</span>
-                        </mat-form-field>
+                        <div id="total-pax" style="width: 30% !important;">
+                            <span id="total-pax-label">{{ getLabel('totalPax') }}</span>
+                            <span id="total-pax-body">{{ form.value.totalPax }}</span>
+                            <span [ngClass]="passengerDifferenceColor" id="pax-difference"></span>
+                        </div>
                     </div>
                     <div class="group-field">
                         <!-- Email -->
@@ -147,7 +148,7 @@
             </div>
             <div *ngIf="isPassengersTabVisible" id="passengers">
                 <div class="tab-content">
-                    <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="getPassengerDifferenceIcon($event)" (outputPassengers)="doTasksAfterPassengerFormIsClosed($event)"></passenger-list>
+                    <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="getPassengerDifferenceColor($event)" (outputPassengers)="doTasksAfterPassengerFormIsClosed($event)"></passenger-list>
                 </div>
             </div>
             <div *ngIf="isMiscTabVisible" id="misc">

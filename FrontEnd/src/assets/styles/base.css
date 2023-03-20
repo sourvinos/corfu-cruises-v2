@@ -114,6 +114,18 @@ ul {
     pointer-events: none;
 }
 
+.green {
+    color: var(--color-green) !important;
+}
+
+.red {
+    color: var(--color-red) !important;
+}
+
+.yellow {
+    color: var(--color-yellow) !important;
+}
+
 .disabled:hover {
     cursor: no-drop;
     pointer-events: all;
