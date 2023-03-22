@@ -36,10 +36,10 @@ namespace API.Features.Reservations {
             this.validReservation = validReservation;
         }
 
-        [HttpGet("year/{year}")]
+        [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
         [Authorize(Roles = "user, admin")]
-        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar([FromRoute] int year) {
-            return reservationCalendar.GetForCalendar(year);
+        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
+            return reservationCalendar.GetForCalendar(fromDate, toDate);
         }
 
         [HttpGet("date/{date}")]

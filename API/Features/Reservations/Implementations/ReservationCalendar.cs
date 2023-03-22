@@ -14,8 +14,8 @@ namespace API.Features.Reservations {
 
         public ReservationCalendar(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment) : base(context, httpContext, testingEnvironment) { }
 
-        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar(int year) {
-            return CreateCalendar(GetSchedules(year), GetReservations(year));
+        public IEnumerable<ReservationCalendarGroupVM> GetForCalendar(string fromDate, string toDate) {
+            return CreateCalendar(GetSchedules(fromDate, toDate), GetReservations(fromDate, toDate));
         }
 
         /// <summary>
@@ -25,10 +25,10 @@ namespace API.Features.Reservations {
         /// <returns>
         ///     A list of ScheduleVM objects
         /// </returns>
-        private IList<ScheduleVM> GetSchedules(int year) {
+        private IList<ScheduleVM> GetSchedules(string fromDate, string toDate) {
             return context.Schedules
                 .Include(x => x.Destination)
-                .Where(x => x.Date.Year == year)
+                .Where(x => x.Date >= DateTime.Parse(fromDate) && x.Date <= DateTime.Parse(toDate))
                 .GroupBy(x => new { x.Date, x.DestinationId, x.Destination.Abbreviation, x.Destination.Description })
                 .OrderBy(x => x.Key.Date).ThenBy(x => x.Key.DestinationId)
                 .Select(x => new ScheduleVM {
@@ -48,9 +48,9 @@ namespace API.Features.Reservations {
         /// <returns>
         ///     A list of ReservationVM objects
         /// </returns>
-        private IList<ReservationVM> GetReservations(int year) {
+        private IList<ReservationVM> GetReservations(string fromDate, string toDate) {
             return context.Reservations
-                .Where(x => x.Date.Year == year)
+                .Where(x => x.Date >= DateTime.Parse(fromDate) && x.Date <= DateTime.Parse(toDate))
                 .GroupBy(x => new { x.Date, x.DestinationId, x.Destination.Description, x.Destination.Abbreviation })
                 .OrderBy(x => x.Key.Date).ThenBy(x => x.Key.DestinationId)
                 .Select(x => new ReservationVM {

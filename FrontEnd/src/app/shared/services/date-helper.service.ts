@@ -78,6 +78,24 @@ export class DateHelperService {
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day)).getDay()
     }
 
+    public getDateDifference(fromDate: any, toDate: any): number {
+        return Math.round((toDate - fromDate) / (1000 * 60 * 60 * 24) + 1)
+    }
+
+    public getCurrentPeriodFromDate(): any {
+        const today = new Date()
+        const tenDaysBefore = today.setDate(today.getDate() - 1)
+        const z = new Date(tenDaysBefore)
+        return this.formatDateToIso(z)
+    }
+
+    public getCurrentPeriodToDate(): any {
+        const today = new Date()
+        const tenDaysBefore = today.setDate(today.getDate() + 8)
+        const z = new Date(tenDaysBefore)
+        return this.formatDateToIso(z)
+    }
+
     //#endregion
 
     //#region private methods

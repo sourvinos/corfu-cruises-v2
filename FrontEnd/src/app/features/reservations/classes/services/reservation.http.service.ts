@@ -4,18 +4,23 @@ import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { ReservationListVM } from '../view-models/list/reservation-list-vm'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { environment } from 'src/environments/environment'
 
 @Injectable({ providedIn: 'root' })
 
 export class ReservationHttpService extends HttpDataService {
 
-    constructor(httpClient: HttpClient) {
+    constructor(httpClient: HttpClient, private sessionStorageService: SessionStorageService) {
         super(httpClient, environment.apiUrl + '/reservations')
     }
 
-    public getForCalendar(year: number): Observable<any> {
-        return this.http.get<any>(this.url + '/year/' + year)
+    public getForCalendar(): Observable<any> {
+        const fromDate = this.sessionStorageService.getItem('fromDate')
+        const toDate = this.sessionStorageService.getItem('toDate')
+        if (fromDate != '') {
+            return this.http.get<any>(this.url + '/fromDate/' + fromDate + '/toDate/' + toDate)
+        }
     }
 
     public getByDate(date: string): Observable<ReservationListVM> {

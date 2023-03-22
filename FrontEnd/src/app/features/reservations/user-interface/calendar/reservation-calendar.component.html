@@ -2,7 +2,7 @@
 
     <div id="header">
         <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <button (click)="gotoToday()" [disabled]="currentYearIsNotDisplayedYear()" class="transparent" id="goto-today-button" mat-mini-fab>
+        <button (click)="createTodayPeriod()" [disabled]="currentYearIsNotDisplayedYear()" class="transparent" id="goto-today-button" mat-mini-fab>
             <mat-icon id="today">my_location</mat-icon>
         </button>
         <year-selector (yearEmitter)="doTasksAfterYearSelection($event)" [selectedYear]="selectedYear"></year-selector>
@@ -10,29 +10,34 @@
     </div>
 
     <div id="content">
-        <div id="table-wrapper">
-            <cdk-virtual-scroll-viewport id="days" itemSize="0" orientation="horizontal">
-                <div *cdkVirtualFor="let day of daysObservable | async;" (click)="doReservationTasks(day.date)" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day.date), 'sunday':isSunday(day.date), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
-                    <div class="day-data">
-                        <div class="weekday">{{ getLocaleWeekdayName(day) }}</div>
-                        <div class="date">{{ day.value }}</div>
-                        <div class="month">{{ getLocaleMonthName(day) }}</div>
-                        <div class="year">{{ getYear(day) }}</div>
-                    </div>
-                    <div *ngIf="day.destinations != undefined" class="reservation-data">
-                        <div class="reservation">
-                            <div class="destinations" *ngFor="let destination of day.destinations">
-                                <div class="destination-description">{{ destination.abbreviation }}</div>
-                                <div class="destination-pax">{{ destination.pax }}</div>
-                            </div>
-                        </div>
-                        <div class="pax">{{ day.pax }}</div>
-                    </div>
-                    <div *ngIf="day.destinations == undefined" class="no-reservation-data">
-                        <span class="material-icons-outlined">do_not_disturb</span>
-                    </div>
+        <div id="days">
+            <div *ngFor="let day of days" (click)="doReservationTasks(day.date)" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
+                <div class="day-data">
+                    <div class="weekday">{{ getLocaleWeekdayName(day) }}</div>
+                    <div class="date">{{ day.value }}</div>
+                    <div class="month">{{ getLocaleMonthName(day) }}</div>
                 </div>
-            </cdk-virtual-scroll-viewport>
+                <div *ngIf="day.destinations != undefined" class="reservation-data">
+                    <div class="reservation">
+                        <div class="destinations" *ngFor="let destination of day.destinations">
+                            <div class="destination-description">{{ destination.abbreviation }}</div>
+                            <div class="destination-pax">{{ destination.pax }}</div>
+                        </div>
+                    </div>
+                    <div class="pax">{{ day.pax }}</div>
+                </div>
+                <div *ngIf="day.destinations == undefined" class="no-reservation-data">
+                    <span class="material-icons-outlined">do_not_disturb</span>
+                </div>
+            </div>
+        </div>
+        <div id="period-scroller">
+            <button (click)="createPreviousPeriod()" class="transparent" mat-mini-fab>
+                <span class="material-icons">chevron_left</span>
+            </button>
+            <button (click)="createNextPeriod()" class="transparent" mat-mini-fab>
+                <span class="material-icons">chevron_right</span>
+            </button>
         </div>
     </div>
 

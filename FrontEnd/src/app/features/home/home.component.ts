@@ -1,7 +1,9 @@
 import { Component, VERSION } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 // Custom
+import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from '../../shared/services/helper.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Component({
     selector: 'app-home',
@@ -18,7 +20,7 @@ export class HomeComponent {
 
     //#endregion
 
-    constructor(private helperService: HelperService, private titleService: Title) { }
+    constructor(private dateHelperService: DateHelperService, private helperService: HelperService, private sessionStorageService: SessionStorageService, private titleService: Title) { }
 
     //#region lifecyle hooks
 
@@ -26,6 +28,8 @@ export class HomeComponent {
         this.getAppName()
         this.setWindowTitle()
         this.getNgVersion()
+        this.setCurrentYear()
+        this.setCurrentPeriod()
     }
 
     //#endregion
@@ -38,6 +42,15 @@ export class HomeComponent {
 
     private getNgVersion(): any {
         this.ngVersion = VERSION.full
+    }
+
+    private setCurrentPeriod(): void {
+        this.sessionStorageService.saveItem('fromDate', this.dateHelperService.getCurrentPeriodFromDate())
+        this.sessionStorageService.saveItem('toDate', this.dateHelperService.getCurrentPeriodToDate())
+    }
+
+    private setCurrentYear(): void {
+        this.sessionStorageService.saveItem('year', new Date().getUTCFullYear().toString())
     }
 
     private setWindowTitle(): void {
