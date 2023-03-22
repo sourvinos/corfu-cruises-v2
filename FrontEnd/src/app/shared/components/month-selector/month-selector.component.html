@@ -1,15 +1,5 @@
-<div id="month-picker">
-    <ul>
-        <li>
-            <button class="trigger">
-                <span class="material-icons-outlined">calendar_month</span>
-                <span class="material-icons-outlined">expand_more</span>
-            </button>
-            <ul (click)="hideMenu()" class="sub-menu">
-                <button *ngFor="let month of months" (click)="selectMonth(month)" class="hoverable">
-                    <span>{{ month }}</span>
-                </button>
-            </ul>
-        </li>
-    </ul>
+<div id="month-selector">
+    <button *ngFor="let month of months" (click)="selectMonth(month)" class="hoverable">
+        <span>{{ month }}</span>
+    </button>
 </div>

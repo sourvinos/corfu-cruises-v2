@@ -1,27 +1,15 @@
-.sub-menu {
-    right: 0;
-}
-
-button.trigger {
-    background-color: transparent;
-}
-
-.sub-menu button {
-    border-top: 1px solid var(--color-dropdown-menu-border);
-    border-right: 1px solid var(--color-dropdown-menu-border);
-    border-bottom: 0;
-    border-left: 1px solid var(--color-dropdown-menu-border);
+#month-selector {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
     justify-content: center;
 }
 
-.sub-menu button span {
-    margin: 0;
-}
-
-.sub-menu button:first-child {
-    border-top: 1px solid var(--color-dropdown-menu-border);
-}
-
-.sub-menu button:last-child {
-    border-bottom: 1px solid var(--color-dropdown-menu-border);
+button {
+    background-color: var(--color-a);
+    border: 1px solid var(--color-dropdown-menu-border);
+    color: var(--color-c);
+    padding: 0.5rem !important;
+    text-align: center;
+    width: 2rem;
 }

@@ -12,7 +12,7 @@ export class YearSelectorComponent {
 
     //#region variables
 
-    @Input() public selectedYear: number
+    @Input() public year: string
     @Output() public yearEmitter = new EventEmitter()
 
     public years: string[] = []

@@ -3,7 +3,7 @@ import { Component, EventEmitter, HostListener, Output } from '@angular/core'
 @Component({
     selector: 'month-selector',
     templateUrl: './month-selector.component.html',
-    styleUrls: ['../../../../assets/styles/dropdown-menu.css', './month-selector.component.css']
+    styleUrls: ['./month-selector.component.css']
 })
 
 export class MonthSelectorComponent {

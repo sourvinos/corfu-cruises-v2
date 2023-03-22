@@ -31,13 +31,11 @@ export class ReservationCalendarComponent {
     public icon = 'home'
     public parentUrl = '/'
 
-    private daysWrapper: any
-    public dayWidth: number
     public days: DayVM[] = []
-    public selectedYear: number
+    public year: string
     public todayLeftOffset: number
-    private fromDate: Date
-    private toDate: Date
+    public fromDate: Date
+    public toDate: Date
 
     // #endregion 
 
@@ -74,8 +72,7 @@ export class ReservationCalendarComponent {
     }
 
     public createPreviousPeriod(): void {
-        const x = this.fromDate.getDate() - 10
-        this.sessionStorageService.saveItem('fromDate', this.dateHelperService.formatDateToIso(new Date(this.fromDate.setDate(x))))
+        this.sessionStorageService.saveItem('fromDate', this.dateHelperService.formatDateToIso(new Date(this.fromDate.setDate(this.fromDate.getDate() - 10))))
         this.sessionStorageService.saveItem('toDate', this.dateHelperService.formatDateToIso(new Date(this.fromDate.setDate(this.fromDate.getDate() + 9))))
         this.router.navigate([this.url])
     }
@@ -91,8 +88,10 @@ export class ReservationCalendarComponent {
     }
 
     public doTasksAfterYearSelection(event: any): void {
-        this.selectedYear = parseInt(event)
+        this.year = event
         this.sessionStorageService.saveItem('year', event)
+        this.sessionStorageService.saveItem('fromDate', this.year + '-' + '01' + '-' + '01')
+        this.sessionStorageService.saveItem('toDate', this.year + '-' + '01' + '-' + '10')
         this.router.navigate([this.url])
     }
 
@@ -112,7 +111,7 @@ export class ReservationCalendarComponent {
         return day.year
     }
 
-    public setActiveMonth(month: number): void {
+    public doTasksAfterMonthSelection(month: number): void {
         this.fromDate = new Date(this.fromDate.getFullYear(), month - 1, 1)
         this.sessionStorageService.saveItem('fromDate', this.dateHelperService.formatDateToIso(this.fromDate))
         this.toDate = new Date(this.fromDate.getFullYear(), month - 1, 10)
@@ -125,16 +124,16 @@ export class ReservationCalendarComponent {
         this.navigateToList()
     }
 
-    public isSaturday(day: any): boolean {
-        return day.weekdayName == 'Sat'
+    public isSaturday(date: any): boolean {
+        return this.dateHelperService.getWeekdayIndex(date) == 6
     }
 
-    public isSunday(day: any): boolean {
-        return day.weekdayName == 'Sun'
+    public isSunday(date: any): boolean {
+        return this.dateHelperService.getWeekdayIndex(date) == 0
     }
 
-    public isToday(day: any): boolean {
-        return day.date == new Date().toISOString().substring(0, 10)
+    public isToday(date: any): boolean {
+        return date == new Date().toISOString().substring(0, 10)
     }
 
     public setSelectedYear(year: string): void {
@@ -150,8 +149,9 @@ export class ReservationCalendarComponent {
 
     private buildCalendar(): void {
         this.days = []
-        const x = this.fromDate
-        while (x <= this.toDate) {
+        const x = new Date(this.sessionStorageService.getItem('fromDate'))
+        const z = new Date(this.sessionStorageService.getItem('toDate'))
+        while (x <= z) {
             this.days.push({
                 date: this.dateHelperService.formatDateToIso(x),
                 weekdayName: x.toLocaleString('default', { weekday: 'short' }),
@@ -161,10 +161,6 @@ export class ReservationCalendarComponent {
             })
             x.setDate(x.getDate() + 1)
         }
-    }
-
-    private getMonthOffset(month: number): number {
-        return this.dateHelperService.getMonthFirstDayOffset(month, this.selectedYear.toString())
     }
 
     private getReservations(): Promise<any> {
@@ -187,8 +183,8 @@ export class ReservationCalendarComponent {
 
     private mustRebuildCalendar(): boolean {
         const storedYear = this.sessionStorageService.getItem('year')
-        if (storedYear != this.selectedYear.toString()) {
-            this.selectedYear = parseInt(storedYear)
+        if (storedYear != this.year.toString()) {
+            this.year = storedYear
             return true
         }
         return false
@@ -244,6 +240,7 @@ export class ReservationCalendarComponent {
     private updateVariables(): void {
         this.fromDate = new Date(this.sessionStorageService.getItem('fromDate'))
         this.toDate = new Date(this.sessionStorageService.getItem('toDate'))
+        this.year = this.sessionStorageService.getItem('year')
     }
 
     //#endregion
