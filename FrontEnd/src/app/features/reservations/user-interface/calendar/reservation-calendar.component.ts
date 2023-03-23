@@ -90,7 +90,7 @@ export class ReservationCalendarComponent {
         this.router.navigate([this.url])
     }
 
-    public createTodayPeriod(): void {
+    private createTodayPeriod(): void {
         this.sessionStorageService.saveItem('dayCount', this.helperService.calculateDayCount().toString())
         this.sessionStorageService.saveItem('fromDate', this.dateHelperService.getCurrentPeriodFromDate())
         this.sessionStorageService.saveItem('toDate', this.dateHelperService.getCurrentPeriodToDate(parseInt(this.sessionStorageService.getItem('dayCount'))))
@@ -101,11 +101,25 @@ export class ReservationCalendarComponent {
         return day.destinations?.length >= 1
     }
 
+    public doTasksAfterMonthSelection(month: number): void {
+        this.fromDate = new Date(this.fromDate.getFullYear(), month - 1, 1)
+        this.sessionStorageService.saveItem('fromDate', this.dateHelperService.formatDateToIso(this.fromDate))
+        this.toDate = new Date(this.fromDate.getFullYear(), month - 1, parseInt(this.sessionStorageService.getItem('dayCount')))
+        this.sessionStorageService.saveItem('toDate', this.dateHelperService.formatDateToIso(this.toDate))
+        this.router.navigate([this.url])
+    }
+
     public doTasksAfterYearSelection(event: any): void {
         this.year = event
         this.sessionStorageService.saveItem('year', event)
         this.sessionStorageService.saveItem('fromDate', this.year + '-' + '01' + '-' + '01')
         this.sessionStorageService.saveItem('toDate', this.year + '-' + '01' + '-' + this.sessionStorageService.getItem('dayCount'))
+        this.router.navigate([this.url])
+    }
+
+    public doTasksAfterTodaySelection(): void {
+        this.saveYear()
+        this.createTodayPeriod()
         this.router.navigate([this.url])
     }
 
@@ -125,14 +139,6 @@ export class ReservationCalendarComponent {
         return day.year
     }
 
-    public doTasksAfterMonthSelection(month: number): void {
-        this.fromDate = new Date(this.fromDate.getFullYear(), month - 1, 1)
-        this.sessionStorageService.saveItem('fromDate', this.dateHelperService.formatDateToIso(this.fromDate))
-        this.toDate = new Date(this.fromDate.getFullYear(), month - 1, parseInt(this.sessionStorageService.getItem('dayCount')))
-        this.sessionStorageService.saveItem('toDate', this.dateHelperService.formatDateToIso(this.toDate))
-        this.router.navigate([this.url])
-    }
-
     public doReservationTasks(date: string): void {
         this.storeCriteria(date)
         this.navigateToList()
@@ -148,13 +154,6 @@ export class ReservationCalendarComponent {
 
     public isToday(date: any): boolean {
         return date == new Date().toISOString().substring(0, 10)
-    }
-
-    public setSelectedYear(year: string): void {
-        this.saveYear(year)
-        if (this.mustRebuildCalendar()) {
-            this.router.navigate([this.url])
-        }
     }
 
     //#endregion
@@ -209,15 +208,6 @@ export class ReservationCalendarComponent {
 
     private goBack(): void {
         this.router.navigate([this.parentUrl])
-    }
-
-    private mustRebuildCalendar(): boolean {
-        const storedYear = this.sessionStorageService.getItem('year')
-        if (storedYear != this.year.toString()) {
-            this.year = storedYear
-            return true
-        }
-        return false
     }
 
     private navigateToList(): void {
