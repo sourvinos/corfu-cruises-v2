@@ -67,6 +67,7 @@ export class ReservationCalendarComponent {
         this.setTabTitle()
         this.setLocale()
         this.subscribeToInteractionService()
+        this.clearSessionStorage()
     }
 
     //#endregion
@@ -167,6 +168,13 @@ export class ReservationCalendarComponent {
                 this.router.navigate([this.url])
             }
         })
+    }
+
+    private clearSessionStorage(): void {
+        this.sessionStorageService.deleteItems([
+            { 'item': 'reservationList-id', 'when': 'always' },
+            { 'item': 'reservationList-scrollTop', 'when': 'always' },
+        ])
     }
 
     private buildCalendar(): void {
