@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core'
 // Custom
 import { LocalStorageService } from './local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
+import { SessionStorageService } from './session-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class DateHelperService {
 
-    constructor(private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService) { }
+    constructor(private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private sessionStorageService: SessionStorageService) { }
 
     //#region public methods
 
@@ -84,16 +85,25 @@ export class DateHelperService {
 
     public getCurrentPeriodFromDate(): any {
         const today = new Date()
-        const tenDaysBefore = today.setDate(today.getDate() - 1)
-        const z = new Date(tenDaysBefore)
-        return this.formatDateToIso(z)
+        return this.formatDateToIso(new Date(today.setDate(today.getDate() - 1)))
     }
 
-    public getCurrentPeriodToDate(): any {
+    public getCurrentPeriodToDate(dayCount: number): any {
         const today = new Date()
-        const tenDaysBefore = today.setDate(today.getDate() + 8)
-        const z = new Date(tenDaysBefore)
-        return this.formatDateToIso(z)
+        return this.formatDateToIso(new Date(today.setDate(today.getDate() + dayCount - 2)))
+    }
+
+    public calculateToDate(): any {
+        const dayCount = parseInt(this.sessionStorageService.getItem('dayCount'))
+        const fromDate = new Date(this.sessionStorageService.getItem('fromDate'))
+        const newDate = this.addDays(fromDate, dayCount)
+        return this.formatDateToIso(newDate)
+    }
+
+    public addDays(date: Date, days: number): Date {
+        const result = new Date(date)
+        result.setDate(result.getDate() + days - 1)
+        return result
     }
 
     //#endregion

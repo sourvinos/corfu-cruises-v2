@@ -2,6 +2,7 @@
 
     <div id="header">
         <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        <span [ngClass]="isSizeChanged ? 'visible' : 'hidden'" (click)="askToRefreshCalendar()" class="material-icons warning">warning</span>
         <button (click)="createTodayPeriod()" [disabled]="currentYearIsNotDisplayedYear()" class="transparent" id="goto-today-button" mat-mini-fab>
             <mat-icon id="today">my_location</mat-icon>
         </button>

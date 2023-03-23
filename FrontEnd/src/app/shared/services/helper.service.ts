@@ -325,6 +325,16 @@ export class HelperService {
         this.titleService.setTitle(environment.appName + ': ' + this.messageLabelService.getDescription(feature, 'header'))
     }
 
+    /**
+     * Calculates how many day divs should be created, according to the host container width
+     * @param element The host container
+    */
+    public calculateDayCount(): number {
+        const elementWidth = window.innerWidth - environment.marginsInPixels * 2
+        const dayCount = Math.trunc(elementWidth / 128)
+        return dayCount
+    }
+
     //#endregion
 
     //#region private methods

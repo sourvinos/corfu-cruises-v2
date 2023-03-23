@@ -1,5 +1,5 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, HostListener } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
@@ -13,6 +13,7 @@ import { MessageLabelService } from 'src/app/shared/services/messages-label.serv
 import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
+import { DialogService } from 'src/app/shared/services/dialog.service'
 
 @Component({
     selector: 'calendar',
@@ -32,14 +33,15 @@ export class ReservationCalendarComponent {
     public parentUrl = '/'
 
     public days: DayVM[] = []
-    public year: string
-    public todayLeftOffset: number
     public fromDate: Date
     public toDate: Date
+    public todayLeftOffset: number
+    public year: string
+    public isSizeChanged = false
 
     // #endregion 
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && navigation.url == this.url) {
                 this.updateVariables()
@@ -48,6 +50,16 @@ export class ReservationCalendarComponent {
             }
         })
     }
+
+    //#region listeners
+
+    @HostListener('window:resize', ['$event']) onResize(): void {
+        this.storeNewDateCalculations().then(() => {
+            this.isSizeChanged = true
+        })
+    }
+
+    //#endregion
 
     //#region lifecycle hooks
 
@@ -67,19 +79,20 @@ export class ReservationCalendarComponent {
 
     public createNextPeriod(): void {
         this.sessionStorageService.saveItem('fromDate', this.dateHelperService.formatDateToIso(new Date(this.toDate.setDate(this.toDate.getDate() + 1))))
-        this.sessionStorageService.saveItem('toDate', this.dateHelperService.formatDateToIso(new Date(this.toDate.setDate(this.toDate.getDate() + 9))))
+        this.sessionStorageService.saveItem('toDate', this.dateHelperService.formatDateToIso(new Date(this.toDate.setDate(this.toDate.getDate() + parseInt(this.sessionStorageService.getItem('dayCount')) - 1))))
         this.router.navigate([this.url])
     }
 
     public createPreviousPeriod(): void {
-        this.sessionStorageService.saveItem('fromDate', this.dateHelperService.formatDateToIso(new Date(this.fromDate.setDate(this.fromDate.getDate() - 10))))
-        this.sessionStorageService.saveItem('toDate', this.dateHelperService.formatDateToIso(new Date(this.fromDate.setDate(this.fromDate.getDate() + 9))))
+        this.sessionStorageService.saveItem('fromDate', this.dateHelperService.formatDateToIso(new Date(this.fromDate.setDate(this.fromDate.getDate() - parseInt(this.sessionStorageService.getItem('dayCount'))))))
+        this.sessionStorageService.saveItem('toDate', this.dateHelperService.formatDateToIso(new Date(this.fromDate.setDate(this.fromDate.getDate() + parseInt(this.sessionStorageService.getItem('dayCount')) - 1))))
         this.router.navigate([this.url])
     }
 
     public createTodayPeriod(): void {
+        this.sessionStorageService.saveItem('dayCount', this.helperService.calculateDayCount().toString())
         this.sessionStorageService.saveItem('fromDate', this.dateHelperService.getCurrentPeriodFromDate())
-        this.sessionStorageService.saveItem('toDate', this.dateHelperService.getCurrentPeriodToDate())
+        this.sessionStorageService.saveItem('toDate', this.dateHelperService.getCurrentPeriodToDate(parseInt(this.sessionStorageService.getItem('dayCount'))))
         this.router.navigate([this.url])
     }
 
@@ -91,7 +104,7 @@ export class ReservationCalendarComponent {
         this.year = event
         this.sessionStorageService.saveItem('year', event)
         this.sessionStorageService.saveItem('fromDate', this.year + '-' + '01' + '-' + '01')
-        this.sessionStorageService.saveItem('toDate', this.year + '-' + '01' + '-' + '10')
+        this.sessionStorageService.saveItem('toDate', this.year + '-' + '01' + '-' + this.sessionStorageService.getItem('dayCount'))
         this.router.navigate([this.url])
     }
 
@@ -114,7 +127,7 @@ export class ReservationCalendarComponent {
     public doTasksAfterMonthSelection(month: number): void {
         this.fromDate = new Date(this.fromDate.getFullYear(), month - 1, 1)
         this.sessionStorageService.saveItem('fromDate', this.dateHelperService.formatDateToIso(this.fromDate))
-        this.toDate = new Date(this.fromDate.getFullYear(), month - 1, 10)
+        this.toDate = new Date(this.fromDate.getFullYear(), month - 1, parseInt(this.sessionStorageService.getItem('dayCount')))
         this.sessionStorageService.saveItem('toDate', this.dateHelperService.formatDateToIso(this.toDate))
         this.router.navigate([this.url])
     }
@@ -147,6 +160,15 @@ export class ReservationCalendarComponent {
 
     //#region private methods
 
+    public askToRefreshCalendar(): void {
+        this.dialogService.open(this.messageSnackbarService.askToRefreshCalendar(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
+            if (response) {
+                this.isSizeChanged = false
+                this.router.navigate([this.url])
+            }
+        })
+    }
+
     private buildCalendar(): void {
         this.days = []
         const x = new Date(this.sessionStorageService.getItem('fromDate'))
@@ -157,7 +179,7 @@ export class ReservationCalendarComponent {
                 weekdayName: x.toLocaleString('default', { weekday: 'short' }),
                 value: x.getDate(),
                 monthName: x.toLocaleString('default', { month: 'long' }),
-                year: '2023'
+                year: this.year
             })
             x.setDate(x.getDate() + 1)
         }
@@ -206,6 +228,14 @@ export class ReservationCalendarComponent {
 
     private setTabTitle(): void {
         this.helperService.setTabTitle(this.feature)
+    }
+
+    private storeNewDateCalculations(): Promise<void> {
+        return new Promise((resolve) => {
+            this.sessionStorageService.saveItem('dayCount', this.helperService.calculateDayCount().toString())
+            this.sessionStorageService.saveItem('toDate', this.dateHelperService.calculateToDate())
+            resolve()
+        })
     }
 
     private storeCriteria(date: string): void {

@@ -217,6 +217,10 @@
             {
                 "id": "passwordCanBeChangedOnlyByAccountOwner",
                 "message": "Heslo může změnit pouze vlastník účtu."
+            },
+            {
+                "id": "askToRefreshCalendar",
+                "message": "Zaznamenali jsme změny ve velikosti kalendáře. Chcete, abychom jej aktualizovali o nové údaje?"
             }
         ]
     }

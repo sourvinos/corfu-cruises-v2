@@ -73,6 +73,7 @@ export class MessageSnackbarService {
     public userDisconnected(): string { return this.getDescription(this.feature, 'userDisconnected') }
     public success(): string { return this.getDescription(this.feature, 'success') }
     public warning(): string { return this.getDescription(this.feature, 'warning') }
+    public askToRefreshCalendar(): string { return this.getDescription(this.feature, 'askToRefreshCalendar') }
 
     public filterResponse(error: any, feature = 'snackbarMessages'): string {
         let returnValue = ''

@@ -217,6 +217,10 @@
             {
                 "id": "passwordCanBeChangedOnlyByAccountOwner",
                 "message": "The password can be changed only by the owner of the account."
+            },
+            {
+                "id": "askToRefreshCalendar",
+                "message": "We have detected changes in the size of the calendar. Do you want us to update it with new data?"
             }
         ]
     }

@@ -19,9 +19,10 @@ namespace API.Features.Reservations {
         }
 
         /// <summary>
-        ///     Gets all schedules for the selected year
+        ///     Gets all schedules for the selected period
         /// </summary>
-        /// <param name="year"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
         /// <returns>
         ///     A list of ScheduleVM objects
         /// </returns>
@@ -42,9 +43,10 @@ namespace API.Features.Reservations {
         }
 
         /// <summary>
-        ///     Gets all reservations for the selected year
+        ///     Gets all reservations for the selected period
         /// </summary>
-        /// <param name="year"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
         /// <returns>
         ///     A list of ReservationVM objects
         /// </returns>

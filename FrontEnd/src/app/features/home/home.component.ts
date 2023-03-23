@@ -45,8 +45,9 @@ export class HomeComponent {
     }
 
     private setCurrentPeriod(): void {
+        this.sessionStorageService.saveItem('dayCount', this.helperService.calculateDayCount().toString())
         this.sessionStorageService.saveItem('fromDate', this.dateHelperService.getCurrentPeriodFromDate())
-        this.sessionStorageService.saveItem('toDate', this.dateHelperService.getCurrentPeriodToDate())
+        this.sessionStorageService.saveItem('toDate', this.dateHelperService.getCurrentPeriodToDate(parseInt(this.sessionStorageService.getItem('dayCount'))))
     }
 
     private setCurrentYear(): void {

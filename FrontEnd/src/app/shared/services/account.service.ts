@@ -66,6 +66,7 @@ export class AccountService extends HttpDataService {
             { 'item': 'destination', 'when': 'always' },
             { 'item': 'fromDate', 'when': 'always' },
             { 'item': 'toDate', 'when': 'always' },
+            { 'item': 'dayCount', 'when': 'always' },
             // Criteria
             { 'item': 'embarkation-criteria', 'when': 'production' },
             { 'item': 'ledger-criteria', 'when': 'production' },

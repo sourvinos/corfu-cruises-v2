@@ -18,6 +18,7 @@ export const environment = {
     stopOrdersIconDirectory: 'assets/images/stopOrders/',
     nationalitiesIconDirectory: 'assets/images/nationalities/',
     cssUserSelect: 'auto',
+    marginsInPixels: 48,
     login: {
         username: '',
         email: '',
