@@ -61,8 +61,6 @@ export class AccountService extends HttpDataService {
             { 'item': 'isAdmin', 'when': 'always' },
             // Reservations
             { 'item': 'date', 'when': 'always' },
-            { 'item': 'scrollLeft', 'when': 'always' },
-            { 'item': 'year', 'when': 'always' },
             { 'item': 'destination', 'when': 'always' },
             { 'item': 'fromDate', 'when': 'always' },
             { 'item': 'toDate', 'when': 'always' },

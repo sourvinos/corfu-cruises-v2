@@ -6,7 +6,6 @@ export interface DayVM {
     weekdayName: string,
     value: number,
     monthName: string,
-    year: string,
     pax?: number,
     destinations?: DestinationVM[]
 

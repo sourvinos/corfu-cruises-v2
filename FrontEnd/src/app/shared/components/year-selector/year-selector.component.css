@@ -24,7 +24,7 @@ button.trigger {
 #selected-year {
     color: var(--color-c);
     font-family: var(--font-family-asty);
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 100;
     margin-left: auto;
     margin-right: 1rem;

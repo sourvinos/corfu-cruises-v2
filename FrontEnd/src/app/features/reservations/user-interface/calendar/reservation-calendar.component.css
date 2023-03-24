@@ -16,7 +16,7 @@
     flex-direction: column;
     height: 100%;
     justify-content: center;
-    margin: 0 3rem 0 3rem;
+    margin: 0 2.5rem 0 2.5rem;
 }
 
 #footer {
@@ -33,9 +33,6 @@
     flex-direction: row;
     height: 100%;
     justify-content: center;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
 }
 
 .day {
@@ -44,10 +41,9 @@
     border: 0.0625rem solid var(--color-z);
     display: flex;
     flex-direction: column;
-    max-width: 8rem;
-    min-width: 8rem;
+    max-width: 7.7rem;
+    min-width: 7.7rem;
     padding: 1.8rem;
-    scroll-snap-align: start;
 }
 
 .day:hover {
@@ -62,11 +58,12 @@
     margin-bottom: 2rem;
 }
 
-.day-data .weekday, .day-data .month {
+.day-data .weekday, .day-data .month, .day-data .year {
     color: var(--color-c);
     font-family: var(--font-family-asty);
     font-size: 0.8rem;
     font-weight: 100;
+    margin-top: 0.2rem;
 }
 
 .day-data .date {

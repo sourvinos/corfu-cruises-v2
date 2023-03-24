@@ -1,15 +1,19 @@
 #month-selector {
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
     justify-content: center;
 }
 
 button {
     background-color: var(--color-a);
+    border-radius: 50%;
     border: 1px solid var(--color-dropdown-menu-border);
     color: var(--color-c);
     padding: 0.5rem !important;
     text-align: center;
     width: 2rem;
+}
+
+button:hover {
+    background-color: var(--color-red);
 }

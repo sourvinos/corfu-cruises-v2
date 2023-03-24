@@ -28,7 +28,6 @@ export class HomeComponent {
         this.getAppName()
         this.setWindowTitle()
         this.getNgVersion()
-        this.setCurrentYear()
         this.setCurrentPeriod()
     }
 
@@ -48,10 +47,6 @@ export class HomeComponent {
         this.sessionStorageService.saveItem('dayCount', this.helperService.calculateDayCount().toString())
         this.sessionStorageService.saveItem('fromDate', this.dateHelperService.getCurrentPeriodFromDate())
         this.sessionStorageService.saveItem('toDate', this.dateHelperService.getCurrentPeriodToDate(parseInt(this.sessionStorageService.getItem('dayCount'))))
-    }
-
-    private setCurrentYear(): void {
-        this.sessionStorageService.saveItem('year', new Date().getUTCFullYear().toString())
     }
 
     private setWindowTitle(): void {

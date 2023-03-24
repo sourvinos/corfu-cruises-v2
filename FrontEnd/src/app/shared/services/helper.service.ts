@@ -327,11 +327,10 @@ export class HelperService {
 
     /**
      * Calculates how many day divs should be created, according to the host container width
-     * @param element The host container
     */
     public calculateDayCount(): number {
-        const elementWidth = window.innerWidth - environment.marginsInPixels * 2
-        const dayCount = Math.trunc(elementWidth / 128)
+        const elementWidth = window.innerWidth - environment.marginsInPixels
+        const dayCount = Math.trunc(elementWidth / 123.2)
         return dayCount
     }
 
