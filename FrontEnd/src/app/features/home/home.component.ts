@@ -45,8 +45,8 @@ export class HomeComponent {
 
     private setCurrentPeriod(): void {
         this.sessionStorageService.saveItem('dayCount', this.helperService.calculateDayCount().toString())
-        this.sessionStorageService.saveItem('fromDate', this.dateHelperService.getCurrentPeriodFromDate())
-        this.sessionStorageService.saveItem('toDate', this.dateHelperService.getCurrentPeriodToDate(parseInt(this.sessionStorageService.getItem('dayCount'))))
+        this.sessionStorageService.saveItem('fromDate', this.dateHelperService.getCurrentPeriodBeginDate())
+        this.sessionStorageService.saveItem('toDate', this.dateHelperService.getCurrentPeriodEndDate(parseInt(this.sessionStorageService.getItem('dayCount'))))
     }
 
     private setWindowTitle(): void {

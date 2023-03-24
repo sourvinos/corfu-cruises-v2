@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using API.Features.Schedules;
@@ -16,16 +17,17 @@ namespace API.Features.Availability {
 
         /// <summary>
         ///     Step 1/5
-        ///     Creates the calendar (based on the schedules for the selected year) which will contain (after all the processing) the free seats per day, destination and port
+        ///     Creates the calendar (based on the schedules for the selected period) which will contain (after all the processing) the free seats per day, destination and port
         /// </summary>
-        /// <param name="year"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
         /// <returns>
         ///     A list of AvailabilityCalendarGroupVM, one object for each day
         /// </returns>
-        public IEnumerable<AvailabilityGroupVM> GetForCalendar(int year) {
+        public IEnumerable<AvailabilityGroupVM> GetForCalendar(string fromDate, string toDate) {
             return context.Schedules
                 .AsNoTracking()
-                .Where(x => x.Date.Year == year)
+                .Where(x => x.Date >= DateTime.Parse(fromDate) && x.Date <= DateTime.Parse(toDate))
                 .GroupBy(x => x.Date)
                 .Select(x => new AvailabilityGroupVM {
                     Date = DateHelpers.DateToISOString(x.Key.Date),
@@ -125,16 +127,17 @@ namespace API.Features.Availability {
         }
 
         /// <summary>
-        ///     Gets the reservations for the selected year, without any processing
+        ///     Gets the reservations for the selected period, without any processing
         /// </summary>
-        /// <param name="year"></param>
+        /// <param name="fromDate"></param>
+        /// <param name="toDate"></param>
         /// <returns>
         ///     A list of ReservationVM objects, one per reservation
         /// </returns>
-        public IEnumerable<ReservationVM> GetReservations(int year) {
+        public IEnumerable<ReservationVM> GetReservations(string fromDate, string toDate) {
             var reservations = context.Reservations
                 .AsNoTracking()
-                .Where(x => x.Date.Year == year)
+                .Where(x => x.Date >= DateTime.Parse(fromDate) && x.Date <= DateTime.Parse(toDate))
                 .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
                 .Select(x => new ReservationVM {
                     Date = DateHelpers.DateToISOString(x.Date),

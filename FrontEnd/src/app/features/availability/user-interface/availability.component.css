@@ -4,20 +4,35 @@
     height: 100%;
 }
 
+#header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4rem 1rem 4rem !important;
+}
+
 #content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     height: 100%;
     justify-content: center;
-    margin: 0 2.8rem 0 3rem;
+    margin: 0 2.5rem 0 2.5rem;
+}
+
+#footer {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    margin-top: auto;
+    padding: var(--gap) 4rem;
 }
 
 #days {
     display: flex;
     flex-direction: row;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
+    height: 100%;
+    justify-content: center;
 }
 
 .day {
@@ -26,10 +41,13 @@
     border: 0.0625rem solid var(--color-z);
     display: flex;
     flex-direction: column;
-    max-width: 11rem;
-    min-width: 11rem;
-    padding: 1.5rem 1rem;
-    scroll-snap-align: start;
+    max-width: 7.7rem;
+    min-width: 7.7rem;
+    padding: 1.8rem 1rem 1.8rem 1rem;
+}
+
+.day:hover {
+    cursor: no-drop;
 }
 
 .day-data {
@@ -40,19 +58,20 @@
     margin-bottom: 2rem;
 }
 
-.day-data .weekday, .day-data .month {
+.day-data .weekday, .day-data .month, .day-data .year {
     color: var(--color-c);
     font-family: var(--font-family-asty);
-    font-size: 1rem;
-    font-weight: 300;
+    font-size: 0.8rem;
+    font-weight: 100;
+    margin-top: 0.2rem;
 }
 
 .day-data .date {
     color: var(--color-c);
     font-family: var(--font-family-asty);
     font-size: 1.8rem;
-    font-weight: 300;
-    margin: 0.5625rem 0 0.375rem 0;
+    font-weight: 100;
+    margin-top: 0.3125rem;
     text-align: center;
     width: 3rem;
 }
@@ -96,7 +115,7 @@
     font-size: 0.8rem;
     font-weight: 300;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1rem 1rem 1rem 1rem;
 }
 
 .destinations:hover {
@@ -115,6 +134,7 @@
 .ports {
     display: flex;
     justify-content: space-between;
+    margin: 0 0 0.3rem 0;
 }
 
 .pax {
@@ -138,18 +158,43 @@
     background-color: var(--color-background-today) !important;
 }
 
-.saturday *, .sunday *, .today * {
-    color: var(--color-a) !important;
-    font-weight: 300;
-}
-
 #goto-today-button {
     background-color: transparent !important;
-    margin: 0 1rem 0 auto !important;
+    margin: 0 1rem 0 1rem !important;
 }
 
 .mat-icon#today {
     color: var(--color-background-today) !important;
     font-size: 1.4rem !important;
     margin-top: -0.3125rem !important;
+}
+
+#period-scroller {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0.3rem 0;
+}
+
+#period-scroller button {
+    background-color: transparent !important;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    margin-right: 1rem !important;
+    transition: all var(--hover-change-delay) ease-in;
+}
+
+#period-scroller button span.material-icons {
+    color: var(--color-red);
+    font-size: 2.5rem;
+}
+
+.material-icons.warning {
+    color: var(--color-red);
+    margin-left: auto;
+}
+
+.material-icons.warning:hover {
+    cursor: pointer;
 }

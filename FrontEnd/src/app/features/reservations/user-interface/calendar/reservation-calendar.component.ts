@@ -52,7 +52,7 @@ export class ReservationCalendarComponent {
     //#region listeners
 
     @HostListener('window:resize', ['$event']) onResize(): void {
-        this.storeNewDateCalculations().then(() => {
+        this.storeDatePeriod().then(() => {
             this.isSizeChanged = true
         })
     }
@@ -149,8 +149,8 @@ export class ReservationCalendarComponent {
 
     private buildCalendar(): void {
         this.days = []
-        const x = new Date(this.sessionStorageService.getItem('fromDate'))
-        const z = new Date(this.sessionStorageService.getItem('toDate'))
+        const x = this.dateHelperService.createDate(this.sessionStorageService.getItem('fromDate'))
+        const z = this.dateHelperService.createDate(this.sessionStorageService.getItem('toDate'))
         while (x <= z) {
             this.days.push({
                 date: this.dateHelperService.formatDateToIso(x),
@@ -186,8 +186,8 @@ export class ReservationCalendarComponent {
             }
             case 'today': {
                 const period = []
-                period[0] = this.dateHelperService.getCurrentPeriodFromDate()
-                period[1] = this.dateHelperService.getCurrentPeriodToDate(parseInt(this.sessionStorageService.getItem('dayCount')))
+                period[0] = this.dateHelperService.getCurrentPeriodBeginDate()
+                period[1] = this.dateHelperService.getCurrentPeriodEndDate(parseInt(this.sessionStorageService.getItem('dayCount')))
                 return period
             }
         }
@@ -223,10 +223,10 @@ export class ReservationCalendarComponent {
         this.helperService.setTabTitle(this.feature)
     }
 
-    private storeNewDateCalculations(): Promise<void> {
+    private storeDatePeriod(): Promise<void> {
         return new Promise((resolve) => {
             this.sessionStorageService.saveItem('dayCount', this.helperService.calculateDayCount().toString())
-            this.sessionStorageService.saveItem('toDate', this.dateHelperService.calculateToDate())
+            this.sessionStorageService.saveItem('toDate', this.dateHelperService.getPeriodEndDate(new Date(this.sessionStorageService.getItem('fromDate')), parseInt(this.sessionStorageService.getItem('dayCount'))))
             resolve()
         })
     }

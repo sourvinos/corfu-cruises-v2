@@ -2,18 +2,17 @@ import { Injectable } from '@angular/core'
 // Custom
 import { LocalStorageService } from './local-storage.service'
 import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
-import { SessionStorageService } from './session-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
 export class DateHelperService {
 
-    constructor(private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private sessionStorageService: SessionStorageService) { }
+    constructor(private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService) { }
 
     //#region public methods
 
     /**
-     * Formats a 'YYYY-MM-DD' string into a string according to the current locale with optional weekday name and year
+     * Formats a 'YYYY-MM-DD' string into a string according to the stored locale with optional weekday name and year
      * Example '2022-12-14' with selected locale Greek, showWeekday = true and showYear = false will return 'Τετ 14/12'
      * @param date: String representing a date formatted as 'YYYY-MM-DD'
      * @param showWeekday: An optional boolean whether to include the weekday in the return string
@@ -44,72 +43,67 @@ export class DateHelperService {
         return includeWeekday ? weekday + ' ' + formattedDate : formattedDate
     }
 
-    public getCurrentMonth(): number {
-        return new Date().getMonth()
-    }
-
-    public getCurrentYear(): number {
-        return new Date().getFullYear()
-    }
-
-    public getMonthFirstDayOffset(month: number, year: string): number {
-        const isLeapYear = this.isLeapYear(parseInt(year))
-        switch (month) {
-            case 1: return 0
-            case 2: return 31
-            case 3: return isLeapYear ? 60 : 59
-            case 4: return isLeapYear ? 91 : 90
-            case 5: return isLeapYear ? 121 : 120
-            case 6: return isLeapYear ? 152 : 151
-            case 7: return isLeapYear ? 182 : 181
-            case 8: return isLeapYear ? 213 : 212
-            case 9: return isLeapYear ? 244 : 243
-            case 10: return isLeapYear ? 274 : 273
-            case 11: return isLeapYear ? 305 : 304
-            case 12: return isLeapYear ? 335 : 334
-        }
-    }
-
-    public isLeapYear(year: number): boolean {
-        return (0 == year % 4) && (0 != year % 100) || (0 == year % 400) ? true : false
-    }
-
+    /**
+     * @param date a string representing a date formatted as 'YYYY-MM-DD'
+     * @returns an integer representing the weekday index 0 = Sun, 1 = Mon, 2 = Tue, ..., 6 = Sat
+     */
     public getWeekdayIndex(date: string): any {
         const [year, month, day] = date.split('-')
         return new Date(parseInt(year), parseInt(month) - 1, parseInt(day)).getDay()
     }
 
-    public getDateDifference(fromDate: any, toDate: any): number {
-        return Math.round((toDate - fromDate) / (1000 * 60 * 60 * 24) + 1)
-    }
-
-    public getCurrentPeriodFromDate(): any {
+    /**
+     * @returns a string representing today formatted as 'YYYY-MM-DD'
+     */
+    public getCurrentPeriodBeginDate(): string {
         const today = new Date()
         return this.formatDateToIso(new Date(today.setDate(today.getDate() - 1)))
     }
 
-    public getCurrentPeriodToDate(dayCount: number): any {
+    /**
+     * @param dayCount an integer representing the days to create into the future based on today
+     * @returns a string representing the future date formatted as 'YYYY-MM-DD'
+     */
+    public getCurrentPeriodEndDate(dayCount: number): string {
         const today = new Date()
         return this.formatDateToIso(new Date(today.setDate(today.getDate() + dayCount - 2)))
     }
 
-    public calculateToDate(): any {
-        const dayCount = parseInt(this.sessionStorageService.getItem('dayCount'))
-        const fromDate = new Date(this.sessionStorageService.getItem('fromDate'))
-        const newDate = this.addDays(fromDate, dayCount)
+    /**
+     * @param fromDate the date object representing the date to begin
+     * @param days how many days to create
+     * @returns a date object representing a future date based on the fromDate and the days count
+     */
+    public getPeriodEndDate(fromDate: Date, days: number): string {
+        const newDate = new Date(fromDate)
+        newDate.setDate(newDate.getDate() + days - 1)
         return this.formatDateToIso(newDate)
     }
 
-    public addDays(date: Date, days: number): Date {
-        const result = new Date(date)
-        result.setDate(result.getDate() + days - 1)
-        return result
+    /**
+     * @param date a string representing a date formatted as 'YYYY-MM-DD'
+     * @returns a date object formatted as 'Thu Mar 23 2023 00:00:00'
+     */
+    public createDate(date: string): any {
+        const day = date.substring(8, 10)
+        const month = date.substring(5, 7)
+        const year = date.substring(0, 4)
+        return new Date(new Intl.DateTimeFormat('default').format(new Date(
+            parseInt(year),
+            parseInt(month) - 1,
+            parseInt(day))))
     }
 
     //#endregion
 
     //#region private methods
 
+    /**
+     * 
+     * @param date a string representing a date possibly formatted as 'YYYY-M-D'
+     * @param showYear include the year in the return string or not
+     * @returns a string representing a date formatted as 'YYYY-MM-DD'
+     */
     private addLeadingZerosToDateParts(date: string, showYear: boolean): string {
         const seperator = this.getDateLocaleSeperator()
         const parts = date.split(seperator)
@@ -123,6 +117,9 @@ export class DateHelperService {
         }
     }
 
+    /**
+     * @returns a string representing the date seperator based on the stored locale
+     */
     private getDateLocaleSeperator(): string {
         switch (this.localStorageService.getLanguage()) {
             case 'cs-CZ': return '.'

@@ -1,25 +1,26 @@
-<div id="list">
+<div id="wrapper">
 
     <div id="header">
         <home-button-and-title [featureIcon]="featureIcon" [feature]="feature" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        <button (click)="gotoToday()" [disabled]="currentYearIsNotDisplayedYear()" class="transparent" id="goto-today-button" mat-mini-fab>
+        <span [ngClass]="isSizeChanged ? 'visible' : 'hidden'" (click)="askToRefreshCalendar()" class="material-icons warning">warning</span>
+        <button (click)="doSelectedPeriodTasks('today')" class="transparent" id="goto-today-button" mat-mini-fab>
             <mat-icon id="today">my_location</mat-icon>
         </button>
-        <!-- <year-selector (yearEmitter)="doTasksAfterYearSelection($event)" [selectedYear]="selectedYear"></year-selector> -->
-        <!-- <month-selector (monthEmitter)="setActiveMonth($event)"></month-selector> -->
+        <year-selector (yearEmitter)="doTasksAfterYearSelection($event)" [year]="getSelectedYear()"></year-selector>
     </div>
 
     <div id="content">
         <div id="days">
-            <div *ngFor="let day of days" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day), 'sunday':isSunday(day), 'is-today':isToday(day), 'has-schedule':dayHasSchedule(day) }" class="day">
+            <div *ngFor="let day of days" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day.date), 'sunday':isSunday(day.date), 'is-today':isToday(day.date), 'has-schedule':dayHasSchedule(day) }" class="day">
                 <div class="day-data">
-                    <div class="weekday">{{ getLocaleWeekdayName(day) }}</div>
+                    <div class="weekday">{{ getLocaleWeekdayName(day.date) }}</div>
                     <div class="date">{{ day.value }}</div>
-                    <div class="month">{{ getLocaleMonthName(day) }}</div>
+                    <div class="month">{{ getLocaleMonthName(day.date) }}</div>
+                    <div class="year">{{ getYear(day.date) }}</div>
                 </div>
                 <div *ngIf="day.destinations.length > 0" class="reservation-data">
                     <div class="reservation">
-                        <div *ngFor="let destination of day.destinations" (click)="doReservationTasks(day.date, destination)" class="destinations">
+                        <div *ngFor="let destination of day.destinations" (click)="doNewReservationTasks(day.date, destination)" class="destinations">
                             <div class="destination-description">{{ destination.abbreviation }}</div>
                             <div class="ports" *ngFor="let port of destination.ports">
                                 <div class="port-description">{{ port.abbreviation }}</div>
@@ -33,6 +34,15 @@
                 </div>
             </div>
         </div>
+        <div id="period-scroller">
+            <button (click)="doSelectedPeriodTasks('previous')" class="transparent" mat-mini-fab>
+                <span class="material-icons">chevron_left</span>
+            </button>
+            <button (click)="doSelectedPeriodTasks('next')" class="transparent" mat-mini-fab>
+                <span class="material-icons">chevron_right</span>
+            </button>
+        </div>
+        <month-selector (monthEmitter)="doTasksAfterMonthSelection($event)"></month-selector>
     </div>
 
     <div id="footer">

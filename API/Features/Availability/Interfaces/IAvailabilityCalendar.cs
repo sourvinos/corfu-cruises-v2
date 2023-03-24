@@ -6,8 +6,8 @@ namespace API.Features.Availability {
 
     public interface IAvailabilityCalendar : IAvailabilityBase, IRepository<Schedule> {
 
-        IEnumerable<AvailabilityGroupVM> GetForCalendar(int year);
-        IEnumerable<ReservationVM> GetReservations(int year);
+        IEnumerable<AvailabilityGroupVM> GetForCalendar(string fromDate, string toDate);
+        IEnumerable<ReservationVM> GetReservations(string fromDate, string toDate);
 
     }
 

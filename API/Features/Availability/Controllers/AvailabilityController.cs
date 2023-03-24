@@ -25,10 +25,10 @@ namespace API.Features.Availability {
             return availabilityDay.CalculateAccumulatedFreePaxPerPort(availabilityDay.CalculateAccumulatedMaxPaxPerPort(availabilityDay.CalculateAccumulatedPaxPerPort(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(date, destinationId, portId), availabilityDay.GetReservations(date)))));
         }
 
-        [HttpGet("year/{year}")]
+        [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
         [Authorize(Roles = "user, admin")]
-        public IEnumerable<AvailabilityGroupVM> GetForCalendar([FromRoute] int year) {
-            return availabilityCalendar.CalculateAccumulatedFreePaxPerPort(availabilityCalendar.CalculateAccumulatedMaxPaxPerPort(availabilityCalendar.CalculateAccumulatedPaxPerPort(availabilityCalendar.GetPaxPerPort(availabilityCalendar.GetForCalendar(year), availabilityCalendar.GetReservations(year)))));
+        public IEnumerable<AvailabilityGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
+            return availabilityCalendar.CalculateAccumulatedFreePaxPerPort(availabilityCalendar.CalculateAccumulatedMaxPaxPerPort(availabilityCalendar.CalculateAccumulatedPaxPerPort(availabilityCalendar.GetPaxPerPort(availabilityCalendar.GetForCalendar(fromDate, toDate), availabilityCalendar.GetReservations(fromDate, toDate)))));
         }
 
     }
