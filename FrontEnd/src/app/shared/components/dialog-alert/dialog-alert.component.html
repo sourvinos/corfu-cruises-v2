@@ -29,8 +29,8 @@
             <button mat-flat-button class="primary" id="ok" tabindex="-1" mat-dialog-close="true">{{ getLabel('okButton') }}</button>
         </mat-dialog-actions>
         <mat-dialog-actions *ngIf="data.actions.length == 2">
-            <button data-cy="dialog-abort" mat-flat-button class="transparent" id="abort" tabindex="-1" (click)="onClose()">{{ getLabel('noButton') }}</button>
-            <button data-cy="dialog-ok" mat-flat-button class="primary" id="ok" tabindex="-1" mat-dialog-close="true">{{ getLabel('okButton') }}</button>
+            <button mat-flat-button class="transparent" id="abort" tabindex="-1" (click)="onClose()">{{ getLabel('noButton') }}</button>
+            <button mat-flat-button class="primary" id="ok" tabindex="-1" mat-dialog-close="true">{{ getLabel('okButton') }}</button>
         </mat-dialog-actions>
     </div>
 

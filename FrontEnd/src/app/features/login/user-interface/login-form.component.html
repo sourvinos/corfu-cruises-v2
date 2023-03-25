@@ -12,13 +12,13 @@
     </div>
 
     <div id="content">
-        <form [formGroup]="form" autocomplete="off" data-cy="form">
+        <form [formGroup]="form" autocomplete="off">
             <mat-form-field>
-                <input [inputTabStop]="input" [placeholder]="getLabel('username')" data-cy="username" data-tabindex="1" formControlName="username" id="username" matInput>
+                <input [inputTabStop]="input" [placeholder]="getLabel('username')" data-tabindex="1" formControlName="username" id="username" matInput>
                 <mat-error *ngIf="username.hasError('required')">{{ getHint("required") }}</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <input [inputTabStop]="input" [placeholder]="getLabel('password')" [type]="hidePassword ? 'password' : 'text'" data-cy="password" data-tabindex="2" formControlName="password" id="password" matInput>
+                <input [inputTabStop]="input" [placeholder]="getLabel('password')" [type]="hidePassword ? 'password' : 'text'" data-tabindex="2" formControlName="password" id="password" matInput>
                 <button (click)="hidePassword = !hidePassword" mat-icon-button matSuffix type="button">
                     <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
                 </button>
@@ -27,8 +27,8 @@
             <div id="columns">
                 <div class="styled-input-square">
                     <div class="styled-input-single">
-                        <input data-cy="no-robot" formControlName="noRobot" id="no-robot" type="checkbox">
-                        <label data-cy="no-robot-label" for="no-robot">{{ getLabel("noRobotCheckbox") }}</label>
+                        <input formControlName="noRobot" id="no-robot" type="checkbox">
+                        <label for="no-robot">{{ getLabel("noRobotCheckbox") }}</label>
                     </div>
                 </div>
                 <span id="forgot-password" (click)="onForgotPassword()">{{ getLabel("forgotPasswordButton") }}</span>
@@ -38,7 +38,7 @@
     </div>
 
     <div id="footer">
-        <button (click)="onLogin()" [disabled]="!form.valid" class="primary" data-cy="login" id="login" mat-flat-button>
+        <button (click)="onLogin()" [disabled]="!form.valid" class="primary" id="login" mat-flat-button>
             <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
             <span>{{ getLabel("loginButton") }}</span>
         </button>
