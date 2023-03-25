@@ -18,7 +18,7 @@
 }
 
 .list-wrapper {
-    height: 92%;
+    height: 81%;
     overflow-y: scroll;
     width: 13.5rem;
 }
@@ -33,7 +33,8 @@
 }
 
 .icon {
+    font-size: 0.9375rem;
+    margin-left: 0.5rem;
     position: relative;
-    top: -2px;
-    font-size: 15px;
+    top: -0.125rem;
 }

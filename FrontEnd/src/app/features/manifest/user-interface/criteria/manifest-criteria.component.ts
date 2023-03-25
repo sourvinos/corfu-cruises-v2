@@ -33,7 +33,7 @@ export class ManifestCriteriaComponent {
     public featureIcon = 'manifest'
     public form: FormGroup
     public icon = 'home'
-    public parentUrl = null
+    public parentUrl = '/'
 
     private criteria: ManifestCriteriaVM
 

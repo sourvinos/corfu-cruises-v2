@@ -2,7 +2,7 @@
     align-items: flex-start;
     backdrop-filter: blur(0.25rem);
     background: var(--color-i);
-    border-radius: 0.625rem;
+    border-radius: 0.3125rem;
     border: 0.0625rem solid #ffffff2e;
     box-shadow: 0 0.5rem 2rem 0 #1f26875e;
     display: flex !important;
@@ -17,11 +17,6 @@
 .mat-card:hover {
     background-color: var(--color-x) !important;
     cursor: pointer;
-}
-
-.mat-card-sm-image {
-    height: 100px !important;
-    width: auto !important;
 }
 
 .mat-card-title {

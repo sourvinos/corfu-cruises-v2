@@ -36,7 +36,7 @@ export class LedgerCriteriaComponent {
     public featureIcon = 'ledgers'
     public form: FormGroup
     public icon = 'home'
-    public parentUrl = null
+    public parentUrl = '/'
 
     private criteria: LedgerCriteriaVM
     public selectedFromDate = new Date()
