@@ -2092,5 +2092,42 @@
                 "description": "OK"
             }
         ]
+    },
+    {
+        "feature": "cardsMenu",
+        "labels": [
+            {
+                "id": "reservationsTitle",
+                "description": "Réservations"
+            },
+            {
+                "id": "reservationsSubTitle",
+                "description": "Affichez le calendrier et modifiez vos réservations."
+            },
+            {
+                "id": "availabilityTitle",
+                "description": "Disponibilité"
+            },
+            {
+                "id": "availabilitySubTitle",
+                "description": "Vérifier les places disponibles pour une excursion et effectuer une nouvelle réservation."
+            },
+            {
+                "id": "embarkationTitle",
+                "description": "Embarquement"
+            },
+            {
+                "id": "embarkationSubTitle",
+                "description": "Gérer l'entrée des passagers à bord."
+            },
+            {
+                "id": "ledgersTitle",
+                "description": "Mon registre"
+            },
+            {
+                "id": "ledgersSubTitle",
+                "description": "Affichez vos réservations pour une période donnée."
+            }
+        ]
     }
 ]

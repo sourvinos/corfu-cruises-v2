@@ -2092,5 +2092,42 @@
                 "description": "OK"
             }
         ]
+    },
+    {
+        "feature": "cardsMenu",
+        "labels": [
+            {
+                "id": "reservationsTitle",
+                "description": "Κρατήσεις"
+            },
+            {
+                "id": "reservationsSubTitle",
+                "description": "Εμφανίστε το ημερολόγιο και επεξεργαστείτε τις κρατήσεις σας."
+            },
+            {
+                "id": "availabilityTitle",
+                "description": "Διαθεσιμότητα"
+            },
+            {
+                "id": "availabilitySubTitle",
+                "description": "Δείτε τις ελεύθερες θέσεις για μία εκδρομή και κάντε μία νέα κράτηση."
+            },
+            {
+                "id": "embarkationTitle",
+                "description": "Επιβίβαση"
+            },
+            {
+                "id": "embarkationSubTitle",
+                "description": "Διαχειριστείτε την είσοδο των επιβατών στα πλοία."
+            },
+            {
+                "id": "ledgersTitle",
+                "description": "Η καρτέλα μου"
+            },
+            {
+                "id": "ledgersSubTitle",
+                "description": "Εμφανίστε τις κρατήσεις σας για ένα ημερολογιακό διάστημα."
+            }
+        ]
     }
 ]

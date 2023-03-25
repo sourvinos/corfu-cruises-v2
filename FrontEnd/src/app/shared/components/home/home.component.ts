@@ -2,7 +2,7 @@ import { Component, VERSION } from '@angular/core'
 import { Title } from '@angular/platform-browser'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { HelperService } from '../../shared/services/helper.service'
+import { HelperService } from '../../services/helper.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Component({

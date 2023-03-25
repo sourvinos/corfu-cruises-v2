@@ -1,0 +1,26 @@
+<div id="cards-menu">
+    <mat-card routerLink="reservations">
+        <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('reservations')" style="height: 100px; width: 100px">
+        <mat-card-title>{{ getLabel("reservationsTitle") }}</mat-card-title>
+        <mat-divider inset></mat-divider>
+        <mat-card-subtitle>{{ getLabel("reservationsSubTitle") }}</mat-card-subtitle>
+    </mat-card>
+    <mat-card routerLink="availability">
+        <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('availability')" style="height: 100px; width: 100px">
+        <mat-card-title>{{ getLabel("availabilityTitle") }}</mat-card-title>
+        <mat-divider inset></mat-divider>
+        <mat-card-subtitle>{{ getLabel("availabilitySubTitle") }}</mat-card-subtitle>
+    </mat-card>
+    <mat-card *ngIf="isAdmin()" routerLink="embarkation">
+        <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('embarkation')" style="height: 100px; width: 100px">
+        <mat-card-title>{{ getLabel("embarkationTitle") }}</mat-card-title>
+        <mat-divider inset></mat-divider>
+        <mat-card-subtitle>{{ getLabel("embarkationSubTitle") }}</mat-card-subtitle>
+    </mat-card>
+    <mat-card *ngIf="!isAdmin()" routerLink="ledgers">
+        <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('ledgers')" style="height: 100px; width: 100px">
+        <mat-card-title>{{ getLabel("ledgersTitle") }}</mat-card-title>
+        <mat-divider inset></mat-divider>
+        <mat-card-subtitle>{{ getLabel("ledgersSubTitle") }}</mat-card-subtitle>
+    </mat-card>
+</div>

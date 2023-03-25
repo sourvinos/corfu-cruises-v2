@@ -2092,5 +2092,42 @@
                 "description": "OK"
             }
         ]
+    },
+    {
+        "feature": "cardsMenu",
+        "labels": [
+            {
+                "id": "reservationsTitle",
+                "description": "Rezervace"
+            },
+            {
+                "id": "reservationsSubTitle",
+                "description": "Zobrazte kalendář a upravte své rezervace."
+            },
+            {
+                "id": "availabilityTitle",
+                "description": "Dostupnost"
+            },
+            {
+                "id": "availabilitySubTitle",
+                "description": "Zkontrolujte volná místa na exkurzi a proveďte novou rezervaci."
+            },
+            {
+                "id": "embarkationTitle",
+                "description": "Nalodění"
+            },
+            {
+                "id": "embarkationSubTitle",
+                "description": "Spravujte vstup cestujících na palubu."
+            },
+            {
+                "id": "ledgersTitle",
+                "description": "Moje kniha"
+            },
+            {
+                "id": "ledgersSubTitle",
+                "description": "Zobrazení rezervací na určité časové období."
+            }
+        ]
     }
 ]

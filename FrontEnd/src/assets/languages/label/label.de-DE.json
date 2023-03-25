@@ -2092,5 +2092,42 @@
                 "description": "OK"
             }
         ]
+    },
+    {
+        "feature": "cardsMenu",
+        "labels": [
+            {
+                "id": "reservationsTitle",
+                "description": "Reservierung"
+            },
+            {
+                "id": "reservationsSubTitle",
+                "description": "Zeigen Sie den Kalender an und bearbeiten Sie Ihre Reservierungen."
+            },
+            {
+                "id": "availabilityTitle",
+                "description": "Verfügbarkeit"
+            },
+            {
+                "id": "availabilitySubTitle",
+                "description": "Überprüfen Sie die verfügbaren Plätze und nehmen Sie eine neue Reservierung vor."
+            },
+            {
+                "id": "embarkationTitle",
+                "description": "Einschiffung"
+            },
+            {
+                "id": "embarkationSubTitle",
+                "description": "Verwalten Sie die Einreise von Passagieren an Bord."
+            },
+            {
+                "id": "ledgersTitle",
+                "description": "Mein Hauptbuch"
+            },
+            {
+                "id": "ledgersSubTitle",
+                "description": "Zeigen Sie Ihre Reservierungen für einen bestimmten Zeitraum an."
+            }
+        ]
     }
 ]

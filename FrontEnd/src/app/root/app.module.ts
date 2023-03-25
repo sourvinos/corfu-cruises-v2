@@ -22,6 +22,9 @@ import { TopMenuComponent } from '../shared/components/top-bar-wrapper/top-menu/
 import { UserMenuComponent } from '../shared/components/top-bar-wrapper/user-menu/user-menu.component'
 // Utils
 import { InterceptorService } from '../shared/services/interceptor.service'
+import { CardsMenuComponent } from '../shared/components/home/cards-menu.component'
+import { HomeComponent } from '../shared/components/home/home.component'
+import { MainFooterComponent } from '../shared/components/home/main-footer.component'
 
 @NgModule({
     declarations: [
@@ -32,8 +35,11 @@ import { InterceptorService } from '../shared/services/interceptor.service'
         TablesMenuComponent,
         TasksMenuComponent,
         TopBarComponent,
+        HomeComponent,
         TopMenuComponent,
-        UserMenuComponent
+        UserMenuComponent,
+        CardsMenuComponent,
+        MainFooterComponent
     ],
     imports: [
         AppRoutingModule,

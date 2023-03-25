@@ -1,0 +1,50 @@
+.mat-card {
+    align-items: flex-start;
+    backdrop-filter: blur(0.25rem);
+    background: var(--color-i);
+    border-radius: 0.625rem;
+    border: 0.0625rem solid #ffffff2e;
+    box-shadow: 0 0.5rem 2rem 0 #1f26875e;
+    display: flex !important;
+    flex-direction: column;
+    height: 17rem;
+    justify-content: space-between;
+    padding: 1.5rem 2rem;
+    transition: background-color var(--delay) ease-in !important;
+    width: 17rem;
+}
+
+.mat-card:hover {
+    background-color: var(--color-x) !important;
+    cursor: pointer;
+}
+
+.mat-card-sm-image {
+    height: 100px !important;
+    width: auto !important;
+}
+
+.mat-card-title {
+    color: var(--color-c) !important;
+    font-family: var(--font-family-asty);
+    font-size: 1.2rem;
+    font-weight: 300;
+    margin: 0 0 0 0.5rem !important;
+    transition: color var(--delay) ease-in !important;
+}
+
+.mat-divider.mat-divider-inset {
+    background-color: var(--color-e);
+    transition: background-color var(--delay) ease-in !important;
+}
+
+.mat-card-subtitle {
+    color: var(--color-c) !important;
+    font-family: var(--font-family-asty);
+    font-size: 0.9rem;
+    font-weight: 300;
+    height: 3.875rem;
+    line-height: 1.25rem;
+    margin: 0 0 0 0.5rem !important;
+    transition: color var(--delay) ease-in !important;
+}
