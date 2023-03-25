@@ -143,6 +143,10 @@ export class ReservationCalendarComponent {
         return date == new Date().toISOString().substring(0, 10)
     }
 
+    public newRecord(): void {
+        this.router.navigate([this.url, 'new'])
+    }
+
     //#endregion
 
     //#region private methods

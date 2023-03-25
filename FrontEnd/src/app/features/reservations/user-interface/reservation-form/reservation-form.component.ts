@@ -52,7 +52,7 @@ export class ReservationFormComponent {
     public input: InputTabStopDirective
     public isAutoCompleteDisabled = true
     public isLoading = new Subject<boolean>()
-    public parentUrl: string
+    public parentUrl = '/reservations'
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
     public dropdownCustomers: Observable<CustomerActiveVM[]>
@@ -340,7 +340,12 @@ export class ReservationFormComponent {
     }
 
     private goBack(): void {
-        this.router.navigate([this.sessionStorageService.getItem('returnUrl')])
+        const x = this.sessionStorageService.getItem('date')
+        if (x != '') {
+            this.router.navigate(['/reservations/date/' + x])
+        } else {
+            this.router.navigate(['/reservations'])
+        }
     }
 
     private initForm(): void {
@@ -416,6 +421,9 @@ export class ReservationFormComponent {
     private saveRecord(reservation: ReservationWriteDto): void {
         this.reservationService.save(reservation).pipe(indicate(this.isLoading)).subscribe({
             next: (response) => {
+                const date = this.dateHelperService.formatDateToIso(new Date(this.form.value.date))
+                this.sessionStorageService.saveItem('date', date)
+                this.parentUrl = '/reservations/date/' + date
                 this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.parentUrl, this.form)
                 this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
                 this.sessionStorageService.deleteItems([{ 'item': 'nationality', 'when': 'always' }])
@@ -439,7 +447,11 @@ export class ReservationFormComponent {
     }
 
     private setParentUrl(): void {
-        this.parentUrl = '/reservations/date/' + this.sessionStorageService.getItem('date')
+        if (this.sessionStorageService.getItem('date')) {
+            this.parentUrl = '/reservations/date/' + this.sessionStorageService.getItem('date')
+        } else {
+            this.parentUrl = '/reservations'
+        }
     }
 
     private setRecordId(): void {

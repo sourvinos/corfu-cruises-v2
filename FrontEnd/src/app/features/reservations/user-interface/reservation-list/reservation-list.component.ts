@@ -41,7 +41,6 @@ export class ReservationListComponent {
     @ViewChild('table') table: Table | undefined
 
     private subscription = new Subscription()
-    private url = ''
     public feature = 'reservationList'
     public featureIcon = 'reservations'
     public icon = 'arrow_back'
@@ -123,7 +122,7 @@ export class ReservationListComponent {
                         this.modalActionResultService.open(this.messageSnackbarService.success(), 'success', ['ok']).subscribe(() => {
                             this.clearSelectedRecords()
                             this.resetTableFilters()
-                            this.router.navigate([this.router.url])
+                            this.refreshList()
                         })
                     })
                 }
@@ -167,7 +166,7 @@ export class ReservationListComponent {
     public editRecord(id: string): void {
         this.storeScrollTop()
         this.storeSelectedId(id)
-        this.router.navigate([this.parentUrl, id])
+        this.gotoEditForm(id)
     }
 
     public filterRecords(event?: { filteredValue: any[] }): void {
@@ -211,7 +210,6 @@ export class ReservationListComponent {
     }
 
     public newRecord(): void {
-        this.sessionStorageService.saveItem('returnUrl', this.url)
         this.router.navigate([this.parentUrl, 'new'])
     }
 
@@ -302,6 +300,10 @@ export class ReservationListComponent {
         this.virtualElement = document.getElementsByClassName('p-scroller-inline')[0]
     }
 
+    private gotoEditForm(id: any): void {
+        this.router.navigate([this.parentUrl, id])
+    }
+
     private hightlightSavedRow(): void {
         this.helperService.highlightSavedRow(this.feature)
     }
@@ -319,17 +321,17 @@ export class ReservationListComponent {
     }
 
     private loadRecords(): Promise<any> {
-        const promise = new Promise((resolve) => {
+        return new Promise((resolve) => {
             const listResolved: ListResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = listResolved.list
                 resolve(this.records)
             } else {
-                this.router.navigate([this.parentUrl])
-                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(new Error('500')), 'error', ['ok'])
+                this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {
+                    this.router.navigate([this.parentUrl])
+                })
             }
         })
-        return promise
     }
 
     private populateDropdownFilters(): void {
