@@ -144,7 +144,8 @@ export class ReservationCalendarComponent {
     }
 
     public newRecord(): void {
-        this.router.navigate([this.url, 'new'])
+        this.sessionStorageService.saveItem('returnUrl', '/reservations')
+        this.router.navigate(['/reservations/new'])
     }
 
     //#endregion
@@ -153,8 +154,8 @@ export class ReservationCalendarComponent {
 
     private buildCalendar(): void {
         this.days = []
-        const x = this.dateHelperService.createDate(this.sessionStorageService.getItem('fromDate'))
-        const z = this.dateHelperService.createDate(this.sessionStorageService.getItem('toDate'))
+        const x = this.dateHelperService.createDateFromString(this.sessionStorageService.getItem('fromDate'))
+        const z = this.dateHelperService.createDateFromString(this.sessionStorageService.getItem('toDate'))
         while (x <= z) {
             this.days.push({
                 date: this.dateHelperService.formatDateToIso(x),
@@ -171,6 +172,8 @@ export class ReservationCalendarComponent {
             { 'item': 'reservationList-id', 'when': 'always' },
             { 'item': 'reservationList-scrollTop', 'when': 'always' },
             { 'item': 'date', 'when': 'always' },
+            { 'item': 'destination', 'when': 'always' },
+            { 'item': 'returnUrl', 'when': 'always' }
         ])
     }
 
@@ -216,6 +219,7 @@ export class ReservationCalendarComponent {
     }
 
     private navigateToList(): void {
+        this.sessionStorageService.saveItem('returnUrl', '/reservations')
         this.router.navigate(['reservations/date/', this.sessionStorageService.getItem('date')])
     }
 

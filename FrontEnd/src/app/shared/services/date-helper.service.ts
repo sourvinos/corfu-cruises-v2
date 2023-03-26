@@ -44,8 +44,9 @@ export class DateHelperService {
     }
 
     /**
+     * Returns the weekday index (0=Sun, 1=Mon, 2=Tue, ..., 6=Sat) of a 'YYYY-MM-DD' string 
      * @param date a string representing a date formatted as 'YYYY-MM-DD'
-     * @returns an integer representing the weekday index 0 = Sun, 1 = Mon, 2 = Tue, ..., 6 = Sat
+     * @returns an integer representing the weekday index
      */
     public getWeekdayIndex(date: string): any {
         const [year, month, day] = date.split('-')
@@ -81,17 +82,18 @@ export class DateHelperService {
     }
 
     /**
-     * @param date a string representing a date formatted as 'YYYY-MM-DD'
-     * @returns a date object formatted as 'Thu Mar 23 2023 00:00:00'
+     * Gets a 'YYYY-MM-DD' string and returns a date object formatted as 'Thu Mar 23 2023 00:00:00'
+     * @param date a string representing a date
+     * @returns a date object
      */
-    public createDate(date: string): any {
+    public createDateFromString(date: string): Date {
         const day = date.substring(8, 10)
         const month = date.substring(5, 7)
         const year = date.substring(0, 4)
-        return new Date(new Intl.DateTimeFormat('default').format(new Date(
+        return new Date(
             parseInt(year),
             parseInt(month) - 1,
-            parseInt(day))))
+            parseInt(day), 0, 0, 0, 0)
     }
 
     //#endregion

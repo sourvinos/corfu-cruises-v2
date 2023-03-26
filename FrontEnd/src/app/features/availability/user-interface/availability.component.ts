@@ -145,7 +145,13 @@ export class AvailabilityComponent {
     }
 
     public navigateToNewReservation(): void {
-        setTimeout(() => { this.router.navigate(['/reservations/new']) }, 500)
+        this.sessionStorageService.saveItem('returnUrl', '/availability')
+        this.router.navigate(['/reservations/new'])
+    }
+
+    public newRecord(): void {
+        this.sessionStorageService.saveItem('returnUrl', '/availability')
+        this.router.navigate(['reservations/new'])
     }
 
     //#endregion
@@ -154,8 +160,8 @@ export class AvailabilityComponent {
 
     private buildCalendar(): void {
         this.days = []
-        const x = this.dateHelperService.createDate(this.sessionStorageService.getItem('fromDate'))
-        const z = this.dateHelperService.createDate(this.sessionStorageService.getItem('toDate'))
+        const x = this.dateHelperService.createDateFromString(this.sessionStorageService.getItem('fromDate'))
+        const z = this.dateHelperService.createDateFromString(this.sessionStorageService.getItem('toDate'))
         while (x <= z) {
             this.days.push({
                 date: this.dateHelperService.formatDateToIso(x),
@@ -173,6 +179,7 @@ export class AvailabilityComponent {
             { 'item': 'reservationList-id', 'when': 'always' },
             { 'item': 'reservationList-scrollTop', 'when': 'always' },
             { 'item': 'date', 'when': 'always' },
+            { 'item': 'returnUrl', 'when': 'always' }
         ])
     }
 

@@ -52,7 +52,7 @@ export class ReservationFormComponent {
     public input: InputTabStopDirective
     public isAutoCompleteDisabled = true
     public isLoading = new Subject<boolean>()
-    public parentUrl = '/reservations'
+    public parentUrl = ''
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
     public dropdownCustomers: Observable<CustomerActiveVM[]>
@@ -447,10 +447,15 @@ export class ReservationFormComponent {
     }
 
     private setParentUrl(): void {
-        if (this.sessionStorageService.getItem('date')) {
-            this.parentUrl = '/reservations/date/' + this.sessionStorageService.getItem('date')
-        } else {
-            this.parentUrl = '/reservations'
+        if (this.sessionStorageService.getItem('returnUrl') == '/reservations') {
+            if (this.sessionStorageService.getItem('date') != '') {
+                this.parentUrl = '/reservations/date/' + this.sessionStorageService.getItem('date')
+            } else {
+                this.parentUrl = '/reservations'
+            }
+        }
+        if (this.sessionStorageService.getItem('returnUrl') == '/availability') {
+            this.parentUrl = '/availability'
         }
     }
 
