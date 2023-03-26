@@ -84,7 +84,7 @@ export class InterceptorService {
     }
 
     private isUserLoggedIn(): boolean {
-        return sessionStorage.getItem('loginStatus') === '1'
+        return sessionStorage.getItem('loginStatus') == '1'
     }
 
     private trapError(err: number): Observable<any> {

@@ -52,7 +52,7 @@ export class AppComponent {
     //#region private methods
 
     private isUserConnected(): void {
-        if (ConnectedUser.id == undefined) {
+        if (ConnectedUser.id == undefined && window.location.href.includes('resetPassword') == false) {
             this.accountService.logout()
         }
     }

@@ -125,7 +125,7 @@ namespace API.Infrastructure.Account {
                 string token = await userManager.GeneratePasswordResetTokenAsync(user);
                 string tokenEncoded = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
                 string baseUrl = $"{model.ReturnUrl}";
-                string passwordResetLink = Url.Content($"{baseUrl}/#/resetPassword?email={model.Email}&token={tokenEncoded}");
+                string passwordResetLink = Url.Content($"{baseUrl}/resetPassword?email={model.Email}&token={tokenEncoded}");
                 var response = emailSender.SendResetPasswordEmail(user.Displayname, user.Email, passwordResetLink, model.Language);
                 return response.Successful ? new Response {
                     Code = 200,
