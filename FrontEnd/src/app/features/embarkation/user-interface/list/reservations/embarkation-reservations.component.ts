@@ -221,7 +221,7 @@ export class EmbarkationReservationsComponent {
     }
 
     private filterTableFromStoredFilters(): void {
-        const filters = this.sessionStorageService.getFilters(this.feature)
+        const filters = this.sessionStorageService.getFilters(this.feature + '-' + 'filters')
         if (filters != undefined) {
             setTimeout(() => {
                 this.filterColumn(filters.embarkationStatusDescription, 'embarkationStatusDescription', 'in')
