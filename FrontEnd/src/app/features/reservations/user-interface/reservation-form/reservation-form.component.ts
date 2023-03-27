@@ -19,9 +19,9 @@ import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.d
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatDialog } from '@angular/material/dialog'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageHintService } from 'src/app/shared/services/message-input-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
@@ -70,7 +70,7 @@ export class ReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialog: MatDialog, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private reservationHelperService: ReservationHelperService, private reservationService: ReservationHttpService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialog: MatDialog, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private reservationHelperService: ReservationHelperService, private reservationService: ReservationHttpService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService) { }
 
     //#region lifecycle hooks
 
@@ -165,7 +165,7 @@ export class ReservationFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.reservationService.delete(this.form.value.reservationId).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {

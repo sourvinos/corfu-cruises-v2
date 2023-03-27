@@ -5,9 +5,9 @@ import { AccountService } from 'src/app/shared/services/account.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageHintService } from 'src/app/shared/services/message-input-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -30,7 +30,7 @@ export class ForgotPasswordFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService) { }
+    constructor(private accountService: AccountService, private formBuilder: FormBuilder, private helperService: HelperService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService) { }
 
     //#region listeners
 

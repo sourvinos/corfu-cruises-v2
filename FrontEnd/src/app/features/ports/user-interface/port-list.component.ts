@@ -5,8 +5,8 @@ import { Table } from 'primeng/table'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PortListVM } from '../classes/view-models/port-list-vm'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
@@ -35,7 +35,7 @@ export class PortListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region listeners
 

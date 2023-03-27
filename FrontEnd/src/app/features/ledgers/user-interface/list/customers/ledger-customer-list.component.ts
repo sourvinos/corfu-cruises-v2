@@ -11,8 +11,8 @@ import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-c
 import { LedgerCustomerSummaryAndReservationsComponent } from '../summary-and-reservations/ledger-summary-and-reservations.component'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { environment } from 'src/environments/environment'
@@ -43,7 +43,7 @@ export class LedgerCustomerListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
 
     //#region listeners
 

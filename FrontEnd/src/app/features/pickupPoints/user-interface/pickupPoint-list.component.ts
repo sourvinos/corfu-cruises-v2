@@ -6,8 +6,8 @@ import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointListVM } from '../classes/view-models/pickupPoint-list-vm'
 import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.service'
@@ -39,7 +39,7 @@ export class PickupPointListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private pickupPointPdfService: PickupPointPdfService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private pickupPointPdfService: PickupPointPdfService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region listeners
 

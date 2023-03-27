@@ -7,9 +7,9 @@ import { ConfirmValidParentMatcher, ValidationService } from 'src/app/shared/ser
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from './../../../../shared/services/messages-snackbar.service'
+import { MessageHintService } from 'src/app/shared/services/message-input-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from '../../../../shared/services/message-dialog.service'
 import { ResetPasswordViewModel } from '../../classes/view-models/reset-password-view-model'
 
 @Component({
@@ -35,7 +35,7 @@ export class ResetPasswordFormComponent {
 
     //#endregion
 
-    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private router: Router) { }
+    constructor(private accountService: AccountService, private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private router: Router) { }
 
     //#region listeners
 

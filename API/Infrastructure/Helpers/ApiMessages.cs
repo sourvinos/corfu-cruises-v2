@@ -28,7 +28,7 @@ namespace API.Infrastructure.Helpers {
         #region  App Specific Messages
 
         public static string DuplicateRecord() { return "Duplicate records are not allowed."; }
-        public static string InvalidDateDestinationOrPort() { return "The reservation is invalid for one of the following reasons: a) Nothing is scheduled for the selected day b) We don't go to the selected destination c) There are no departures from the selected port."; }
+        public static string InvalidDateDestinationOrPickupPoint() { return "The reservation is invalid for one of the following reasons: a) Nothing is scheduled for the selected day b) We don't go to the selected destination c) There are no departures from the selected port."; }
         public static string PortHasNoFreeSeats() { return "Overbooking in not allowed."; }
         public static string NotOwnRecord() { return "You are not the owner of this record."; }
         public static string InvalidCustomer() { return "The customer doesn't exist or is inactive."; }

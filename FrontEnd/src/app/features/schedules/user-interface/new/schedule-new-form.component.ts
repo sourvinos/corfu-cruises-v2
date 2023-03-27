@@ -11,10 +11,10 @@ import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageCalendarService } from 'src/app/shared/services/message-calendar.service'
+import { MessageHintService } from 'src/app/shared/services/message-input-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { ScheduleService } from '../../classes/services/schedule.service'
 import { ScheduleWriteVM } from '../../classes/form/schedule-write-vm'
@@ -54,7 +54,7 @@ export class ScheduleNewFormComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private scheduleService: ScheduleService, private sessionStorageService: SessionStorageService) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private fieldsetCriteriaService: FieldsetCriteriaService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private scheduleService: ScheduleService, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 

@@ -5,7 +5,7 @@ import { Table } from 'primeng/table'
 // Custom
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { PassengerFormComponent } from '../passenger-form/passenger-form.component'
 import { PassengerReadDto } from '../../classes/dtos/form/passenger-read-dto'
 import { environment } from 'src/environments/environment'

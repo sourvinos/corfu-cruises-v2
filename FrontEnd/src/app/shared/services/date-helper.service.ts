@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 // Custom
 import { LocalStorageService } from './local-storage.service'
-import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
+import { MessageCalendarService } from 'src/app/shared/services/message-calendar.service'
 
 @Injectable({ providedIn: 'root' })
 

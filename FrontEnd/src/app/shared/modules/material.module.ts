@@ -13,7 +13,6 @@ import { MatInputModule } from '@angular/material/input'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter'
 import { MatTabsModule } from '@angular/material/tabs'
-import { ScrollingModule } from '@angular/cdk/scrolling'
 // Custom
 import { CustomDateAdapter } from '../adapters/custom-date-adapter'
 
@@ -31,8 +30,7 @@ import { CustomDateAdapter } from '../adapters/custom-date-adapter'
         MatMenuModule,
         MatMomentDateModule,
         MatNativeDateModule,
-        MatTabsModule,
-        ScrollingModule
+        MatTabsModule
     ],
     providers: [
         { provide: DateAdapter, useClass: CustomDateAdapter },

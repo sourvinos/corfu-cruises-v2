@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { LedgerPortGroupVM } from '../../../classes/view-models/list/ledger-port-group-vm'
 import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 
 @Component({
     selector: 'ledger-customer-summary',

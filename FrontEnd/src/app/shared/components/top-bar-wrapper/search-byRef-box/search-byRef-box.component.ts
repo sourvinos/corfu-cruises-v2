@@ -4,7 +4,7 @@ import { Observable } from 'rxjs'
 import { Router } from '@angular/router'
 // Custom
 import { AccountService } from './../../../services/account.service'
-import { MessageLabelService } from './../../../services/messages-label.service'
+import { MessageLabelService } from '../../../services/message-label.service'
 
 @Component({
     selector: 'search-byRef-box',

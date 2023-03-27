@@ -4,7 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog'
 // Custom
 import { DriverActiveVM } from './../../../drivers/classes/view-models/driver-active-vm'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
 @Component({

@@ -2,10 +2,10 @@ import { Component, HostListener } from '@angular/core'
 // Custom
 import { InteractionService } from '../../../services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { MessageCalendarService } from '../../../services/messages-calendar.service'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageCalendarService } from '../../../services/message-calendar.service'
+import { MessageHintService } from 'src/app/shared/services/message-input-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 
 @Component({
     selector: 'language-menu',
@@ -21,7 +21,7 @@ export class LanguageMenuComponent {
 
     //#endregion
 
-    constructor(private interactionService: InteractionService, private localStorageStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService) { }
+    constructor(private interactionService: InteractionService, private localStorageStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService) { }
 
     //#region listeners
 

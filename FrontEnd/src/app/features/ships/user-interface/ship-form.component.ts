@@ -9,9 +9,9 @@ import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageHintService } from 'src/app/shared/services/message-input-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ShipOwnerActiveVM } from '../../shipOwners/classes/view-models/shipOwner-active-vm'
@@ -47,7 +47,7 @@ export class ShipFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private shipService: ShipService) { }
+    constructor(private activatedRoute: ActivatedRoute, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, private shipService: ShipService) { }
 
     //#region listeners
 
@@ -105,7 +105,7 @@ export class ShipFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.shipService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {

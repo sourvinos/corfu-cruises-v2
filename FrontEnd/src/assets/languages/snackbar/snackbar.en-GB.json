@@ -12,11 +12,7 @@
             },
             {
                 "error": 401,
-                "message": "Authentication was not successful."
-            },
-            {
-                "error": 403,
-                "message": "This action requires higher authorization level."
+                "message": "Authentication wasn't successful."
             },
             {
                 "error": 404,
@@ -24,79 +20,31 @@
             },
             {
                 "error": 409,
-                "message": "This record in not unique."
+                "message": "The reservation is not unique. Check the date, destination, customer and ticket number."
+            },
+            {
+                "error": 410,
+                "message": "We did not find any departures with the information you provided. Check the date, destination and pickup point."
             },
             {
                 "error": 412,
                 "message": "The password cannot be changed. Possibly, the current password id wrong."
             },
             {
-                "error": 427,
-                "message": "For this day, destination and port, no trips are scheduled."
-            },
-            {
-                "error": 430,
-                "message": "For this day and destination, no trips are scheduled."
-            },
-            {
                 "error": 431,
                 "message": "It's not possible to add or change a reservation after departure."
             },
             {
-                "error": 432,
-                "message": "For this day, no trips are scheduled."
-            },
-            {
                 "error": 433,
-                "message": "This reservation will cause overbooking."
-            },
-            {
-                "error": 450,
-                "message": "This customer does not exist or is inactive."
-            },
-            {
-                "error": 451,
-                "message": "This destination does not exist or is inactive."
-            },
-            {
-                "error": 452,
-                "message": "This pickup point does not exist or is inactive."
-            },
-            {
-                "error": 453,
-                "message": "This driver does not exist or is inactive."
-            },
-            {
-                "error": 454,
-                "message": "This ship does not exist or is inactive."
-            },
-            {
-                "error": 455,
-                "message": "The passenger count is not correct."
-            },
-            {
-                "error": 456,
-                "message": "Nationality for at least one passenger does not exist or is inactive."
-            },
-            {
-                "error": 457,
-                "message": "Gender for at least one passenger does not exist or is inactive."
-            },
-            {
-                "error": 458,
-                "message": "Occupant for at least one passenger does not exist or is inactive."
+                "message": "The reservation cannot be saved because overbooking is prohibited."
             },
             {
                 "error": 459,
-                "message": "New reservations with transfer between 22:00 and the ship's departure are not allowed. Please contact our office for buses availability."
-            },
-            {
-                "error": 490,
-                "message": "This record could not be saved."
+                "message": "New reservations with transfer between 22:00 and the ship's departure are not allowed. Please contact an administrator."
             },
             {
                 "error": 491,
-                "message": "We are very sorry, but this record is in use and can't be deleted."
+                "message": "This record is in use and can't be deleted."
             },
             {
                 "error": 492,
@@ -107,16 +55,8 @@
                 "message": "The approach order already exists."
             },
             {
-                "error": 494,
-                "message": "The password can not be changed."
-            },
-            {
                 "error": 497,
                 "message": "We are unable to continue. Please make sure that the username and/or the email don't belong to another user."
-            },
-            {
-                "error": 499,
-                "message": "We are unable to continue. The connected user can't be deleted."
             },
             {
                 "error": 500,
@@ -127,28 +67,12 @@
                 "message": "Authentication was not successful."
             },
             {
-                "id": "askConfirmationToAbortEditing",
-                "message": "If you continue, all changes will be lost."
-            },
-            {
-                "id": "askConfirmationToDelete",
-                "message": "This record will be lost for ever."
-            },
-            {
                 "id": "emailSent",
                 "message": "We sent you an email with instructions how to set a new password."
             },
             {
                 "id": "emailNotSent",
                 "message": "We can't send you an email right now, please try again in a little while."
-            },
-            {
-                "id": "emptyEmail",
-                "message": "The email can not be empty."
-            },
-            {
-                "id": "fileCreated",
-                "message": "The file was created."
             },
             {
                 "id": "formIsDirty",
@@ -159,36 +83,12 @@
                 "message": "You have not selected any records."
             },
             {
-                "id": "noResults",
-                "message": "We didn't find anything."
-            },
-            {
                 "id": "noVideoDevicesFound",
                 "message": "There are no cameras on your device."
             },
             {
-                "id": "recordCreated",
-                "message": "A record was created."
-            },
-            {
-                "id": "recordDeleted",
-                "message": "This record was deleted."
-            },
-            {
-                "id": "recordUpdated",
-                "message": "This record was updated."
-            },
-            {
-                "id": "selectedRecordsHaveBeenProcessed",
-                "message": "All selected records have been updated."
-            },
-            {
                 "id": "unableToResetPassword",
                 "message": "The new password cannot be saved. The link in the email you were sent may no longer be valid."
-            },
-            {
-                "id": "wrongPassengerCount",
-                "message": "The number of passengers must be equal to total persons."
             },
             {
                 "id": "noContactWithServer",
@@ -209,10 +109,6 @@
             {
                 "id": "warning",
                 "message": "Shall we delete this record?"
-            },
-            {
-                "id": "userDisconnected",
-                "message": "You have been inactive for too long and we have disconnected you, in order to save resources."
             },
             {
                 "id": "passwordCanBeChangedOnlyByAccountOwner",

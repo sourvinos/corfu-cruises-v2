@@ -6,8 +6,6 @@ import { environment } from 'src/environments/environment'
 
 export class LocalStorageService {
 
-    //#region public methods
-
     public getItem(item: string): string {
         return localStorage.getItem(item) || ''
     }
@@ -32,7 +30,5 @@ export class LocalStorageService {
             }
         })
     }
-
-    //#endregion
 
 }

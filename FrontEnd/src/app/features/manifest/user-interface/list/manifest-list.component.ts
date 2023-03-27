@@ -13,8 +13,8 @@ import { ManifestCriteriaVM } from '../../classes/view-models/criteria/manifest-
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestRouteSelectorComponent } from './manifest-route-selector.component'
 import { ManifestVM } from '../../classes/view-models/list/manifest-vm'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from '../../../../shared/services/messages-snackbar.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from '../../../../shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
@@ -51,7 +51,7 @@ export class ManifestListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private manifestPdfService: ManifestPdfService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.toggleVirtualTable()
         this.populateCriteriaPanelsFromStorage()
     }

@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 // Custom
-import { MessageLabelService } from '../../services/messages-label.service'
+import { MessageLabelService } from '../../services/message-label.service'
 
 @Component({
     selector: 'dialog-alert',

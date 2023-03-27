@@ -71,30 +71,23 @@ namespace API.Features.Users {
         }
 
         public async Task<Response> DeleteAsync(UserExtended user) {
-            var x = Infrastructure.Extensions.Identity.GetConnectedUserId(httpContext);
-            if (x == user.Id) {
-                throw new CustomException() {
-                    ResponseCode = 499
-                };
-            } else {
-                using var transaction = context.Database.BeginTransaction();
-                try {
-                    var result = await userManager.DeleteAsync(await userManager.FindByIdAsync(user.Id));
-                    if (result.Succeeded) {
-                        DisposeOrCommit(transaction);
-                        return new Response {
-                            Code = 200,
-                            Icon = Icons.Success.ToString(),
-                            Message = ApiMessages.OK()
-                        };
-                    } else {
-                        throw new CustomException() {
-                            ResponseCode = 491
-                        };
-                    }
-                } catch (Exception) {
-                    throw new CustomException { ResponseCode = 491 };
+            using var transaction = context.Database.BeginTransaction();
+            try {
+                var result = await userManager.DeleteAsync(await userManager.FindByIdAsync(user.Id));
+                if (result.Succeeded) {
+                    DisposeOrCommit(transaction);
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = ApiMessages.OK()
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = 491
+                    };
                 }
+            } catch (Exception) {
+                throw new CustomException { ResponseCode = 491 };
             }
         }
 

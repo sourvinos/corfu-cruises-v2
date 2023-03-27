@@ -13,9 +13,9 @@ import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.d
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
-import { MessageHintService } from 'src/app/shared/services/messages-hint.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageHintService } from 'src/app/shared/services/message-input-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
 import { ScheduleReadDto } from '../../classes/form/schedule-read-vm'
@@ -52,7 +52,7 @@ export class ScheduleEditFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService, private sessionStorageService: SessionStorageService) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService, private sessionStorageService: SessionStorageService) { }
 
     //#region listeners
 
@@ -112,7 +112,7 @@ export class ScheduleEditFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.warning(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.scheduleService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {

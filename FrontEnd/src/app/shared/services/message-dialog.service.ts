@@ -6,7 +6,7 @@ import { LocalStorageService } from './local-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class MessageSnackbarService {
+export class MessageDialogService {
 
     //#region variables
 
@@ -48,31 +48,20 @@ export class MessageSnackbarService {
     }
 
     public accountNotConfirmed(): string { return this.getDescription(this.feature, 'accountNotConfirmed') }
-    public askConfirmationToAbortEditing(): string { return this.getDescription(this.feature, 'askConfirmationToAbortEditing') }
-    public askConfirmationToDelete(): string { return this.getDescription(this.feature, 'askConfirmationToDelete') }
     public authenticationFailed(): string { return this.getDescription(this.feature, 'authenticationFailed') }
     public emailSent(): string { return this.getDescription(this.feature, 'emailSent') }
     public emailNotSent(): string { return this.getDescription(this.feature, 'emailNotSent') }
     public formIsDirty(): string { return this.getDescription(this.feature, 'formIsDirty') }
     public noVideoDevicesFound(): string { return this.getDescription(this.feature, 'noVideoDevicesFound') }
     public noRecordsSelected(): string { return this.getDescription(this.feature, 'noRecordsSelected') }
-    public recordCreated(): string { return this.getDescription(this.feature, 'recordCreated') }
     public reservationCreated(): string { return this.getDescription(this.feature, 'reservationCreated') }
-    public fileCreated(): string { return this.getDescription(this.feature, 'fileCreated') }
-    public recordDeleted(): string { return this.getDescription(this.feature, 'recordDeleted') }
-    public noResults(): string { return this.getDescription(this.feature, 'noResults') }
-    public recordUpdated(): string { return this.getDescription(this.feature, 'recordUpdated') }
-    public selectedRecordsHaveBeenProcessed(): string { return this.getDescription(this.feature, 'selectedRecordsHaveBeenProcessed') }
     public unableToResetPassword(): string { return this.getDescription(this.feature, 'unableToResetPassword') }
     public invalidModel(): string { return this.getDescription(this.feature, 'invalidModel') }
-    public wrongPassengerCount(): string { return this.getDescription(this.feature, 'wrongPassengerCount') }
-    public emptyEmail(): string { return this.getDescription(this.feature, 'emptyEmail') }
     public passwordCanBeChangedOnlyByAccountOwner(): string { return this.getDescription(this.feature, 'passwordCanBeChangedOnlyByAccountOwner') }
     public noContactWithServer(): string { return this.getDescription(this.feature, 'noContactWithServer') }
     public featureNotAvailable(): string { return this.getDescription(this.feature, 'featureNotAvailable') }
-    public userDisconnected(): string { return this.getDescription(this.feature, 'userDisconnected') }
     public success(): string { return this.getDescription(this.feature, 'success') }
-    public warning(): string { return this.getDescription(this.feature, 'warning') }
+    public confirmDelete(): string { return this.getDescription(this.feature, 'warning') }
     public askToRefreshCalendar(): string { return this.getDescription(this.feature, 'askToRefreshCalendar') }
 
     public filterResponse(error: any, feature = 'snackbarMessages'): string {

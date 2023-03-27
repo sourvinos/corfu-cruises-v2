@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog'
 // Custom
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { ShipActiveVM } from '../../../ships/classes/view-models/ship-active-vm'
 

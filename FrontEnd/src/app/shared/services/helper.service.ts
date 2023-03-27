@@ -6,7 +6,7 @@ import { Table } from 'primeng/table'
 import { Title } from '@angular/platform-browser'
 import { defer, finalize, Observable, Subject } from 'rxjs'
 // Custom
-import { MessageLabelService } from './messages-label.service'
+import { MessageLabelService } from './message-label.service'
 import { ModalActionResultService } from './modal-action-result.service'
 import { SessionStorageService } from './session-storage.service'
 import { environment } from 'src/environments/environment'

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'
 // Custom
 import { LogoService } from '../../reservations/classes/services/logo.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 
 @Component({
     selector: 'login-logo',

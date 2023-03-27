@@ -15,88 +15,36 @@
                 "message": "Authentifizierung fehlgeschlagen."
             },
             {
-                "error": 403,
-                "message": "Diese Aktion erfordert eine höhere Berechtigungsstufe."
-            },
-            {
                 "error": 404,
                 "message": "Dieser Datensatz kann nicht gefunden werden."
             },
             {
                 "error": 409,
-                "message": "Dieser Rekord ist nicht einzigartig."
+                "message": "Die Reservierung ist nicht eindeutig. Überprüfen Sie das Datum, den Zielort, den Kunden und die Ticketnummer."
+            },
+            {
+                "error": 410,
+                "message": "Wir haben keine Abfahrten mit den von Ihnen angegebenen Informationen gefunden. Überprüfen Sie das Datum, das Ziel und den Abholort."
             },
             {
                 "error": 412,
                 "message": "Das Passwort kann nicht geändert werden. Möglicherweise ist das aktuelle Kennwort falsch."
             },
             {
-                "error": 427,
-                "message": "Für diesen Tag, Zielort und Hafen sind keine Fahrten geplant."
-            },
-            {
-                "error": 430,
-                "message": "Für diesen Tag und Zielort sind keine Fahrten geplant."
-            },
-            {
                 "error": 431,
                 "message": "Es ist nicht möglich, eine Reservierung nach der Abfahrt hinzuzufügen oder zu ändern."
             },
             {
-                "error": 432,
-                "message": "Für diesen Tag sind keine Fahrten geplant."
-            },
-            {
                 "error": 433,
-                "message": "Diese Reservierung führt zu einer Überbuchung."
-            },
-            {
-                "error": 450,
-                "message": "Dieser Kunde existiert nicht oder ist inaktiv."
-            },
-            {
-                "error": 451,
-                "message": "Dieses Ziel existiert nicht oder ist inaktiv."
-            },
-            {
-                "error": 452,
-                "message": "Dieser Abholpunkt existiert nicht oder ist inaktiv."
-            },
-            {
-                "error": 453,
-                "message": "Dieser Fahrer existiert nicht oder ist inaktiv."
-            },
-            {
-                "error": 454,
-                "message": "Dieses Schiff existiert nicht oder ist inaktiv."
-            },
-            {
-                "error": 455,
-                "message": "Die Passagierzahl ist nicht korrekt."
-            },
-            {
-                "error": 456,
-                "message": "Die Staatsangehörigkeit von mindestens einem Passagier ist nicht vorhanden oder inaktiv."
-            },
-            {
-                "error": 457,
-                "message": "Das Geschlecht von mindestens einem Passagier ist nicht vorhanden oder inaktiv."
-            },
-            {
-                "error": 458,
-                "message": "Mindestens ein Beifahrer ist nicht vorhanden oder inaktiv."
+                "message": "Die Reservierung kann nicht gespeichert werden, da eine Überbuchung verboten ist."
             },
             {
                 "error": 459,
-                "message": "Neue Reservierungen mit Transfer zwischen 22:00 Uhr und der Abfahrt des Schiffes sind nicht möglich. Bitte kontaktieren Sie uns Busse Verfügbarkeit."
-            },
-            {
-                "error": 490,
-                "message": "Dieser Datensatz konnte nicht gespeichert werden."
+                "message": "Neue Reservierungen mit Transfer zwischen 22:00 Uhr und der Abfahrt des Schiffes sind nicht möglich. Bitte wenden Sie sich an einen Administrator."
             },
             {
                 "error": 491,
-                "message": "Es tut uns sehr leid, aber dieser Eintrag ist in Gebrauch und kann nicht gelöscht werden."
+                "message": "Dieser Eintrag ist in Gebrauch und kann nicht gelöscht werden."
             },
             {
                 "error": 492,
@@ -107,16 +55,8 @@
                 "message": "Der Anflugauftrag besteht bereits."
             },
             {
-                "error": 494,
-                "message": "Das Passwort kann nicht geändert werden."
-            },
-            {
                 "error": 497,
                 "message": "Wir können nicht fortfahren. Bitte vergewissern Sie sich, dass der Benutzername und/oder die E-Mail nicht zu einem anderen Benutzer gehören."
-            },
-            {
-                "error": 499,
-                "message": "Wir können nicht fortfahren. Der verbundene Benutzer kann nicht gelöscht werden."
             },
             {
                 "error": 500,
@@ -127,28 +67,12 @@
                 "message": "Authentifizierung fehlgeschlagen."
             },
             {
-                "id": "askConfirmationToAbortEditing",
-                "message": "Wenn Sie fortfahren, gehen alle Änderungen verloren."
-            },
-            {
-                "id": "askConfirmationToDelete",
-                "message": "Dieser Rekord wird für immer verloren sein."
-            },
-            {
                 "id": "emailSent",
                 "message": "Wir haben Ihnen eine E-Mail mit Anweisungen zum Einrichten eines neuen Passworts geschickt."
             },
             {
                 "id": "emailNotSent",
                 "message": "Wir können Ihnen im Moment keine E-Mail senden. Bitte versuchen Sie es in Kürze erneut."
-            },
-            {
-                "id": "emptyEmail",
-                "message": "Die E-Mail darf nicht leer sein."
-            },
-            {
-                "id": "fileCreated",
-                "message": "Die Datei wurde erstellt."
             },
             {
                 "id": "formIsDirty",
@@ -159,36 +83,12 @@
                 "message": "Sie haben keine Datensätze ausgewählt."
             },
             {
-                "id": "noResults",
-                "message": "Wir haben nichts gefunden."
-            },
-            {
                 "id": "noVideoDevicesFound",
                 "message": "Es befinden sich keine Kameras auf Ihrem Gerät."
             },
             {
-                "id": "recordCreated",
-                "message": "Ein Datensatz wurde erstellt."
-            },
-            {
-                "id": "recordDeleted",
-                "message": "Dieser Datensatz wurde gelöscht."
-            },
-            {
-                "id": "recordUpdated",
-                "message": "Dieser Datensatz wurde aktualisiert."
-            },
-            {
-                "id": "selectedRecordsHaveBeenProcessed",
-                "message": "Alle ausgewählten Datensätze wurden aktualisiert."
-            },
-            {
                 "id": "unableToResetPassword",
                 "message": "Das neue Passwort kann nicht gespeichert werden. Der Link in der E-Mail, die Sie erhalten haben, ist möglicherweise nicht mehr gültig."
-            },
-            {
-                "id": "wrongPassengerCount",
-                "message": "Die Anzahl der Passagiere muss der Gesamtzahl der Personen entsprechen."
             },
             {
                 "id": "noContactWithServer",
@@ -209,10 +109,6 @@
             {
                 "id": "warning",
                 "message": "Sollen wir diesen Eintrag löschen?"
-            },
-            {
-                "id": "userDisconnected",
-                "message": "Sie waren zu lange inaktiv und wir haben Ihre Verbindung getrennt, um Ressourcen zu sparen."
             },
             {
                 "id": "passwordCanBeChangedOnlyByAccountOwner",

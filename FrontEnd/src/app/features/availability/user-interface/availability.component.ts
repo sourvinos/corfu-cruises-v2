@@ -9,9 +9,9 @@ import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { MessageCalendarService } from 'src/app/shared/services/messages-calendar.service'
-import { MessageLabelService } from './../../../shared/services/messages-label.service'
-import { MessageSnackbarService } from 'src/app/shared/services/messages-snackbar.service'
+import { MessageCalendarService } from 'src/app/shared/services/message-calendar.service'
+import { MessageLabelService } from '../../../shared/services/message-label.service'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
@@ -40,7 +40,7 @@ export class AvailabilityComponent {
 
     // #endregion 
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageSnackbarService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageCalendarService: MessageCalendarService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) {
         this.router.events.subscribe((navigation) => {
             if (navigation instanceof NavigationEnd && navigation.url == this.url) {
                 this.updateVariables()

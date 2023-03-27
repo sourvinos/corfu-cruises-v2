@@ -7,7 +7,7 @@ import { EmbarkationService } from '../../../classes/services/embarkation.servic
 import { EmbarkationReservationVM } from '../../../classes/view-models/list/embarkation-reservation-vm'
 import { EmojiService } from './../../../../../shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
-import { MessageLabelService } from 'src/app/shared/services/messages-label.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { environment } from 'src/environments/environment'
 
 @Component({

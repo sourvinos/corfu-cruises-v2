@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 // Custom
-import { MessageLabelService } from '../../services/messages-label.service'
+import { MessageLabelService } from '../../services/message-label.service'
 import { environment } from 'src/environments/environment'
 import { ConnectedUser } from '../../classes/connected-user'
 

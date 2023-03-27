@@ -15,88 +15,36 @@
                 "message": "Ověření se nezdařilo."
             },
             {
-                "error": 403,
-                "message": "Tato akce vyžaduje vyšší úroveň oprávnění."
-            },
-            {
                 "error": 404,
                 "message": "Tento záznam nelze nalézt."
             },
             {
                 "error": 409,
-                "message": "Tento záznam není ojedinělý."
+                "message": "Rezervace není ojedinělá. Zkontrolujte datum, destinaci, zákazníka a číslo letenky."
+            },
+            {
+                "error": 410,
+                "message": "U vámi poskytnutých informací jsme nezjistili žádné odchylky. Zkontrolujte datum, destinaci a místo vyzvednutí."
             },
             {
                 "error": 412,
                 "message": "Heslo nelze změnit. Je možné, že aktuální heslo je špatné."
             },
             {
-                "error": 427,
-                "message": "Na tento den, cíl a přístav nejsou naplánovány žádné výlety."
-            },
-            {
-                "error": 430,
-                "message": "Pro tento den a cíl nejsou naplánovány žádné výlety."
-            },
-            {
                 "error": 431,
                 "message": "Po odjezdu není možné rezervaci přidat nebo změnit."
             },
             {
-                "error": 432,
-                "message": "Na tento den nejsou naplánovány žádné výlety."
-            },
-            {
                 "error": 433,
-                "message": "Tato rezervace způsobí nadměrnou rezervaci."
-            },
-            {
-                "error": 450,
-                "message": "Tento zákazník neexistuje nebo je neaktivní."
-            },
-            {
-                "error": 451,
-                "message": "Tento cíl neexistuje nebo je neaktivní."
-            },
-            {
-                "error": 452,
-                "message": "Toto odběrné místo neexistuje nebo je neaktivní."
-            },
-            {
-                "error": 453,
-                "message": "Tento ovladač neexistuje nebo je neaktivní."
-            },
-            {
-                "error": 454,
-                "message": "Tato loď neexistuje nebo je neaktivní."
-            },
-            {
-                "error": 455,
-                "message": "Počet cestujících není správný."
-            },
-            {
-                "error": 456,
-                "message": "Státní příslušnost alespoň jednoho cestujícího neexistuje nebo je neaktivní."
-            },
-            {
-                "error": 457,
-                "message": "Pohlaví pro alespoň jednoho cestujícího neexistuje nebo je neaktivní."
-            },
-            {
-                "error": 458,
-                "message": "Pohlaví cestujícího pro alespoň jednoho cestujícího neexistuje nebo je neaktivní."
+                "message": "Rezervaci nelze uložit, protože je zakázáno přeplácet rezervace."
             },
             {
                 "error": 459,
-                "message": "Nové rezervace s přestupem mezi 22:00 a odjezdem lodi nejsou povoleny. Kontaktujte nás, prosím, autobusy dostupnost."
-            },
-            {
-                "error": 490,
-                "message": "Tento záznam se nepodařilo uložit."
+                "message": "Nové rezervace s přestupem mezi 22:00 a odjezdem lodi nejsou povoleny. Kontaktujte prosím správce."
             },
             {
                 "error": 491,
-                "message": "Je nám velmi líto, ale tento záznam je používán a nelze jej smazat."
+                "message": "Tento záznam je používán a nelze jej smazat."
             },
             {
                 "error": 492,
@@ -107,16 +55,8 @@
                 "message": "Přístupový řád již existuje."
             },
             {
-                "error": 494,
-                "message": "Heslo nelze změnit."
-            },
-            {
                 "error": 497,
                 "message": "Nemůžeme pokračovat. Ujistěte se prosím, že uživatelské jméno a/nebo e-mail nepatří jinému uživateli."
-            },
-            {
-                "error": 499,
-                "message": "Nemůžeme pokračovat. Připojeného uživatele nelze odstranit."
             },
             {
                 "error": 500,
@@ -127,28 +67,12 @@
                 "message": "Ověření se nezdařilo."
             },
             {
-                "id": "askConfirmationToAbortEditing",
-                "message": "Pokud budete pokračovat, všechny změny budou ztraceny."
-            },
-            {
-                "id": "askConfirmationToDelete",
-                "message": "Tento záznam bude navždy ztracen."
-            },
-            {
                 "id": "emailSent",
                 "message": "Zaslali jsme vám e-mail s pokyny k nastavení nového hesla."
             },
             {
                 "id": "emailNotSent",
                 "message": "Nyní vám nemůžeme poslat e-mail, zkuste to prosím za chvíli znovu."
-            },
-            {
-                "id": "emptyEmail",
-                "message": "E-mail nesmí být prázdný."
-            },
-            {
-                "id": "fileCreated",
-                "message": "Soubor byl vytvořen."
             },
             {
                 "id": "formIsDirty",
@@ -159,36 +83,12 @@
                 "message": "Nevybrali jste žádné záznamy."
             },
             {
-                "id": "noResults",
-                "message": "Nic jsme nenašli."
-            },
-            {
                 "id": "noVideoDevicesFound",
                 "message": "Na vašem zařízení nejsou žádné kamery."
             },
             {
-                "id": "recordCreated",
-                "message": "Byl vytvořen záznam."
-            },
-            {
-                "id": "recordDeleted",
-                "message": "Tento záznam byl smazán."
-            },
-            {
-                "id": "recordUpdated",
-                "message": "Tento záznam byl aktualizován."
-            },
-            {
-                "id": "selectedRecordsHaveBeenProcessed",
-                "message": "Všechny vybrané záznamy byly aktualizovány."
-            },
-            {
                 "id": "unableToResetPassword",
                 "message": "Nové heslo nelze uložit. Odkaz v zaslaném e-mailu již nemusí být platný."
-            },
-            {
-                "id": "wrongPassengerCount",
-                "message": "Počet cestujících se musí rovnat celkovému počtu osob."
             },
             {
                 "id": "noContactWithServer",
@@ -209,10 +109,6 @@
             {
                 "id": "warning",
                 "message": "Máme tento záznam smazat?"
-            },
-            {
-                "id": "userDisconnected",
-                "message": "Byli jste příliš dlouho neaktivní, a proto jsme vás odpojili, abychom ušetřili zdroje."
             },
             {
                 "id": "passwordCanBeChangedOnlyByAccountOwner",

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 // Custom
 import { HelperService } from '../../services/helper.service'
-import { MessageLabelService } from '../../services/messages-label.service'
+import { MessageLabelService } from '../../services/message-label.service'
 import { environment } from 'src/environments/environment'
 
 @Component({

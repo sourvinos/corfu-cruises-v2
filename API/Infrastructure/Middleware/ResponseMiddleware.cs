@@ -60,7 +60,7 @@ namespace API.Infrastructure.Middleware {
                 404 => ApiMessages.RecordNotFound(),
                 408 => ApiMessages.InvalidCoachRoute(),
                 409 => ApiMessages.DuplicateRecord(),
-                410 => ApiMessages.InvalidDateDestinationOrPort(),
+                410 => ApiMessages.InvalidDateDestinationOrPickupPoint(),
                 411 => ApiMessages.InvalidPort(),
                 412 => ApiMessages.InvalidAccountFields(),
                 413 => ApiMessages.CustomerIdDoesNotMatchConnectedSimpleUserCustomerId(),
@@ -81,7 +81,6 @@ namespace API.Infrastructure.Middleware {
                 491 => ApiMessages.RecordInUse(),
                 493 => ApiMessages.InvalidPortOrder(),
                 498 => ApiMessages.NotUniqueUsernameOrEmail(),
-                499 => ApiMessages.UnableToDeleteConnectedUser(),
                 _ => ApiMessages.UnknownError(),
             };
         }

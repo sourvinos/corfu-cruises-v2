@@ -6,7 +6,7 @@ import { AccountService } from 'src/app/shared/services/account.service'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { Menu } from 'src/app/shared/classes/menu'
-import { MessageMenuService } from 'src/app/shared/services/messages-menu.service'
+import { MessageMenuService } from 'src/app/shared/services/message-menu.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
