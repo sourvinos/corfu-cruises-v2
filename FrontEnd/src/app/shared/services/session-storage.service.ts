@@ -6,8 +6,6 @@ import { environment } from 'src/environments/environment'
 
 export class SessionStorageService {
 
-    //#region public methods
-
     public getItem(item: string): string {
         return sessionStorage.getItem(item) || ''
     }
@@ -30,7 +28,5 @@ export class SessionStorageService {
             }
         })
     }
-
-    //#endregion
 
 }

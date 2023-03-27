@@ -48,15 +48,11 @@
             },
             {
                 "error": 492,
-                "message": "Ein Benutzer mit diesen Angaben kann nicht erstellt werden. Stellen Sie sicher, dass der Benutzername und die E-Mail eindeutig sind."
+                "message": "Wir können nicht fortfahren. Bitte vergewissern Sie sich, dass der Benutzername und/oder die E-Mail nicht zu einem anderen Benutzer gehören."
             },
             {
                 "error": 493,
                 "message": "Der Anflugauftrag besteht bereits."
-            },
-            {
-                "error": 497,
-                "message": "Wir können nicht fortfahren. Bitte vergewissern Sie sich, dass der Benutzername und/oder die E-Mail nicht zu einem anderen Benutzer gehören."
             },
             {
                 "error": 500,

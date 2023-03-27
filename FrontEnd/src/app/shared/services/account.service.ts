@@ -107,14 +107,6 @@ export class AccountService extends HttpDataService {
         return this.http.post<any>(this.urlForgotPassword, formData)
     }
 
-    public getConnectedUserId(): Observable<any> {
-        return this.http.get(this.urlGetConnectedUserId, { responseType: 'text' }).pipe(
-            map(response => {
-                return <any>response
-            })
-        )
-    }
-
     public getNewRefreshToken(): Observable<any> {
         const userId = ConnectedUser.id
         const refreshToken = sessionStorage.getItem('refreshToken')
@@ -125,14 +117,6 @@ export class AccountService extends HttpDataService {
                     this.setLoginStatus(true)
                     this.setAuthSettings(response)
                 }
-                return <any>response
-            })
-        )
-    }
-
-    public isConnectedUserAdmin(): Observable<any> {
-        return this.http.get(this.urlIsAdmin, { responseType: 'text' }).pipe(
-            map(response => {
                 return <any>response
             })
         )
@@ -156,10 +140,6 @@ export class AccountService extends HttpDataService {
         this.refreshMenus()
         this.navigateToLogin()
         this.clearConnectedUser()
-    }
-
-    public add(formData: any): Observable<any> {
-        return this.http.post<any>(this.urlRegister, formData)
     }
 
     public resetPassword(vm: ResetPasswordViewModel): Observable<any> {

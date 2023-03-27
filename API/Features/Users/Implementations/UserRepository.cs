@@ -56,7 +56,7 @@ namespace API.Features.Users {
                 DisposeOrCommit(transaction);
             } else {
                 throw new CustomException() {
-                    ResponseCode = 498
+                    ResponseCode = 492
                 };
             }
         }

@@ -48,15 +48,11 @@
             },
             {
                 "error": 492,
-                "message": "Un utilisateur avec ces détails ne peut pas être créé. Assurez-vous que le nom d'utilisateur et l'adresse électronique sont uniques."
+                "message": "Nous ne sommes pas en mesure de continuer. Veuillez vous assurer que le nom d'utilisateur et/ou l'email n'appartiennent pas à un autre utilisateur."
             },
             {
                 "error": 493,
                 "message": "L'ordre d'approche existe déjà."
-            },
-            {
-                "error": 497,
-                "message": "Nous ne sommes pas en mesure de continuer. Veuillez vous assurer que le nom d'utilisateur et/ou l'email n'appartiennent pas à un autre utilisateur."
             },
             {
                 "error": 500,

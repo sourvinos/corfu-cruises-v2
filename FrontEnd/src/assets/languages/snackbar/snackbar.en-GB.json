@@ -48,15 +48,11 @@
             },
             {
                 "error": 492,
-                "message": "A user with these details can not be created."
+                "message": "We are unable to continue. Please make sure that the username and/or the email don't belong to another user."
             },
             {
                 "error": 493,
                 "message": "The approach order already exists."
-            },
-            {
-                "error": 497,
-                "message": "We are unable to continue. Please make sure that the username and/or the email don't belong to another user."
             },
             {
                 "error": 500,

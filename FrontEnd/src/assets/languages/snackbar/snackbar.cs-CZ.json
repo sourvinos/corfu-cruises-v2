@@ -48,15 +48,11 @@
             },
             {
                 "error": 492,
-                "message": "Uživatele s těmito údaji nelze vytvořit. Ujistěte se, že uživatelské jméno a e-mail jsou jedinečné."
+                "message": "Nemůžeme pokračovat. Ujistěte se prosím, že uživatelské jméno a/nebo e-mail nepatří jinému uživateli."
             },
             {
                 "error": 493,
                 "message": "Přístupový řád již existuje."
-            },
-            {
-                "error": 497,
-                "message": "Nemůžeme pokračovat. Ujistěte se prosím, že uživatelské jméno a/nebo e-mail nepatří jinému uživateli."
             },
             {
                 "error": 500,

@@ -6,7 +6,7 @@ import { LocalStorageService } from './local-storage.service'
 
 @Injectable({ providedIn: 'root' })
 
-export class MessageHintService {
+export class MessageInputHintService {
 
     //#region variables
 

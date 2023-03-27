@@ -95,7 +95,7 @@ namespace API.Features.Users {
                             };
                         } else {
                             throw new CustomException() {
-                                ResponseCode = 498
+                                ResponseCode = 492
                             };
                         };
                     } else {
