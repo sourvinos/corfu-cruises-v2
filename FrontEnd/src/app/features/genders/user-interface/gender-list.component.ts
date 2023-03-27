@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, HostListener, ViewChild } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { Table } from 'primeng/table'
 // Custom
 import { GenderListVM } from '../classes/view-models/gender-list-vm'
@@ -36,20 +36,11 @@ export class GenderListComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
-    //#region listeners
-
-    @HostListener('window:resize', ['$event']) onResize(): void {
-        this.setWindowWidth()
-    }
-
-    //#endregion
-
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords().then(() => {
             this.filterTableFromStoredFilters()
-            this.setWindowWidth()
             this.subscribeToInteractionService()
             this.setTabTitle()
         })
@@ -157,10 +148,6 @@ export class GenderListComponent {
 
     private setTabTitle(): void {
         this.helperService.setTabTitle(this.feature)
-    }
-
-    private setWindowWidth(): void {
-        this.helperService.setWindowWidth('list')
     }
 
     private storeSelectedId(id: number): void {

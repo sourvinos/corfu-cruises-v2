@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core'
+import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
@@ -37,14 +37,6 @@ export class LoginFormComponent {
 
     constructor(private accountService: AccountService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private router: Router, private titleService: Title) { }
 
-    //#region listeners
-
-    @HostListener('window:resize', ['$event']) onResize(): void {
-        this.setWindowWidth()
-    }
-
-    //#endregion
-
     //#region lifecycle hooks
 
     ngOnInit(): void {
@@ -52,7 +44,6 @@ export class LoginFormComponent {
         this.clearStoredVariables()
         this.focusOnField()
         this.setWindowTitle()
-        this.setWindowWidth()
     }
 
     //#endregion
@@ -108,10 +99,6 @@ export class LoginFormComponent {
 
     private setWindowTitle(): void {
         this.titleService.setTitle(this.helperService.getApplicationTitle())
-    }
-
-    private setWindowWidth(): void {
-        this.helperService.setWindowWidth('form-wrapper')
     }
 
     private showError(error: any): void {

@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
-import { Component, HostListener } from '@angular/core'
+import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { map, startWith } from 'rxjs/operators'
@@ -54,14 +54,6 @@ export class ScheduleEditFormComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private scheduleService: ScheduleService, private sessionStorageService: SessionStorageService) { }
 
-    //#region listeners
-
-    @HostListener('window:resize', ['$event']) onResize(): void {
-        this.setWindowWidth()
-    }
-
-    //#endregion
-
     //#region lifecycle hooks
 
     ngOnInit(): void {
@@ -72,7 +64,6 @@ export class ScheduleEditFormComponent {
         this.populateDropdowns()
         this.subscribeToInteractionService()
         this.setLocale()
-        this.setWindowWidth()
     }
 
     ngAfterViewInit(): void {
@@ -252,10 +243,6 @@ export class ScheduleEditFormComponent {
         this.interactionService.refreshDateAdapter.subscribe(() => {
             this.setLocale()
         })
-    }
-
-    private setWindowWidth(): void {
-        this.helperService.setWindowWidth('form-wrapper')
     }
 
     //#endregion

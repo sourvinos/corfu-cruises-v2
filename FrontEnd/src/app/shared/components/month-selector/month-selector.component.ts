@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Output } from '@angular/core'
+import { Component, EventEmitter, Output } from '@angular/core'
 
 @Component({
     selector: 'month-selector',
@@ -13,16 +13,6 @@ export class MonthSelectorComponent {
     @Output() public monthEmitter = new EventEmitter()
 
     public months: number[] = []
-
-    //#endregion
-
-    //#region listeners
-
-    @HostListener('mouseenter') onMouseEnter(): void {
-        document.querySelectorAll('.sub-menu').forEach((item) => {
-            item.classList.remove('hidden')
-        })
-    }
 
     //#endregion
 

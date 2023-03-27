@@ -1,5 +1,5 @@
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { Component, HostListener, ViewChild } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Subscription } from 'rxjs'
 import { Table } from 'primeng/table'
@@ -77,18 +77,10 @@ export class ReservationListComponent {
         })
     }
 
-    //#region listeners
-
-    @HostListener('window:resize', ['$event']) onResize(): void {
-        this.setWindowWidth()
-    }
-
-    //#endregion
-
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        this.setWindowWidth()
+        // this.setWindowWidth()
         this.subscribeToInteractionService()
         this.setTabTitle()
     }
@@ -357,10 +349,6 @@ export class ReservationListComponent {
 
     private scrollToSavedPosition(): void {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
-    }
-
-    private setWindowWidth(): void {
-        this.helperService.setWindowWidth('list')
     }
 
     private storeSelectedId(id: string): void {

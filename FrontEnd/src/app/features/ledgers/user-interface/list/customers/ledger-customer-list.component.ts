@@ -1,7 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, HostListener, ViewChild } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
-import { Subject } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
@@ -45,21 +44,12 @@ export class LedgerCustomerListComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
 
-    //#region listeners
-
-    @HostListener('window:resize', ['$event']) onResize(): void {
-        this.setWindowWidth()
-    }
-
-    //#endregion
-
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords()
         this.subscribeToInteractionService()
         this.setTabTitle()
-        this.setWindowWidth()
         this.populateCriteriaPanelsFromStorage()
         this.enableDisableFilters()
     }
@@ -147,10 +137,6 @@ export class LedgerCustomerListComponent {
 
     private setTabTitle(): void {
         this.helperService.setTabTitle(this.feature)
-    }
-
-    private setWindowWidth(): void {
-        this.helperService.setWindowWidth('list')
     }
 
     private subscribeToInteractionService(): void {

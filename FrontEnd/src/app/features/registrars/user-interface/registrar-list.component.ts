@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, HostListener, ViewChild } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { Table } from 'primeng/table'
 // Custom
 import { EmojiService } from 'src/app/shared/services/emoji.service'
@@ -39,21 +39,12 @@ export class RegistrarListComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
-    //#region listeners
-
-    @HostListener('window:resize', ['$event']) onResize(): void {
-        this.setWindowWidth()
-    }
-
-    //#endregion
-
     //#region lifecycle hooks
 
     ngOnInit(): void {
         this.loadRecords().then(() => {
             this.populateDropdownFilters()
             this.filterTableFromStoredFilters()
-            this.setWindowWidth()
             this.subscribeToInteractionService()
             this.setTabTitle()
         })
@@ -171,10 +162,6 @@ export class RegistrarListComponent {
 
     private setTabTitle(): void {
         this.helperService.setTabTitle(this.feature)
-    }
-
-    private setWindowWidth(): void {
-        this.helperService.setWindowWidth('list')
     }
 
     private storeSelectedId(id: number): void {

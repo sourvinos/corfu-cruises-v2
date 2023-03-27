@@ -24,10 +24,6 @@ export class LedgerCustomerSummaryComponent {
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private emojiService: EmojiService, private messageLabelService: MessageLabelService) { }
 
-    //#region lifecycle hooks
-
-    //#endregion
-
     //#region public methods
 
     public getEmoji(emoji: string): string {

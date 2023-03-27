@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, HostListener, ViewChild } from '@angular/core'
+import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
 import { Table } from 'primeng/table'
@@ -45,14 +45,6 @@ export class ScheduleListComponent {
 
     constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
-    //#region listeners
-
-    @HostListener('window:resize', ['$event']) onResize(): void {
-        this.setWindowWidth()
-    }
-
-    //#endregion
-
     //#region lifecycle hooks
 
     ngOnInit(): void {
@@ -63,7 +55,6 @@ export class ScheduleListComponent {
             this.subscribeToInteractionService()
             this.setTabTitle()
             this.setLocale()
-            this.setWindowWidth()
         })
     }
 
@@ -213,10 +204,6 @@ export class ScheduleListComponent {
 
     private setTabTitle(): void {
         this.helperService.setTabTitle(this.feature)
-    }
-
-    private setWindowWidth(): void {
-        this.helperService.setWindowWidth('list')
     }
 
     private storeSelectedId(id: number): void {

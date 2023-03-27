@@ -314,13 +314,6 @@ export class HelperService {
         }, 1000)
     }
 
-    public setWindowWidth(element: string): void {
-        const x = document.getElementById(element)
-        if (typeof (x) != 'undefined' && x != null) {
-            x.style.width = window.innerWidth + 'px'
-        }
-    }
-
     public setTabTitle(feature: string): void {
         this.titleService.setTitle(environment.appName + ': ' + this.messageLabelService.getDescription(feature, 'header'))
     }

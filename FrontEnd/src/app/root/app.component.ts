@@ -33,6 +33,7 @@ export class AppComponent {
     }
 
     //#region listeners
+    
     @HostListener('window:beforeunload', ['$event']) beforeUnloadHander(): any {
         this.accountService.logout()
     }
