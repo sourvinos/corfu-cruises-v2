@@ -49,7 +49,7 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes, {
             onSameUrlNavigation: 'reload',
             preloadingStrategy: NoPreloading,
-            useHash: false,
+            useHash: true
         })
     ],
     exports: [
