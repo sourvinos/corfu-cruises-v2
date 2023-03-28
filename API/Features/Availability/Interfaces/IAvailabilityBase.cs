@@ -10,7 +10,7 @@ namespace API.Features.Availability {
         IEnumerable<AvailabilityGroupVM> GetPaxPerPort(IEnumerable<AvailabilityGroupVM> schedule, IEnumerable<ReservationVM> reservations);
         IEnumerable<AvailabilityGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules);
         IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityGroupVM> schedules);
-
+        IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules);
     }
 
 }
