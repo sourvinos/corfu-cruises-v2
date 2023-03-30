@@ -19,8 +19,9 @@ namespace API.Features.Availability {
         ///     Step 1/6
         ///     Creates the calendar (based on the schedules for the selected period) which will contain (after all the processing) the free seats per day, destination and port
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
+        /// <param name="date"></param>
+        /// <param name="destinationId"></param>
+        /// <param name="portId"></param>
         /// <returns>
         ///     A list of AvailabilityCalendarGroupVM, one object for each day
         /// </returns>
@@ -93,7 +94,9 @@ namespace API.Features.Availability {
         ///     Calculates the maximum pax per port, including the free seats from the previous port (according to the stopOrder property of the port)
         /// </summary>
         /// <param name="schedules"></param>
-        /// <returns></returns>
+        /// <returns>
+        ///     The updated AvailabilityCalendarGroupVM object, one for each day
+        /// </returns>
         public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             var accumulatedMaxPax = 0;
             foreach (var schedule in schedules) {
@@ -116,7 +119,7 @@ namespace API.Features.Availability {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
+        public static IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPorts(IEnumerable<AvailabilityGroupVM> schedules) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {
@@ -129,17 +132,19 @@ namespace API.Features.Availability {
 
         /// <summary>
         ///     Step 6/6
-        ///     Foreach record in the schedules, if its pax is greater than its maxPax, then add the difference to the previous schedule
-        ///     If the above is true, the free seats from the previous port must be reduced by the difference.
+        ///     If pax is greater than maxPax, this port has overbooking and the difference will be added to the previous pax
+        ///     We are saving seats = reducing the free seats
         /// </summary>
         /// <param name="schedules"></param>
-        /// <returns></returns>
+        /// <returns>
+        ///     The updated AvailabilityCalendarGroupVM object, one for each day
+        /// </returns>
         public IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports.OrderByDescending(x => x.StopOrder)) {
                         if (port.Pax > port.MaxPax) {
-                            AddOverbookingsToPreviousPorts(port.Pax - port.MaxPax, port.StopOrder, port, schedules);
+                            AddOverbookingsToPreviousPorts(port.Pax - port.MaxPax, port.StopOrder, schedules);
                         }
                     }
                 }
@@ -150,8 +155,7 @@ namespace API.Features.Availability {
         /// <summary>
         ///     Gets the reservations for the selected period, without any processing
         /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
+        /// <param name="date"></param>
         /// <returns>
         ///     A list of ReservationVM objects, one per reservation
         /// </returns>
@@ -183,9 +187,12 @@ namespace API.Features.Availability {
         ///     The max passengers, for the above b) case 
         /// </returns>
         private static int AreMultipleShipsUsed(IEnumerable<PortCalendarVM> ports, PortCalendarVM currentPort) {
-            var previousPort = ports.TakeWhile(x => x.Abbreviation != currentPort.Abbreviation).Skip(-1).FirstOrDefault();
-            return previousPort == null || currentPort.MaxPax != previousPort.MaxPax
-                ? currentPort.MaxPax : 0;
+            try {
+                var previousPort = ports.TakeWhile(x => !x.Equals(currentPort)).Last();
+                return currentPort.MaxPax != previousPort.MaxPax ? currentPort.MaxPax : 0;
+            } catch (Exception) {
+                return currentPort.MaxPax;
+            }
         }
 
         private int GetPortStopOrder(int portId) {
@@ -195,7 +202,7 @@ namespace API.Features.Availability {
                 .Single().StopOrder;
         }
 
-        private static IEnumerable<AvailabilityGroupVM> AddOverbookingsToPreviousPorts(int overbookings, int stopOrder, PortCalendarVM port, IEnumerable<AvailabilityGroupVM> schedules) {
+        private static IEnumerable<AvailabilityGroupVM> AddOverbookingsToPreviousPorts(int overbookings, int stopOrder, IEnumerable<AvailabilityGroupVM> schedules) {
             foreach (var x in schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.OrderByDescending(x => x.StopOrder)) {
                 if (x.StopOrder < stopOrder) {
                     x.Pax += overbookings;

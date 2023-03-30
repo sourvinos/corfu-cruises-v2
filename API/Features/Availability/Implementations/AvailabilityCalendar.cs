@@ -115,7 +115,7 @@ namespace API.Features.Availability {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
+        public static IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {
@@ -180,16 +180,23 @@ namespace API.Features.Availability {
         ///     The max passengers, for the above b) case 
         /// </returns>
         private static int AreMultipleShipsUsed(IEnumerable<PortCalendarVM> ports, PortCalendarVM currentPort) {
-            var previousPort = ports.TakeWhile(x => x.Abbreviation != currentPort.Abbreviation).Skip(-1).FirstOrDefault();
+            var previousPort = ports.TakeWhile(x => x.Id != currentPort.Id).Skip(-1).FirstOrDefault();
             return previousPort == null || currentPort.MaxPax != previousPort.MaxPax
                 ? currentPort.MaxPax : 0;
         }
 
-        public IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules)
-        {
+        public IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             throw new NotImplementedException();
         }
- 
+
+        public IEnumerable<AvailabilityGroupVM> CalculateActualFreePax(IEnumerable<AvailabilityGroupVM> schedules) {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<AvailabilityGroupVM> DoFinal(IEnumerable<AvailabilityGroupVM> schedules) {
+            throw new NotImplementedException();
+        }
+        
     }
 
 }

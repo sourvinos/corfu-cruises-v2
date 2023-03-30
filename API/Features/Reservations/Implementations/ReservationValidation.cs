@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using API.Features.Availability;
 using API.Features.PickupPoints;
 using API.Features.Schedules;
 using API.Features.Users;
@@ -18,13 +17,11 @@ namespace API.Features.Reservations {
     public class ReservationValidation : Repository<Reservation>, IReservationValidation {
 
         private readonly IHttpContextAccessor httpContext;
-        private readonly IAvailabilityDay availabilityDay;
         private readonly TestingEnvironment testingEnvironment;
         private readonly UserManager<UserExtended> userManager;
 
-        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment, IAvailabilityDay availabilityDay, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
+        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
             this.httpContext = httpContext;
-            this.availabilityDay = availabilityDay;
             this.testingEnvironment = testingEnvironment.Value;
             this.userManager = userManager;
         }
@@ -98,7 +95,8 @@ namespace API.Features.Reservations {
             if (Identity.IsUserAdmin(httpContext) || reservation.ReservationId != Guid.Empty) {
                 return false;
             } else {
-                var freePax = availabilityDay.CalculateAccumulatedFreePaxPerPort(availabilityDay.CalculateAccumulatedMaxPaxPerPort(availabilityDay.CalculateAccumulatedPaxPerPort(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(reservation.Date, reservation.DestinationId, GetPortIdFromPickupPointId(reservation)), availabilityDay.GetReservations(reservation.Date))))).LastOrDefault().Destinations.LastOrDefault().Ports.LastOrDefault().AccumulatedFreePax;
+                // var freePax = availabilityDay.CalculateAccumulatedFreePaxPerPort(availabilityDay.CalculateAccumulatedMaxPaxPerPort(availabilityDay.CalculateAccumulatedPaxPerPort(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(reservation.Date, reservation.DestinationId, GetPortIdFromPickupPointId(reservation)), availabilityDay.GetReservations(reservation.Date))))).LastOrDefault().Destinations.LastOrDefault().Ports.LastOrDefault().AccumulatedFreePax;
+                var freePax = 0;
                 return freePax < reservation.Adults + reservation.Kids + reservation.Free;
             }
         }

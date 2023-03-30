@@ -11,6 +11,7 @@ namespace API.Features.Availability {
         public int Pax { get; set; }
         public int AccumulatedPax { get; set; }
         public int AccumulatedFreePax { get; set; }
+        public int ActualFreePax { get; set; }
 
     }
 
