@@ -26,7 +26,7 @@ namespace API.Features.Availability {
         ///     A list of AvailabilityCalendarGroupVM, one object for each day
         /// </returns>
         public IEnumerable<AvailabilityGroupVM> GetForDay(string date, int destinationId, int portId) {
-            return context.Schedules
+            var schedules = context.Schedules
                 .AsNoTracking()
                 .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.Port.StopOrder <= GetPortStopOrder(portId))
                 .GroupBy(x => x.Date)
@@ -45,6 +45,20 @@ namespace API.Features.Availability {
                         }).ToList()
                     })
                 }).ToList();
+            foreach (var schedule in schedules) {
+                foreach (var destination in schedule.Destinations) {
+                    var x = 1;
+                    var i = destination.Ports.Select(x => x.MaxPax).FirstOrDefault();
+                    foreach (var port in destination.Ports) {
+                        if (i == port.MaxPax) {
+                            port.BatchId = x;
+                        } else {
+                            port.BatchId = x += 1;
+                        }
+                    }
+                }
+            }
+            return schedules;
         }
 
         /// <summary>
@@ -75,19 +89,19 @@ namespace API.Features.Availability {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-            var accumulatedPax = 0;
-            foreach (var schedule in schedules) {
-                foreach (var destination in schedule.Destinations) {
-                    foreach (var port in destination.Ports) {
-                        accumulatedPax += port.Pax;
-                        port.AccumulatedPax = accumulatedPax;
-                    }
-                    accumulatedPax = 0;
-                }
-            }
-            return schedules.ToList();
-        }
+        // public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
+        //     var accumulatedPax = 0;
+        //     foreach (var schedule in schedules) {
+        //         foreach (var destination in schedule.Destinations) {
+        //             foreach (var port in destination.Ports) {
+        //                 accumulatedPax += port.Pax;
+        //                 port.AccumulatedPax = accumulatedPax;
+        //             }
+        //             accumulatedPax = 0;
+        //         }
+        //     }
+        //     return schedules.ToList();
+        // }
 
         /// <summary>
         ///     Step 4/6
@@ -97,19 +111,19 @@ namespace API.Features.Availability {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-            var accumulatedMaxPax = 0;
-            foreach (var schedule in schedules) {
-                foreach (var destination in schedule.Destinations) {
-                    foreach (var port in destination.Ports) {
-                        accumulatedMaxPax += AreMultipleShipsUsed(destination.Ports, port);
-                        port.AccumulatedMaxPax = accumulatedMaxPax;
-                    }
-                    accumulatedMaxPax = 0;
-                }
-            }
-            return schedules.ToList();
-        }
+        // public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
+        //     var accumulatedMaxPax = 0;
+        //     foreach (var schedule in schedules) {
+        //         foreach (var destination in schedule.Destinations) {
+        //             foreach (var port in destination.Ports) {
+        //                 accumulatedMaxPax += AreMultipleShipsUsed(destination.Ports, port);
+        //                 port.AccumulatedMaxPax = accumulatedMaxPax;
+        //             }
+        //             accumulatedMaxPax = 0;
+        //         }
+        //     }
+        //     return schedules.ToList();
+        // }
 
         /// <summary>
         ///     Step 5/6
@@ -119,16 +133,16 @@ namespace API.Features.Availability {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public static IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPorts(IEnumerable<AvailabilityGroupVM> schedules) {
-            foreach (var schedule in schedules) {
-                foreach (var destination in schedule.Destinations) {
-                    foreach (var port in destination.Ports) {
-                        port.AccumulatedFreePax = port.AccumulatedMaxPax - port.AccumulatedPax;
-                    }
-                }
-            }
-            return schedules.ToList();
-        }
+        // public static IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPorts(IEnumerable<AvailabilityGroupVM> schedules) {
+        //     foreach (var schedule in schedules) {
+        //         foreach (var destination in schedule.Destinations) {
+        //             foreach (var port in destination.Ports) {
+        //                 port.AccumulatedFreePax = port.AccumulatedMaxPax - port.AccumulatedPax;
+        //             }
+        //         }
+        //     }
+        //     return schedules.ToList();
+        // }
 
         /// <summary>
         ///     Step 6/6
@@ -139,18 +153,18 @@ namespace API.Features.Availability {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-            foreach (var schedule in schedules) {
-                foreach (var destination in schedule.Destinations) {
-                    foreach (var port in destination.Ports.OrderByDescending(x => x.StopOrder)) {
-                        if (port.Pax > port.MaxPax) {
-                            AddOverbookingsToPreviousPorts(port.Pax - port.MaxPax, port.StopOrder, schedules);
-                        }
-                    }
-                }
-            }
-            return schedules.ToList();
-        }
+        // public IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
+        //     foreach (var schedule in schedules) {
+        //         foreach (var destination in schedule.Destinations) {
+        //             foreach (var port in destination.Ports.OrderByDescending(x => x.StopOrder)) {
+        //                 if (port.Pax > port.MaxPax) {
+        //                     AddOverbookingsToPreviousPorts(port.Pax - port.MaxPax, port.StopOrder, schedules);
+        //                 }
+        //             }
+        //         }
+        //     }
+        //     return schedules.ToList();
+        // }
 
         /// <summary>
         ///     Gets the reservations for the selected period, without any processing
@@ -186,14 +200,14 @@ namespace API.Features.Availability {
         ///     Zero, for the above a) case
         ///     The max passengers, for the above b) case 
         /// </returns>
-        private static int AreMultipleShipsUsed(IEnumerable<PortCalendarVM> ports, PortCalendarVM currentPort) {
-            try {
-                var previousPort = ports.TakeWhile(x => !x.Equals(currentPort)).Last();
-                return currentPort.MaxPax != previousPort.MaxPax ? currentPort.MaxPax : 0;
-            } catch (Exception) {
-                return currentPort.MaxPax;
-            }
-        }
+        // private static int AreMultipleShipsUsed(IEnumerable<PortCalendarVM> ports, PortCalendarVM currentPort) {
+        //     try {
+        //         var previousPort = ports.TakeWhile(x => !x.Equals(currentPort)).Last();
+        //         return currentPort.MaxPax != previousPort.MaxPax ? currentPort.MaxPax : 0;
+        //     } catch (Exception) {
+        //         return currentPort.MaxPax;
+        //     }
+        // }
 
         private int GetPortStopOrder(int portId) {
             return context.Ports
@@ -202,14 +216,54 @@ namespace API.Features.Availability {
                 .Single().StopOrder;
         }
 
-        private static IEnumerable<AvailabilityGroupVM> AddOverbookingsToPreviousPorts(int overbookings, int stopOrder, IEnumerable<AvailabilityGroupVM> schedules) {
-            foreach (var x in schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.OrderByDescending(x => x.StopOrder)) {
-                if (x.StopOrder < stopOrder) {
-                    x.Pax += overbookings;
-                    x.AccumulatedPax += overbookings;
-                    x.AccumulatedFreePax = x.AccumulatedMaxPax - x.AccumulatedPax;
-                    if (x.AccumulatedFreePax > 0) {
-                        return schedules;
+        // private static IEnumerable<AvailabilityGroupVM> AddOverbookingsToPreviousPorts(int overbookings, int stopOrder, IEnumerable<AvailabilityGroupVM> schedules) {
+        //     foreach (var x in schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.OrderByDescending(x => x.StopOrder)) {
+        //         if (x.StopOrder < stopOrder) {
+        //             x.Pax += overbookings;
+        //             x.AccumulatedPax += overbookings;
+        //             x.AccumulatedFreePax = x.AccumulatedMaxPax - x.AccumulatedPax;
+        //             if (x.AccumulatedFreePax > 0) {
+        //                 return schedules;
+        //             }
+        //         }
+        //     }
+        //     return schedules;
+        // }
+
+        public IEnumerable<AvailabilityGroupVM> CalculateFreePaxPerShip(IEnumerable<AvailabilityGroupVM> schedules) {
+            var i = 0;
+            var maxPaxArray = new List<MaxPaxVM>();
+            foreach (var schedule in schedules) {
+                foreach (var destination in schedule.Destinations) {
+                    foreach (var port in destination.Ports) {
+                        try {
+                            if (port.MaxPax != maxPaxArray.Last().MaxPax) {
+                                maxPaxArray.Add(new MaxPaxVM {
+                                    BatchId = ++i,
+                                    MaxPax = port.MaxPax,
+                                    TotalPax = port.Pax,
+                                    FreePax = port.MaxPax - port.Pax
+                                });
+                            } else {
+                                maxPaxArray.Last().TotalPax += port.Pax;
+                                maxPaxArray.Last().FreePax = maxPaxArray.Last().MaxPax - maxPaxArray.Last().TotalPax;
+                            }
+                        } catch (Exception) {
+                            maxPaxArray.Add(new MaxPaxVM {
+                                BatchId = ++i,
+                                MaxPax = port.MaxPax,
+                                TotalPax = port.Pax,
+                                FreePax = port.MaxPax - port.Pax
+                            });
+                        }
+                    }
+                }
+            }
+            foreach (var schedule in schedules) {
+                foreach (var destination in schedule.Destinations) {
+                    foreach (var port in destination.Ports) {
+                        port.FreePax = maxPaxArray.Where(x => x.MaxPax == port.MaxPax).Select(x => x.FreePax).FirstOrDefault();
+                        port.FreePax += maxPaxArray.Where(x => x.BatchId < port.BatchId).Select(x => x.FreePax).Sum();
                     }
                 }
             }

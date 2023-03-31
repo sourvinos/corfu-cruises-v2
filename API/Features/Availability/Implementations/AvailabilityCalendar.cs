@@ -73,19 +73,19 @@ namespace API.Features.Availability {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-            var accumulatedPax = 0;
-            foreach (var schedule in schedules) {
-                foreach (var destination in schedule.Destinations) {
-                    foreach (var port in destination.Ports) {
-                        accumulatedPax += port.Pax;
-                        port.AccumulatedPax = accumulatedPax;
-                    }
-                    accumulatedPax = 0;
-                }
-            }
-            return schedules.ToList();
-        }
+        // public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
+        //     var accumulatedPax = 0;
+        //     foreach (var schedule in schedules) {
+        //         foreach (var destination in schedule.Destinations) {
+        //             foreach (var port in destination.Ports) {
+        //                 accumulatedPax += port.Pax;
+        //                 port.AccumulatedPax = accumulatedPax;
+        //             }
+        //             accumulatedPax = 0;
+        //         }
+        //     }
+        //     return schedules.ToList();
+        // }
 
         /// <summary>
         ///     Step 4/6
@@ -93,19 +93,19 @@ namespace API.Features.Availability {
         /// </summary>
         /// <param name="schedules"></param>
         /// <returns></returns>
-        public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-            var accumulatedMaxPax = 0;
-            foreach (var schedule in schedules) {
-                foreach (var destination in schedule.Destinations) {
-                    foreach (var port in destination.Ports) {
-                        accumulatedMaxPax += AreMultipleShipsUsed(destination.Ports, port);
-                        port.AccumulatedMaxPax = accumulatedMaxPax;
-                    }
-                    accumulatedMaxPax = 0;
-                }
-            }
-            return schedules.ToList();
-        }
+        // public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
+        //     var accumulatedMaxPax = 0;
+        //     foreach (var schedule in schedules) {
+        //         foreach (var destination in schedule.Destinations) {
+        //             foreach (var port in destination.Ports) {
+        //                 accumulatedMaxPax += AreMultipleShipsUsed(destination.Ports, port);
+        //                 port.AccumulatedMaxPax = accumulatedMaxPax;
+        //             }
+        //             accumulatedMaxPax = 0;
+        //         }
+        //     }
+        //     return schedules.ToList();
+        // }
 
         /// <summary>
         ///     Step 5/6
@@ -115,16 +115,16 @@ namespace API.Features.Availability {
         /// <returns>
         ///     The updated AvailabilityCalendarGroupVM object, one for each day
         /// </returns>
-        public static IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-            foreach (var schedule in schedules) {
-                foreach (var destination in schedule.Destinations) {
-                    foreach (var port in destination.Ports) {
-                        port.AccumulatedFreePax = port.AccumulatedMaxPax - port.AccumulatedPax;
-                    }
-                }
-            }
-            return schedules.ToList();
-        }
+        // public static IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
+        //     foreach (var schedule in schedules) {
+        //         foreach (var destination in schedule.Destinations) {
+        //             foreach (var port in destination.Ports) {
+        //                 port.AccumulatedFreePax = port.AccumulatedMaxPax - port.AccumulatedPax;
+        //             }
+        //         }
+        //     }
+        //     return schedules.ToList();
+        // }
 
         /// <summary>
         ///     Step 6/6
@@ -179,11 +179,11 @@ namespace API.Features.Availability {
         ///     Zero, for the above a) case
         ///     The max passengers, for the above b) case 
         /// </returns>
-        private static int AreMultipleShipsUsed(IEnumerable<PortCalendarVM> ports, PortCalendarVM currentPort) {
-            var previousPort = ports.TakeWhile(x => x.Id != currentPort.Id).Skip(-1).FirstOrDefault();
-            return previousPort == null || currentPort.MaxPax != previousPort.MaxPax
-                ? currentPort.MaxPax : 0;
-        }
+        // private static int AreMultipleShipsUsed(IEnumerable<PortCalendarVM> ports, PortCalendarVM currentPort) {
+        //     var previousPort = ports.TakeWhile(x => x.Id != currentPort.Id).Skip(-1).FirstOrDefault();
+        //     return previousPort == null || currentPort.MaxPax != previousPort.MaxPax
+        //         ? currentPort.MaxPax : 0;
+        // }
 
         public IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
             throw new NotImplementedException();
@@ -196,7 +196,11 @@ namespace API.Features.Availability {
         public IEnumerable<AvailabilityGroupVM> DoFinal(IEnumerable<AvailabilityGroupVM> schedules) {
             throw new NotImplementedException();
         }
-        
+
+        public IEnumerable<AvailabilityGroupVM> CalculateFreePaxPerShip(IEnumerable<AvailabilityGroupVM> schedules) {
+            throw new NotImplementedException();
+        }
+
     }
 
 }
