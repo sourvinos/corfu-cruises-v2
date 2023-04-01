@@ -6,7 +6,7 @@ namespace API.Features.Availability {
 
     public interface IAvailabilityDay :IAvailabilityBase, IRepository<Schedule> {
 
-        IEnumerable<AvailabilityGroupVM> GetForDay(string date, int destinationId, int portId);
+        IEnumerable<AvailabilityGroupVM> GetForDay(string date, int destinationId);
         IEnumerable<ReservationVM> GetReservations(string date);
 
     }

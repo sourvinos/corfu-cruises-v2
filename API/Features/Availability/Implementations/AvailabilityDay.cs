@@ -15,20 +15,24 @@ namespace API.Features.Availability {
 
         public AvailabilityDay(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) { }
 
-        /// <summary>
-        ///     Step 1/6
-        ///     Creates the calendar (based on the schedules for the selected period) which will contain (after all the processing) the free seats per day, destination and port
-        /// </summary>
-        /// <param name="date"></param>
-        /// <param name="destinationId"></param>
-        /// <param name="portId"></param>
-        /// <returns>
-        ///     A list of AvailabilityCalendarGroupVM, one object for each day
-        /// </returns>
-        public IEnumerable<AvailabilityGroupVM> GetForDay(string date, int destinationId, int portId) {
+        public IEnumerable<ReservationVM> GetReservations(string date) {
+            var reservations = context.Reservations
+                .AsNoTracking()
+                .Where(x => x.Date == Convert.ToDateTime(date))
+                .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
+                .Select(x => new ReservationVM {
+                    Date = DateHelpers.DateToISOString(x.Date),
+                    DestinationId = x.DestinationId,
+                    PortId = x.PortId,
+                    TotalPax = x.TotalPax
+                }).ToList();
+            return reservations;
+        }
+
+        public IEnumerable<AvailabilityGroupVM> GetForDay(string date, int destinationId) {
             var schedules = context.Schedules
                 .AsNoTracking()
-                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId && x.Port.StopOrder <= GetPortStopOrder(portId))
+                .Where(x => x.Date == Convert.ToDateTime(date) && x.DestinationId == destinationId)
                 .GroupBy(x => x.Date)
                 .Select(x => new AvailabilityGroupVM {
                     Date = DateHelpers.DateToISOString(x.Key.Date),
@@ -54,6 +58,7 @@ namespace API.Features.Availability {
                             port.BatchId = x;
                         } else {
                             port.BatchId = x += 1;
+                            i = port.MaxPax;
                         }
                     }
                 }
@@ -61,15 +66,6 @@ namespace API.Features.Availability {
             return schedules;
         }
 
-        /// <summary>
-        ///     Step 2/6
-        ///     Calculates the total passengers per port, based on the reservations table from the previous step
-        /// </summary>
-        /// <param name="schedules"></param>
-        /// <param name="reservations"></param>
-        /// <returns>
-        ///     The updated AvailabilityCalendarGroupVM object, one for each day
-        /// </returns>
         public IEnumerable<AvailabilityGroupVM> GetPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules, IEnumerable<ReservationVM> reservations) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
@@ -80,155 +76,6 @@ namespace API.Features.Availability {
             }
             return schedules.ToList();
         }
-
-        /// <summary>
-        ///     Step 3/6
-        ///     Calculates the total passengers per port, including the passengers from the previous port (based on the stopOrder property of the port)
-        /// </summary>
-        /// <param name="schedules"></param>
-        /// <returns>
-        ///     The updated AvailabilityCalendarGroupVM object, one for each day
-        /// </returns>
-        // public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-        //     var accumulatedPax = 0;
-        //     foreach (var schedule in schedules) {
-        //         foreach (var destination in schedule.Destinations) {
-        //             foreach (var port in destination.Ports) {
-        //                 accumulatedPax += port.Pax;
-        //                 port.AccumulatedPax = accumulatedPax;
-        //             }
-        //             accumulatedPax = 0;
-        //         }
-        //     }
-        //     return schedules.ToList();
-        // }
-
-        /// <summary>
-        ///     Step 4/6
-        ///     Calculates the maximum pax per port, including the free seats from the previous port (according to the stopOrder property of the port)
-        /// </summary>
-        /// <param name="schedules"></param>
-        /// <returns>
-        ///     The updated AvailabilityCalendarGroupVM object, one for each day
-        /// </returns>
-        // public IEnumerable<AvailabilityGroupVM> CalculateAccumulatedMaxPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-        //     var accumulatedMaxPax = 0;
-        //     foreach (var schedule in schedules) {
-        //         foreach (var destination in schedule.Destinations) {
-        //             foreach (var port in destination.Ports) {
-        //                 accumulatedMaxPax += AreMultipleShipsUsed(destination.Ports, port);
-        //                 port.AccumulatedMaxPax = accumulatedMaxPax;
-        //             }
-        //             accumulatedMaxPax = 0;
-        //         }
-        //     }
-        //     return schedules.ToList();
-        // }
-
-        /// <summary>
-        ///     Step 5/6
-        ///     Calculates the free seats per port (maximum pax (taken from the schedule) minus total persons (taken from the reservations))
-        /// </summary>
-        /// <param name="schedules"></param>
-        /// <returns>
-        ///     The updated AvailabilityCalendarGroupVM object, one for each day
-        /// </returns>
-        // public static IEnumerable<AvailabilityGroupVM> CalculateAccumulatedFreePaxPerPorts(IEnumerable<AvailabilityGroupVM> schedules) {
-        //     foreach (var schedule in schedules) {
-        //         foreach (var destination in schedule.Destinations) {
-        //             foreach (var port in destination.Ports) {
-        //                 port.AccumulatedFreePax = port.AccumulatedMaxPax - port.AccumulatedPax;
-        //             }
-        //         }
-        //     }
-        //     return schedules.ToList();
-        // }
-
-        /// <summary>
-        ///     Step 6/6
-        ///     If pax is greater than maxPax, this port has overbooking and the difference will be added to the previous pax
-        ///     We are saving seats = reducing the free seats
-        /// </summary>
-        /// <param name="schedules"></param>
-        /// <returns>
-        ///     The updated AvailabilityCalendarGroupVM object, one for each day
-        /// </returns>
-        // public IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-        //     foreach (var schedule in schedules) {
-        //         foreach (var destination in schedule.Destinations) {
-        //             foreach (var port in destination.Ports.OrderByDescending(x => x.StopOrder)) {
-        //                 if (port.Pax > port.MaxPax) {
-        //                     AddOverbookingsToPreviousPorts(port.Pax - port.MaxPax, port.StopOrder, schedules);
-        //                 }
-        //             }
-        //         }
-        //     }
-        //     return schedules.ToList();
-        // }
-
-        /// <summary>
-        ///     Gets the reservations for the selected period, without any processing
-        /// </summary>
-        /// <param name="date"></param>
-        /// <returns>
-        ///     A list of ReservationVM objects, one per reservation
-        /// </returns>
-        public IEnumerable<ReservationVM> GetReservations(string date) {
-            var reservations = context.Reservations
-                .AsNoTracking()
-                .Where(x => x.Date == Convert.ToDateTime(date))
-                .OrderBy(x => x.Date).ThenBy(x => x.DestinationId).ThenBy(x => x.PortId)
-                .Select(x => new ReservationVM {
-                    Date = DateHelpers.DateToISOString(x.Date),
-                    DestinationId = x.DestinationId,
-                    PortId = x.PortId,
-                    TotalPax = x.TotalPax
-                }).ToList();
-            return reservations;
-        }
-
-        /// <summary>
-        ///     Decides whether to accumulate the max number of passengers or not.
-        ///     If the current port has the same max persons as the previous, we don't add the current max persons to the accumulated max persons.
-        ///     Practically this means:
-        ///         a) If they are equal, the boat departing from the previous port, will also be used to carry the passengers from the current port.
-        ///         b) If they are different, there is another boat at the current port and they will be both used.
-        /// </summary>
-        /// <param name="ports"></param>
-        /// <param name="currentPort"></param>
-        /// <returns>
-        ///     Zero, for the above a) case
-        ///     The max passengers, for the above b) case 
-        /// </returns>
-        // private static int AreMultipleShipsUsed(IEnumerable<PortCalendarVM> ports, PortCalendarVM currentPort) {
-        //     try {
-        //         var previousPort = ports.TakeWhile(x => !x.Equals(currentPort)).Last();
-        //         return currentPort.MaxPax != previousPort.MaxPax ? currentPort.MaxPax : 0;
-        //     } catch (Exception) {
-        //         return currentPort.MaxPax;
-        //     }
-        // }
-
-        private int GetPortStopOrder(int portId) {
-            return context.Ports
-                .AsNoTracking()
-                .Where(x => x.Id == portId)
-                .Single().StopOrder;
-        }
-
-        // private static IEnumerable<AvailabilityGroupVM> AddOverbookingsToPreviousPorts(int overbookings, int stopOrder, IEnumerable<AvailabilityGroupVM> schedules) {
-        //     foreach (var x in schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.OrderByDescending(x => x.StopOrder)) {
-        //         if (x.StopOrder < stopOrder) {
-        //             x.Pax += overbookings;
-        //             x.AccumulatedPax += overbookings;
-        //             x.AccumulatedFreePax = x.AccumulatedMaxPax - x.AccumulatedPax;
-        //             if (x.AccumulatedFreePax > 0) {
-        //                 return schedules;
-        //             }
-        //         }
-        //     }
-        //     return schedules;
-        // }
 
         public IEnumerable<AvailabilityGroupVM> CalculateFreePaxPerShip(IEnumerable<AvailabilityGroupVM> schedules) {
             var i = 0;
@@ -264,6 +111,46 @@ namespace API.Features.Availability {
                     foreach (var port in destination.Ports) {
                         port.FreePax = maxPaxArray.Where(x => x.MaxPax == port.MaxPax).Select(x => x.FreePax).FirstOrDefault();
                         port.FreePax += maxPaxArray.Where(x => x.BatchId < port.BatchId).Select(x => x.FreePax).Sum();
+                    }
+                }
+            }
+            return schedules;
+        }
+
+        public IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
+            foreach (var schedule in schedules) {
+                foreach (var destination in schedule.Destinations) {
+                    foreach (var port in destination.Ports.OrderByDescending(x => x.StopOrder)) {
+                        if (port.Pax > port.MaxPax) {
+                            AddOverbookingsToPreviousPorts(port.Pax - port.MaxPax, port.StopOrder, port.BatchId, schedules);
+                        }
+                    }
+                }
+            }
+            return schedules.ToList();
+        }
+
+        public IEnumerable<AvailabilityGroupVM> CheckToPatchAllPortsWithZeroFreePax(IEnumerable<AvailabilityGroupVM> schedules) {
+            var totalPax = schedules.Sum(x => x.Destinations.Sum(x => x.Ports.Sum(x => x.Pax)));
+            var totalMaxPax = schedules.Sum(x => x.Destinations.DistinctBy(x => x.Ports.DistinctBy(x => x.BatchId)).Sum(x => x.Ports.Sum(x => x.MaxPax)));
+            if (totalPax == totalMaxPax) {
+                foreach (var schedule in schedules) {
+                    foreach (var destination in schedule.Destinations) {
+                        foreach (var port in destination.Ports) {
+                            port.FreePax = 0;
+                        }
+                    }
+                }
+            }
+            return schedules;
+        }
+
+        private static IEnumerable<AvailabilityGroupVM> AddOverbookingsToPreviousPorts(int overbookings, int stopOrder, int batchId, IEnumerable<AvailabilityGroupVM> schedules) {
+            foreach (var x in schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.OrderByDescending(x => x.StopOrder)) {
+                if (x.StopOrder < stopOrder) {
+                    x.FreePax -= overbookings;
+                    if (x.FreePax >= 0) {
+                        return schedules;
                     }
                 }
             }

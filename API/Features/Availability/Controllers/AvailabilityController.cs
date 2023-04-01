@@ -7,29 +7,17 @@ namespace API.Features.Availability {
     [Route("api/[controller]")]
     public class AvailabilityController : ControllerBase {
 
-        #region variables
-
-        // private readonly IAvailabilityCalendar availabilityCalendar;
         private readonly IAvailabilityDay availabilityDay;
 
-        #endregion
-
         public AvailabilityController(IAvailabilityDay availabilityDay) {
-            // this.availabilityCalendar = availabilityCalendar;
             this.availabilityDay = availabilityDay;
         }
 
-        [HttpGet("date/{date}/destinationId/{destinationId}/portId/{portId}")]
+        [HttpGet("date/{date}/destinationId/{destinationId}")]
         [Authorize(Roles = "user, admin")]
-        public IEnumerable<AvailabilityGroupVM> CalculateAvailability(string date, int destinationId, int portId) {
-            return availabilityDay.CalculateFreePaxPerShip(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(date, destinationId, portId), availabilityDay.GetReservations(date)));
+        public IEnumerable<AvailabilityGroupVM> CalculateAvailability(string date, int destinationId) {
+            return availabilityDay.CheckToPatchAllPortsWithZeroFreePax(availabilityDay.CalculateOverbookingPerPort(availabilityDay.CalculateFreePaxPerShip(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(date, destinationId), availabilityDay.GetReservations(date)))));
         }
-
-        // [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
-        // [Authorize(Roles = "user, admin")]
-        // public IEnumerable<AvailabilityGroupVM> GetForCalendar([FromRoute] string fromDate, string toDate) {
-        //     return availabilityDay.CalculateOverbookingPerPort(availabilityCalendar.CalculateAccumulatedMaxPaxPerPort(availabilityCalendar.CalculateAccumulatedPaxPerPort(availabilityCalendar.GetPaxPerPort(availabilityCalendar.GetForCalendar(fromDate, toDate), availabilityCalendar.GetReservations(fromDate, toDate)))));
-        // }
 
     }
 

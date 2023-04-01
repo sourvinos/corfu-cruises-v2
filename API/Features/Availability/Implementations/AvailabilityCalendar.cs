@@ -201,6 +201,10 @@ namespace API.Features.Availability {
             throw new NotImplementedException();
         }
 
+        public IEnumerable<AvailabilityGroupVM> CheckToPatchAllPortsWithZeroFreePax(IEnumerable<AvailabilityGroupVM> schedules)
+        {
+            throw new NotImplementedException();
+        }
     }
 
 }
