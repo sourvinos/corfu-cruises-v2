@@ -11,7 +11,7 @@
 
     <div id="content">
         <div id="days">
-            <div *ngFor="let day of days" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day.date), 'sunday':isSunday(day.date), 'is-today':isToday(day.date), 'has-schedule':dayHasSchedule(day) }" class="day">
+            <div *ngFor="let day of calendar" [attr.id]="day.date" [ngClass]="{ 'saturday':isSaturday(day.date), 'sunday':isSunday(day.date), 'is-today':isToday(day.date), 'has-schedule':dayHasSchedule(day) }" class="day">
                 <div class="day-data">
                     <div class="weekday">{{ getLocaleWeekdayName(day.date) }}</div>
                     <div class="date">{{ day.value }}</div>
@@ -24,7 +24,7 @@
                             <div class="destination-description">{{ destination.abbreviation }}</div>
                             <div class="ports" *ngFor="let port of destination.ports">
                                 <div class="port-description">{{ port.abbreviation }}</div>
-                                <div class="port-description">{{ port.accumulatedFreePax }}</div>
+                                <div class="port-description">{{ port.freePax }}</div>
                             </div>
                         </div>
                     </div>

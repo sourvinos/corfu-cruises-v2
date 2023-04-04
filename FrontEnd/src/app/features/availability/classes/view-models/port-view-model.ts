@@ -1,11 +1,13 @@
 export interface PortViewModel {
 
     id: number
-    abbreviation: string
+    batchId: number
     description: string
-    maxPassengers: number
-    passengerCount: number
-    accumulatedFreePax: number
+    abbreviation: string
+    stopOrder: number
+    maxPax: number
+    pax: number
+    freePax: number
 
 }
 

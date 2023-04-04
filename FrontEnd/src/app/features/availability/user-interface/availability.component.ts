@@ -33,7 +33,7 @@ export class AvailabilityComponent {
     public icon = 'home'
     public parentUrl = '/'
 
-    public days: DayVM[] = []
+    public calendar: DayVM[] = []
     public fromDate: Date
     public toDate: Date
     public isSizeChanged = false
@@ -159,11 +159,11 @@ export class AvailabilityComponent {
     //#region private methods
 
     private buildCalendar(): void {
-        this.days = []
+        this.calendar = []
         const x = this.dateHelperService.createDateFromString(this.sessionStorageService.getItem('fromDate'))
         const z = this.dateHelperService.createDateFromString(this.sessionStorageService.getItem('toDate'))
         while (x <= z) {
-            this.days.push({
+            this.calendar.push({
                 date: this.dateHelperService.formatDateToIso(x),
                 weekdayName: x.toLocaleString('default', { weekday: 'short' }),
                 value: x.getDate(),
@@ -264,9 +264,9 @@ export class AvailabilityComponent {
 
     private updateCalendarWithReservations(): void {
         this.records.forEach(day => {
-            const x = this.days.find(x => x.date == day.date)
+            const x = this.calendar.find(x => x.date == day.date)
             if (x != undefined) {
-                this.days[this.days.indexOf(x)].destinations = day.destinations
+                this.calendar[this.calendar.indexOf(x)].destinations = day.destinations
             }
         })
     }
