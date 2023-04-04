@@ -1,11 +1,11 @@
 using API.Features.Availability;
-using API.Features.Ledger;
 using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
 using API.Features.Embarkation;
 using API.Features.Genders;
+using API.Features.Ledger;
 using API.Features.Manifest;
 using API.Features.Nationalities;
 using API.Features.PickupPoints;
@@ -29,21 +29,16 @@ namespace API.Infrastructure.Extensions
         public static void AddInterfaces(IServiceCollection services) {
             services.AddScoped<Token>();
             // Tables
-            services.AddTransient<ILedgerRepository, LedgerRepository>();
             services.AddTransient<ICoachRouteRepository, CoachRouteRepository>();
             services.AddTransient<ICustomerRepository, CustomerRepository>();
             services.AddTransient<IDestinationRepository, DestinationRepository>();
             services.AddTransient<IDriverRepository, DriverRepository>();
-            services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
             services.AddTransient<IGenderRepository, GenderRepository>();
-            services.AddTransient<IManifestRepository, ManifestRepository>();
             services.AddTransient<INationalityRepository, NationalityRepository>();
             services.AddTransient<IPickupPointRepository, PickupPointRepository>();
             services.AddTransient<IPortRepository, PortRepository>();
             services.AddTransient<IRegistrarRepository, RegistrarRepository>();
-            services.AddTransient<IReservationReadRepository, ReservationReadRepository>();
-            services.AddTransient<IReservationUpdateRepository, ReservationUpdateRepository>();
             services.AddTransient<IScheduleRepository, ScheduleRepository>();
             services.AddTransient<IShipCrewRepository, ShipCrewRepository>();
             services.AddTransient<IShipOwnerRepository, ShipOwnerRepository>();
@@ -60,11 +55,14 @@ namespace API.Infrastructure.Extensions
             services.AddTransient<IShipCrewValidation, ShipCrewValidation>();
             services.AddTransient<IShipValidation, ShipValidation>();
             services.AddTransient<IUserValidation<IUser>, UserValidation>();
-            // Availabilities
+            // Tasks
             services.AddTransient<IAvailabilityCalendar, AvailabilityCalendar>();
-            services.AddTransient<IAvailabilityDay, AvailabilityDay>();
-            // ViewModels
+            services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();
+            services.AddTransient<ILedgerRepository, LedgerRepository>();
+            services.AddTransient<IManifestRepository, ManifestRepository>();
             services.AddTransient<IReservationCalendar, ReservationCalendar>();
+            services.AddTransient<IReservationReadRepository, ReservationReadRepository>();
+            services.AddTransient<IReservationUpdateRepository, ReservationUpdateRepository>();
         }
 
     }

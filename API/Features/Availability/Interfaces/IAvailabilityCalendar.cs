@@ -4,10 +4,14 @@ using API.Infrastructure.Interfaces;
 
 namespace API.Features.Availability {
 
-    public interface IAvailabilityCalendar : IAvailabilityBase, IRepository<Schedule> {
+    public interface IAvailabilityCalendar : IRepository<Schedule> {
 
-        IEnumerable<AvailabilityGroupVM> GetForCalendar(string fromDate, string toDate);
         IEnumerable<ReservationVM> GetReservations(string fromDate, string toDate);
+        IEnumerable<AvailabilityGroupVM> GetSchedule(string fromDate, string toDate);
+        IEnumerable<AvailabilityGroupVM> AddBatchId(IEnumerable<AvailabilityGroupVM> schedule);
+        IEnumerable<AvailabilityGroupVM> GetPaxPerPort(IEnumerable<AvailabilityGroupVM> schedule, IEnumerable<ReservationVM> reservations);
+        IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules);
+        IEnumerable<AvailabilityGroupVM> CalculateFreePaxPerShip(IEnumerable<AvailabilityGroupVM> schedules);
 
     }
 

@@ -7,16 +7,16 @@ namespace API.Features.Availability {
     [Route("api/[controller]")]
     public class AvailabilityController : ControllerBase {
 
-        private readonly IAvailabilityDay availabilityDay;
+        private readonly IAvailabilityCalendar availabilityCalendar;
 
-        public AvailabilityController(IAvailabilityDay availabilityDay) {
-            this.availabilityDay = availabilityDay;
+        public AvailabilityController(IAvailabilityCalendar availabilityCalendar) {
+            this.availabilityCalendar = availabilityCalendar;
         }
 
-        [HttpGet("date/{date}/destinationId/{destinationId}")]
+        [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
         [Authorize(Roles = "user, admin")]
-        public IEnumerable<AvailabilityGroupVM> CalculateAvailability(string date, int destinationId) {
-            return availabilityDay.CheckToPatchAllPortsWithZeroFreePax(availabilityDay.CalculateOverbookingPerPort(availabilityDay.CalculateFreePaxPerShip(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(date, destinationId), availabilityDay.GetReservations(date)))));
+        public IEnumerable<AvailabilityGroupVM> CalculateAvailability(string fromDate, string toDate) {
+            return availabilityCalendar.CalculateOverbookingPerPort(availabilityCalendar.CalculateFreePaxPerShip(availabilityCalendar.GetPaxPerPort(availabilityCalendar.AddBatchId(availabilityCalendar.GetSchedule(fromDate, toDate)), availabilityCalendar.GetReservations(fromDate, toDate))));
         }
 
     }
