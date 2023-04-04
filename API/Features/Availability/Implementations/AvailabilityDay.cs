@@ -122,7 +122,7 @@ namespace API.Features.Availability {
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports.OrderByDescending(x => x.StopOrder)) {
                         if (port.Pax > port.MaxPax) {
-                            AddOverbookingsToPreviousPorts(port.Pax - port.MaxPax, port.StopOrder, port.BatchId, schedules);
+                            AddOverbookingsToPreviousPorts(port.Pax - port.MaxPax, port.BatchId, schedules);
                         }
                     }
                 }
@@ -131,42 +131,24 @@ namespace API.Features.Availability {
         }
 
         public IEnumerable<AvailabilityGroupVM> CheckToPatchAllPortsWithZeroFreePax(IEnumerable<AvailabilityGroupVM> schedules) {
-            var totalPax = 0;
-            var totalMaxPax = 0;
-            var stopOrder = 5;
-            var newPorts = schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.OrderByDescending(x => x.StopOrder).ToList();
-            var ports = schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.OrderByDescending(x => x.StopOrder).ToList();
-            for (int i = 0; i <= 5; i++) {
-                // totalPax = ports.Where(x => x.StopOrder <= stopOrder).Sum(x => x.Pax);
-                // totalMaxPax = ports.DistinctBy(x => x.BatchId).Where(x => x.StopOrder <= stopOrder).Sum(x => x.MaxPax);
-                totalPax += ports.Where(x => x.BatchId <= ports[i].BatchId).Sum(x => x.Pax);
-                totalMaxPax += ports.DistinctBy(x => x.BatchId).Where(x => x.BatchId <= ports[i].BatchId).Sum(x => x.MaxPax);
-                ports[i].FreePax = totalMaxPax - totalPax;
-                --stopOrder;
+            var totalPax = schedules.Sum(x => x.Destinations.Sum(x => x.Ports.Sum(x => x.Pax)));
+            var totalMaxPax = schedules.Sum(x => x.Destinations.DistinctBy(x => x.Ports.DistinctBy(x => x.BatchId)).Sum(x => x.Ports.Sum(x => x.MaxPax)));
+            if (totalPax == totalMaxPax) {
+                foreach (var schedule in schedules) {
+                    foreach (var destination in schedule.Destinations) {
+                        foreach (var port in destination.Ports) {
+                            port.FreePax = 0;
+                        }
+                    }
+                }
             }
-            // for (int x = 0; x < ports.Count; x++) {
-            // foreach (var x in ports) {
-            // totalPax = schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.Where(x => x.StopOrder < stopOrder).Sum(x => x.Pax);
-            // totalMaxPax = schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.DistinctBy(x => x.BatchId).Where(x => x.StopOrder < stopOrder).Sum(x => x.MaxPax);
-            // if (totalMaxPax == totalPax) {
-            // foreach (var port in newPorts) {
-            // if (ports[x].StopOrder < stopOrder) {
-            // ports[x].FreePax = totalMaxPax - totalPax;
-            // }
-            // stopOrder -= 1;
-            // }
-            // }
-            // schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports = newPorts.ToList();
             return schedules;
         }
 
-        private static IEnumerable<AvailabilityGroupVM> AddOverbookingsToPreviousPorts(int overbookings, int stopOrder, int batchId, IEnumerable<AvailabilityGroupVM> schedules) {
+        private static IEnumerable<AvailabilityGroupVM> AddOverbookingsToPreviousPorts(int overbookings, int batchId, IEnumerable<AvailabilityGroupVM> schedules) {
             foreach (var x in schedules.FirstOrDefault().Destinations.FirstOrDefault().Ports.OrderByDescending(x => x.StopOrder)) {
                 if (x.BatchId < batchId) {
                     x.FreePax -= overbookings;
-                    // if (x.FreePax >= 0) {
-                    //     return schedules;
-                    // }
                 }
             }
             return schedules;

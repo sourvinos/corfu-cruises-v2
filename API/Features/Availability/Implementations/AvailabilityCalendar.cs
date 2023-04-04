@@ -15,15 +15,6 @@ namespace API.Features.Availability {
 
         public AvailabilityCalendar(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> settings) : base(context, httpContext, settings) { }
 
-        /// <summary>
-        ///     Step 1/6
-        ///     Creates the calendar (based on the schedules for the selected period) which will contain (after all the processing) the free seats per day, destination and port
-        /// </summary>
-        /// <param name="fromDate"></param>
-        /// <param name="toDate"></param>
-        /// <returns>
-        ///     A list of AvailabilityCalendarGroupVM, one object for each day
-        /// </returns>
         public IEnumerable<AvailabilityGroupVM> GetForCalendar(string fromDate, string toDate) {
             return context.Schedules
                 .AsNoTracking()
@@ -45,15 +36,6 @@ namespace API.Features.Availability {
                 }).ToList();
         }
 
-        /// <summary>
-        ///     Step 2/6
-        ///     Calculates the total passengers per port
-        /// </summary>
-        /// <param name="schedules"></param>
-        /// <param name="reservations"></param>
-        /// <returns>
-        ///     The updated AvailabilityCalendarGroupVM object, one for each day
-        /// </returns>
         public IEnumerable<AvailabilityGroupVM> GetPaxPerPort(IEnumerable<AvailabilityGroupVM> schedules, IEnumerable<ReservationVM> reservations) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
@@ -201,8 +183,7 @@ namespace API.Features.Availability {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<AvailabilityGroupVM> CheckToPatchAllPortsWithZeroFreePax(IEnumerable<AvailabilityGroupVM> schedules)
-        {
+        public IEnumerable<AvailabilityGroupVM> CheckToPatchAllPortsWithZeroFreePax(IEnumerable<AvailabilityGroupVM> schedules) {
             throw new NotImplementedException();
         }
     }
