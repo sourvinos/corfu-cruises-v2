@@ -99,8 +99,7 @@ namespace API.Features.Reservations {
             if (Identity.IsUserAdmin(httpContext) || reservation.ReservationId != Guid.Empty) {
                 return false;
             } else {
-                var availability = availabilityCalendar.CalculateOverbookingPerPort(availabilityCalendar.CalculateFreePaxPerShip(availabilityCalendar.GetPaxPerPort(availabilityCalendar.AddBatchId(availabilityCalendar.GetSchedule(reservation.Date, reservation.Date)), availabilityCalendar.GetReservations(reservation.Date, reservation.Date))));
-                return !IsFreePaxGreaterThanZero(reservation, availability);
+                return !IsFreePaxGreaterThanZero(reservation, availabilityCalendar.CalculateOverbookingPerPort(availabilityCalendar.CalculateFreePaxPerShip(availabilityCalendar.GetPaxPerPort(availabilityCalendar.AddBatchId(availabilityCalendar.GetSchedule(reservation.Date, reservation.Date)), availabilityCalendar.GetReservations(reservation.Date, reservation.Date)))));
             }
         }
 

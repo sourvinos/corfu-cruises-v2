@@ -76,11 +76,15 @@
     width: 3rem;
 }
 
+.api-object button:hover {
+    background-color: var(--color-g) !important;
+}
+
 .day.has-schedule {
     cursor: pointer;
 }
 
-.no-reservation-data {
+.no-reservation-data, .api-object {
     display: flex;
     justify-content: center;
     margin-top: auto;
@@ -89,6 +93,18 @@
 .no-reservation-data span {
     color: #00000023 !important;
     font-size: 4rem;
+}
+
+.api-object span {
+    border-radius: 50%;
+    color: #00000023 !important;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+}
+
+.api-object span:hover {
+    background-color: var(--color-g) !important;
 }
 
 .reservation-data {

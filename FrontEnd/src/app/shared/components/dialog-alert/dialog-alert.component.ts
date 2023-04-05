@@ -14,7 +14,7 @@ export class DialogAlertComponent {
     //#region variables
 
     private feature = 'dialog'
-    public content: string
+    public content: any
     public iconStyle: any
     public titleColor = ''
     public justifyFooter = 'center-buttons'
@@ -38,6 +38,10 @@ export class DialogAlertComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public isObject(): boolean {
+        return typeof this.content === 'object'
     }
 
     public onClose(): void {

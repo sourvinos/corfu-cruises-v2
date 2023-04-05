@@ -16,6 +16,7 @@ import { MaterialModule } from './material.module'
 import { ModalActionResultComponent } from '../components/modal-action-result/modal-action-result.component'
 import { MonthSelectorComponent } from '../components/month-selector/month-selector.component'
 import { PadNumberPipe } from '../pipes/pad-number.pipe'
+import { PrettyPrintPipe } from '../pipes/json-pretty.pipe'
 import { ReplaceZeroPipe } from '../pipes/replace-zero.pipe'
 import { SafeStylePipe } from '../pipes/safe-style.pipe'
 import { TableTotalFilteredRecordsComponent } from '../components/table-total-filtered-records/table-total-filtered-records.component'
@@ -35,6 +36,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         ModalActionResultComponent,
         MonthSelectorComponent,
         PadNumberPipe,
+        PrettyPrintPipe,
         ReplaceZeroPipe,
         SafeStylePipe,
         TableTotalFilteredRecordsComponent,
@@ -62,6 +64,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         MaterialModule,
         MonthSelectorComponent,
         PadNumberPipe,
+        PrettyPrintPipe,
         PrimeNgModule,
         ReactiveFormsModule,
         ReplaceZeroPipe,

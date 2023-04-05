@@ -15,6 +15,7 @@ import { MessageDialogService } from 'src/app/shared/services/message-dialog.ser
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
+import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 
 @Component({
     selector: 'availability',
@@ -132,6 +133,10 @@ export class AvailabilityComponent {
         return date.substring(0, 4)
     }
 
+    public isAdmin(): boolean {
+        return ConnectedUser.isAdmin
+    }
+
     public isSaturday(date: any): boolean {
         return this.dateHelperService.getWeekdayIndex(date) == 6
     }
@@ -152,6 +157,10 @@ export class AvailabilityComponent {
     public newRecord(): void {
         this.sessionStorageService.saveItem('returnUrl', '/availability')
         this.router.navigate(['reservations/new'])
+    }
+
+    public showApiObject(day: DayVM): void {
+        this.dialogService.open(day.destinations, 'info', 'center-buttons', ['ok'])
     }
 
     //#endregion

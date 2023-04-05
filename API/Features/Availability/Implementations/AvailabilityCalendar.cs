@@ -72,33 +72,36 @@ namespace API.Features.Availability {
                         try {
                             if (port.MaxPax != maxPaxArray.Last().MaxPax) {
                                 maxPaxArray.Add(new MaxPaxVM {
+                                    Date = schedule.Date,
                                     BatchId = ++i,
                                     DestinationId = destination.Id,
                                     MaxPax = port.MaxPax,
                                     TotalPax = port.Pax,
-                                    FreePax = port.MaxPax - port.Pax
+                                    FreePax = 0
                                 });
                             } else {
                                 maxPaxArray.Last().TotalPax += port.Pax;
-                                maxPaxArray.Last().FreePax = maxPaxArray.Last().MaxPax - maxPaxArray.Last().TotalPax;
+                                maxPaxArray.Last().FreePax = 0;
                             }
                         } catch (Exception) {
                             maxPaxArray.Add(new MaxPaxVM {
+                                Date = schedule.Date,
                                 BatchId = ++i,
                                 DestinationId = destination.Id,
                                 MaxPax = port.MaxPax,
                                 TotalPax = port.Pax,
-                                FreePax = port.MaxPax - port.Pax
+                                FreePax = 0
                             });
                         }
                     }
                 }
             }
             foreach (var schedule in schedules) {
+                var date = schedule.Date;
                 foreach (var destination in schedule.Destinations) {
                     foreach (var port in destination.Ports) {
-                        port.FreePax = maxPaxArray.Where(x => x.MaxPax == port.MaxPax && x.DestinationId == destination.Id).Select(x => x.FreePax).FirstOrDefault();
-                        port.FreePax += maxPaxArray.Where(x => x.BatchId < port.BatchId && x.DestinationId == destination.Id).Select(x => x.FreePax).Sum();
+                        port.FreePax = maxPaxArray.Where(x => x.Date == date && x.DestinationId == destination.Id && x.MaxPax == port.MaxPax).Select(x => x.FreePax).FirstOrDefault();
+                        port.FreePax += maxPaxArray.Where(x => x.Date == date && x.DestinationId == destination.Id && x.BatchId < port.BatchId).Select(x => x.FreePax).FirstOrDefault();
                     }
                 }
             }

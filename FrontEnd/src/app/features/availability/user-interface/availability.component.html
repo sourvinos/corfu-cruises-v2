@@ -29,6 +29,9 @@
                         </div>
                     </div>
                 </div>
+                <div *ngIf="day.destinations.length > 0 && isAdmin()" (click)="showApiObject(day)" class="api-object">
+                    <span class="material-icons-outlined">bug_report</span>
+                </div>
                 <div *ngIf="day.destinations.length == 0" class="no-reservation-data">
                     <span class="material-icons-outlined">do_not_disturb</span>
                 </div>

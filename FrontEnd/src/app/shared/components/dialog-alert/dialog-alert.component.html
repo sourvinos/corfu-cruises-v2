@@ -22,9 +22,10 @@
         </svg>
     </div>
 
-    <div id="dialog-content">{{ content }}</div>
+    <div *ngIf="isObject()" id="dialog-json-content" [innerHTML]="content | prettyprint"></div>
+    <div *ngIf="!isObject()" id="dialog-content">{{ content }}</div>
 
-    <div [ngClass]="justifyFooter" id="dialog-footer">
+    <div *ngIf="!isObject()" [ngClass]="justifyFooter" id="dialog-footer">
         <mat-dialog-actions *ngIf="data.actions.length == 1">
             <button mat-flat-button class="primary" id="ok" tabindex="-1" mat-dialog-close="true">{{ getLabel('okButton') }}</button>
         </mat-dialog-actions>

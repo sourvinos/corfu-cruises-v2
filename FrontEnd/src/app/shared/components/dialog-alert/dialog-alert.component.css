@@ -100,6 +100,14 @@ svg {
     text-align: center;
 }
 
+#dialog-json-content {
+    color: var(--color-c);
+    font-family: monospace !important;
+    font-size: 0.75rem !important;
+    justify-content: left;
+    overflow: scroll;
+}
+
 #dialog-footer {
     justify-content: center;
     margin-top: auto;
