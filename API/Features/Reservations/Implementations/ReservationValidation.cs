@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using API.Features.Availability;
 using API.Features.PickupPoints;
 using API.Features.Schedules;
 using API.Features.Users;
@@ -19,8 +21,10 @@ namespace API.Features.Reservations {
         private readonly IHttpContextAccessor httpContext;
         private readonly TestingEnvironment testingEnvironment;
         private readonly UserManager<UserExtended> userManager;
+        private readonly IAvailabilityCalendar availabilityCalendar;
 
-        public ReservationValidation(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
+        public ReservationValidation(AppDbContext context, IAvailabilityCalendar availabilityCalendar, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment, UserManager<UserExtended> userManager) : base(context, httpContext, testingEnvironment) {
+            this.availabilityCalendar = availabilityCalendar;
             this.httpContext = httpContext;
             this.testingEnvironment = testingEnvironment.Value;
             this.userManager = userManager;
@@ -66,19 +70,19 @@ namespace API.Features.Reservations {
         public int IsValid(ReservationWriteDto reservation, IScheduleRepository scheduleRepo) {
             return true switch {
                 var x when x == !IsKeyUnique(reservation) => 409,
-                var x when x == !IsValidCustomer(reservation) => 450, // OK
-                var x when x == !IsValidDestination(reservation) => 451, // OK
-                var x when x == !IsValidPickupPoint(reservation) => 452, // OK
-                var x when x == !IsValidDriver(reservation) => 453, // OK
-                var x when x == !IsValidShip(reservation) => 454, // OK
-                var x when x == !IsValidNationality(reservation) => 456, // OK
-                var x when x == !IsValidGender(reservation) => 457, // OK
-                var x when x == !IsCorrectPassengerCount(reservation) => 455, // OK
-                var x when x == !PortHasDepartureForDateAndDestination(reservation) => 410, // OK
-                var x when x == !SimpleUserHasGivenCorrectCustomerId(reservation) => 413, // Applies only to backend
-                var x when x == IsSimpleUserCausingOverbooking(reservation) => 433, // OK
-                var x when x == SimpleUserHasNightRestrictions(reservation) => 459, // OK
-                var x when x == SimpleUserCanNotAddReservationAfterDeparture(reservation) => 431, // OK
+                var x when x == !IsValidCustomer(reservation) => 450,
+                var x when x == !IsValidDestination(reservation) => 451,
+                var x when x == !IsValidPickupPoint(reservation) => 452,
+                var x when x == !IsValidDriver(reservation) => 453,
+                var x when x == !IsValidShip(reservation) => 454,
+                var x when x == !IsValidNationality(reservation) => 456,
+                var x when x == !IsValidGender(reservation) => 457,
+                var x when x == !IsCorrectPassengerCount(reservation) => 455,
+                var x when x == !PortHasDepartureForDateAndDestination(reservation) => 410,
+                var x when x == !SimpleUserHasGivenCorrectCustomerId(reservation) => 413,
+                var x when x == IsSimpleUserCausingOverbooking(reservation) => 433,
+                var x when x == SimpleUserHasNightRestrictions(reservation) => 459,
+                var x when x == SimpleUserCanNotAddReservationAfterDeparture(reservation) => 431,
                 _ => 200,
             };
         }
@@ -95,9 +99,8 @@ namespace API.Features.Reservations {
             if (Identity.IsUserAdmin(httpContext) || reservation.ReservationId != Guid.Empty) {
                 return false;
             } else {
-                // var freePax = availabilityDay.CalculateAccumulatedFreePaxPerPort(availabilityDay.CalculateAccumulatedMaxPaxPerPort(availabilityDay.CalculateAccumulatedPaxPerPort(availabilityDay.GetPaxPerPort(availabilityDay.GetForDay(reservation.Date, reservation.DestinationId, GetPortIdFromPickupPointId(reservation)), availabilityDay.GetReservations(reservation.Date))))).LastOrDefault().Destinations.LastOrDefault().Ports.LastOrDefault().AccumulatedFreePax;
-                var freePax = 0;
-                return freePax < reservation.Adults + reservation.Kids + reservation.Free;
+                var availability = availabilityCalendar.CalculateOverbookingPerPort(availabilityCalendar.CalculateFreePaxPerShip(availabilityCalendar.GetPaxPerPort(availabilityCalendar.AddBatchId(availabilityCalendar.GetSchedule(reservation.Date, reservation.Date)), availabilityCalendar.GetReservations(reservation.Date, reservation.Date))));
+                return !IsFreePaxGreaterThanZero(reservation, availability);
             }
         }
 
@@ -301,6 +304,15 @@ namespace API.Features.Reservations {
             var departureTime = schedule.Date.ToString("yyyy-MM-dd") + " " + schedule.Time;
             var departureTimeAsDate = DateTime.Parse(departureTime);
             return departureTimeAsDate;
+        }
+
+        private static bool IsFreePaxGreaterThanZero(ReservationWriteDto reservation, IEnumerable<AvailabilityGroupVM> availability) {
+            var port = availability.Where(x => x.Date == reservation.Date)
+                .SelectMany(x => x.Destinations).Where(x => x.Id == reservation.DestinationId)
+                    .SelectMany(x => x.Ports).Where(x => x.Id == reservation.PortId).FirstOrDefault();
+            var freePax = port.FreePax;
+            var totalPax = reservation.Adults + reservation.Kids + reservation.Free;
+            return freePax >= totalPax;
         }
 
     }
