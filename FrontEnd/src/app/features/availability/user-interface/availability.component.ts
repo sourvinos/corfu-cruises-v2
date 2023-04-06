@@ -160,7 +160,7 @@ export class AvailabilityComponent {
     }
 
     public showApiObject(day: DayVM): void {
-        this.dialogService.open(day.destinations, 'info', 'center-buttons', ['ok'])
+        this.dialogService.open(day, 'info', 'center-buttons', ['ok'])
     }
 
     //#endregion

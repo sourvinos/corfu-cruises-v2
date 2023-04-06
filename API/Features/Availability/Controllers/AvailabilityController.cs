@@ -16,7 +16,7 @@ namespace API.Features.Availability {
         [HttpGet("fromDate/{fromDate}/toDate/{toDate}")]
         [Authorize(Roles = "user, admin")]
         public IEnumerable<AvailabilityGroupVM> CalculateAvailability(string fromDate, string toDate) {
-            return availabilityCalendar.CalculateOverbookingPerPort(availabilityCalendar.CalculateFreePaxPerShip(availabilityCalendar.GetPaxPerPort(availabilityCalendar.AddBatchId(availabilityCalendar.GetSchedule(fromDate, toDate)), availabilityCalendar.GetReservations(fromDate, toDate))));
+            return availabilityCalendar.CalculateFreePax(availabilityCalendar.GetPaxPerPort(availabilityCalendar.AddBatchId(availabilityCalendar.GetSchedule(fromDate, toDate)), availabilityCalendar.GetReservations(fromDate, toDate)));
         }
 
     }

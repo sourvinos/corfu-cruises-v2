@@ -63,64 +63,6 @@ namespace API.Features.Availability {
             return schedules.ToList();
         }
 
-        public IEnumerable<AvailabilityGroupVM> CalculateFreePaxPerShip(IEnumerable<AvailabilityGroupVM> schedules) {
-            var maxPaxArray = new List<MaxPaxVM>();
-            foreach (var schedule in schedules) {
-                foreach (var destination in schedule.Destinations) {
-                    var i = 0;
-                    foreach (var port in destination.Ports) {
-                        try {
-                            if (port.MaxPax != maxPaxArray.Last().MaxPax) {
-                                maxPaxArray.Add(new MaxPaxVM {
-                                    Date = schedule.Date,
-                                    BatchId = ++i,
-                                    DestinationId = destination.Id,
-                                    MaxPax = port.MaxPax,
-                                    TotalPax = port.Pax,
-                                    FreePax = 0
-                                });
-                            } else {
-                                maxPaxArray.Last().TotalPax += port.Pax;
-                                maxPaxArray.Last().FreePax = 0;
-                            }
-                        } catch (Exception) {
-                            maxPaxArray.Add(new MaxPaxVM {
-                                Date = schedule.Date,
-                                BatchId = ++i,
-                                DestinationId = destination.Id,
-                                MaxPax = port.MaxPax,
-                                TotalPax = port.Pax,
-                                FreePax = 0
-                            });
-                        }
-                    }
-                }
-            }
-            foreach (var schedule in schedules) {
-                var date = schedule.Date;
-                foreach (var destination in schedule.Destinations) {
-                    foreach (var port in destination.Ports) {
-                        port.FreePax = maxPaxArray.Where(x => x.Date == date && x.DestinationId == destination.Id && x.MaxPax == port.MaxPax).Select(x => x.FreePax).FirstOrDefault();
-                        port.FreePax += maxPaxArray.Where(x => x.Date == date && x.DestinationId == destination.Id && x.BatchId < port.BatchId).Select(x => x.FreePax).FirstOrDefault();
-                    }
-                }
-            }
-            return schedules;
-        }
-
-        public IEnumerable<AvailabilityGroupVM> CalculateOverbookingPerPort(IEnumerable<AvailabilityGroupVM> schedules) {
-            foreach (var schedule in schedules) {
-                foreach (var destination in schedule.Destinations) {
-                    foreach (var port in destination.Ports.OrderByDescending(x => x.StopOrder)) {
-                        if (port.Pax > port.MaxPax) {
-                            AddOverbookingToPreviousPorts(destination.Id, port.Pax - port.MaxPax, port.BatchId, schedules);
-                        }
-                    }
-                }
-            }
-            return schedules.ToList();
-        }
-
         public IEnumerable<AvailabilityGroupVM> AddBatchId(IEnumerable<AvailabilityGroupVM> schedules) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
@@ -139,19 +81,89 @@ namespace API.Features.Availability {
             return schedules.ToList();
         }
 
-        private static IEnumerable<AvailabilityGroupVM> AddOverbookingToPreviousPorts(int destinationId, int overbooking, int batchId, IEnumerable<AvailabilityGroupVM> schedules) {
+        public IEnumerable<AvailabilityGroupVM> CalculateFreePax(IEnumerable<AvailabilityGroupVM> schedules) {
             foreach (var schedule in schedules) {
                 foreach (var destination in schedule.Destinations) {
-                    if (destination.Id == destinationId) {
-                        foreach (var port in destination.Ports) {
-                            if (port.BatchId < batchId) {
-                                port.FreePax -= overbooking;
-                            }
-                        }
+                    if (destination.Ports.Count() == 1) {
+                        DoOnePortCalculations(destination);
+                    }
+                    if (destination.Ports.Count() == 2) {
+                        DoTwoPortCalculations(destination);
                     }
                 }
             }
             return schedules;
+        }
+
+        private static DestinationCalendarVM DoOnePortCalculations(DestinationCalendarVM destination) {
+            destination.Ports.First().FreePax = destination.Ports.First().MaxPax - destination.Ports.First().Pax;
+            return destination;
+        }
+
+        private static DestinationCalendarVM DoTwoPortCalculations(DestinationCalendarVM destination) {
+            return destination.Ports.LastOrDefault().BatchId == 1 
+                ? DoTwoPortsOneShipCalculations(destination) 
+                : DoTwoPortsMultipleShipsCalculations(destination);
+        }
+
+        private static DestinationCalendarVM DoTwoPortsOneShipCalculations(DestinationCalendarVM destination) {
+            // Two ports, one ship, no overbooking
+            if (destination.Ports.FirstOrDefault().Pax + destination.Ports.LastOrDefault().Pax <= destination.Ports.LastOrDefault().MaxPax) {
+                destination = DoTwoPortsOneShipNoOverbookingCalculations(destination);
+            }
+            // Two ports, one ship, with overbooking
+            if (destination.Ports.FirstOrDefault().Pax + destination.Ports.LastOrDefault().Pax > destination.Ports.LastOrDefault().MaxPax) {
+                destination = DoTwoPortsOneShipWithOverbookingCalculations(destination);
+            }
+            return destination;
+        }
+
+        private static DestinationCalendarVM DoTwoPortsMultipleShipsCalculations(DestinationCalendarVM destination) {
+            //  Two ports, multiple ships, no second port overbooking
+            if (destination.Ports.LastOrDefault().Pax <= destination.Ports.LastOrDefault().MaxPax) {
+                destination = DoTwoPortsMultipleShipsWithNoOverbookingSecondPort(destination);
+            }
+            // Two ports, multiple ships, second port overbooking
+            if (destination.Ports.LastOrDefault().Pax > destination.Ports.LastOrDefault().MaxPax) {
+                destination = DoTwoPortsMultipleShipsWithOverbookingSecondPort(destination);
+            }
+            return destination;
+        }
+
+        private static DestinationCalendarVM DoTwoPortsOneShipNoOverbookingCalculations(DestinationCalendarVM destination) {
+            // Two ports, one ship, no overbooking
+            var firstPortFreePax = destination.Ports.FirstOrDefault().MaxPax - destination.Ports.FirstOrDefault().Pax - destination.Ports.LastOrDefault().Pax;
+            var secondPortFreePax = destination.Ports.FirstOrDefault().MaxPax - destination.Ports.FirstOrDefault().Pax - destination.Ports.LastOrDefault().Pax;
+            destination.Ports.FirstOrDefault().FreePax = firstPortFreePax;
+            destination.Ports.LastOrDefault().FreePax = secondPortFreePax;
+            return destination;
+        }
+
+        private static DestinationCalendarVM DoTwoPortsOneShipWithOverbookingCalculations(DestinationCalendarVM destination) {
+            // Two ports, one ship, with overbooking
+            var firstPortFreePax = destination.Ports.FirstOrDefault().MaxPax - destination.Ports.FirstOrDefault().Pax - destination.Ports.LastOrDefault().Pax;
+            var secondPortFreePax = destination.Ports.FirstOrDefault().MaxPax - destination.Ports.FirstOrDefault().Pax - destination.Ports.LastOrDefault().Pax;
+            destination.Ports.FirstOrDefault().FreePax = firstPortFreePax;
+            destination.Ports.LastOrDefault().FreePax = secondPortFreePax;
+            return destination;
+        }
+
+        private static DestinationCalendarVM DoTwoPortsMultipleShipsWithNoOverbookingSecondPort(DestinationCalendarVM destination) {
+            //  Two ports, multiple ships, no second port overbooking
+            var firstPortFreePax = destination.Ports.FirstOrDefault().MaxPax - destination.Ports.FirstOrDefault().Pax;
+            var secondPortFreePax = firstPortFreePax + destination.Ports.LastOrDefault().MaxPax - destination.Ports.LastOrDefault().Pax;
+            destination.Ports.FirstOrDefault().FreePax = firstPortFreePax;
+            destination.Ports.LastOrDefault().FreePax = secondPortFreePax;
+            return destination;
+        }
+
+        private static DestinationCalendarVM DoTwoPortsMultipleShipsWithOverbookingSecondPort(DestinationCalendarVM destination) {
+            //  Two ports, multiple ships, second port overbooking
+            var firstPortFreePax = destination.Ports.FirstOrDefault().MaxPax - destination.Ports.FirstOrDefault().Pax;
+            var secondPortOverbooking = destination.Ports.LastOrDefault().Pax - destination.Ports.LastOrDefault().MaxPax;
+            destination.Ports.FirstOrDefault().FreePax = firstPortFreePax - secondPortOverbooking;
+            destination.Ports.LastOrDefault().FreePax = firstPortFreePax - secondPortOverbooking;
+            return destination;
         }
 
     }
