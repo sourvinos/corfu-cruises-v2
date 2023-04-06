@@ -32,7 +32,7 @@ export class ReservationHttpService extends HttpDataService {
     }
 
     public getByRefNo(refNo: string): Observable<ReservationListVM> {
-        return this.http.get<ReservationListVM>(this.url + '/byRefNo/' + refNo)
+        return this.http.get<ReservationListVM>(this.url + '/refNo/' + refNo)
     }
 
     public save(formData: any): Observable<any> {

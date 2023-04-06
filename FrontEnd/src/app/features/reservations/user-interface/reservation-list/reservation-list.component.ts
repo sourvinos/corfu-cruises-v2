@@ -73,6 +73,7 @@ export class ReservationListComponent {
                 this.updateTotals(this.totalPax, this.records)
                 this.calculateOverbookings()
                 this.enableDisableFilters()
+                this.storeCriteria()
             }
         })
     }
@@ -80,7 +81,6 @@ export class ReservationListComponent {
     //#region lifecycle hooks
 
     ngOnInit(): void {
-        // this.setWindowWidth()
         this.subscribeToInteractionService()
         this.setTabTitle()
     }
@@ -178,7 +178,12 @@ export class ReservationListComponent {
     }
 
     public getDateFromStorage(): string {
-        return this.sessionStorageService.getItem('date')
+        const date = this.sessionStorageService.getItem('date')
+        if (date != '') {
+            return date
+        } else {
+            return this.dateHelperService.formatDateToIso(new Date())
+        }
     }
 
     public getEmoji(emoji: string): string {
@@ -226,15 +231,18 @@ export class ReservationListComponent {
     //#region private methods
 
     private calculateOverbookings(): void {
-        this.overbookedDestinations = []
-        this.dropdownDestinations.forEach((destination) => {
-            this.reservationService.isDestinationOverbooked(this.sessionStorageService.getItem('date'), destination.id).subscribe((response) => {
-                this.overbookedDestinations.push({
-                    description: destination.abbreviation,
-                    isOverbooked: response
+        const date = this.sessionStorageService.getItem('date')
+        if (date != '') {
+            this.overbookedDestinations = []
+            this.dropdownDestinations.forEach((destination) => {
+                this.reservationService.isDestinationOverbooked(this.sessionStorageService.getItem('date'), destination.id).subscribe((response) => {
+                    this.overbookedDestinations.push({
+                        description: destination.abbreviation,
+                        isOverbooked: response
+                    })
                 })
             })
-        })
+        }
     }
 
     private clearSelectedRecords(): void {
@@ -371,6 +379,12 @@ export class ReservationListComponent {
 
     private setTabTitle(): void {
         this.helperService.setTabTitle(this.feature)
+    }
+
+    private storeCriteria(): void {
+        if (this.records.length > 0) {
+            this.sessionStorageService.saveItem('date', this.records[0].date)
+        }
     }
 
     private subscribeToInteractionService(): void {

@@ -44,7 +44,7 @@ export class SearchByRefBoxComponent {
 
     public onSearchByRefNo(): void {
         const refNo = this.form.value.searchByRefNo
-        this.router.navigate(['reservations/byRefNo', refNo])
+        this.router.navigate(['reservations/refNo', refNo])
     }
 
     //#endregion
