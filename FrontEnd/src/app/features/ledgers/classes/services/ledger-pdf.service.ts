@@ -23,10 +23,16 @@ export class LedgerPDFService {
 
     constructor(private dateHelperService: DateHelperService, private logoService: LogoService) { }
 
-    public createPDF(customers: LedgerVM[], criteria: LedgerCriteriaVM): void {
+    public doReportTasks(customers: LedgerVM[], criteria: LedgerCriteriaVM): void {
+        customers.forEach(customer => {
+            this.createPdf(customer, criteria)
+        })
+    }
+
+    private createPdf(customer: LedgerVM, criteria: LedgerCriteriaVM): void {
         this.rows = []
         this.setFonts()
-        this.createReport(customers, criteria)
+        this.createReport(customer, criteria)
         const dd = {
             background: this.setBackgroundImage(),
             pageOrientation: 'landscape',
@@ -114,25 +120,23 @@ export class LedgerPDFService {
         return footer
     }
 
-    private createReport(customers: any[], criteria: LedgerCriteriaVM): any {
+    private createReport(customer: LedgerVM, criteria: LedgerCriteriaVM): any {
         this.rows.push(this.addReportHeader())
-        customers.forEach(customer => {
-            this.rows.push(this.addCustomerHeader(criteria, customer))
-            this.rows.push(this.addReservationsHeader())
-            customer.reservations.forEach((reservation: LedgerReservationVM) => {
-                this.rows.push(this.addReservationDetails(reservation))
-            })
-            this.rows.push(this.addReservationsTotals(customer))
-            this.rows.push(this.addBlankLine())
-            customer.ports.forEach((port: any) => {
-                this.rows.push(this.addPortHeader(port))
-                this.rows.push(this.addPortDetailsHeader())
-                port.hasTransferGroup.forEach((hasTransfer: HasTransferGroupVM) => {
-                    this.rows.push(this.addPortPerTransferTotals(hasTransfer))
-                })
-            })
-            this.rows.push(this.addBlankLine())
+        this.rows.push(this.addCustomerHeader(criteria, customer))
+        this.rows.push(this.addReservationsHeader())
+        customer.reservations.forEach((reservation: LedgerReservationVM) => {
+            this.rows.push(this.addReservationDetails(reservation))
         })
+        this.rows.push(this.addReservationsTotals(customer))
+        this.rows.push(this.addBlankLine())
+        customer.ports.forEach((port: any) => {
+            this.rows.push(this.addPortHeader(port))
+            this.rows.push(this.addPortDetailsHeader())
+            port.hasTransferGroup.forEach((hasTransfer: HasTransferGroupVM) => {
+                this.rows.push(this.addPortPerTransferTotals(hasTransfer))
+            })
+        })
+        this.rows.push(this.addBlankLine())
     }
 
     private addReportHeader(): any {

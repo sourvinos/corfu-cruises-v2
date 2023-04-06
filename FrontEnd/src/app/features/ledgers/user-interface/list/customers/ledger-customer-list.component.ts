@@ -60,7 +60,7 @@ export class LedgerCustomerListComponent {
 
     public exportSelected(): void {
         this.helperService.sortNestedArray(this.selectedRecords, 'customer.description')
-        this.ledgerPdfService.createPDF(this.selectedRecords, this.criteriaPanels)
+        this.ledgerPdfService.doReportTasks(this.selectedRecords, this.criteriaPanels)
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
