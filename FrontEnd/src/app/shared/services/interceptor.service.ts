@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core'
 import { catchError, filter, finalize, switchMap, take, tap } from 'rxjs/operators'
 // Custom
 import { AccountService } from './account.service'
+import { LoadingSpinnerService } from './loading-spinner.service'
 
 @Injectable({ providedIn: 'root' })
 
@@ -16,18 +17,21 @@ export class InterceptorService {
 
     //#endregion
 
-    constructor(private accountService: AccountService) { }
+    constructor(private accountService: AccountService, private loadingSpinnerService: LoadingSpinnerService) { }
 
     //#region public methods
 
     public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (this.isUserLoggedIn()) {
+            this.loadingSpinnerService.requestStarted()
             return next.handle(this.attachTokenToRequest(request)).pipe(
                 tap((event: HttpEvent<any>) => {
                     if (event instanceof HttpResponse) {
+                        this.loadingSpinnerService.requestEnded()
                         return
                     }
                 }), catchError((err): Observable<any> => {
+                    this.loadingSpinnerService.resetSpiner()
                     if (this.isUserLoggedIn()) {
                         return err.status == 401
                             ? this.refreshToken(request, next)

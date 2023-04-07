@@ -178,7 +178,6 @@
     </div>
 
     <div id="footer">
-        <p class="instructions">{{ parentUrl }}</p>
         <div class="button-group-right">
             <button *ngIf="form.value.reservationId != ''" (click)="onDelete()" [disabled]="!isAdmin()" class="delete" mat-flat-button>
                 <mat-icon *ngIf="!isAdmin()" class="button-icon">lock</mat-icon>
