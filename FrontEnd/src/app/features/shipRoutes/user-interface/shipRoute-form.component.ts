@@ -5,7 +5,7 @@ import { Subject, Subscription } from 'rxjs'
 // Custom
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
@@ -77,7 +77,7 @@ export class ShipRouteFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.shipRouteService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                this.shipRouteService.delete(this.form.value.id).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
@@ -169,7 +169,7 @@ export class ShipRouteFormComponent {
     }
 
     private saveRecord(shipRoute: ShipRouteWriteDto): void {
-        this.shipRouteService.save(shipRoute).pipe(indicate(this.isLoading)).subscribe({
+        this.shipRouteService.save(shipRoute).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

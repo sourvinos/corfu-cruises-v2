@@ -6,7 +6,7 @@ import { Title } from '@angular/platform-browser'
 // Custom
 import { AccountService } from '../../../shared/services/account.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
@@ -63,7 +63,7 @@ export class LoginFormComponent {
     }
 
     public onLogin(): void {
-        this.accountService.login(this.form.value.username, this.form.value.password).pipe(indicate(this.isLoading)).subscribe({
+        this.accountService.login(this.form.value.username, this.form.value.password).subscribe({
             complete: () => {
                 this.goHome()
             },

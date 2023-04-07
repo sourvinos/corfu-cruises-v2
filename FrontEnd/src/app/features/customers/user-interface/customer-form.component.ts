@@ -8,7 +8,7 @@ import { CustomerService } from 'src/app/features/customers/classes/services/cus
 import { CustomerWriteDto } from '../classes/dtos/customer-write-dto'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
@@ -76,7 +76,7 @@ export class CustomerFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.customerService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                this.customerService.delete(this.form.value.id).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
@@ -171,7 +171,7 @@ export class CustomerFormComponent {
     }
 
     private saveRecord(customer: CustomerWriteDto): void {
-        this.customerService.save(customer).pipe(indicate(this.isLoading)).subscribe({
+        this.customerService.save(customer).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

@@ -6,7 +6,7 @@ import { EmbarkationPassengerVM } from '../../../classes/view-models/list/embark
 import { EmbarkationService } from '../../../classes/services/embarkation.service'
 import { EmbarkationReservationVM } from '../../../classes/view-models/list/embarkation-reservation-vm'
 import { EmojiService } from './../../../../../shared/services/emoji.service'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { environment } from 'src/environments/environment'
 
@@ -49,7 +49,7 @@ export class EmbarkationPassengerListComponent {
         passengers.forEach(passenger => {
             ids.push(passenger.id)
         })
-        this.embarkationService.embarkPassengers(ignoreCurrentStatus, ids).pipe(indicate(this.isLoading)).subscribe({
+        this.embarkationService.embarkPassengers(ignoreCurrentStatus, ids).subscribe({
             complete: () => {
                 passengers.forEach(passenger => {
                     const z = this.reservation.passengers.find(x => x.id == passenger.id)

@@ -8,7 +8,7 @@ import { map, startWith } from 'rxjs/operators'
 import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-models/destination-active-vm'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -105,7 +105,7 @@ export class ScheduleEditFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.scheduleService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                this.scheduleService.delete(this.form.value.id).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
@@ -219,7 +219,7 @@ export class ScheduleEditFormComponent {
     }
 
     private saveRecord(schedule: ScheduleWriteVM): void {
-        this.scheduleService.save(schedule).pipe(indicate(this.isLoading)).subscribe({
+        this.scheduleService.save(schedule).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

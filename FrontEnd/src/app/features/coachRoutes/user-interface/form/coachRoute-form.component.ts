@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
+import { BehaviorSubject, Observable, Subscription } from 'rxjs'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { CoachRouteReadDto } from '../../classes/dtos/coachRoute-read-dto'
@@ -9,7 +9,7 @@ import { CoachRouteService } from '../../classes/services/coachRoute.service'
 import { CoachRouteWriteDto } from '../../classes/dtos/coachRoute-write-dto'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
@@ -38,7 +38,6 @@ export class CoachRouteFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public isLoading = new Subject<boolean>()
     public parentUrl = '/coachRoutes'
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
@@ -98,7 +97,7 @@ export class CoachRouteFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.coachRouteService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                this.coachRouteService.delete(this.form.value.id).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
@@ -208,7 +207,7 @@ export class CoachRouteFormComponent {
     }
 
     private saveRecord(coachRoute: CoachRouteWriteDto): void {
-        this.coachRouteService.save(coachRoute).pipe(indicate(this.isLoading)).subscribe({
+        this.coachRouteService.save(coachRoute).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

@@ -8,7 +8,7 @@ import { DriverReadDto } from '../classes/dtos/driver-read-dto'
 import { DriverService } from '../classes/services/driver.service'
 import { DriverWriteDto } from '../classes/dtos/driver-write-dto'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
@@ -76,7 +76,7 @@ export class DriverFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.driverService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                this.driverService.delete(this.form.value.id).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
@@ -159,7 +159,7 @@ export class DriverFormComponent {
     }
 
     private saveRecord(driver: DriverWriteDto): void {
-        this.driverService.save(driver).pipe(indicate(this.isLoading)).subscribe({
+        this.driverService.save(driver).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

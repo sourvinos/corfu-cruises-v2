@@ -8,7 +8,7 @@ import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { GenderReadDto } from '../classes/dtos/gender-read-dto'
 import { GenderService } from '../classes/services/gender.service'
 import { GenderWriteDto } from '../classes/dtos/gender-write-dto'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
@@ -76,7 +76,7 @@ export class GenderFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.genderService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                this.genderService.delete(this.form.value.id).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
@@ -156,7 +156,7 @@ export class GenderFormComponent {
     }
 
     private saveRecord(gender: GenderWriteDto): void {
-        this.genderService.save(gender).pipe(indicate(this.isLoading)).subscribe({
+        this.genderService.save(gender).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

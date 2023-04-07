@@ -9,7 +9,7 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
 import { GenderActiveVM } from '../../genders/classes/view-models/gender-active-vm'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -111,7 +111,7 @@ export class ShipCrewFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.crewService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                this.crewService.delete(this.form.value.id).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
@@ -229,7 +229,7 @@ export class ShipCrewFormComponent {
     }
 
     private saveRecord(shipCrew: ShipCrewWriteDto): void {
-        this.shipCrewService.save(shipCrew).pipe(indicate(this.isLoading)).subscribe({
+        this.shipCrewService.save(shipCrew).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

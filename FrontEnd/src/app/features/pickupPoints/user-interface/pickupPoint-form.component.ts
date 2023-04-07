@@ -7,7 +7,7 @@ import { map, startWith } from 'rxjs/operators'
 import { CoachRouteDropdownVM } from '../../coachRoutes/classes/view-models/coachRoute-dropdown-vm'
 import { DialogService } from '../../../shared/services/dialog.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
@@ -98,7 +98,7 @@ export class PickupPointFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.pickupPointService.delete(this.form.value.id).pipe(indicate(this.isLoading)).subscribe({
+                this.pickupPointService.delete(this.form.value.id).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                     },
@@ -211,7 +211,7 @@ export class PickupPointFormComponent {
     }
 
     private saveRecord(pickupPoint: PickupPointWriteDto): void {
-        this.pickupPointService.save(pickupPoint).pipe(indicate(this.isLoading)).subscribe({
+        this.pickupPointService.save(pickupPoint).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

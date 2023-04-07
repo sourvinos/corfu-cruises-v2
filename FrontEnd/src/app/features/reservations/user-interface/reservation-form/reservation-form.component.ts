@@ -14,7 +14,7 @@ import { DestinationActiveVM } from 'src/app/features/destinations/classes/view-
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { DriverActiveVM } from '../../../drivers/classes/view-models/driver-active-vm'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -167,7 +167,7 @@ export class ReservationFormComponent {
     public onDelete(): void {
         this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
             if (response) {
-                this.reservationService.delete(this.form.value.reservationId).pipe(indicate(this.isLoading)).subscribe({
+                this.reservationService.delete(this.form.value.reservationId).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
                         this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
@@ -419,7 +419,7 @@ export class ReservationFormComponent {
     }
 
     private saveRecord(reservation: ReservationWriteDto): void {
-        this.reservationService.save(reservation).pipe(indicate(this.isLoading)).subscribe({
+        this.reservationService.save(reservation).subscribe({
             next: (response) => {
                 const date = this.dateHelperService.formatDateToIso(new Date(this.form.value.date))
                 this.sessionStorageService.saveItem('date', date)

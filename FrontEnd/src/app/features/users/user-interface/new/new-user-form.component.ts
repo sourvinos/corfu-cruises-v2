@@ -4,7 +4,7 @@ import { Component } from '@angular/core'
 import { map, startWith } from 'rxjs/operators'
 // Custom
 import { ConfirmValidParentMatcher, ValidationService } from '../../../../shared/services/validation.service'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
@@ -156,7 +156,7 @@ export class NewUserFormComponent {
     }
 
     private saveRecord(user: UserNewDto): void {
-        this.userService.add(user).pipe(indicate(this.isLoading)).subscribe({
+        this.userService.add(user).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

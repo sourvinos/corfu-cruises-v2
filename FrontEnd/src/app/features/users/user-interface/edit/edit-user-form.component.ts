@@ -8,7 +8,7 @@ import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { FormResolved } from 'src/app/shared/classes/form-resolved'
-import { HelperService, indicate } from 'src/app/shared/services/helper.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
@@ -222,7 +222,7 @@ export class EditUserFormComponent {
     }
 
     private saveRecord(user: UpdateUserDto): void {
-        this.userService.save(user).pipe(indicate(this.isLoading)).subscribe({
+        this.userService.save(user).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },
