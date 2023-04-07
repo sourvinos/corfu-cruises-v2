@@ -44,6 +44,7 @@ export class PortListComponent {
             this.filterTableFromStoredFilters()
             this.subscribeToInteractionService()
             this.setTabTitle()
+            this.updateStorage()
         })
     }
 
@@ -168,6 +169,10 @@ export class PortListComponent {
         this.interactionService.refreshTabTitle.subscribe(() => {
             this.setTabTitle()
         })
+    }
+
+    private updateStorage(): void {
+        this.sessionStorageService.saveItem(this.feature, JSON.stringify(this.records.filter(x => x.isActive)))
     }
 
     //#endregion

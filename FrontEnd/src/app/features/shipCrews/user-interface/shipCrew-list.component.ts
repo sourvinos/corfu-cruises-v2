@@ -56,6 +56,7 @@ export class ShipCrewListComponent {
             this.subscribeToInteractionService()
             this.setTabTitle()
             this.setLocale()
+            this.updateStorage()
         })
     }
 
@@ -222,6 +223,10 @@ export class ShipCrewListComponent {
         this.interactionService.refreshTabTitle.subscribe(() => {
             this.setTabTitle()
         })
+    }
+
+    private updateStorage(): void {
+        this.sessionStorageService.saveItem(this.feature, JSON.stringify(this.records.filter(x => x.isActive)))
     }
 
     //#endregion

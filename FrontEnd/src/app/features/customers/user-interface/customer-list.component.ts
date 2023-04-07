@@ -43,6 +43,7 @@ export class CustomerListComponent {
             this.filterTableFromStoredFilters()
             this.subscribeToInteractionService()
             this.setTabTitle()
+            this.updateStorage()
         })
     }
 
@@ -164,6 +165,10 @@ export class CustomerListComponent {
         this.interactionService.refreshTabTitle.subscribe(() => {
             this.setTabTitle()
         })
+    }
+
+    private updateStorage(): void {
+        this.sessionStorageService.saveItem(this.feature, JSON.stringify(this.records.filter(x => x.isActive)))
     }
 
     //#endregion
