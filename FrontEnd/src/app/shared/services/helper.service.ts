@@ -35,13 +35,6 @@ export class HelperService {
         return promise
     }
 
-    public calculateTableWrapperHeight(topBar: string, header: string, footer: string): string {
-        return window.innerHeight
-            - document.getElementById(topBar).getBoundingClientRect().height
-            - document.getElementById(header).getBoundingClientRect().height
-            - document.getElementById(footer).getBoundingClientRect().height + 'px'
-    }
-
     public enableOrDisableAutoComplete(event: { key: string }): boolean {
         return (event.key == 'Enter' || event.key == 'ArrowUp' || event.key == 'ArrowDown' || event.key == 'ArrowRight' || event.key == 'ArrowLeft') ? true : false
     }
@@ -79,24 +72,6 @@ export class HelperService {
                 input.select()
             }
         }, 500)
-    }
-
-    public toggleActiveItem(item: string, lookupArray: string[], className: string): any {
-        const element = document.getElementById(item)
-        if (element.classList.contains(className)) {
-            for (let i = 0; i < lookupArray.length; i++) {
-                if ((lookupArray)[i] === item) {
-                    lookupArray.splice(i, 1)
-                    i--
-                    element.classList.remove(className)
-                    break
-                }
-            }
-        } else {
-            element.classList.add(className)
-            lookupArray.push(item)
-        }
-        return lookupArray
     }
 
     public enableTableFilters(): void {
@@ -151,14 +126,6 @@ export class HelperService {
         })
     }
 
-    public enableHorizontalScroll(element: any): any {
-        element.addEventListener('wheel', (evt: WheelEvent) => {
-            evt.preventDefault()
-            element.scrollLeft += evt.deltaY
-            this.sessionStorageService.saveItem('scrollLeft', element.scrollLeft)
-        }, 1000)
-    }
-
     public flattenObject(object: any): any {
         const result = {}
         for (const i in object) {
@@ -201,13 +168,6 @@ export class HelperService {
                 return 0
             }
         })
-    }
-
-    public storeScrollTop(element: string): void {
-        setTimeout(() => {
-            const body = document.getElementsByClassName(element)[0]
-            this.sessionStorageService.saveItem('scrollTop', body.scrollTop.toString())
-        }, 1000)
     }
 
     public deepEqual(object1: any, object2: any): boolean {
@@ -303,9 +263,6 @@ export class HelperService {
         this.titleService.setTitle(environment.appName + ': ' + this.messageLabelService.getDescription(feature, 'header'))
     }
 
-    /**
-     * Calculates how many day divs should be created, according to the host container width
-    */
     public calculateDayCount(): number {
         const elementWidth = window.innerWidth - environment.marginsInPixels
         const dayCount = Math.trunc(elementWidth / 123.2)
