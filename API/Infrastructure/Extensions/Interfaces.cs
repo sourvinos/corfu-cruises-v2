@@ -1,4 +1,5 @@
 using API.Features.Availability;
+using API.Features.CheckIn;
 using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
@@ -21,8 +22,7 @@ using API.Features.Users;
 using API.Infrastructure.Auth;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace API.Infrastructure.Extensions
-{
+namespace API.Infrastructure.Extensions {
 
     public static class Interfaces {
 
@@ -45,6 +45,17 @@ namespace API.Infrastructure.Extensions
             services.AddTransient<IShipRepository, ShipRepository>();
             services.AddTransient<IShipRouteRepository, ShipRouteRepository>();
             services.AddTransient<IUserRepository, UserRepository>();
+            // Tasks
+            services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();
+            services.AddTransient<ILedgerRepository, LedgerRepository>();
+            services.AddTransient<IManifestRepository, ManifestRepository>();
+            // Reservations - Availability
+            services.AddTransient<IReservationCalendar, ReservationCalendar>();
+            services.AddTransient<IReservationReadRepository, ReservationReadRepository>();
+            services.AddTransient<IReservationUpdateRepository, ReservationUpdateRepository>();
+            services.AddTransient<IAvailabilityCalendar, AvailabilityCalendar>();
+            // Check-In
+            services.AddTransient<ICheckInReadRepository, CheckInReadRepository>();
             // Validations
             services.AddTransient<ICoachRouteValidation, CoachRouteValidation>();
             services.AddTransient<IPickupPointValidation, PickupPointValidation>();
@@ -55,14 +66,6 @@ namespace API.Infrastructure.Extensions
             services.AddTransient<IShipCrewValidation, ShipCrewValidation>();
             services.AddTransient<IShipValidation, ShipValidation>();
             services.AddTransient<IUserValidation<IUser>, UserValidation>();
-            // Tasks
-            services.AddTransient<IAvailabilityCalendar, AvailabilityCalendar>();
-            services.AddTransient<IEmbarkationRepository, EmbarkationRepository>();
-            services.AddTransient<ILedgerRepository, LedgerRepository>();
-            services.AddTransient<IManifestRepository, ManifestRepository>();
-            services.AddTransient<IReservationCalendar, ReservationCalendar>();
-            services.AddTransient<IReservationReadRepository, ReservationReadRepository>();
-            services.AddTransient<IReservationUpdateRepository, ReservationUpdateRepository>();
         }
 
     }
