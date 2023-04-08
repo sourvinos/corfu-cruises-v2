@@ -12,16 +12,17 @@ import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
+import { ReservationHelperService } from '../../classes/services/reservation.helper.service'
+import { ReservationHttpService } from '../../classes/services/reservation.http.service'
 import { ReservationListCoachRouteVM } from '../../classes/view-models/list/reservation-list-coachRoute-vm'
 import { ReservationListDestinationVM } from 'src/app/features/reservations/classes/view-models/list/reservation-list-destination-vm'
 import { ReservationListOverbookedDestinationVM } from '../../classes/view-models/list/reservation-list-overbooked-destination-vm'
 import { ReservationListPickupPointVM } from '../../classes/view-models/list/reservation-list-pickupPoint-vm'
 import { ReservationListPortVM } from '../../classes/view-models/list/reservation-list-port-vm'
 import { ReservationListVM } from '../../classes/view-models/list/reservation-list-vm'
-import { ReservationHttpService } from '../../classes/services/reservation.http.service'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
@@ -62,7 +63,7 @@ export class ReservationListComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationHttpService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private reservationHelperService: ReservationHelperService, private reservationService: ReservationHttpService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
         this.router.routeReuseStrategy.shouldReuseRoute = (): boolean => false
         this.subscription = this.router.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
@@ -174,7 +175,7 @@ export class ReservationListComponent {
     }
 
     public formatRefNo(refNo: string): string {
-        return this.helperService.formatRefNo(refNo, false)
+        return this.reservationHelperService.formatRefNo(refNo)
     }
 
     public getDateFromStorage(): string {

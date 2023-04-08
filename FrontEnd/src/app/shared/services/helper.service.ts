@@ -54,16 +54,6 @@ export class HelperService {
         return (event.key == 'Enter' || event.key == 'ArrowUp' || event.key == 'ArrowDown' || event.key == 'ArrowRight' || event.key == 'ArrowLeft') ? true : false
     }
 
-    public formatRefNo(refNo: string, returnsHTML: boolean): string {
-        const destination = new RegExp(/[a-zA-Z]{1,5}/).exec(refNo)[0]
-        const number = new RegExp(/[0-9]{1,5}/g).exec(refNo).slice(-5)[0]
-        const zeros = '00000'.slice(number.length)
-        if (returnsHTML)
-            return '<span>' + destination.toUpperCase() + '</span>' + '-' + '<span>' + zeros + '</span>' + '<span>' + number + '</span>'
-        else
-            return destination.toUpperCase() + '-' + zeros + number
-    }
-
     public getApplicationTitle(): any {
         return this.appName
     }
