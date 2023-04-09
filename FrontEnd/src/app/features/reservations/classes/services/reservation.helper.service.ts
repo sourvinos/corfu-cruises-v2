@@ -164,7 +164,7 @@ export class ReservationHelperService {
                 occupantId: 2,
                 lastname: passenger.lastname,
                 firstname: passenger.firstname,
-                birthdate: passenger.birthdate,
+                birthdate: this.dateHelperService.formatDateToIso(new Date(passenger.birthdate)),
                 specialCare: passenger.specialCare,
                 remarks: passenger.remarks,
                 isCheckedIn: passenger.isCheckedIn

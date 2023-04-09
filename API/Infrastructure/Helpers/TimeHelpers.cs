@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace API.Infrastructure.Helpers {
 
-    public static class TimeHelpers {
+    public static partial class TimeHelpers {
 
         public static bool BeEmptyOrValidTime(string time) {
             return string.IsNullOrWhiteSpace(time) || string.IsNullOrEmpty(time) || IsValidTime(time);
@@ -17,11 +17,14 @@ namespace API.Infrastructure.Helpers {
                 return false;
             }
             try {
-                return Regex.IsMatch(time, "^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
+                return MyRegex().IsMatch(time);
             } catch (RegexMatchTimeoutException) {
                 return false;
             }
         }
+
+        [GeneratedRegex("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")]
+        private static partial Regex MyRegex();
 
     }
 

@@ -1,12 +1,12 @@
 {
-    "version": "0.2.0",
+    "version": "2.0.0",
     "configurations": [
         {
             "name": "API",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/bin/Debug/net6.0/API.dll",
+            "program": "${workspaceFolder}/bin/Debug/net7.0/API.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,

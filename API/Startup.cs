@@ -4,7 +4,6 @@ using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Middleware;
-using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,7 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 // dotnet watch run --environment LocalDevelopment | LocalTesting | ProductionLive | ProductionDemo
 // dotnet publish /p:Configuration=Release /p:EnvironmentName=ProductionDemo | ProductionLive
 
-namespace API {
+namespace API
+{
 
     public class Startup {
 
@@ -72,8 +72,8 @@ namespace API {
                     .AddNewtonsoftJson(options => {
                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                         options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
-                    })
-                    .AddFluentValidation();
+                    });
+            services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
             services.AddEmailSenders();
             ModelValidations.AddModelValidation(services);
             services.Configure<CookiePolicyOptions>(options => { options.CheckConsentNeeded = _ => true; options.MinimumSameSitePolicy = SameSiteMode.None; });

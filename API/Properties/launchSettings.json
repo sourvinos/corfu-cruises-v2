@@ -1,6 +1,6 @@
 ﻿{
     "profiles": {
-        "Environments": {
+        "environments": {
             "applicationUrl": "https://localhost:5001",
             "commandName": "Project",
             "environmentVariables": {
