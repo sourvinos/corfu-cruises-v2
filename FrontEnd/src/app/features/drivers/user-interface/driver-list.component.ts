@@ -27,7 +27,7 @@ export class DriverListComponent {
     public feature = 'driverList'
     public featureIcon = 'drivers'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: DriverListVM[] = []
     public recordsFilteredCount: number
     private virtualElement: any

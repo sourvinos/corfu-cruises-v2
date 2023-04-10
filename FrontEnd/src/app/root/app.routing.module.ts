@@ -5,17 +5,21 @@ import { NoPreloading, RouterModule, Routes } from '@angular/router'
 import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
 import { ForgotPasswordFormComponent } from '../features/users/user-interface/forgot-password/forgot-password-form.component'
 import { HomeComponent } from '../shared/components/home/home.component'
+import { IntroFormComponent } from '../features/intro/user-interface/intro-form.component'
 import { LoginFormComponent } from '../features/login/user-interface/login-form.component'
 import { ResetPasswordFormComponent } from '../features/users/user-interface/reset-password/reset-password-form.component'
 // Guards
 import { AuthGuardService } from '../shared/services/auth-guard.service'
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent, canActivate: [AuthGuardService], pathMatch: 'full' },
+    // Intro
+    { path: '', component: IntroFormComponent, pathMatch: 'full' },
     // Auth
     { path: 'login', component: LoginFormComponent },
     { path: 'forgotPassword', component: ForgotPasswordFormComponent },
     { path: 'resetPassword', component: ResetPasswordFormComponent },
+    // Home
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuardService] },
     // Reservations menu
     { path: 'reservations', loadChildren: () => import('../features/reservations/classes/modules/reservation.module').then(m => m.ReservationModule) },
     { path: 'availability', loadChildren: () => import('../features/availability/classes/modules/availability.module').then(m => m.AvailabilityModule) },

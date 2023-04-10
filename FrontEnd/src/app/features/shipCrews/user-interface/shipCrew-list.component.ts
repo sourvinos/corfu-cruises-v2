@@ -33,7 +33,7 @@ export class ShipCrewListComponent {
     public feature = 'shipCrewList'
     public featureIcon = 'shipCrews'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: ShipCrewListVM[] = []
 
     public recordsFilteredCount: number

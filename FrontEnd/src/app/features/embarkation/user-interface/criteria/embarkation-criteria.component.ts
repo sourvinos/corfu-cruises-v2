@@ -33,7 +33,7 @@ export class EmbarkationCriteriaComponent {
     public featureIcon = 'embarkation'
     public form: FormGroup
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
 
     private criteria: EmbarkationCriteriaVM
 

@@ -14,7 +14,7 @@ export class AuthGuardService {
     canActivate(): Observable<boolean> {
         return this.accountService.isLoggedIn.pipe(take(1), map((loginStatus: boolean) => {
             if (!loginStatus) {
-                this.router.navigate(['/login'])
+                this.router.navigate(['/'])
                 return false
             }
             return true

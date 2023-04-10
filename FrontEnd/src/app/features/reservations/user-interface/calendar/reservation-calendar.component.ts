@@ -30,7 +30,7 @@ export class ReservationCalendarComponent {
     public feature = 'reservationsCalendar'
     public featureIcon = 'reservations'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
 
     public days: DayVM[] = []
     public fromDate: Date

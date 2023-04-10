@@ -29,7 +29,7 @@ export class PickupPointListComponent {
     public feature = 'pickupPointList'
     public featureIcon = 'pickupPoints'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: PickupPointListVM[]
     public recordsFiltered: PickupPointListVM[]
     public recordsFilteredCount: number

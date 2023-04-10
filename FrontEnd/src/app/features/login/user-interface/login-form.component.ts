@@ -86,7 +86,7 @@ export class LoginFormComponent {
     }
 
     private goHome(): void {
-        this.router.navigate(['/'])
+        this.router.navigate(['/home'])
     }
 
     private initForm(): void {

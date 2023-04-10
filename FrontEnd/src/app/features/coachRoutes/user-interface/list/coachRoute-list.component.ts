@@ -27,7 +27,7 @@ export class CoachRouteListComponent {
     public feature = 'coachRouteList'
     public featureIcon = 'coachRoutes'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: CoachRouteListVM[] = []
     public recordsFilteredCount: number
     private virtualElement: any

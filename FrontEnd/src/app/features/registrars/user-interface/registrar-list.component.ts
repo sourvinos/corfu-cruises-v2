@@ -28,7 +28,7 @@ export class RegistrarListComponent {
     public feature = 'registrarList'
     public featureIcon = 'registrars'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: RegistrarListVM[] = []
     public recordsFilteredCount: number
     private virtualElement: any

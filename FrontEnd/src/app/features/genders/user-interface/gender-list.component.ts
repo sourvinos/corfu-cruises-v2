@@ -27,7 +27,7 @@ export class GenderListComponent {
     public feature = 'genderList'
     public featureIcon = 'genders'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: GenderListVM[] = []
     public recordsFilteredCount: number
     private virtualElement: any

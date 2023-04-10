@@ -27,7 +27,7 @@ export class ShipRouteListComponent {
     public feature = 'shipRouteList'
     public featureIcon = 'shipRoutes'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: ShipRouteListVM[] = []
     public recordsFilteredCount: number
     private virtualElement: any

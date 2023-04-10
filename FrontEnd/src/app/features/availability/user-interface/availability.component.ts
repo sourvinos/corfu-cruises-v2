@@ -32,7 +32,7 @@ export class AvailabilityComponent {
     public feature = 'availabilityCalendar'
     public featureIcon = 'availability'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
 
     public calendar: DayVM[] = []
     public fromDate: Date

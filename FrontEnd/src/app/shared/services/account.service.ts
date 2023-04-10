@@ -35,8 +35,6 @@ export class AccountService extends HttpDataService {
     private urlForgotPassword = this.apiUrl + '/account/forgotPassword'
     private urlRegister = this.apiUrl + '/account'
     private urlResetPassword = this.apiUrl + '/account/resetPassword'
-    private urlGetConnectedUserId = this.apiUrl + '/account/getConnectedUserId'
-    private urlIsAdmin = this.apiUrl + '/account/isConnectedUserAdmin'
     private urlToken = this.apiUrl + '/auth/auth'
 
     //#endregion
@@ -171,7 +169,7 @@ export class AccountService extends HttpDataService {
 
     private navigateToLogin(): void {
         this.ngZone.run(() => {
-            this.router.navigate(['/login'])
+            this.router.navigate(['/'])
         })
     }
 

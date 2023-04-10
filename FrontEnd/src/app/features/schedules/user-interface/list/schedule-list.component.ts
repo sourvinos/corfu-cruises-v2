@@ -32,7 +32,7 @@ export class ScheduleListComponent {
     public feature = 'scheduleList'
     public featureIcon = 'schedules'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: ScheduleListVM[] = []
     public recordsFilteredCount: number
     private virtualElement: any

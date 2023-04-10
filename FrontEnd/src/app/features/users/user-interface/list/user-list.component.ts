@@ -27,7 +27,7 @@ export class UserListComponent {
     public feature = 'userList'
     public featureIcon = 'users'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: UserListVM[] = []
     public recordsFilteredCount: number
     private virtualElement: any

@@ -27,7 +27,7 @@ export class DestinationListComponent {
     public feature = 'destinationList'
     public featureIcon = 'destinations'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: DestinationListVM[] = []
     public recordsFilteredCount: number
     private virtualElement: any

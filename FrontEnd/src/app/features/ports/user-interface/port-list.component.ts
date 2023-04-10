@@ -28,7 +28,7 @@ export class PortListComponent {
     public feature = 'portList'
     public featureIcon = 'ports'
     public icon = 'home'
-    public parentUrl = '/'
+    public parentUrl = '/home'
     public records: PortListVM[] = []
     public recordsFilteredCount: number
     private virtualElement: any
