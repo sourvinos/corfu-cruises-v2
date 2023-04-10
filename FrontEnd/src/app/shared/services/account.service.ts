@@ -22,6 +22,7 @@ import { ShipOwnerService } from 'src/app/features/shipOwners/classes/services/s
 import { ShipRouteService } from 'src/app/features/shipRoutes/classes/services/shipRoute.service'
 import { ShipService } from 'src/app/features/ships/classes/services/ship.service'
 import { environment } from 'src/environments/environment'
+import { DotNetVersion } from '../classes/dotnet-version'
 
 @Injectable({ providedIn: 'root' })
 
@@ -128,6 +129,7 @@ export class AccountService extends HttpDataService {
         return this.http.post<any>(this.urlToken, { language, userName, password, grantType }).pipe(map(response => {
             this.setLoginStatus(true)
             this.setUserData(response)
+            this.setDotNetVersion(response)
             this.setAuthSettings(response)
             this.populateStorageFromAPI()
             this.refreshMenus()
@@ -196,6 +198,10 @@ export class AccountService extends HttpDataService {
         this.shipService.getActive().subscribe(response => { this.sessionStorageService.saveItem('ships', JSON.stringify(response)) })
         this.shipOwnerService.getActive().subscribe(response => { this.sessionStorageService.saveItem('shipOwners', JSON.stringify(response)) })
         this.shipRouteService.getActive().subscribe(response => { this.sessionStorageService.saveItem('shipRoutes', JSON.stringify(response)) })
+    }
+
+    private setDotNetVersion(response: any): void {
+        DotNetVersion.version = response.dotNetVersion
     }
 
     private setLoginStatus(status: boolean): void {

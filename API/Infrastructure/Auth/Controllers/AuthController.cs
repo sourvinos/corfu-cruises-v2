@@ -64,6 +64,7 @@ namespace API.Infrastructure.Auth {
                     Token = response.Token,
                     RefreshToken = response.RefreshToken,
                     Expiration = response.Expiration,
+                    DotNetVersion = GetNetVersion()
                 };
             } else {
                 throw new CustomException() {
@@ -127,7 +128,8 @@ namespace API.Infrastructure.Auth {
                 CustomerId = user.CustomerId,
                 Token = token.Token,
                 RefreshToken = token.RefreshToken,
-                Expiration = token.Expiration
+                Expiration = token.Expiration,
+                DotNetVersion = GetNetVersion()
             };
         }
 
@@ -135,6 +137,10 @@ namespace API.Infrastructure.Auth {
             throw new CustomException() {
                 ResponseCode = 401
             };
+        }
+
+        private static string GetNetVersion() {
+            return System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
         }
 
     }

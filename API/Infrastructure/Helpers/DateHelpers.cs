@@ -1,6 +1,5 @@
 using System;
 using System.Globalization;
-using System.Security.Cryptography;
 
 namespace API.Infrastructure.Helpers {
 

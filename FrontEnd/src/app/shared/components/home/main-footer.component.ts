@@ -1,4 +1,6 @@
 import { Component, VERSION } from '@angular/core'
+// Custom
+import { DotNetVersion } from '../../classes/dotnet-version'
 
 @Component({
     selector: 'main-footer',
@@ -8,26 +10,12 @@ import { Component, VERSION } from '@angular/core'
 
 export class MainFooterComponent {
 
-    //#region variables
-
-    public ngVersion: any
-
-    //#endregion
-
-    //#region lifecyle hooks
-
-    ngOnInit(): void {
-        this.getNgVersion()
+    public getDotNetVersion(): string {
+        return DotNetVersion.version
     }
 
-    //#endregion
-
-    //#region private methods
-
-    private getNgVersion(): any {
-        this.ngVersion = VERSION.full
+    public getNgVersion(): any {
+        return VERSION.full
     }
-
-    //#endregion
 
 }
