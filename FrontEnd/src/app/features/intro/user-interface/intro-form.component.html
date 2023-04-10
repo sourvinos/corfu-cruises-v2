@@ -8,8 +8,20 @@
     <login-logo></login-logo>
 
     <div id="content">
-        <h1>Intro</h1>
-        <button (click)="onLogin()">Login</button>
+        <mat-card routerLink="/login">
+            <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('login')" style="height: 100px; margin-left: 1rem; width: 100px">
+            <mat-card-title>{{ getLabel("loginTitle") }}</mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-subtitle>{{ getLabel("loginSubTitle") }}</mat-card-subtitle>
+        </mat-card>
+        <mat-card disabled>
+            <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('ticket')" style="height: 100px; margin-left: 1rem; width: 100px">
+            <mat-card-title>{{ getLabel("checkInTitle") }}</mat-card-title>
+            <mat-divider inset></mat-divider>
+            <mat-card-subtitle>{{ getLabel("checkInSubTitle") }}</mat-card-subtitle>
+        </mat-card>
     </div>
+
+    <main-footer></main-footer>
 
 </div>

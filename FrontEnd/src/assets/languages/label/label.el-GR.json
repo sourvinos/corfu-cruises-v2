@@ -12,7 +12,7 @@
             },
             {
                 "id": "title-bottom",
-                "description": "Κέρκυρα, Μπενίτσες, Λευκίμμη, Κάβος"
+                "description": "Ταξιδέψτε μαζί μας!"
             },
             {
                 "id": "header",
@@ -2096,6 +2096,22 @@
     {
         "feature": "cardsMenu",
         "labels": [
+            {
+                "id": "loginTitle",
+                "description": "Είσοδος"
+            },
+            {
+                "id": "loginSubTitle",
+                "description": "Πρόσβαση σε εξουσιοδοτημένους χρήστες, όπως διαχειριστές και τουριστικά γραφεία"
+            },
+            {
+                "id": "checkInTitle",
+                "description": "Check-in"
+            },
+            {
+                "id": "checkInSubTitle",
+                "description": "Το online check-in ανοίγει 48 ώρες έως 10 λεπτά πριν από την ώρα αναχώρησης του πλοίου"
+            },
             {
                 "id": "reservationsTitle",
                 "description": "Κρατήσεις"

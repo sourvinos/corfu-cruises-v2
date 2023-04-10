@@ -1,8 +1,9 @@
 #footer {
     color: var(--color-c);
     font-family: var(--font-family-asty);
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: 100;
+    text-align: center;
 }
 
 a:link, a:visited {

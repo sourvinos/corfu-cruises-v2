@@ -12,6 +12,7 @@ import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.d
 import { LanguageMenuComponent } from '../components/top-bar-wrapper/language-menu/language-menu.component'
 import { LoadingSpinnerComponent } from '../components/loading-spinner/loading-spinner.component'
 import { LoginLogoComponent } from 'src/app/features/login/user-interface/login-logo.component'
+import { MainFooterComponent } from '../components/home/main-footer.component'
 import { MaterialModule } from './material.module'
 import { ModalActionResultComponent } from '../components/modal-action-result/modal-action-result.component'
 import { MonthSelectorComponent } from '../components/month-selector/month-selector.component'
@@ -33,6 +34,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         LanguageMenuComponent,
         LoadingSpinnerComponent,
         LoginLogoComponent,
+        MainFooterComponent,
         ModalActionResultComponent,
         MonthSelectorComponent,
         PadNumberPipe,
@@ -61,6 +63,7 @@ import { YearSelectorComponent } from '../components/year-selector/year-selector
         LanguageMenuComponent,
         LoadingSpinnerComponent,
         LoginLogoComponent,
+        MainFooterComponent,
         MaterialModule,
         MonthSelectorComponent,
         PadNumberPipe,

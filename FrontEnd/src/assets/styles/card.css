@@ -11,7 +11,7 @@
     justify-content: space-between;
     padding: 1.5rem 2rem;
     transition: background-color var(--delay) ease-in !important;
-    width: 17rem;
+    width: 18rem;
 }
 
 .mat-card:hover {

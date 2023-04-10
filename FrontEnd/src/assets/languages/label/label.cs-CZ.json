@@ -12,7 +12,7 @@
             },
             {
                 "id": "title-bottom",
-                "description": "Corfu Město, Benitses, Lefkimmi, Kavos"
+                "description": "Plavte s námi!"
             },
             {
                 "id": "header",
@@ -2096,6 +2096,22 @@
     {
         "feature": "cardsMenu",
         "labels": [
+            {
+                "id": "loginTitle",
+                "description": "Είσοδος"
+            },
+            {
+                "id": "loginSubTitle",
+                "description": "Přístup oprávněným uživatelům, například správcům a cestovním kancelářím"
+            },
+            {
+                "id": "checkInTitle",
+                "description": "Check-in"
+            },
+            {
+                "id": "checkInSubTitle",
+                "description": "Online odbavení je možné 48 hodin až 10 minut před odjezdem lodi"
+            },
             {
                 "id": "reservationsTitle",
                 "description": "Rezervace"

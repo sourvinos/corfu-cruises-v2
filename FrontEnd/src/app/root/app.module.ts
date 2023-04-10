@@ -15,7 +15,6 @@ import { CardsMenuComponent } from '../shared/components/home/cards-menu.compone
 import { HomeComponent } from '../shared/components/home/home.component'
 import { IntroModule } from '../features/intro/classes/modules/intro.module'
 import { LogoComponent } from '../shared/components/top-bar-wrapper/logo/logo.component'
-import { MainFooterComponent } from '../shared/components/home/main-footer.component'
 import { ReservationsMenuComponent } from '../shared/components/top-bar-wrapper/reservations-menu/reservations-menu.component'
 import { SearchByRefBoxComponent } from '../shared/components/top-bar-wrapper/search-byRef-box/search-byRef-box.component'
 import { TablesMenuComponent } from '../shared/components/top-bar-wrapper/tables-menu/tables-menu.component'
@@ -32,7 +31,6 @@ import { InterceptorService } from '../shared/services/interceptor.service'
         CardsMenuComponent,
         HomeComponent,
         LogoComponent,
-        MainFooterComponent,
         ReservationsMenuComponent,
         SearchByRefBoxComponent,
         TablesMenuComponent,

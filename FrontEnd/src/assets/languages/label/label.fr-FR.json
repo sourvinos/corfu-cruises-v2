@@ -12,7 +12,7 @@
             },
             {
                 "id": "title-bottom",
-                "description": "Corfu ville, Benitses, Lefkimmi, Kavos"
+                "description": "Croisière avec nous!"
             },
             {
                 "id": "header",
@@ -2096,6 +2096,22 @@
     {
         "feature": "cardsMenu",
         "labels": [
+            {
+                "id": "loginTitle",
+                "description": "Connexion"
+            },
+            {
+                "id": "loginSubTitle",
+                "description": "Accès aux utilisateurs autorisés, tels que les administrateurs et les bureaux de voyage"
+            },
+            {
+                "id": "checkInTitle",
+                "description": "Check-in"
+            },
+            {
+                "id": "checkInSubTitle",
+                "description": "L'enregistrement en ligne est ouvert de 48 heures à 10 minutes avant l'heure de départ du navire"
+            },
             {
                 "id": "reservationsTitle",
                 "description": "Réservations"
