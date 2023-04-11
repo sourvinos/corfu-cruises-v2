@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HasTransferGroupVM } from '../view-models/list/ledger-port-group-vm'
-import { LedgerCriteriaVM } from '../view-models/criteria/ledger-criteria-vm'
+import { LedgerStoredCriteriaVM } from '../view-models/criteria/ledger-stored-criteria-vm'
 import { LedgerReservationVM } from '../view-models/list/ledger-reservation-vm'
 import { LedgerVM } from '../view-models/list/ledger-vm'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
@@ -23,13 +23,13 @@ export class LedgerPDFService {
 
     constructor(private dateHelperService: DateHelperService, private logoService: LogoService) { }
 
-    public doReportTasks(customers: LedgerVM[], criteria: LedgerCriteriaVM): void {
+    public doReportTasks(customers: LedgerVM[], criteria: LedgerStoredCriteriaVM): void {
         customers.forEach(customer => {
             this.createPdf(customer, criteria)
         })
     }
 
-    private createPdf(customer: LedgerVM, criteria: LedgerCriteriaVM): void {
+    private createPdf(customer: LedgerVM, criteria: LedgerStoredCriteriaVM): void {
         this.rows = []
         this.setFonts()
         this.createReport(customer, criteria)
@@ -120,7 +120,7 @@ export class LedgerPDFService {
         return footer
     }
 
-    private createReport(customer: LedgerVM, criteria: LedgerCriteriaVM): any {
+    private createReport(customer: LedgerVM, criteria: LedgerStoredCriteriaVM): any {
         this.rows.push(this.addReportHeader())
         this.rows.push(this.addCustomerHeader(criteria, customer))
         this.rows.push(this.addReservationsHeader())
@@ -159,7 +159,7 @@ export class LedgerPDFService {
         return row
     }
 
-    private addCustomerHeader(criteria: LedgerCriteriaVM, customer: LedgerVM): any {
+    private addCustomerHeader(criteria: LedgerStoredCriteriaVM, customer: LedgerVM): any {
         const row = ([
             { text: customer.customer.description, colSpan: 12, margin: [0, 0, 0, 10], border: [false, false, false, false] },
             { text: '' },

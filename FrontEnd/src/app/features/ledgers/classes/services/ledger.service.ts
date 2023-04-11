@@ -5,6 +5,7 @@ import { Observable } from 'rxjs'
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { LedgerVM } from '../view-models/list/ledger-vm'
 import { environment } from 'src/environments/environment'
+import { LedgerSearchCriteriaVM } from '../view-models/criteria/ledger-search-criteria-vm'
 
 @Injectable({ providedIn: 'root' })
 
@@ -14,12 +15,8 @@ export class LedgerService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/ledgers')
     }
 
-    get(fromDate: string, toDate: string, customerIds: number[], destinationIds: number[], shipIds: number[]): Observable<LedgerVM> {
-        return this.http.get<LedgerVM>(
-            this.url + '?fromDate=' + fromDate + '&toDate=' + toDate +
-            this.buildCustomersQuery(customerIds) +
-            this.buildDestinationsQuery(destinationIds) +
-            this.buildShipsQuery(shipIds))
+    get(searchCriteria: LedgerSearchCriteriaVM): any {
+        return this.http.get<LedgerVM>(this.url, searchCriteria)
     }
 
     private buildCustomersQuery(customerIds: number[]): string {
