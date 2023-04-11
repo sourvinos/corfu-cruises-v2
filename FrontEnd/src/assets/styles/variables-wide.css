@@ -1,7 +1,10 @@
-@media only screen and (min-width: 1441px) {
+@media only screen and (min-width: 431px) {
     * {
+        --font-size-button: 0.85rem;
         --font-size-input-hint: 90%;
         --font-size-input: 15px;
-        --font-size-summary-block-item: 1.2rem;
+        --font-size-checkbox-label: 80%;
+        --font-size-input-label: 100%;
+        --font-size-h1: 1rem;
     }
 }

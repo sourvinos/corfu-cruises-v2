@@ -2110,7 +2110,7 @@
             },
             {
                 "id": "checkInSubTitle",
-                "description": "Το online check-in ανοίγει 48 ώρες έως 10 λεπτά πριν από την ώρα αναχώρησης του πλοίου"
+                "description": "Το online check-in ανοίγει 48 ώρες έως 10 λεπτά πριν από την προγραμματισμένη ώρα αναχώρησης"
             },
             {
                 "id": "reservationsTitle",

@@ -18,13 +18,10 @@
     --hover-change-delay: 0.15s;
     --theme-change-delay: 0;
     /* Common sizes in all screen resolutions */
-    --font-size-button: 0.85rem;
     --font-size-calendar-day: 0.85rem;
-    --font-size-checkbox: 0.65rem;
     --font-size-datepicker-header-month: 1.25rem;
     --font-size-dialog: 1.5rem;
     --font-size-fieldset-legend: 0.8rem;
-    --font-size-h1: 1rem;
     --font-size-h6: 0.8rem;
     --font-size-line-height-h1: 1.25rem;
     --font-size-loading-message: 2rem;

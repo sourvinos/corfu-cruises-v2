@@ -1,7 +1,6 @@
 #columns {
     align-items: center;
     display: flex;
-    margin: 0 1rem 0 0;
 }
 
 #columns button {
@@ -10,14 +9,33 @@
 
 #forgot-password {
     color: var(--color-c);
+    display: flex;
     font-family: var(--font-family-asty);
-    font-size: 0.8rem;
     font-weight: 100;
-    margin-top: 1rem;
+    justify-content: flex-end;
     text-align: end;
+    width: 100%;
 }
 
 #forgot-password:hover {
     color: var(--color-link);
     cursor: pointer;
+}
+
+@media only screen and (max-width: 430px) {
+    #columns {
+        margin: 0.5rem;
+    }
+    #forgot-password {
+        font-size: 0.65rem;
+    }
+}
+
+@media only screen and (min-width: 431px) {
+    #columns {
+        margin: 1rem;
+    }
+    #forgot-password {
+        font-size: 0.8rem;
+    }
 }

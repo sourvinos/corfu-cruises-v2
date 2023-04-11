@@ -77,6 +77,7 @@ textarea {
 }
 
 .mat-form-field-label span {
+    font-size: var(--font-size-input-label) !important;
     transition: all var(--theme-change-delay) ease-in;
 }
 

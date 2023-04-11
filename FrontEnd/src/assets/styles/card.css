@@ -7,9 +7,7 @@
     box-shadow: 0 0.5rem 2rem 0 #1f26875e;
     display: flex !important;
     flex-direction: column;
-    height: 17rem;
     justify-content: space-between;
-    padding: 1.5rem 2rem;
     transition: background-color var(--delay) ease-in !important;
     width: 18rem;
 }
@@ -22,7 +20,6 @@
 .mat-card-title {
     color: var(--color-c) !important;
     font-family: var(--font-family-asty);
-    font-size: 1.2rem;
     font-weight: 300;
     margin: 0 0 0 0.5rem !important;
     transition: color var(--delay) ease-in !important;
@@ -30,16 +27,51 @@
 
 .mat-divider.mat-divider-inset {
     background-color: var(--color-e);
+    margin: 0.6rem 0 0.6rem 0 !important;
     transition: background-color var(--delay) ease-in !important;
 }
 
 .mat-card-subtitle {
     color: var(--color-c) !important;
     font-family: var(--font-family-asty);
-    font-size: 0.9rem;
     font-weight: 300;
-    height: 3.875rem;
     line-height: 1.25rem;
     margin: 0 0 0 0.5rem !important;
     transition: color var(--delay) ease-in !important;
+}
+
+.mat-card img {
+    margin: 0 0 1rem 1rem;
+}
+
+@media only screen and (max-width: 430px) {
+    .mat-card {
+        padding: 0.5rem !important;
+    }
+    .mat-card-title {
+        font-size: 0.8rem;
+    }
+    .mat-card-subtitle {
+        font-size: 0.7rem;
+    }
+    .mat-card img {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media only screen and (min-width: 431px) {
+    .mat-card {
+        padding: 1.5rem !important;
+    }
+    .mat-card-title {
+        font-size: 1.2rem;
+    }
+    .mat-card-subtitle {
+        font-size: 0.9rem;
+    }
+    .mat-card img {
+        width: 100px;
+        height: 100px;
+    }
 }

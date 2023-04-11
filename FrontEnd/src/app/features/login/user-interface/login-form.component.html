@@ -31,7 +31,9 @@
                         <label for="no-robot">{{ getLabel("noRobotCheckbox") }}</label>
                     </div>
                 </div>
-                <span id="forgot-password" (click)="onForgotPassword()">{{ getLabel("forgotPasswordButton") }}</span>
+                <div id="forgot-password">
+                    <span (click)="onForgotPassword()">{{ getLabel("forgotPasswordButton") }}</span>
+                </div>
             </div>
         </form>
         <p class="instructions" [class.hidden]=true>{{ form.value | json }} {{ form.valid }}</p>

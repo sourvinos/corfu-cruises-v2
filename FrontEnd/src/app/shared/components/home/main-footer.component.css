@@ -1,8 +1,12 @@
+:host {
+    display: flex;
+    justify-content: center;
+}
+
 #footer {
     color: var(--color-c);
     font-family: var(--font-family-asty);
-    font-size: 0.7rem;
-    font-weight: 100;
+    font-weight: 300;
     text-align: center;
 }
 
@@ -14,4 +18,19 @@ a:link, a:visited {
 a:link:hover {
     color: var(--color-link);
     transition: all var(--theme-change-delay) ease-in;
+}
+
+@media only screen and (max-width: 430px) {
+    :host {
+        margin-top: auto;
+    }
+    #footer {
+        font-size: 0.5rem;
+    }
+}
+
+@media only screen and (min-width: 431px) {
+    #footer {
+        font-size: 0.8rem;
+    }
 }

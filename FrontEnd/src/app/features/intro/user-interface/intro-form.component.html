@@ -9,13 +9,13 @@
 
     <div id="content">
         <mat-card routerLink="/login">
-            <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('login')" style="height: 100px; margin-left: 1rem; width: 100px">
+            <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('login')">
             <mat-card-title>{{ getLabel("loginTitle") }}</mat-card-title>
             <mat-divider inset></mat-divider>
             <mat-card-subtitle>{{ getLabel("loginSubTitle") }}</mat-card-subtitle>
         </mat-card>
         <mat-card disabled>
-            <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('ticket')" style="height: 100px; margin-left: 1rem; width: 100px">
+            <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('ticket')">
             <mat-card-title>{{ getLabel("checkInTitle") }}</mat-card-title>
             <mat-divider inset></mat-divider>
             <mat-card-subtitle>{{ getLabel("checkInSubTitle") }}</mat-card-subtitle>
