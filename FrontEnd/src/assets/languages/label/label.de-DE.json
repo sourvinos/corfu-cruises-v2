@@ -1047,7 +1047,7 @@
             },
             {
                 "id": "headerLastname",
-                "description": "Name"
+                "description": "Nachname"
             },
             {
                 "id": "headerFirstname",
@@ -1076,7 +1076,7 @@
             },
             {
                 "id": "lastname",
-                "description": "Name"
+                "description": "Nachname"
             },
             {
                 "id": "firstname",
@@ -1248,7 +1248,7 @@
             },
             {
                 "id": "headerLastname",
-                "description": "Name"
+                "description": "Nachname"
             },
             {
                 "id": "headerFirstname",
@@ -1574,7 +1574,7 @@
             },
             {
                 "id": "headerLastname",
-                "description": "Name"
+                "description": "Nachname"
             },
             {
                 "id": "headerFirstname",
@@ -1853,7 +1853,7 @@
             },
             {
                 "id": "headerLastname",
-                "description": "Name"
+                "description": "Nachname"
             },
             {
                 "id": "headerFirstname",
@@ -1878,7 +1878,7 @@
             },
             {
                 "id": "lastname",
-                "description": "Name"
+                "description": "Nachname"
             },
             {
                 "id": "firstname",
@@ -2106,7 +2106,7 @@
             },
             {
                 "id": "checkInTitle",
-                "description": "Check-in"
+                "description": "Einchecken"
             },
             {
                 "id": "checkInSubTitle",
@@ -2143,6 +2143,31 @@
             {
                 "id": "ledgersSubTitle",
                 "description": "Zeigen Sie Ihre Reservierungen für einen bestimmten Zeitraum an."
+            }
+        ]
+    },
+    {
+        "feature": "checkInCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Einchecken"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+           {
+                "id": "destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "lastname",
+                "description": "Nachname"
+            },
+            {
+                "id": "searchButton",
+                "description": "Weiter"
             }
         ]
     }

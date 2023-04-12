@@ -1051,7 +1051,7 @@
             },
             {
                 "id": "headerFirstname",
-                "description": "Nom "
+                "description": "Nom"
             },
             {
                 "id": "headerCountry",
@@ -2106,7 +2106,7 @@
             },
             {
                 "id": "checkInTitle",
-                "description": "Check-in"
+                "description": "Enregistrement"
             },
             {
                 "id": "checkInSubTitle",
@@ -2143,6 +2143,31 @@
             {
                 "id": "ledgersSubTitle",
                 "description": "Affichez vos réservations pour une période donnée."
+            }
+        ]
+    },
+    {
+        "feature": "checkInCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Enregistrement"
+            },
+            {
+                "id": "date",
+                "description": "Date"
+            },
+           {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "lastname",
+                "description": "Nom de famille"
+            },
+            {
+                "id": "searchButton",
+                "description": "Poursuivre"
             }
         ]
     }

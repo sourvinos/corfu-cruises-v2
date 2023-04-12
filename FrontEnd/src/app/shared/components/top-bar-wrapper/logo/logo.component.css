@@ -1,7 +1,6 @@
 #logo {
     align-items: center;
     cursor: pointer;
-    display: flex;
     outline: 0;
 }
 
@@ -19,4 +18,16 @@
     line-height: 2.25rem;
     margin: 0.125rem 0 0 4rem;
     transition: all var(--theme-change-delay) ease-in;
+}
+
+@media only screen and (max-width: 430px) {
+    #logo {
+        display: none;
+    }
+}
+
+@media only screen and (min-width: 431px) {
+    #logo {
+        display: flex;
+    }
 }

@@ -12,6 +12,7 @@ import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter'
+import { MatSelectModule } from '@angular/material/select'
 import { MatTabsModule } from '@angular/material/tabs'
 // Custom
 import { CustomDateAdapter } from '../adapters/custom-date-adapter'
@@ -30,6 +31,7 @@ import { CustomDateAdapter } from '../adapters/custom-date-adapter'
         MatMenuModule,
         MatMomentDateModule,
         MatNativeDateModule,
+        MatSelectModule,
         MatTabsModule
     ],
     providers: [

@@ -14,8 +14,8 @@
             <mat-divider inset></mat-divider>
             <mat-card-subtitle>{{ getLabel("loginSubTitle") }}</mat-card-subtitle>
         </mat-card>
-        <mat-card disabled>
-            <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('ticket')">
+        <mat-card routerLink="/check-in">
+            <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('check-in')">
             <mat-card-title>{{ getLabel("checkInTitle") }}</mat-card-title>
             <mat-divider inset></mat-divider>
             <mat-card-subtitle>{{ getLabel("checkInSubTitle") }}</mat-card-subtitle>

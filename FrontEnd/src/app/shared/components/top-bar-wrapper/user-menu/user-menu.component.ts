@@ -87,6 +87,10 @@ export class UserMenuComponent {
         return this.imgIsLoaded ? '' : 'skeleton'
     }
 
+    public isLoggedIn(): boolean {
+        return ConnectedUser.id != null
+    }
+
     public loadImage(): void {
         this.imgIsLoaded = true
     }

@@ -1,10 +1,10 @@
 @media only screen and (max-width: 430px) {
     * {
         --font-size-button: 60%;
-        --font-size-input-hint: 80%;
-        --font-size-input-label: 80%;
         --font-size-checkbox-label: 60%;
-        --font-size-input: 10px;
         --font-size-h1: 0.8rem;
+        --font-size-input-hint: 8px;
+        --font-size-input-label: 13px;
+        --font-size-input: 10px;
     }
 }

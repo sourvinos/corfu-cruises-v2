@@ -2145,5 +2145,30 @@
                 "description": "Εμφανίστε τις κρατήσεις σας για ένα ημερολογιακό διάστημα."
             }
         ]
+    },
+    {
+        "feature": "checkInCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Check-in"
+            },
+            {
+                "id": "date",
+                "description": "Ημερομηνία"
+            },
+           {
+                "id": "destination",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "lastname",
+                "description": "Επώνυμο"
+            },
+            {
+                "id": "searchButton",
+                "description": "Συνέχεια"
+            }
+        ]
     }
 ]

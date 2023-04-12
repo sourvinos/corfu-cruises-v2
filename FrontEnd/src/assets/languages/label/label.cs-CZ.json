@@ -2145,5 +2145,30 @@
                 "description": "Zobrazení rezervací na určité časové období."
             }
         ]
+    },
+    {
+        "feature": "checkInCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Check-in"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+           {
+                "id": "destination",
+                "description": "Destinace"
+            },
+            {
+                "id": "lastname",
+                "description": "Příjmení"
+            },
+            {
+                "id": "searchButton",
+                "description": "Pokračovat"
+            }
+        ]
     }
 ]

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core'
 import { Router } from '@angular/router'
 // Customer
+import { DestinationService } from '../../destinations/classes/services/destination.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { NationalityService } from '../../nationalities/classes/services/nationality.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -19,9 +22,12 @@ export class IntroFormComponent {
 
     //#endregion
 
-    constructor(private messageLabelService: MessageLabelService, private router: Router) { }
+    constructor(private destinationService: DestinationService, private nationalityService: NationalityService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) {
+        this.populateStorageFromAPI()
+    }
 
     //#region public methods
+
     public onLogin(): void {
         this.router.navigate(['/login'])
     }
@@ -40,6 +46,15 @@ export class IntroFormComponent {
 
     public loadImage(): void {
         this.imgIsLoaded = true
+    }
+
+    //#endregion
+
+    //#region private methods
+ 
+    private populateStorageFromAPI(): void {
+        this.destinationService.getActive().subscribe(response => { this.sessionStorageService.saveItem('destinations', JSON.stringify(response)) })
+        this.nationalityService.getActive().subscribe(response => { this.sessionStorageService.saveItem('nationalities', JSON.stringify(response)) })
     }
 
     //#endregion

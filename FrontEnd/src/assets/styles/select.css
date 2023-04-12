@@ -1,0 +1,29 @@
+.mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+    font-size: var(--font-size-input-label);
+}
+
+.mat-select-arrow-wrapper {
+    margin-bottom: 0.5rem;
+}
+
+.mat-select-arrow {
+    color: var(--color-c);
+}
+
+.mat-select-value {
+    color: var(--color-c);
+    font-size: var(--font-size-input);
+    padding-bottom: 9px;
+}
+
+.mat-select-panel {
+    background-color: var(--color-d);
+}
+
+.mat-option {
+    font-size: var(--font-size-input-label) !important;
+}
+
+.mat-select-panel .mat-option.mat-selected:not(.mat-option-multiple) {
+    background-color: var(--color-g) !important;
+}

@@ -1,6 +1,5 @@
 :host {
     display: flex;
-    margin-left: auto;
 }
 
 #topmenu {
@@ -11,4 +10,16 @@
     display: flex;
     padding: 0;
     transition: all var(--theme-change-delay) ease-in;
+}
+
+@media only screen and (max-width: 430px) {
+    :host {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (min-width: 431px) {
+    :host {
+        margin-left: auto;
+    }
 }

@@ -2145,5 +2145,30 @@
                 "description": "Display your reservations for a time period."
             }
         ]
+    },
+    {
+        "feature": "checkInCriteria",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Check-in"
+            },
+            {
+                "id": "date",
+                "description": "Date"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "lastname",
+                "description": "Lastname"
+            },
+            {
+                "id": "searchButton",
+                "description": "Continue"
+            }
+        ]
     }
 ]

@@ -1,0 +1,47 @@
+<div id="form-wrapper">
+
+    <div id="content">
+
+        <div id="header">
+            <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+        </div>
+
+        <form [formGroup]="form" autocomplete="off" id="form">
+            <!-- Date -->
+            <div class="group-field">
+                <mat-form-field id="date">
+                    <input (dateChange)="patchFormWithSelectedDate($event)" [matDatepicker]="picker" [placeholder]="getLabel('date')" formControlName="date" matInput>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="date.hasError('required')">{{ getHint("invalid") }}</mat-error>
+                </mat-form-field>
+            </div>
+            <!-- Destination -->
+            <mat-form-field>
+                <mat-label>{{ getLabel("destination") }}</mat-label>
+                <mat-select formControlName="destination">
+                    <mat-option *ngFor="let destination of destinations" [value]="destination.id">
+                        {{ destination.description }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <!-- Lastname -->
+            <mat-form-field>
+                <input [placeholder]="getLabel('lastname')" formControlName="lastname" matInput>
+                <mat-error *ngIf="lastname.hasError('required')">{{ getHint("required") }}</mat-error>
+            </mat-form-field>
+
+        </form>
+
+    </div>
+
+    <div id="footer">
+        <div class="button-group-right">
+            <button (click)="doTasks()" [disabled]="!form.valid" class="primary" id="search" mat-flat-button>
+                <mat-icon *ngIf="!form.valid" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("searchButton") }}</span>
+            </button>
+        </div>
+    </div>
+
+</div>
