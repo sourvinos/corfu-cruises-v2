@@ -23,8 +23,8 @@ namespace API.Features.Ledger {
             this.userManager = userManager;
         }
 
-        public IEnumerable<LedgerVM> Get(string fromDate, string toDate, int[] customerIds, int[] destinationIds, int?[] shipIds) {
-            customerIds = GetConnectedCustomerIdForConnectedUser(customerIds);
+        public IEnumerable<LedgerVM> Get(string fromDate, string toDate, int[] destinationIds, int?[] shipIds) {
+            var connectedCustomerId = GetConnectedCustomerIdForConnectedUser();
             var records = context.Reservations
                 .AsNoTracking()
                 .Include(x => x.Customer)
@@ -35,9 +35,9 @@ namespace API.Features.Ledger {
                 .Include(x => x.Passengers)
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate)
                     && x.Date <= Convert.ToDateTime(toDate)
-                    && customerIds.Contains(x.CustomerId)
+                    && (connectedCustomerId == null || x.CustomerId == connectedCustomerId)
                     && destinationIds.Contains(x.DestinationId)
-                    && shipIds.Contains(x.ShipId))
+                    && (shipIds.Contains(x.ShipId) || x.ShipId == null))
                 .AsEnumerable()
                 .GroupBy(x => new { x.Customer.Id, x.Customer.Description }).OrderBy(x => x.Key.Description)
                 .Select(x => new LedgerVM {
@@ -87,8 +87,8 @@ namespace API.Features.Ledger {
                             Abbreviation = x.Port.Abbreviation
                         },
                         Ship = new SimpleEntity {
-                            Id = x.Ship.Id,
-                            Description = x.Ship.Description
+                            Id = x.Ship != null ? x.Ship.Id : 0,
+                            Description = x.Ship != null ? x.Ship.Description : "(EMPTY)"
                         },
                         TicketNo = x.TicketNo,
                         Adults = x.Adults,
@@ -104,16 +104,14 @@ namespace API.Features.Ledger {
             return records;
         }
 
-        private int[] GetConnectedCustomerIdForConnectedUser(int[] customerIds) {
+        private int? GetConnectedCustomerIdForConnectedUser() {
             var isUserAdmin = Identity.IsUserAdmin(httpContext);
             if (!isUserAdmin) {
                 var simpleUser = Identity.GetConnectedUserId(httpContext);
                 var connectedUserDetails = Identity.GetConnectedUserDetails(userManager, simpleUser);
-                int[] x = new int[1];
-                x[0] = (int)connectedUserDetails.CustomerId;
-                return x;
+                return (int)connectedUserDetails.CustomerId;
             }
-            return customerIds;
+            return null;
         }
 
     }

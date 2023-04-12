@@ -18,7 +18,6 @@ export class LedgerListResolver {
         return this.ledgerService.get(
             criteria.fromDate,
             criteria.toDate,
-            this.buildIds(criteria, 'customers'),
             this.buildIds(criteria, 'destinations'),
             this.buildIds(criteria, 'ships')
         ).pipe(

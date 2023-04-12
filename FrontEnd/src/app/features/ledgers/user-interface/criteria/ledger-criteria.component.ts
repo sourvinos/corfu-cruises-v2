@@ -42,7 +42,6 @@ export class LedgerCriteriaComponent {
     public selectedFromDate = new Date()
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
-    public customers: SimpleEntity[] = []
     public destinations: SimpleEntity[] = []
     public ships: SimpleEntity[] = []
 
@@ -58,7 +57,6 @@ export class LedgerCriteriaComponent {
         this.initForm()
         this.populateDropdowns()
         this.getConnectedUserRole()
-        this.doSimpleUserTasks()
         this.populateFieldsFromStoredVariables()
         this.setSelectedDates()
         this.setLocale()
@@ -67,7 +65,6 @@ export class LedgerCriteriaComponent {
     }
 
     ngAfterViewInit(): void {
-        this.checkGroupCheckbox('all-customers', this.customers, 'customers')
         this.checkGroupCheckbox('all-destinations', this.destinations, 'destinations')
         this.checkGroupCheckbox('all-ships', this.ships, 'ships')
     }
@@ -143,29 +140,6 @@ export class LedgerCriteriaComponent {
         })
     }
 
-    private doSimpleUserTasks(): void {
-        if (this.isAdmin == false) {
-            if (this.sessionStorageService.getItem('ledger-criteria') == '') {
-                const customer = this.customers.find(x => x.id == ConnectedUser.customerId)
-                const controls = this.form.controls['customers'] as FormArray
-                controls.push(new FormControl({
-                    'id': customer.id,
-                    'description': customer.description
-                }))
-                this.form.patchValue({
-                    fromDate: this.dateHelperService.formatDateToIso(new Date(), false),
-                    toDate: this.dateHelperService.formatDateToIso(new Date(), false),
-                })
-                setTimeout(() => {
-                    const checkbox = document.getElementById('customer' + customer.id) as HTMLInputElement
-                    if (checkbox != null) {
-                        checkbox.checked = true
-                    }
-                }, 500)
-            }
-        }
-    }
-
     private checkGroupCheckbox(allCheckbox: string, array: SimpleEntity[], formControlsArray: string): void {
         this.fieldsetCriteriaService.checkGroupCheckbox(this.form, allCheckbox, array, formControlsArray)
     }
@@ -183,13 +157,10 @@ export class LedgerCriteriaComponent {
         this.form = this.formBuilder.group({
             fromDate: ['', [Validators.required]],
             toDate: ['', [Validators.required]],
-            customers: this.formBuilder.array([], Validators.required),
             destinations: this.formBuilder.array([], Validators.required),
             ships: this.formBuilder.array([], Validators.required),
-            customersFilter: '',
             destinationsFilter: '',
             shipsFilter: '',
-            allCustomersCheckbox: '',
             allDestinationsCheckbox: '',
             allShipsCheckbox: ''
         })
@@ -204,7 +175,6 @@ export class LedgerCriteriaComponent {
     }
 
     private populateDropdowns(): void {
-        this.populateDropdownFromLocalStorage('customers')
         this.populateDropdownFromLocalStorage('destinations')
         this.populateDropdownFromLocalStorage('ships')
     }
@@ -215,10 +185,8 @@ export class LedgerCriteriaComponent {
             this.form.patchValue({
                 fromDate: this.criteria.fromDate,
                 toDate: this.criteria.toDate,
-                customers: this.addSelectedCriteriaFromStorage('customers'),
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
-                allCustomersCheckbox: this.criteria.allCustomersCheckbox,
                 allDestinationsCheckbox: this.criteria.allDestinationsCheckbox,
                 allShipsCheckbox: this.criteria.allShipsCheckbox
             })

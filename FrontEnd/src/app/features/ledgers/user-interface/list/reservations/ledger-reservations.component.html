@@ -22,7 +22,7 @@
             <tr [pSelectableRow]="reservation" style="height:32px">
                 <td class="center width-5">{{ formatDateToLocale(reservation.date) }}</td>
                 <td class="center width-6">{{ reservation.destination.abbreviation }}</td>
-                <td class="width-6">{{ reservation.ship.description }}</td>
+                <td class="width-6">{{ reservation.ship.description == "(EMPTY)" ? getEmoji('null'): reservation.ship.description }}</td>
                 <td class="center width-6">{{ reservation.port.abbreviation }}</td>
                 <td class="center width-5">{{ reservation.refNo }}</td>
                 <td class="width-5">{{ reservation.ticketNo }}</td>
