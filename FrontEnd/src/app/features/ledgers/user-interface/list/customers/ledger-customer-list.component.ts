@@ -6,7 +6,7 @@ import { Table } from 'primeng/table'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { LedgerStoredCriteriaVM } from '../../../classes/view-models/criteria/ledger-stored-criteria-vm'
+import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-criteria-vm'
 import { LedgerCustomerSummaryAndReservationsComponent } from '../summary-and-reservations/ledger-summary-and-reservations.component'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
@@ -35,7 +35,7 @@ export class LedgerCustomerListComponent {
     public records: LedgerVM[] = []
     public recordsFilteredCount: number
 
-    public criteriaPanels: LedgerStoredCriteriaVM
+    public criteriaPanels: LedgerCriteriaVM
 
     public selectedRecords: LedgerVM[] = []
     public isAdmin = false

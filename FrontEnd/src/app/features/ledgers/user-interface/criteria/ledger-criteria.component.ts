@@ -12,7 +12,7 @@ import { EmojiService } from './../../../../shared/services/emoji.service'
 import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
-import { LedgerStoredCriteriaVM } from '../../classes/view-models/criteria/ledger-stored-criteria-vm'
+import { LedgerCriteriaVM } from '../../classes/view-models/criteria/ledger-criteria-vm'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
@@ -38,7 +38,7 @@ export class LedgerCriteriaComponent {
     public icon = 'home'
     public parentUrl = '/home'
 
-    private criteria: LedgerStoredCriteriaVM
+    private criteria: LedgerCriteriaVM
     public selectedFromDate = new Date()
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
