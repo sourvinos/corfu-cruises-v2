@@ -762,7 +762,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "Ticketnummer"
+                "description": "Ticket"
             },
             {
                 "id": "adults",
@@ -2110,7 +2110,7 @@
             },
             {
                 "id": "checkInSubTitle",
-                "description": "Der Online-Check-in ist 48 Stunden bis 10 Minuten vor der Abfahrtszeit des Schiffes möglich"
+                "description": "Geben Sie Ihre Daten ein, damit das Boarding schnell und ohne Verzögerung durchgeführt werden kann"
             },
             {
                 "id": "reservationsTitle",
@@ -2154,16 +2154,28 @@
                 "description": "Einchecken"
             },
             {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Ticket"
+            },
+            {
                 "id": "date",
                 "description": "Datum"
             },
-           {
+            {
                 "id": "destination",
                 "description": "Reiseziel"
             },
             {
                 "id": "lastname",
                 "description": "Nachname"
+            },
+            {
+                "id": "firstname",
+                "description": "Vorname"
             },
             {
                 "id": "searchButton",

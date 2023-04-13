@@ -2110,7 +2110,7 @@
             },
             {
                 "id": "checkInSubTitle",
-                "description": "L'enregistrement en ligne est ouvert de 48 heures à 10 minutes avant l'heure de départ du navire"
+                "description": "Saisissez vos coordonnées pour que l'embarquement se fasse rapidement et sans délai"
             },
             {
                 "id": "reservationsTitle",
@@ -2154,16 +2154,28 @@
                 "description": "Enregistrement"
             },
             {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Billet"
+            },
+            {
                 "id": "date",
                 "description": "Date"
             },
-           {
+            {
                 "id": "destination",
                 "description": "Destination"
             },
             {
                 "id": "lastname",
                 "description": "Nom de famille"
+            },
+            {
+                "id": "firstname",
+                "description": "Nom"
             },
             {
                 "id": "searchButton",

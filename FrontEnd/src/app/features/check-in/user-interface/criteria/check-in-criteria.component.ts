@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
-import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -17,6 +17,7 @@ import { MessageLabelService } from 'src/app/shared/services/message-label.servi
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { CheckInCriteriaVM } from '../../classes/view-models/criteria/check-in-criteria-vm'
+import { CheckInService } from '../../classes/services/check-in.service'
 
 @Component({
     selector: 'check-in-criteria',
@@ -45,6 +46,7 @@ export class CheckInCriteriaComponent {
     constructor(
         private dateAdapter: DateAdapter<any>,
         private dateHelperService: DateHelperService,
+        private checkInService: CheckInService,
         private emojiService: EmojiService,
         private fieldsetCriteriaService: FieldsetCriteriaService,
         private formBuilder: FormBuilder,
@@ -90,22 +92,8 @@ export class CheckInCriteriaComponent {
 
     //#region public methods
 
-    public checkboxChange(event: any, allCheckbox: string, formControlsArray: string, array: any[], description: string): void {
-        this.fieldsetCriteriaService.checkboxChange(this.form, event, allCheckbox, formControlsArray, array, description)
-    }
-
     public doTasks(): void {
-        this.storeCriteria()
-        this.clearListFilters()
-        this.navigateToList()
-    }
-
-    public filterList(event: { target: { value: any } }, list: string | number): void {
-        this.fieldsetCriteriaService.filterList(event.target.value, this[list])
-    }
-
-    public getEmoji(emoji: string): string {
-        return this.emojiService.getEmoji(emoji)
+        this.search()
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -116,70 +104,19 @@ export class CheckInCriteriaComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public gotoToday(): void {
-        this.form.patchValue({
-            date: this.dateHelperService.formatDateToIso(new Date())
-        })
-    }
-
-    public lookup(arrayName: string, arrayId: number): boolean {
-        if (this.criteria) {
-            return this.criteria[arrayName].filter((x: { id: number }) => x.id == arrayId).length != 0 ? true : false
-        }
-    }
-
     public patchFormWithSelectedDate(event: MatDatepickerInputEvent<Date>): void {
         this.form.patchValue({
             date: this.dateHelperService.formatDateToIso(new Date(event.value))
         })
     }
 
-    public toggleAllCheckboxes(form: FormGroup, array: string, allCheckboxes: string): void {
-        this.fieldsetCriteriaService.toggleAllCheckboxes(form, array, allCheckboxes)
-    }
-
-    public updateRadioButtons(classname: any, idName: any, id: any, description: any): void {
-        const radios = document.getElementsByClassName(classname) as HTMLCollectionOf<HTMLInputElement>
-        for (let i = 0; i < radios.length; i++) {
-            radios[i].checked = false
-        }
-        const radio = document.getElementById(idName + id) as HTMLInputElement
-        radio.checked = true
-        const x = this.form.controls[classname] as FormArray
-        x.clear()
-        x.push(new FormControl({
-            'id': id,
-            'description': description
-        }))
-    }
-
     //#endregion
 
     //#region private methods
 
-    private addSelectedCriteriaFromStorage(arrayName: string): void {
-        const x = this.form.controls[arrayName] as FormArray
-        this.criteria[arrayName].forEach((element: any) => {
-            x.push(new FormControl({
-                'id': element.id,
-                'description': element.description
-            }))
-        })
-    }
-
-    private checkGroupCheckbox(allCheckbox: string, array: SimpleEntity[], formControlsArray: string): void {
-        this.fieldsetCriteriaService.checkGroupCheckbox(this.form, allCheckbox, array, formControlsArray)
-    }
-
     private cleanup(): void {
         this.unsubscribe.next()
         this.unsubscribe.unsubscribe()
-    }
-
-    private clearListFilters(): void {
-        this.sessionStorageService.deleteItems([
-            { 'item': 'embarkationList', 'when': 'always' }
-        ])
     }
 
     private getToday(): string {
@@ -188,18 +125,13 @@ export class CheckInCriteriaComponent {
 
     private initForm(): void {
         this.form = this.formBuilder.group({
+            refNo: '',
+            ticketNo: '',
             date: [this.getToday(), Validators.required],
             destination: ['', Validators.required],
-            lastname: ['', Validators.required]
+            lastname: ['', Validators.required],
+            firstname: ['', Validators.required]
         })
-    }
-
-    private navigateToList(): void {
-        this.sessionStorageService.deleteItems([
-            { 'item': 'scrollTop', 'when': 'always' },
-            { 'item': 'refNo', 'when': 'always' }
-        ])
-        this.router.navigate(['embarkation/list'])
     }
 
     private populateDropdownFromLocalStorage(table: string): void {
@@ -218,10 +150,6 @@ export class CheckInCriteriaComponent {
         this.helperService.setTabTitle(this.feature)
     }
 
-    private storeCriteria(): void {
-        this.sessionStorageService.saveItem('embarkation-criteria', JSON.stringify(this.form.value))
-    }
-
     private subscribeToInteractionService(): void {
         this.interactionService.refreshDateAdapter.pipe(takeUntil(this.unsubscribe)).subscribe(() => {
             this.setLocale()
@@ -231,9 +159,24 @@ export class CheckInCriteriaComponent {
         })
     }
 
+    private search(): void {
+        this.checkInService.get(
+            this.form.value.refNo).subscribe(response => {
+                console.log(response)
+            })
+    }
+
     //#endregion
 
     //#region getters
+
+    get refNo(): AbstractControl {
+        return this.form.get('refNo')
+    }
+
+    get ticketNo(): AbstractControl {
+        return this.form.get('ticketNo')
+    }
 
     get date(): AbstractControl {
         return this.form.get('date')
@@ -241,6 +184,10 @@ export class CheckInCriteriaComponent {
 
     get lastname(): AbstractControl {
         return this.form.get('lastname')
+    }
+
+    get firstname(): AbstractControl {
+        return this.form.get('firstname')
     }
 
     //#endregion

@@ -2110,7 +2110,7 @@
             },
             {
                 "id": "checkInSubTitle",
-                "description": "Online odbavení je možné 48 hodin až 10 minut před odjezdem lodi"
+                "description": "Zaregistrujte údaje o cestujícím, abyste mohli rychle a bez prodlení nastoupit na trajekt,ca"
             },
             {
                 "id": "reservationsTitle",
@@ -2154,16 +2154,28 @@
                 "description": "Check-in"
             },
             {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Vstupenka"
+            },
+            {
                 "id": "date",
                 "description": "Datum"
             },
-           {
+            {
                 "id": "destination",
                 "description": "Destinace"
             },
             {
                 "id": "lastname",
                 "description": "Příjmení"
+            },
+            {
+                "id": "firstname",
+                "description": "Jméno"
             },
             {
                 "id": "searchButton",

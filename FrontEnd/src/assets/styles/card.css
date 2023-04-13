@@ -7,9 +7,8 @@
     box-shadow: 0 0.5rem 2rem 0 #1f26875e;
     display: flex !important;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     transition: background-color var(--delay) ease-in !important;
-    width: 15rem;
 }
 
 .mat-card:hover {
@@ -35,7 +34,6 @@
     color: var(--color-c) !important;
     font-family: var(--font-family-asty);
     font-weight: 300;
-    height: 5rem;
     line-height: 1.25rem;
     margin: 0 0 0 0.5rem !important;
     transition: color var(--delay) ease-in !important;
@@ -47,13 +45,15 @@
 
 @media only screen and (max-width: 430px) {
     .mat-card {
+        height: 11rem;
         padding: 0.5rem !important;
+        width: 15rem;
     }
     .mat-card-title {
         font-size: 0.8rem;
     }
     .mat-card-subtitle {
-        font-size: 0.7rem;
+        font-size: 0.65rem;
     }
     .mat-card img {
         width: 50px;
@@ -63,7 +63,9 @@
 
 @media only screen and (min-width: 431px) {
     .mat-card {
-        padding: 1.5rem !important;
+        height: 17.5rem;
+        padding: 1.4rem !important;
+        width: 15rem;
     }
     .mat-card-title {
         font-size: 1.2rem;

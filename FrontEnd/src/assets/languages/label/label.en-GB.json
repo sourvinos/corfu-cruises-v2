@@ -2110,7 +2110,7 @@
             },
             {
                 "id": "checkInSubTitle",
-                "description": "Online check-in opens 48 hours to 10 minutes before the ship's departure time"
+                "description": "Enter your details so that boarding can be done quickly and without delay"
             },
             {
                 "id": "reservationsTitle",
@@ -2154,6 +2154,14 @@
                 "description": "Check-in"
             },
             {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Ticket"
+            },
+            {
                 "id": "date",
                 "description": "Date"
             },
@@ -2164,6 +2172,10 @@
             {
                 "id": "lastname",
                 "description": "Lastname"
+            },
+            {
+                "id": "firstname",
+                "description": "Firstname"
             },
             {
                 "id": "searchButton",

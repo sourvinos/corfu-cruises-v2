@@ -6,7 +6,7 @@ namespace API.Features.CheckIn {
 
     public interface ICheckInReadRepository : IRepository<Reservation> {
 
-        Task<Reservation> GetByCriteriaAsync(string date, int destinationId, string refNo, string ticketNo, string lastname, string firstname);
+        Task<Reservation> GetByCriteriaAsync(string refNo);
 
     }
 

@@ -14,9 +14,8 @@ export class CheckInService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/checkIn')
     }
 
-    get(date: string): Observable<CheckInReservationVM> {
-        return this.http.get<any>('/date/' + date)
-
+    get(refNo: string): Observable<CheckInReservationVM> {
+        return this.http.get<any>(environment.apiUrl + '/checkIn/refNo/' + refNo)
     }
 
 }

@@ -13,7 +13,7 @@ namespace API.Features.CheckIn {
 
         public CheckInReadRepository(AppDbContext context, IHttpContextAccessor httpContext, IOptions<TestingEnvironment> testingEnvironment) : base(context, httpContext, testingEnvironment) { }
 
-        public async Task<Reservation> GetByCriteriaAsync(string date, int destinationId, string refNo, string ticketNo, string lastname, string firstname) {
+        public async Task<Reservation> GetByCriteriaAsync(string refNo) {
             var reservations = await context.Reservations
                .AsNoTracking()
                .Include(x => x.Customer)
@@ -25,17 +25,17 @@ namespace API.Features.CheckIn {
                .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                .Include(x => x.Passengers).ThenInclude(x => x.Gender)
-               .Where(x => x.Date.ToString() == date && x.DestinationId == destinationId)
+            //    .Where(x => x.Date.ToString() == date && x.DestinationId == destinationId)
                .ToListAsync();
             if (refNo != "null") {
                 return reservations.Where(x => x.RefNo.ToLower() == refNo.ToLower()).FirstOrDefault();
             }
-            if (ticketNo != "null") {
-                return reservations.Where(x => x.TicketNo.ToLower() == ticketNo.ToLower()).FirstOrDefault();
-            }
-            if (lastname != "null" && firstname != "null") {
-                return reservations.Where(x => x.Passengers.Any(x => x.Lastname == lastname && x.Firstname == firstname)).FirstOrDefault(); ;
-            }
+            // if (ticketNo != "null") {
+            //     return reservations.Where(x => x.TicketNo.ToLower() == ticketNo.ToLower()).FirstOrDefault();
+            // }
+            // if (lastname != "null" && firstname != "null") {
+            //     return reservations.Where(x => x.Passengers.Any(x => x.Lastname == lastname && x.Firstname == firstname)).FirstOrDefault(); ;
+            // }
             return null;
         }
 

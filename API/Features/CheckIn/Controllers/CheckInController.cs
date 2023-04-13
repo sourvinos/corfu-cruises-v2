@@ -22,9 +22,9 @@ namespace API.Features.CheckIn {
             this.checkInReadRepo = checkInReadRepo;
         }
 
-        [HttpGet("date/{date}/destinationId/{destinationId}/refNo/{refNo}/ticketNo/{ticketNo}/lastname/{lastname}/firstname/{firstname}")]
-        public async Task<ResponseWithBody> GetByCriteriaAsync(string date, int destinationId, string refNo, string ticketNo, string lastname, string firstname) {
-            var x = await checkInReadRepo.GetByCriteriaAsync(date, destinationId, refNo, ticketNo, lastname, firstname);
+        [HttpGet("refNo/{refNo}")]
+        public async Task<ResponseWithBody> GetByCriteriaAsync(string refNo) {
+            var x = await checkInReadRepo.GetByCriteriaAsync(refNo);
             if (x != null) {
                 return new ResponseWithBody {
                     Code = 200,

@@ -762,7 +762,7 @@
             },
             {
                 "id": "ticketNo",
-                "description": "Αρ. εισιτηρίου"
+                "description": "Εισιτήριο"
             },
             {
                 "id": "adults",
@@ -2110,7 +2110,7 @@
             },
             {
                 "id": "checkInSubTitle",
-                "description": "Το online check-in ανοίγει 48 ώρες έως 10 λεπτά πριν από την προγραμματισμένη ώρα αναχώρησης"
+                "description": "Καταχωρήστε τα στοιχεία σας, ώστε η επιβίβαση να γίνει γρήγορα και χωρίς καθυστέρηση"
             },
             {
                 "id": "reservationsTitle",
@@ -2154,16 +2154,28 @@
                 "description": "Check-in"
             },
             {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Εισιτήριο"
+            },
+            {
                 "id": "date",
                 "description": "Ημερομηνία"
             },
-           {
+            {
                 "id": "destination",
                 "description": "Προορισμός"
             },
             {
                 "id": "lastname",
                 "description": "Επώνυμο"
+            },
+            {
+                "id": "firstname",
+                "description": "Ονομα"
             },
             {
                 "id": "searchButton",

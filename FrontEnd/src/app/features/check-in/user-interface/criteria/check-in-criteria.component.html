@@ -7,6 +7,16 @@
         </div>
 
         <form [formGroup]="form" autocomplete="off" id="form">
+            <!-- RefNo -->
+            <mat-form-field>
+                <input [placeholder]="getLabel('refNo')" formControlName="refNo" matInput>
+                <mat-error *ngIf="refNo.hasError('required')">{{ getHint("required") }}</mat-error>
+            </mat-form-field>
+            <!-- TicketNo -->
+            <mat-form-field>
+                <input [placeholder]="getLabel('ticketNo')" formControlName="ticketNo" matInput>
+                <mat-error *ngIf="ticketNo.hasError('required')">{{ getHint("required") }}</mat-error>
+            </mat-form-field>
             <!-- Date -->
             <div class="group-field">
                 <mat-form-field id="date">
@@ -30,7 +40,11 @@
                 <input [placeholder]="getLabel('lastname')" formControlName="lastname" matInput>
                 <mat-error *ngIf="lastname.hasError('required')">{{ getHint("required") }}</mat-error>
             </mat-form-field>
-
+            <!-- Firstname -->
+            <mat-form-field>
+                <input [placeholder]="getLabel('firstname')" formControlName="firstname" matInput>
+                <mat-error *ngIf="firstname.hasError('required')">{{ getHint("required") }}</mat-error>
+            </mat-form-field>
         </form>
 
     </div>
