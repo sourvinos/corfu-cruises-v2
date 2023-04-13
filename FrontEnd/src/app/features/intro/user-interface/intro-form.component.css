@@ -6,7 +6,9 @@
     #content {
         flex-direction: column;
         gap: 0.5rem;
-        margin: 0 auto;
+        height: 100%;
+        justify-content: flex-end;
+        margin: auto auto 2rem auto;
     }
 }
 

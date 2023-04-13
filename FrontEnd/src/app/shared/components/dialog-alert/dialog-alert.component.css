@@ -92,7 +92,6 @@ svg {
     color: var(--color-c);
     display: flex;
     font-family: var(--font-family-asty) !important;
-    font-size: var(--font-size-modal-text) !important;
     font-weight: var(--font-weight-dialog-content) !important;
     justify-content: center;
     line-height: 2rem;
@@ -118,4 +117,16 @@ svg {
     margin: 0;
     min-height: 0;
     padding: 0;
+}
+
+@media only screen and (max-width: 430px) {
+    #dialog-content {
+        font-size: var(--font-size-dialog-text);
+    }
+}
+
+@media only screen and (min-width: 431px) {
+    #dialog-content {
+        font-size: var(--font-size-dialog-text);
+    }
 }

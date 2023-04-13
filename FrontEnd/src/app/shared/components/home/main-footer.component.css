@@ -22,7 +22,7 @@ a:link:hover {
 
 @media only screen and (max-width: 430px) {
     :host {
-        margin-top: auto;
+        margin: auto 4rem 0 4rem;
     }
     #footer {
         font-size: 0.5rem;

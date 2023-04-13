@@ -113,6 +113,10 @@
             {
                 "id": "askToRefreshCalendar",
                 "message": "Zaznamenali jsme změny ve velikosti kalendáře. Chcete, abychom jej aktualizovali o nové údaje?"
+            },
+            {
+                "id": "resolutionWarning",
+                "message": "Rozlišení vaší obrazovky je příliš nízké na to, aby se aplikace správně zobrazovala. Potřebujete alespoň 1280x800 pixelů. Pokračujte na vlastní nebezpečí!"
             }
         ]
     }

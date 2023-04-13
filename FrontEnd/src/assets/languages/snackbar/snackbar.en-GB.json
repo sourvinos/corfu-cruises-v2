@@ -113,6 +113,10 @@
             {
                 "id": "askToRefreshCalendar",
                 "message": "We have detected changes in the size of the calendar. Do you want us to update it with new data?"
+            },
+            {
+                "id": "resolutionWarning",
+                "message": "Your screen resolution is too low for the app to display correctly. You need at least 1280x800 pixels. Continue at your own risk!"
             }
         ]
     }

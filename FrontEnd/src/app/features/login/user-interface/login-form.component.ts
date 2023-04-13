@@ -44,6 +44,7 @@ export class LoginFormComponent {
         this.clearStoredVariables()
         this.focusOnField()
         this.setWindowTitle()
+        this.checkScreenResolution()
     }
 
     //#endregion
@@ -76,6 +77,12 @@ export class LoginFormComponent {
     //#endregion
 
     //#region private methods
+
+    private checkScreenResolution(): void {
+        if (window.screen.width < 1280 || window.screen.height < 800) {
+            this.dialogService.open(this.messageSnackbarService.resolutionWarning(), 'warning', 'center-buttons', ['ok'])
+        }
+    }
 
     private clearStoredVariables(): void {
         this.accountService.clearSessionStorage()

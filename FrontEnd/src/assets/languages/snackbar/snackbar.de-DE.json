@@ -113,6 +113,10 @@
             {
                 "id": "askToRefreshCalendar",
                 "message": "Wir haben festgestellt, dass sich die Größe des Kalenders geändert hat. Möchten Sie, dass wir ihn mit neuen Daten aktualisieren?"
+            },
+            {
+                "id": "resolutionWarning",
+                "message": "Ihre Bildschirmauflösung ist zu gering, um von der App korrekt angezeigt zu werden. Sie benötigen mindestens 1280x800 Pixel. Weiterfahren auf eigene Gefahr!"
             }
         ]
     }

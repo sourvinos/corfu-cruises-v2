@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: space-between;
     transition: background-color var(--delay) ease-in !important;
-    width: 18rem;
+    width: 15rem;
 }
 
 .mat-card:hover {
@@ -35,6 +35,7 @@
     color: var(--color-c) !important;
     font-family: var(--font-family-asty);
     font-weight: 300;
+    height: 5rem;
     line-height: 1.25rem;
     margin: 0 0 0 0.5rem !important;
     transition: color var(--delay) ease-in !important;
@@ -68,7 +69,7 @@
         font-size: 1.2rem;
     }
     .mat-card-subtitle {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
     }
     .mat-card img {
         width: 100px;

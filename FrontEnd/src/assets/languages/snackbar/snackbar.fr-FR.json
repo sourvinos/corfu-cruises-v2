@@ -113,6 +113,10 @@
             {
                 "id": "askToRefreshCalendar",
                 "message": "Nous avons constaté des changements dans la taille du calendrier. Souhaitez-vous que nous l'actualisions avec les nouvelles données?"
+            },
+            {
+                "id": "resolutionWarning",
+                "message": "La résolution de votre écran est trop faible pour que l'application s'affiche correctement. Vous avez besoin d'au moins 1280x800 pixels. Continuez à vos risques et périls!"
             }
         ]
     }
