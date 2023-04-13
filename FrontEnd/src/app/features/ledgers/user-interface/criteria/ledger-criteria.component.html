@@ -40,9 +40,9 @@
                                 <label class="no-label" for="all-destinations"></label>
                             </div>
                         </div>
-                        <mat-form-field class="list-filter">
-                            <input (keyup)="filterList($event, 'destinations')" formControlName="destinationsFilter" id="destinationsFilter" matInput>
-                        </mat-form-field>
+                        <div class="list-filter">
+                            <input (keyup)="filterList($event, 'destinations')" formControlName="destinationsFilter" id="destinationsFilter">
+                        </div>
                     </div>
                     <div class="list-wrapper">
                         <div *ngFor="let destination of destinations" [attr.id]=destination.description>
@@ -71,9 +71,9 @@
                                 <label class="no-label" for="all-ships"></label>
                             </div>
                         </div>
-                        <mat-form-field class="list-filter">
-                            <input (keyup)="filterList($event, 'ships')" formControlName="shipsFilter" id="shipsFilter" matInput>
-                        </mat-form-field>
+                        <div class="list-filter">
+                            <input (keyup)="filterList($event, 'ships')" formControlName="shipsFilter" id="shipsFilter">
+                        </div>
                     </div>
                     <div class="list-wrapper">
                         <div *ngFor="let ship of ships" [attr.id]=ship.description>

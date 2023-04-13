@@ -22,7 +22,7 @@
     margin-left: 0.8rem;
     max-height: var(--font-size-checkbox-label) !important;
     overflow: hidden;
-    padding: 0.875rem 2.5rem 0.875rem 1.875rem;
+    padding: 0.65rem 2.5rem 0.65rem 1.875rem;
     transition: all var(--theme-change-delay) ease-in;
     width: 100%;
 }

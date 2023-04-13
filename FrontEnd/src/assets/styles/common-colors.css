@@ -8,9 +8,9 @@
     --color-table-delete-icon: #ff7a7a;
     /*  Buttons */
     --color-button-text: #ffffff;
-    --color-button-background-secondary: linear-gradient(to top, #5f80a7, #6388b4, #6891c1, #6c99cf, #71a2dc);
-    --color-button-background-delete: linear-gradient(to top, #d94040, #e14f4e, #e85e5c, #ef6b6b, #f67979);
-    --color-button-background-primary: linear-gradient(to top, #07c390, #18cc9f, #26d5ae, #34debd, #41e7cc);
+    --color-button-background-secondary: linear-gradient(180deg, #ffcf84 0%, #f39c12 100%);
+    --color-button-background-delete: linear-gradient(180deg, #e45142 0%, #c0392b 100%);
+    --color-button-background-primary: linear-gradient(180deg, #379fb6 0%, #126072 100%);
     /*  Checkboxes */
     --color-checkbox-background: #779b9b;
     --color-checkbox-label-background-hover: #9acfca42;

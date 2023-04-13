@@ -7,14 +7,36 @@
 }
 
 .fieldset {
+    backdrop-filter: blur(0.25rem);
+    background-color: transparent !important;
     height: 100%;
     width: 15rem;
+}
+
+.fieldset legend {
+    background-color: transparent !important;
+}
+
+.list-filter input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid var(--color-c);
+    color: var(--color-c);
+    margin-top: 0.5625rem;
+    outline: none;
+    padding-bottom: 0.1875rem;
+    width: 10rem;
+}
+
+.list-filter input:focus-visible {
+    border-bottom: 1px solid var(--color-input-focus);
 }
 
 .filter {
     align-items: flex-start;
     display: flex;
     flex-direction: row;
+    margin-bottom: 1rem;
 }
 
 .list-wrapper {

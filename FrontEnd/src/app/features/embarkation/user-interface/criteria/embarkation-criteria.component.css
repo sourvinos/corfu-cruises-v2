@@ -32,5 +32,11 @@
 }
 
 #date {
+    backdrop-filter: blur(0.25rem);
+    background-color: transparent !important;
     width: 15rem !important;
+}
+
+#date #goto-today {
+    margin-top: 3rem !important;
 }
