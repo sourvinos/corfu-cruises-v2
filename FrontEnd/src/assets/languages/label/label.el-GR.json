@@ -2154,6 +2154,22 @@
                 "description": "Check-in"
             },
             {
+                "id": "genericInstructions",
+                "description": "Για να συνεχίσουμε με το check-in, πρέπει να βρούμε την κράτησή σας στο σύστημα. Παρακαλούμε επιλέξτε ένα από τα ακόλουθα:"
+            },
+            {
+                "id": "haveRefNo",
+                "description": "Έχω αριθμό αναφοράς (refNo)"
+            },
+            {
+                "id": "haveTicketNo",
+                "description": "Έχω αριθμό εισιτηρίου"
+            },
+            {
+                "id": "haveNothing",
+                "description": "Δεν έχω αριθμό αναφοράς (refNo) ούτε αριθμό εισιτηρίου"
+            },
+            {
                 "id": "refNo",
                 "description": "RefNo"
             },
@@ -2180,6 +2196,10 @@
             {
                 "id": "searchButton",
                 "description": "Συνέχεια"
+            },
+            {
+                "id": "needHelp",
+                "description": "Χρειάζεστε βοήθεια;"
             }
         ]
     }

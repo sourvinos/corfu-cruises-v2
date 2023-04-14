@@ -1,23 +1,21 @@
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
-import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
+import { CheckInService } from '../../classes/services/check-in.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criteria.service'
+import { DialogService } from 'src/app/shared/services/dialog.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
-import { CheckInCriteriaVM } from '../../classes/view-models/criteria/check-in-criteria-vm'
-import { CheckInService } from '../../classes/services/check-in.service'
 
 @Component({
     selector: 'check-in-criteria',
@@ -37,27 +35,11 @@ export class CheckInCriteriaComponent {
     public parentUrl = '/home'
 
     public selected: Date | null
-    private criteria: CheckInCriteriaVM
-
     public destinations: SimpleEntity[] = []
 
     //#endregion
 
-    constructor(
-        private dateAdapter: DateAdapter<any>,
-        private dateHelperService: DateHelperService,
-        private checkInService: CheckInService,
-        private emojiService: EmojiService,
-        private fieldsetCriteriaService: FieldsetCriteriaService,
-        private formBuilder: FormBuilder,
-        private helperService: HelperService,
-        private interactionService: InteractionService,
-        private localStorageService: LocalStorageService,
-        private messageHintService: MessageInputHintService,
-        private messageLabelService: MessageLabelService,
-        private router: Router,
-        private sessionStorageService: SessionStorageService
-    ) { }
+    constructor(private checkInService: CheckInService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -69,21 +51,6 @@ export class CheckInCriteriaComponent {
         this.setTabTitle()
     }
 
-    ngDoCheck(): void {
-        if (this.selected) {
-            this.form.patchValue({
-                date: this.dateHelperService.formatDateToIso(new Date(this.selected))
-            })
-        }
-    }
-
-    ngAfterViewInit(): void {
-        // this.enableFilters()
-        // this.checkGroupCheckbox('all-destinations', this.destinations, 'destinations')
-        // this.checkGroupCheckbox('all-ports', this.ports, 'ports')
-        // this.checkGroupCheckbox('all-ships', this.ships, 'ships')
-    }
-
     ngOnDestroy(): void {
         this.cleanup()
     }
@@ -91,10 +58,6 @@ export class CheckInCriteriaComponent {
     //#endregion
 
     //#region public methods
-
-    public doTasks(): void {
-        this.search()
-    }
 
     public getHint(id: string, minmax = 0): string {
         return this.messageHintService.getDescription(id, minmax)
@@ -106,8 +69,47 @@ export class CheckInCriteriaComponent {
 
     public patchFormWithSelectedDate(event: MatDatepickerInputEvent<Date>): void {
         this.form.patchValue({
-            date: this.dateHelperService.formatDateToIso(new Date(event.value))
+            complexGroup: {
+                date: this.dateHelperService.formatDateToIso(new Date(event.value))
+            }
         })
+    }
+
+    public searchByRefNo(): void {
+        this.checkInService.getByRefNo(this.form.value.refNo).subscribe({
+            complete: () => {
+                this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok'])
+            },
+            error: () => {
+                this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', 'center-buttons', ['ok'])
+            }
+        })
+    }
+
+    public searchByTicketNo(): void {
+        this.checkInService.getByTicketNo(this.form.value.ticketNo).subscribe({
+            complete: () => {
+                this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok'])
+            },
+            error: () => {
+                this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', 'center-buttons', ['ok'])
+            }
+        })
+    }
+
+    public searchByDate(): void {
+        this.checkInService.getByDate(this.form.value.complexGroup.date, this.form.value.complexGroup.destination, this.form.value.complexGroup.lastname, this.form.value.complexGroup.firstname).subscribe({
+            complete: () => {
+                this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok'])
+            },
+            error: () => {
+                this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', 'center-buttons', ['ok'])
+            }
+        })
+    }
+
+    public showHelpDialog(): void {
+        this.dialogService.open(this.messageSnackbarService.helpDialog(), 'info', 'center-buttons', ['ok'])
     }
 
     //#endregion
@@ -127,10 +129,12 @@ export class CheckInCriteriaComponent {
         this.form = this.formBuilder.group({
             refNo: '',
             ticketNo: '',
-            date: [this.getToday(), Validators.required],
-            destination: ['', Validators.required],
-            lastname: ['', Validators.required],
-            firstname: ['', Validators.required]
+            complexGroup: this.formBuilder.group({
+                date: [this.getToday(), Validators.required],
+                destination: ['', Validators.required],
+                lastname: ['', Validators.required],
+                firstname: ['', Validators.required]
+            })
         })
     }
 
@@ -159,13 +163,6 @@ export class CheckInCriteriaComponent {
         })
     }
 
-    private search(): void {
-        this.checkInService.get(
-            this.form.value.refNo).subscribe(response => {
-                console.log(response)
-            })
-    }
-
     //#endregion
 
     //#region getters
@@ -178,16 +175,24 @@ export class CheckInCriteriaComponent {
         return this.form.get('ticketNo')
     }
 
+    get complexGroup(): AbstractControl {
+        return this.form.get('complexGroup')
+    }
+
     get date(): AbstractControl {
-        return this.form.get('date')
+        return this.form.get('complexGroup.date')
+    }
+
+    get destination(): AbstractControl {
+        return this.form.get('complexGroup.destination')
     }
 
     get lastname(): AbstractControl {
-        return this.form.get('lastname')
+        return this.form.get('complexGroup.lastname')
     }
 
     get firstname(): AbstractControl {
-        return this.form.get('firstname')
+        return this.form.get('complexGroup.firstname')
     }
 
     //#endregion

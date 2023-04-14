@@ -2154,6 +2154,22 @@
                 "description": "Check-in"
             },
             {
+                "id": "genericInstructions",
+                "description": "Abychom mohli pokračovat v odbavení, musíme vaši rezervaci najít v našem systému. Vyberte prosím jednu z následujících možností:"
+            },
+            {
+                "id": "haveRefNo",
+                "description": "Mám refNo"
+            },
+            {
+                "id": "haveTicketNo",
+                "description": "Mám číslo letenky"
+            },
+            {
+                "id": "haveNothing",
+                "description": "Nemám refNo ani číslo letenky"
+            },
+            {
                 "id": "refNo",
                 "description": "RefNo"
             },
@@ -2180,6 +2196,10 @@
             {
                 "id": "searchButton",
                 "description": "Pokračovat"
+            },
+            {
+                "id": "needHelp",
+                "description": "Potřebujete pomoc?"
             }
         ]
     }

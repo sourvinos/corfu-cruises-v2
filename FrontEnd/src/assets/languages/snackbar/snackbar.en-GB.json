@@ -117,6 +117,18 @@
             {
                 "id": "resolutionWarning",
                 "message": "Your screen resolution is too low for the app to display correctly. You need at least 1280x800 pixels. Continue at your own risk!"
+            },
+            {
+                "id": "reservationFound",
+                "message": "Your reservation was found"
+            },
+            {
+                "id": "reservationNotFound",
+                "message": "Your reservation wasn't found"
+            },
+            {
+                "id": "helpDialog",
+                "message": "You can contact the place where you made the reservation or one of us at +30 26610 72150 or +30 26620 61400"
             }
         ]
     }

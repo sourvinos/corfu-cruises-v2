@@ -109,6 +109,7 @@ button.button-icon {
 .mat-icon {
     font-size: 1rem;
     line-height: 1.375rem;
+    margin-top: -0.0625rem;
 }
 
 .mat-icon.lock {
@@ -141,4 +142,24 @@ button.button-icon {
 
 button.reset-table-filters span i {
     margin-top: -6px;
+}
+
+@media only screen and (max-width: 430px) {
+    .mat-button-wrapper span {
+        font-size: 12px;
+        margin-top: -1px;
+    }
+    .mat-button-wrapper .material-icons .navigation {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 431px) {
+    .mat-button-wrapper span {
+        font-size: 14px;
+        margin-top: 0;
+    }
+    .mat-button-wrapper .material-icons .navigation {
+        font-size: 13.6px;
+    }
 }

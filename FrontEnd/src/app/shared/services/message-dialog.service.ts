@@ -64,6 +64,9 @@ export class MessageDialogService {
     public confirmDelete(): string { return this.getDescription(this.feature, 'warning') }
     public askToRefreshCalendar(): string { return this.getDescription(this.feature, 'askToRefreshCalendar') }
     public resolutionWarning(): string { return this.getDescription(this.feature, 'resolutionWarning') }
+    public reservationFound(): string { return this.getDescription(this.feature, 'reservationFound') }
+    public reservationNotFound(): string { return this.getDescription(this.feature, 'reservationNotFound') }
+    public helpDialog(): string { return this.getDescription(this.feature, 'helpDialog') }
 
     public filterResponse(error: any, feature = 'snackbarMessages'): string {
         let returnValue = ''

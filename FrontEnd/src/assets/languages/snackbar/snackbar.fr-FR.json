@@ -117,6 +117,18 @@
             {
                 "id": "resolutionWarning",
                 "message": "La résolution de votre écran est trop faible pour que l'application s'affiche correctement. Vous avez besoin d'au moins 1280x800 pixels. Continuez à vos risques et périls!"
+            },
+            {
+                "id": "reservationFound",
+                "message": "Votre réservation a été trouvée"
+            },
+            {
+                "id": "reservationNotFound",
+                "message": "Votre réservation n'a pas été trouvée"
+            },
+            {
+                "id": "helpDialog",
+                "message": "Vous pouvez contacter le lieu où vous avez effectué la réservation ou l'un de nous au +30 26610 72150 ou au +30 26620 61400"
             }
         ]
     }

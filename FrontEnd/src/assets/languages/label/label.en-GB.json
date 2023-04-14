@@ -2154,6 +2154,22 @@
                 "description": "Check-in"
             },
             {
+                "id": "genericInstructions",
+                "description": "In order to continue with the check-in, we need to find your reservation in our system. Please select one of the following options:"
+            },
+            {
+                "id": "haveRefNo",
+                "description": "I have a refNo"
+            },
+            {
+                "id": "haveTicketNo",
+                "description": "I have a ticket number"
+            },
+            {
+                "id": "haveNothing",
+                "description": "I don't have a refNo or a ticket number"
+            },
+            {
                 "id": "refNo",
                 "description": "RefNo"
             },
@@ -2180,6 +2196,10 @@
             {
                 "id": "searchButton",
                 "description": "Continue"
+            },
+            {
+                "id": "needHelp",
+                "description": "Need help?"
             }
         ]
     }

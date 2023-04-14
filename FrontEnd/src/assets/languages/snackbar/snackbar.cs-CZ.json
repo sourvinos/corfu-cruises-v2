@@ -117,6 +117,18 @@
             {
                 "id": "resolutionWarning",
                 "message": "Rozlišení vaší obrazovky je příliš nízké na to, aby se aplikace správně zobrazovala. Potřebujete alespoň 1280x800 pixelů. Pokračujte na vlastní nebezpečí!"
+            },
+            {
+                "id": "reservationFound",
+                "message": "Vaše rezervace byla nalezena"
+            },
+            {
+                "id": "reservationNotFound",
+                "message": "Vaše rezervace nebyla nalezena"
+            },
+            {
+                "id": "helpDialog",
+                "message": "Můžete se obrátit na místo, kde jste rezervaci provedli, nebo na jednoho z nás na telefonním čísle +30 26610 72150 nebo +30 26620 61400"
             }
         ]
     }

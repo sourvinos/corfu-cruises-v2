@@ -2154,6 +2154,22 @@
                 "description": "Enregistrement"
             },
             {
+                "id": "genericInstructions",
+                "description": "Afin de poursuivre l'enregistrement, nous devons trouver votre réservation dans notre système. Veuillez sélectionner l'une des options suivantes:"
+            },
+            {
+                "id": "haveRefNo",
+                "description": "J'ai un RefNo"
+            },
+            {
+                "id": "haveTicketNo",
+                "description": "J'ai un numéro de ticket"
+            },
+            {
+                "id": "haveNothing",
+                "description": "Je n'ai pas de refNo ni de numéro de ticket"
+            },
+            {
                 "id": "refNo",
                 "description": "RefNo"
             },
@@ -2180,6 +2196,10 @@
             {
                 "id": "searchButton",
                 "description": "Poursuivre"
+            },
+            {
+                "id": "needHelp",
+                "description": "Besoin d'aide?"
             }
         ]
     }

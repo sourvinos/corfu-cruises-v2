@@ -2154,6 +2154,22 @@
                 "description": "Einchecken"
             },
             {
+                "id": "genericInstructions",
+                "description": "Um mit dem Check-in fortfahren zu können, müssen wir Ihre Reservierung in unserem System finden. Bitte wählen Sie eine der folgenden Optionen:"
+            },
+            {
+                "id": "haveRefNo",
+                "description": "Ich habe eine RefNo"
+            },
+            {
+                "id": "haveTicketNo",
+                "description": "Ich habe eine Fahrscheinnummer"
+            },
+            {
+                "id": "haveNothing",
+                "description": "Ich habe weder eine RefNo noch eine Fahrkartennummer"
+            },
+           {
                 "id": "refNo",
                 "description": "RefNo"
             },
@@ -2180,6 +2196,10 @@
             {
                 "id": "searchButton",
                 "description": "Weiter"
+            },
+            {
+                "id": "needHelp",
+                "description": "Brauchen Sie Hilfe?"
             }
         ]
     }

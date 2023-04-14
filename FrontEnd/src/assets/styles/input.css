@@ -36,7 +36,7 @@ textarea {
 .mat-form-field {
     background-color: var(--color-a) !important;
     border-radius: 10px;
-    border: 1px solid var(--color-b) !important;
+    border: 1px solid var(--color-b);
     line-height: 132%;
     margin-top: var(--form-field-margin) !important;
     padding: 0.5rem 1rem;

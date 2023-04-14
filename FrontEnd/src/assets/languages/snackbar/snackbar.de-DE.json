@@ -117,6 +117,18 @@
             {
                 "id": "resolutionWarning",
                 "message": "Ihre Bildschirmauflösung ist zu gering, um von der App korrekt angezeigt zu werden. Sie benötigen mindestens 1280x800 Pixel. Weiterfahren auf eigene Gefahr!"
+            },
+            {
+                "id": "reservationFound",
+                "message": "Ihre Reservierung wurde gefunden"
+            },
+            {
+                "id": "reservationNotFound",
+                "message": "Ihre Reservierung wurde nicht gefunden"
+            },
+            {
+                "id": "helpDialog",
+                "message": "Sie können sich an den Ort wenden, an dem Sie die Reservierung vorgenommen haben, oder an einen von uns unter +30 26610 72150 oder +30 26620 61400"
             }
         ]
     }
