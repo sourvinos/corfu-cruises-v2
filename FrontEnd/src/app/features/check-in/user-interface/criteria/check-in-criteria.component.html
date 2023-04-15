@@ -12,78 +12,84 @@
             </div>
             <mat-accordion>
                 <!-- RefNo -->
-                <mat-expansion-panel expanded="false">
+                <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>{{ getLabel("haveRefNo") }}</mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-form-field>
-                        <input class="no-margin-top" formControlName="refNo" matInput>
-                        <mat-error *ngIf="refNo.hasError('required')">{{ getHint("required") }}</mat-error>
-                    </mat-form-field>
-                    <mat-action-row>
-                        <button (click)="searchByRefNo()" [disabled]="form.value.refNo==''" class="primary" mat-flat-button>
-                            <mat-icon *ngIf="form.value.refNo==''" class="button-icon">lock</mat-icon>
-                            <span>{{ getLabel("searchButton") }}</span>
-                        </button>
-                    </mat-action-row>
+                    <ng-template matExpansionPanelContent>
+                        <mat-form-field>
+                            <input class="no-margin-top" formControlName="refNo" matInput>
+                            <mat-error *ngIf="refNo.hasError('required')">{{ getHint("required") }}</mat-error>
+                        </mat-form-field>
+                        <mat-action-row>
+                            <button (click)="searchByRefNo()" [disabled]="form.value.refNo==''" class="primary" mat-flat-button>
+                                <mat-icon *ngIf="form.value.refNo==''" class="button-icon">lock</mat-icon>
+                                <span>{{ getLabel("searchButton") }}</span>
+                            </button>
+                        </mat-action-row>
+                    </ng-template>
                 </mat-expansion-panel>
                 <!-- TicketNo -->
-                <mat-expansion-panel expanded="false">
+                <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>{{ getLabel("haveTicketNo") }}</mat-panel-title>
                     </mat-expansion-panel-header>
-                    <mat-form-field>
-                        <input class="no-margin-top" formControlName="ticketNo" matInput>
-                        <mat-error *ngIf="ticketNo.hasError('required')">{{ getHint("required") }}</mat-error>
-                    </mat-form-field>
-                    <mat-action-row>
-                        <button (click)="searchByTicketNo()" [disabled]="form.value.ticketNo==''" class="primary" mat-flat-button>
-                            <mat-icon *ngIf="form.value.ticketNo==''" class="button-icon">lock</mat-icon>
-                            <span>{{ getLabel("searchButton") }}</span>
-                        </button>
-                    </mat-action-row>
+                    <ng-template matExpansionPanelContent>
+                        <mat-form-field>
+                            <input class="no-margin-top" formControlName="ticketNo" matInput>
+                            <mat-error *ngIf="ticketNo.hasError('required')">{{ getHint("required") }}</mat-error>
+                        </mat-form-field>
+                        <mat-action-row>
+                            <button (click)="searchByTicketNo()" [disabled]="form.value.ticketNo==''" class="primary" mat-flat-button>
+                                <mat-icon *ngIf="form.value.ticketNo==''" class="button-icon">lock</mat-icon>
+                                <span>{{ getLabel("searchButton") }}</span>
+                            </button>
+                        </mat-action-row>
+                    </ng-template>
                 </mat-expansion-panel>
                 <!-- Complex group -->
-                <mat-expansion-panel expanded="false">
+                <mat-expansion-panel>
                     <mat-expansion-panel-header>
                         <mat-panel-title>{{ getLabel("haveNothing") }}</mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div formGroupName="complexGroup">
-                        <!-- Date -->
-                        <div class="group-field">
-                            <mat-form-field id="date">
-                                <input (dateChange)="patchFormWithSelectedDate($event)" [matDatepicker]="picker" [placeholder]="getLabel('date')" formControlName="date" matInput>
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                                <mat-error *ngIf="date.hasError('required')">{{ getHint("invalid") }}</mat-error>
+                    <ng-template matExpansionPanelContent>
+                        <div formGroupName="complexGroup">
+                            <!-- Date -->
+                            <div class="group-field">
+                                <mat-form-field id="date">
+                                    <input (dateChange)="patchFormWithSelectedDate($event)" [matDatepicker]="picker" [placeholder]="getLabel('date')" formControlName="date" matInput>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="date.hasError('required')">{{ getHint("invalid") }}</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <!-- Destination -->
+                            <mat-form-field>
+                                <mat-label>{{ getLabel("destination") }}</mat-label>
+                                <mat-select formControlName="destination">
+                                    <mat-option *ngFor="let destination of destinations" [value]="destination.id">
+                                        {{ destination.description }}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <!-- Lastname -->
+                            <mat-form-field>
+                                <input [placeholder]="getLabel('lastname')" formControlName="lastname" matInput>
+                                <mat-error *ngIf="lastname.hasError('required')">{{ getHint("required") }}</mat-error>
+                            </mat-form-field>
+                            <!-- Firstname -->
+                            <mat-form-field>
+                                <input [placeholder]="getLabel('firstname')" formControlName="firstname" matInput>
+                                <mat-error *ngIf="firstname.hasError('required')">{{ getHint("required") }}</mat-error>
                             </mat-form-field>
                         </div>
-                        <!-- Destination -->
-                        <mat-form-field>
-                            <mat-label>{{ getLabel("destination") }}</mat-label>
-                            <mat-select formControlName="destination">
-                                <mat-option *ngFor="let destination of destinations" [value]="destination.id">
-                                    {{ destination.description }}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <!-- Lastname -->
-                        <mat-form-field>
-                            <input [placeholder]="getLabel('lastname')" formControlName="lastname" matInput>
-                            <mat-error *ngIf="lastname.hasError('required')">{{ getHint("required") }}</mat-error>
-                        </mat-form-field>
-                        <!-- Firstname -->
-                        <mat-form-field>
-                            <input [placeholder]="getLabel('firstname')" formControlName="firstname" matInput>
-                            <mat-error *ngIf="firstname.hasError('required')">{{ getHint("required") }}</mat-error>
-                        </mat-form-field>
-                    </div>
-                    <mat-action-row>
-                        <button [disabled]="!form.valid" (click)="searchByDate()" class="primary" mat-flat-button>
-                            <mat-icon *ngIf="!form.valid" class=" button-icon">lock</mat-icon>
-                            <span>{{ getLabel("searchButton") }}</span>
-                        </button>
-                    </mat-action-row>
+                        <mat-action-row>
+                            <button [disabled]="!form.valid" (click)="searchByDate()" class="primary" mat-flat-button>
+                                <mat-icon *ngIf="!form.valid" class=" button-icon">lock</mat-icon>
+                                <span>{{ getLabel("searchButton") }}</span>
+                            </button>
+                        </mat-action-row>
+                    </ng-template>
                 </mat-expansion-panel>
             </mat-accordion>
         </form>

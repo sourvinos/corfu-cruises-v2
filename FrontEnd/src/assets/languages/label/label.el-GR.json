@@ -2202,5 +2202,78 @@
                 "description": "Χρειάζεστε βοήθεια;"
             }
         ]
+    },
+    {
+        "feature": "checkInReservationForm",
+        "labels": [
+            {
+                "id": "header",
+                "description": "Check-in"
+            },
+            {
+                "id": "reservationInstructions",
+                "description": "Μπορείτε να δείτε τα στοιχεία της κράτησής σας και να επεξεργαστείτε τα στοιχεία των ατόμων που ταξιδεύουν μαζί σας."
+            },
+            {
+                "id": "reservationExpander",
+                "description": "Σύνοψη κράτησης"
+            },
+            {
+                "id": "date",
+                "description": "Ημερομηνία"
+            },
+            {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Εισιτήριο"
+            },
+            {
+                "id": "destination",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "customer",
+                "description": "Πελάτης"
+            },
+            {
+                "id": "pickupPoint",
+                "description": "Σημείο παραλαβής"
+            },
+            {
+                "id": "adults",
+                "description": "Ενήλικες"
+            },
+            {
+                "id": "kids",
+                "description": "Παιδιά"
+            },
+            {
+                "id": "free",
+                "description": "Δωρεάν"
+            },
+            {
+                "id": "totalPax",
+                "description": "Σύνολο ατόμων"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "phones",
+                "description": "Τηλέφωνα"
+            },
+            {
+                "id": "remarks",
+                "description": "Παρατηρήσεις"
+            },
+            {
+                "id": "passengersExpander",
+                "description": "Στοιχεία επιβατών"
+            }
+        ]
     }
 ]

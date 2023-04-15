@@ -44,7 +44,6 @@ namespace API.Infrastructure.Extensions {
             } catch (Exception) {
                 return false;
             }
-
         }
 
         public static T PatchEntityWithUserId<T>(IHttpContextAccessor httpContextAccessor, T entity) where T : IBaseEntity {

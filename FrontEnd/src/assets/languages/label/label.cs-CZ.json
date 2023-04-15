@@ -2202,5 +2202,18 @@
                 "description": "Potřebujete pomoc?"
             }
         ]
+    },
+    {
+        "feature": "checkInReservationForm",
+        "labels": [
+            {
+                "id": "reservationExpander",
+                "description": "Přehled rezervací"
+            },
+            {
+                "id": "passengersExpander",
+                "description": "Údaje o cestujících"
+            }
+        ]
     }
 ]

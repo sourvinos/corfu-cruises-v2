@@ -12,16 +12,35 @@
     overflow-y: scroll;
 }
 
+#instructions {
+    align-items: center;
+    background-color: var(--color-f);
+    border-radius: 0.1875rem;
+    color: var(--color-c);
+    display: flex;
+    flex-direction: row;
+    font-family: var(--font-family-asty);
+    font-size: 0.875rem;
+    font-weight: 300;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+#instructions .material-icons {
+    color: var(--color-blue);
+}
+
 .group-field {
     display: flex;
     flex-direction: row;
 }
 
 #header {
+    align-items: center;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    margin: 0 2rem 1rem 2rem;
+    padding: 0 4rem 1rem 4rem !important;
 }
 
 #header-buttons {
@@ -47,6 +66,32 @@
 
 .hide-autocomplete {
     display: none;
+}
+
+#reservation-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.reservation-item {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.reservation-item-title {
+    color: #fbc02d;
+    font-family: var(--font-family-asty);
+    font-size: 12px;
+    font-weight: 300;
+    width: 40%;
+}
+
+.reservation-item-value {
+    color: aquamarine;
+    font-family: var(--font-family-asty);
+    font-size: 11px;
+    font-weight: 300;
 }
 
 @media only screen and (max-width: 430px) {

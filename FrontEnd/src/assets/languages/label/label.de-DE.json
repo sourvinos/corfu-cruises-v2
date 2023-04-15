@@ -2169,7 +2169,7 @@
                 "id": "haveNothing",
                 "description": "Ich habe weder eine RefNo noch eine Fahrkartennummer"
             },
-           {
+            {
                 "id": "refNo",
                 "description": "RefNo"
             },
@@ -2200,6 +2200,19 @@
             {
                 "id": "needHelp",
                 "description": "Brauchen Sie Hilfe?"
+            }
+        ]
+    },
+    {
+        "feature": "checkInReservationForm",
+        "labels": [
+            {
+                "id": "reservationExpander",
+                "description": "Übersicht über die Reservierung"
+            },
+            {
+                "id": "passengersExpander",
+                "description": "Passagierdaten"
             }
         ]
     }

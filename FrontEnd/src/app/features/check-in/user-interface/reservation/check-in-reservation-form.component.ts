@@ -5,6 +5,7 @@ import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 // Custom
+import { CheckInService } from '../../classes/services/check-in.service'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { CustomerActiveVM } from '../../../customers/classes/view-models/customer-active-vm'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
@@ -16,19 +17,18 @@ import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.d
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MatDialog } from '@angular/material/dialog'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
-import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointDropdownVM } from 'src/app/features/pickupPoints/classes/view-models/pickupPoint-dropdown-vm'
 import { PortActiveVM } from 'src/app/features/ports/classes/view-models/port-active-vm'
-import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
-import { ValidationService } from './../../../../shared/services/validation.service'
+import { ReservationHelperService } from 'src/app/features/reservations/classes/services/reservation.helper.service'
 import { ReservationReadDto } from 'src/app/features/reservations/classes/dtos/form/reservation-read-dto'
 import { ReservationWriteDto } from 'src/app/features/reservations/classes/dtos/form/reservation-write-dto'
-import { ReservationHelperService } from 'src/app/features/reservations/classes/services/reservation.helper.service'
+import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
+import { ValidationService } from './../../../../shared/services/validation.service'
 import { VoucherService } from 'src/app/features/reservations/classes/voucher/services/voucher.service'
-import { CheckInService } from '../../classes/services/check-in.service'
 
 @Component({
     selector: 'check-in-reservation-form',
@@ -42,8 +42,8 @@ export class CheckInReservationFormComponent {
 
     public record: ReservationReadDto
     private recordId: string
-    public feature = 'reservationForm'
-    public featureIcon = 'reservations'
+    public feature = 'checkInReservationForm'
+    public featureIcon = 'check-in'
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
@@ -104,6 +104,9 @@ export class CheckInReservationFormComponent {
         return this.reservationHelperService.checkForDifferenceBetweenTotalPaxAndPassengers(element, this.form.value.totalPax, this.form.value.passengers.length)
     }
 
+    public formatISODateToLocale(): string {
+        return this.dateHelperService.formatISODateToLocale(this.form.value.date)
+    }
     public getPassengerDifferenceColor(element?: any): void {
         this.passengerDifferenceColor = this.reservationHelperService.getPassengerDifferenceIcon(element, this.form.value.totalPax, this.form.value.passengers.length)
     }
@@ -423,74 +426,6 @@ export class CheckInReservationFormComponent {
     private updateTabVisibility(): void {
         this.isReservationTabVisible = true
         this.isPassengersTabVisible = false
-    }
-
-    //#endregion
-
-    //#region getters
-
-    get refNo(): AbstractControl {
-        return this.form.get('refNo')
-    }
-
-    get date(): AbstractControl {
-        return this.form.get('date')
-    }
-
-    get customer(): AbstractControl {
-        return this.form.get('customer')
-    }
-
-    get destination(): AbstractControl {
-        return this.form.get('destination')
-    }
-
-    get pickupPoint(): AbstractControl {
-        return this.form.get('pickupPoint')
-    }
-
-    get ticketNo(): AbstractControl {
-        return this.form.get('ticketNo')
-    }
-
-    get adults(): AbstractControl {
-        return this.form.get('adults')
-    }
-
-    get kids(): AbstractControl {
-        return this.form.get('kids')
-    }
-
-    get free(): AbstractControl {
-        return this.form.get('free')
-    }
-
-    get totalPax(): AbstractControl {
-        return this.form.get('totalPax')
-    }
-
-    get email(): AbstractControl {
-        return this.form.get('email')
-    }
-
-    get phones(): AbstractControl {
-        return this.form.get('phones')
-    }
-
-    get remarks(): AbstractControl {
-        return this.form.get('remarks')
-    }
-
-    get driver(): AbstractControl {
-        return this.form.get('driver')
-    }
-
-    get ship(): AbstractControl {
-        return this.form.get('ship')
-    }
-
-    get port(): AbstractControl {
-        return this.form.get('port')
     }
 
     //#endregion

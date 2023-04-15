@@ -6,91 +6,79 @@
 
     <div id="content">
         <form [formGroup]="form" autocomplete="off">
+            <div id="instructions">
+                <div class="material-icons">info</div>
+                <div>{{ getLabel("reservationInstructions") }}</div>
+            </div>
             <mat-accordion>
-                <mat-expansion-panel expanded="true">
+                <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                        <mat-panel-title>Reservation overview</mat-panel-title>
+                        <mat-panel-title>{{ getLabel("reservationExpander") }}</mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div>
-                        <div class="group-field">
-                            <!-- RefNo -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('refNo')" readonly formControlName="refNo" matInput>
-                            </mat-form-field>
-                            <!-- Ticket No -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('ticketNo')" formControlName="ticketNo" matInput readonly>
-                            </mat-form-field>
-                            <!-- Date -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('date')" readonly formControlName="date" matInput>
-                            </mat-form-field>
-                            <!-- Destination -->
-                            <mat-form-field>
-                                <input [matAutocomplete]="destinations" [placeholder]="getLabel('destination')" formControlName="destination" matInput readonly>
-                            </mat-form-field>
-                            <!-- Customer -->
-                            <mat-form-field>
-                                <input [matAutocomplete]="customers" [placeholder]="getLabel('customer')" formControlName="customer" matInput readonly>
-                            </mat-form-field>
+                    <ng-template matExpansionPanelContent>
+                        <div id="reservation-items">
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('date') }}</span>
+                                <span class="reservation-item-value">{{ formatISODateToLocale() }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('refNo') }}</span>
+                                <span class="reservation-item-value">{{ form.value.refNo }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('ticketNo') }}</span>
+                                <span class="reservation-item-value">{{ form.value.ticketNo }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('destination') }}</span>
+                                <span class="reservation-item-value"> {{ form.value.destination.description }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('customer') }}</span>
+                                <span class="reservation-item-value">{{ form.value.customer.description }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('pickupPoint') }}</span>
+                                <span class="reservation-item-value">
+                                    <span>{{ form.value.pickupPoint.description }}</span><br>
+                                    <span>{{ form.value.exactPoint }}</span><br>
+                                    <span>{{ form.value.time }}</span>
+                                </span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('adults') }}</span>
+                                <span class="reservation-item-value">{{ form.value.adults }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('kids') }}</span>
+                                <span class="reservation-item-value">{{ form.value.kids }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('free') }}</span>
+                                <span class="reservation-item-value">{{ form.value.free }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('totalPax') }}</span>
+                                <span class="reservation-item-value">{{ form.value.totalPax }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('email') }}</span>
+                                <span class="reservation-item-value">{{ form.value.email }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('phones') }}</span>
+                                <span class="reservation-item-value">{{ form.value.phones }}</span>
+                            </div>
                         </div>
-                        <div class="group-field">
-                            <!-- Pickup Point -->
-                            <mat-form-field>
-                                <input [matAutocomplete]="pickupPoints" [placeholder]="getLabel('pickupPoint')" formControlName="pickupPoint" matInput readonly>
-                            </mat-form-field>
-                            <!-- Exact Point -->
-                            <mat-form-field style="width: 30% !important;">
-                                <input [placeholder]="getLabel('exactPoint')" formControlName="exactPoint" matInput readonly>
-                            </mat-form-field>
-                            <!-- Time -->
-                            <mat-form-field style="width: 30% !important;">
-                                <input [placeholder]="getLabel('time')" formControlName="time" matInput readonly>
-                            </mat-form-field>
-                        </div>
-                        <div class="group-field">
-                            <!-- Adults -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('adults')" class="number" formControlName="adults" matInput readonly type="number">
-                            </mat-form-field>
-                            <!-- Kids -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('kids')" class="number" formControlName="kids" matInput readonly type="number">
-                            </mat-form-field>
-                            <!-- Free -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('free')" class="number" formControlName="free" matInput readonly type="number">
-                            </mat-form-field>
-                            <!-- Total Pax -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('totalPax')" class="number" formControlName="totalPax" matInput readonly type="number">
-                            </mat-form-field>
-                        </div>
-                        <div class="group-field">
-                            <!-- Email -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('email')" formControlName="email" matInput readonly>
-                            </mat-form-field>
-                            <!-- Phones -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('phones')" formControlName="phones" matInput readonly>
-                            </mat-form-field>
-                        </div>
-                        <div class="group-field" id="remarks">
-                            <!-- Remarks -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('remarks')" formControlName="remarks" matInput readonly>
-                            </mat-form-field>
-                        </div>
-                    </div>
+                    </ng-template>
                 </mat-expansion-panel>
-                <mat-expansion-panel expanded="false">
+                <mat-expansion-panel>
                     <mat-expansion-panel-header>
-                        <mat-panel-title>Passengers</mat-panel-title>
+                        <mat-panel-title>{{ getLabel("passengersExpander") }}</mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div>
+                    <ng-template matExpansionPanelContent>
                         <check-in-passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="getPassengerDifferenceColor($event)" (outputPassengers)="doTasksAfterPassengerFormIsClosed($event)"></check-in-passenger-list>
-                    </div>
+                    </ng-template>
                 </mat-expansion-panel>
             </mat-accordion>
         </form>
