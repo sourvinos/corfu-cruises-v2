@@ -27,8 +27,8 @@ import { ValidationService } from './../../../../shared/services/validation.serv
 import { ReservationReadDto } from 'src/app/features/reservations/classes/dtos/form/reservation-read-dto'
 import { ReservationWriteDto } from 'src/app/features/reservations/classes/dtos/form/reservation-write-dto'
 import { ReservationHelperService } from 'src/app/features/reservations/classes/services/reservation.helper.service'
-import { ReservationHttpService } from 'src/app/features/reservations/classes/services/reservation.http.service'
 import { VoucherService } from 'src/app/features/reservations/classes/voucher/services/voucher.service'
+import { CheckInService } from '../../classes/services/check-in.service'
 
 @Component({
     selector: 'check-in-reservation-form',
@@ -67,7 +67,7 @@ export class CheckInReservationFormComponent {
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialog: MatDialog, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private reservationHelperService: ReservationHelperService, private reservationService: ReservationHttpService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialog: MatDialog, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private reservationHelperService: ReservationHelperService, private checkInService: CheckInService, private router: Router, private sessionStorageService: SessionStorageService, private voucherService: VoucherService) { }
 
     //#region lifecycle hooks
 
@@ -158,23 +158,6 @@ export class CheckInReservationFormComponent {
         } catch (e) {
             return false
         }
-    }
-
-    public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
-            if (response) {
-                this.reservationService.delete(this.form.value.reservationId).subscribe({
-                    complete: () => {
-                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
-                        this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
-                        this.sessionStorageService.deleteItems([{ 'item': 'nationality', 'when': 'always' }])
-                    },
-                    error: (errorFromInterceptor) => {
-                        this.modalActionResultService.open(this.messageSnackbarService.filterResponse(errorFromInterceptor), 'error', ['ok'])
-                    }
-                })
-            }
-        })
     }
 
     public onSave(): void {
@@ -381,11 +364,8 @@ export class CheckInReservationFormComponent {
     }
 
     private saveRecord(reservation: ReservationWriteDto): void {
-        this.reservationService.save(reservation).subscribe({
+        this.checkInService.save(reservation).subscribe({
             next: (response) => {
-                const date = this.dateHelperService.formatDateToIso(new Date(this.form.value.date))
-                this.sessionStorageService.saveItem('date', date)
-                this.parentUrl = '/reservations/date/' + date
                 this.helperService.doPostSaveFormTasks('RefNo: ' + this.reservationHelperService.formatRefNo(response.message), 'success', this.parentUrl, this.form)
                 this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
                 this.sessionStorageService.deleteItems([{ 'item': 'nationality', 'when': 'always' }])

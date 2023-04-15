@@ -1,0 +1,46 @@
+<div id="passenger-list">
+
+    <div *ngIf="passengers" id="table-wrapper">
+        <p-table #table [scrollable]="true" [value]="passengers" [virtualScrollItemSize]="32" [virtualScroll]="false" dataKey="id" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th class="width-5"></th>
+                    <th class="width-20" pSortableColumn="lastname">{{ getLabel('headerLastname') }}</th>
+                    <th class="width-20" pSortableColumn="firstname">{{ getLabel('headerFirstname') }}</th>
+                    <th class="width-10" pSortableColumn="nationality.description">{{ getLabel('headerCountry') }}</th>
+                    <th class="width-5"></th>
+                </tr>
+                <tr>
+                    <th></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'lastname', 'contains')" [value]="$any(table).filters['lastname']?.value"></th>
+                    <th><input type="text" class="p-inputtext" (input)="table.filter($event.target.value, 'firstname', 'contains')" [value]="$any(table).filters['firstname']?.value"></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-record>
+                <tr (click)="highlightRow(record.id)" (dblclick)="editRecord(record)" [attr.id]="record.id" style="height:32px">
+                    <td class="center width-4">
+                        <span>{{ getEmbarkationStatusIcon(record.isCheckedIn) }}</span>
+                    </td>
+                    <td class="width-20">{{ record.lastname }}</td>
+                    <td class="width-20">{{ record.firstname }}</td>
+                    <td class="align-vertical width-10">
+                        <img [src]="getNationalityIcon(record.nationality.code)" />
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;{{ record.nationality.description }}</span>
+                    </td>
+                    <td class="center width-5"><i (click)="deleteRow(record)" class="far fa-trash-alt"></i></td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+    <div id="footer">
+        <div class="passenger-count-wrapper">
+            <span class="primary material-icons">group</span>
+            <span class="passenger-count">{{ passengers != null ? passengers.length : 0 }}</span>
+        </div>
+        <button (click)="newRow()" class="secondary" mat-flat-button tabindex="-1">{{ getLabel("newPassengerButton") }}</button>
+    </div>
+
+</div>

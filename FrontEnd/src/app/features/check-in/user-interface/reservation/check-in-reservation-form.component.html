@@ -88,6 +88,9 @@
                     <mat-expansion-panel-header>
                         <mat-panel-title>Passengers</mat-panel-title>
                     </mat-expansion-panel-header>
+                    <div>
+                        <check-in-passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="getPassengerDifferenceColor($event)" (outputPassengers)="doTasksAfterPassengerFormIsClosed($event)"></check-in-passenger-list>
+                    </div>
                 </mat-expansion-panel>
             </mat-accordion>
         </form>

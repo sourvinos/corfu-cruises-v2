@@ -1,0 +1,15 @@
+#dialog-header {
+    margin: 0 0 1.1rem 1rem;
+}
+
+#dialog-content {
+    overflow-y: hidden;
+}
+
+#dialog-footer {
+    margin: 2rem 1rem 0 0;
+}
+
+.styled-input-square {
+    margin: 1rem 0 0 1rem;
+}

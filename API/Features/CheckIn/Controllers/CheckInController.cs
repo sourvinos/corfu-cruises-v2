@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using API.Features.Reservations;
+using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
@@ -14,12 +15,14 @@ namespace API.Features.CheckIn {
 
         private readonly IMapper mapper;
         private readonly ICheckInReadRepository checkInReadRepo;
+        private readonly ICheckInUpdateRepository checkInUpdateRepo;
 
         #endregion
 
-        public CheckInController(IMapper mapper, ICheckInReadRepository checkInReadRepo) {
+        public CheckInController(IMapper mapper, ICheckInReadRepository checkInReadRepo, ICheckInUpdateRepository checkInUpdateRepo) {
             this.mapper = mapper;
             this.checkInReadRepo = checkInReadRepo;
+            this.checkInUpdateRepo = checkInUpdateRepo;
         }
 
         [HttpGet("refNo/{refNo}")]
@@ -65,6 +68,25 @@ namespace API.Features.CheckIn {
                     Icon = Icons.Info.ToString(),
                     Message = ApiMessages.OK(),
                     Body = mapper.Map<Reservation, ReservationReadDto>(x)
+                };
+            } else {
+                throw new CustomException() {
+                    ResponseCode = 404
+                };
+            }
+        }
+
+        [HttpPut]
+        [ServiceFilter(typeof(ModelValidationAttribute))]
+        public async Task<Response> Put([FromBody] ReservationWriteDto reservation) {
+            var x = await checkInReadRepo.GetByIdAsync(reservation.ReservationId.ToString(), false);
+            reservation.UserId = x.UserId;
+            if (x != null) {
+                checkInUpdateRepo.Update(reservation.ReservationId, mapper.Map<ReservationWriteDto, Reservation>(reservation));
+                return new Response {
+                    Code = 200,
+                    Icon = Icons.Success.ToString(),
+                    Message = reservation.RefNo
                 };
             } else {
                 throw new CustomException() {

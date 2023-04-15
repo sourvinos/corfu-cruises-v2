@@ -31,7 +31,6 @@ namespace API.Features.Genders {
         }
 
         [HttpGet("[action]")]
-        [Authorize(Roles = "user, admin")]
         public async Task<IEnumerable<GenderActiveVM>> GetActiveAsync() {
             return await genderRepo.GetActiveAsync();
         }

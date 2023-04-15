@@ -56,6 +56,29 @@ namespace API.Features.CheckIn {
             return await reservation;
         }
 
+        public async Task<Reservation> GetByIdAsync(string reservationId, bool includeTables) {
+            return includeTables
+                ? await context.Reservations
+                    .AsNoTracking()
+                    .Include(x => x.Customer)
+                    .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
+                    .Include(x => x.Destination)
+                    .Include(x => x.Driver)
+                    .Include(x => x.Ship)
+                    .Include(x => x.User)
+                    .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
+                    .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
+                    .Include(x => x.Passengers).ThenInclude(x => x.Gender)
+                    .Where(x => x.ReservationId.ToString() == reservationId)
+                    .SingleOrDefaultAsync()
+                : await context.Reservations
+                    .AsNoTracking()
+                    .Include(x => x.Passengers)
+                    .Where(x => x.ReservationId.ToString() == reservationId)
+                    .SingleOrDefaultAsync();
+        }
+
+
     }
 
 }

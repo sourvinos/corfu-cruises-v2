@@ -26,9 +26,7 @@ export class HttpDataService {
     }
 
     public save(formData: any): Observable<any> {
-        return formData.id == 0
-            ? this.http.post<any>(this.url, formData)
-            : this.http.put<any>(this.url, formData)
+        return this.http.put<any>(this.url, formData)
     }
 
     public delete(id: string | number): Observable<any> {

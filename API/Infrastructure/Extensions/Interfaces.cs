@@ -56,6 +56,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IAvailabilityCalendar, AvailabilityCalendar>();
             // Check-In
             services.AddTransient<ICheckInReadRepository, CheckInReadRepository>();
+            services.AddTransient<ICheckInUpdateRepository, CheckInUpdateRepository>();
             // Validations
             services.AddTransient<ICoachRouteValidation, CoachRouteValidation>();
             services.AddTransient<IPickupPointValidation, PickupPointValidation>();
