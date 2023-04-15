@@ -1,24 +1,34 @@
-#content {
+#list {
     display: flex;
     flex-direction: column;
     height: 100%;
-    justify-content: center;
     margin: 0 auto;
 }
 
+#header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4rem 1rem 4rem !important;
+}
+
+#content {
+    height: 100%;
+    margin: 0 2rem 0 2rem;
+}
+
 #instructions {
+    align-items: center;
     background-color: var(--color-f);
-    border-radius: 3px;
-    border: 1px solid var(--color-b);
+    border-radius: 0.1875rem;
     color: var(--color-c);
     display: flex;
     flex-direction: row;
     font-family: var(--font-family-asty);
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 300;
     gap: 0.5rem;
     margin-bottom: 1rem;
-    max-width: 30rem;
     padding: 1rem;
 }
 
@@ -29,6 +39,8 @@
 #form {
     flex-direction: column !important;
     gap: 0.5rem;
+    height: 100%;
+    margin: 0 2rem 0 2rem;
     width: 80% !important;
 }
 
@@ -37,15 +49,16 @@
 }
 
 .no-margin-top {
-    margin-top: -28px !important;
+    margin-top: -1.75rem !important;
 }
 
 #footer {
+    align-items: center;
     color: var(--color-c);
     display: flex;
     flex-direction: row;
     font-family: var(--font-family-asty);
-    font-size: 12px;
+    font-size: 0.75rem;
     font-weight: 300;
     gap: 0.5rem;
     justify-content: center;
@@ -79,12 +92,5 @@
 @media only screen and (min-width: 431px) {
     #form {
         margin: 1rem auto 0 auto;
-    }
-    #content {
-        padding: 0 4rem;
-        width: 90%;
-    }
-    #header {
-        margin: 0 auto 0.5rem 0 !important;
     }
 }

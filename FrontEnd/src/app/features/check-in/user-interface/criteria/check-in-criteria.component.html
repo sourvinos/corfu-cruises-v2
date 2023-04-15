@@ -1,11 +1,10 @@
-<div id="form-wrapper">
+<div id="list">
+
+    <div id="header">
+        <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
+    </div>
 
     <div id="content">
-
-        <div id="header">
-            <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
-        </div>
-
         <form [formGroup]="form" autocomplete="off">
             <div id="instructions">
                 <div class="material-icons">info</div>
@@ -88,7 +87,6 @@
                 </mat-expansion-panel>
             </mat-accordion>
         </form>
-
     </div>
 
     <div id="footer">

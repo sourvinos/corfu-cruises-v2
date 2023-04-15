@@ -16,11 +16,12 @@ import { MessageInputHintService } from 'src/app/shared/services/message-input-h
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'check-in-criteria',
     templateUrl: './check-in-criteria.component.html',
-    styleUrls: ['../../../../../assets/styles/forms.css', './check-in-criteria.component.css']
+    styleUrls: ['./check-in-criteria.component.css']
 })
 
 export class CheckInCriteriaComponent {
@@ -39,7 +40,21 @@ export class CheckInCriteriaComponent {
 
     //#endregion
 
-    constructor(private checkInService: CheckInService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private sessionStorageService: SessionStorageService) { }
+    constructor(
+        private checkInService: CheckInService,
+        private dateAdapter: DateAdapter<any>,
+        private dateHelperService: DateHelperService,
+        private dialogService: DialogService,
+        private formBuilder: FormBuilder,
+        private helperService: HelperService,
+        private interactionService: InteractionService,
+        private localStorageService: LocalStorageService,
+        private messageHintService: MessageInputHintService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageDialogService,
+        private sessionStorageService: SessionStorageService,
+        private router: Router
+    ) { }
 
     //#region lifecycle hooks
 
@@ -79,6 +94,7 @@ export class CheckInCriteriaComponent {
         this.checkInService.getByRefNo(this.form.value.refNo).subscribe({
             complete: () => {
                 this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok'])
+                this.router.navigate([this.parentUrl, 'id'])
             },
             error: () => {
                 this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', 'center-buttons', ['ok'])
@@ -88,8 +104,11 @@ export class CheckInCriteriaComponent {
 
     public searchByTicketNo(): void {
         this.checkInService.getByTicketNo(this.form.value.ticketNo).subscribe({
-            complete: () => {
-                this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok'])
+            next: (x) => {
+                this.localStorageService.saveItem('reservation', JSON.stringify(x.body))
+                this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok']).subscribe(() => {
+                    this.router.navigate(['check-in/', x.body.reservationId])
+                })
             },
             error: () => {
                 this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', 'center-buttons', ['ok'])

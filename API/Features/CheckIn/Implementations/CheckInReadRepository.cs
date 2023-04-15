@@ -18,8 +18,8 @@ namespace API.Features.CheckIn {
             var reservation = context.Reservations
                .AsNoTracking()
                .Include(x => x.Customer)
-               .Include(x => x.PickupPoint)
                .Include(x => x.Destination)
+               .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                .Include(x => x.Passengers).ThenInclude(x => x.Gender)
@@ -31,8 +31,8 @@ namespace API.Features.CheckIn {
             var reservation = context.Reservations
                .AsNoTracking()
                .Include(x => x.Customer)
-               .Include(x => x.PickupPoint)
                .Include(x => x.Destination)
+               .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                .Include(x => x.Passengers).ThenInclude(x => x.Gender)
@@ -44,8 +44,8 @@ namespace API.Features.CheckIn {
             var reservation = context.Reservations
                .AsNoTracking()
                .Include(x => x.Customer)
-               .Include(x => x.PickupPoint)
                .Include(x => x.Destination)
+               .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
                .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                .Include(x => x.Passengers).ThenInclude(x => x.Gender)
