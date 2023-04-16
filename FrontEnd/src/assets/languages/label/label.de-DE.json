@@ -2155,7 +2155,7 @@
             },
             {
                 "id": "genericInstructions",
-                "description": "Um mit dem Check-in fortfahren zu können, müssen wir Ihre Reservierung in unserem System finden. Bitte wählen Sie eine der folgenden Optionen:"
+                "description": "Um fortzufahren, müssen wir Ihre Reservierung im System finden. Bitte wählen Sie eine der folgenden Möglichkeiten:"
             },
             {
                 "id": "haveRefNo",
@@ -2207,12 +2207,76 @@
         "feature": "checkInReservationForm",
         "labels": [
             {
+                "id": "header",
+                "description": "Check-in"
+            },
+            {
+                "id": "reservationInstructions",
+                "description": "Die Buchungsdetails werden angezeigt und Sie können die Details der mitreisenden Personen bearbeiten."
+            },
+            {
                 "id": "reservationExpander",
-                "description": "Übersicht über die Reservierung"
+                "description": "Zusammenfassung der Reservierung"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Fahrschein"
+            },
+            {
+                "id": "destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "customer",
+                "description": "Kunde"
+            },
+            {
+                "id": "pickupPoint",
+                "description": "Abholpunkt"
+            },
+            {
+                "id": "adults",
+                "description": "Erwachsene"
+            },
+            {
+                "id": "kids",
+                "description": "Kinder"
+            },
+            {
+                "id": "free",
+                "description": "Frei"
+            },
+            {
+                "id": "totalPax",
+                "description": "Total pax"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "phones",
+                "description": "Telefonnummern"
+            },
+            {
+                "id": "remarks",
+                "description": "Kommentare"
             },
             {
                 "id": "passengersExpander",
-                "description": "Passagierdaten"
+                "description": "Daten der Passagiere"
+            },
+            {
+                "id": "saveButton",
+                "description": "Speichern"
             }
         ]
     }

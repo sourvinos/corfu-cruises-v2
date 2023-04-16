@@ -2155,7 +2155,7 @@
             },
             {
                 "id": "genericInstructions",
-                "description": "Abychom mohli pokračovat v odbavení, musíme vaši rezervaci najít v našem systému. Vyberte prosím jednu z následujících možností:"
+                "description": "Abychom mohli pokračovat, musíme v systému najít vaši rezervaci. Vyberte prosím jednu z následujících možností:"
             },
             {
                 "id": "haveRefNo",
@@ -2207,12 +2207,76 @@
         "feature": "checkInReservationForm",
         "labels": [
             {
+                "id": "header",
+                "description": "Check-in"
+            },
+            {
+                "id": "reservationInstructions",
+                "description": "Zobrazí se údaje o rezervaci a můžete upravit údaje o osobách, které s vámi cestují."
+            },
+            {
                 "id": "reservationExpander",
-                "description": "Přehled rezervací"
+                "description": "Shrnutí rezervace"
+            },
+            {
+                "id": "date",
+                "description": "Datum"
+            },
+            {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Vstupenka"
+            },
+            {
+                "id": "destination",
+                "description": "Destinace"
+            },
+            {
+                "id": "customer",
+                "description": "Zákazník"
+            },
+            {
+                "id": "pickupPoint",
+                "description": "Místo vyzvednutí"
+            },
+            {
+                "id": "adults",
+                "description": "Dospělí"
+            },
+            {
+                "id": "kids",
+                "description": "Děti"
+            },
+            {
+                "id": "free",
+                "description": "Zdarma"
+            },
+            {
+                "id": "totalPax",
+                "description": "Total pax"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "phones",
+                "description": "Telefon"
+            },
+            {
+                "id": "remarks",
+                "description": "Komentáře"
             },
             {
                 "id": "passengersExpander",
                 "description": "Údaje o cestujících"
+            },
+            {
+                "id": "saveButton",
+                "description": "Uložit"
             }
         ]
     }

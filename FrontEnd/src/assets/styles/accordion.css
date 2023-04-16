@@ -22,7 +22,7 @@
 }
 
 .mat-expansion-panel-body {
-    padding: 0.5rem 1rem 0.5rem 1rem !important;
+    padding: 1rem !important;
 }
 
 .mat-form-field {
@@ -31,7 +31,8 @@
 
 .mat-action-row {
     border-top-style: none !important;
-    padding: 0 2rem 1rem 2rem !important;
+    margin: 0 1rem 0 1rem;
+    padding: 0 !important;
 }
 
 .mat-action-row .mat-button {

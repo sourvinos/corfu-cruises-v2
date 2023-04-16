@@ -2155,7 +2155,7 @@
             },
             {
                 "id": "genericInstructions",
-                "description": "In order to continue with the check-in, we need to find your reservation in our system. Please select one of the following options:"
+                "description": "To continue, we need to find your reservation in the system. Please select one of the following:"
             },
             {
                 "id": "haveRefNo",
@@ -2207,12 +2207,76 @@
         "feature": "checkInReservationForm",
         "labels": [
             {
+                "id": "header",
+                "description": "Check-in"
+            },
+            {
+                "id": "reservationInstructions",
+                "description": "The booking details are displayed and you can edit the details of the people travelling with you."
+            },
+            {
                 "id": "reservationExpander",
                 "description": "Reservation summary"
             },
             {
+                "id": "date",
+                "description": "Date"
+            },
+            {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Ticket"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "customer",
+                "description": "Customer"
+            },
+            {
+                "id": "pickupPoint",
+                "description": "Pickup point"
+            },
+            {
+                "id": "adults",
+                "description": "Adults"
+            },
+            {
+                "id": "kids",
+                "description": "Kids"
+            },
+            {
+                "id": "free",
+                "description": "Free"
+            },
+            {
+                "id": "totalPax",
+                "description": "Total pax"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "phones",
+                "description": "Phones"
+            },
+            {
+                "id": "remarks",
+                "description": "Remarks"
+            },
+            {
                 "id": "passengersExpander",
-                "description": "Passenger details"
+                "description": "Passenger data"
+            },
+            {
+                "id": "saveButton",
+                "description": "Save"
             }
         ]
     }

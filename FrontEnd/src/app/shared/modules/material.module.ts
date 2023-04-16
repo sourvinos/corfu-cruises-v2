@@ -11,7 +11,6 @@ import { MatExpansionModule } from '@angular/material/expansion'
 import { MatFormFieldModule, MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field'
 import { MatIconModule } from '@angular/material/icon'
 import { MatInputModule } from '@angular/material/input'
-import { MatListModule } from '@angular/material/list'
 import { MatMenuModule } from '@angular/material/menu'
 import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter'
 import { MatSelectModule } from '@angular/material/select'
@@ -31,7 +30,6 @@ import { CustomDateAdapter } from '../adapters/custom-date-adapter'
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        MatListModule,
         MatMenuModule,
         MatMomentDateModule,
         MatNativeDateModule,

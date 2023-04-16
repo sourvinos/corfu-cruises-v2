@@ -109,6 +109,8 @@ export class PassengerListComponent {
 
     private showEmptyForm(): void {
         const dialog = this.dialog.open(PassengerFormComponent, {
+            height: '20rem',
+            width: '20rem',
             data: {
                 id: 0,
                 reservationId: this.reservationId,

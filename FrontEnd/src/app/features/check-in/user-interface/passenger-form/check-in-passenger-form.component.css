@@ -1,9 +1,15 @@
 #dialog-header {
-    margin: 0 0 1.1rem 1rem;
+    display: none !important;
 }
 
 #dialog-content {
+    display: flex;
+    flex-direction: column;
     overflow-y: hidden;
+}
+
+.mat-dialog-container {
+    padding: 1.5rem 1.5rem !important;
 }
 
 #dialog-footer {

@@ -2155,7 +2155,7 @@
             },
             {
                 "id": "genericInstructions",
-                "description": "Afin de poursuivre l'enregistrement, nous devons trouver votre réservation dans notre système. Veuillez sélectionner l'une des options suivantes:"
+                "description": "Pour continuer, nous devons trouver votre réservation dans le système. Veuillez sélectionner l'une des options suivantes:"
             },
             {
                 "id": "haveRefNo",
@@ -2207,12 +2207,76 @@
         "feature": "checkInReservationForm",
         "labels": [
             {
+                "id": "header",
+                "description": "Check-in"
+            },
+            {
+                "id": "reservationInstructions",
+                "description": "Les détails de la réservation s'affichent et vous pouvez modifier les détails des personnes qui voyagent avec vous."
+            },
+            {
                 "id": "reservationExpander",
-                "description": "Aperçu de la réservation"
+                "description": "Résumé de la réservation"
+            },
+            {
+                "id": "date",
+                "description": "Date"
+            },
+            {
+                "id": "refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "ticketNo",
+                "description": "Billet"
+            },
+            {
+                "id": "destination",
+                "description": "Destination"
+            },
+            {
+                "id": "customer",
+                "description": "Client"
+            },
+            {
+                "id": "pickupPoint",
+                "description": "Point d'embarquement"
+            },
+            {
+                "id": "adults",
+                "description": "Adultes"
+            },
+            {
+                "id": "kids",
+                "description": "Enfants"
+            },
+            {
+                "id": "free",
+                "description": "Gratuit"
+            },
+            {
+                "id": "totalPax",
+                "description": "Total pax"
+            },
+            {
+                "id": "email",
+                "description": "Email"
+            },
+            {
+                "id": "phones",
+                "description": "Téléphone"
+            },
+            {
+                "id": "remarks",
+                "description": "Commentaires"
             },
             {
                 "id": "passengersExpander",
-                "description": "Informations sur les passagers"
+                "description": "Données passagers"
+            },
+            {
+                "id": "saveButton",
+                "description": "Enregistrer"
             }
         ]
     }

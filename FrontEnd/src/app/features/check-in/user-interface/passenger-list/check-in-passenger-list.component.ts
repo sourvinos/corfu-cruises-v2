@@ -46,7 +46,7 @@ export class CheckInPassengerListComponent {
         return this.messageLabelService.getDescription(this.feature, id)
     }
 
-    public deleteRow(record: CheckInPassengerReadDto): void {
+    public deleteRecord(record: CheckInPassengerReadDto): void {
         const index = this.passengers.indexOf(record)
         this.passengers.splice(index, 1)
         this.outputPassengerCount.emit(this.passengers.length)
@@ -78,6 +78,7 @@ export class CheckInPassengerListComponent {
     private sendPassengerToForm(passenger: CheckInPassengerReadDto): void {
         const dialog = this.dialog.open(CheckInPassengerFormComponent, {
             disableClose: true,
+            width: '400px',
             data: {
                 id: passenger.id,
                 reservationId: passenger.reservationId,
@@ -109,6 +110,7 @@ export class CheckInPassengerListComponent {
 
     private showEmptyForm(): void {
         const dialog = this.dialog.open(CheckInPassengerFormComponent, {
+            width: '400px',
             data: {
                 id: 0,
                 reservationId: this.reservationId,

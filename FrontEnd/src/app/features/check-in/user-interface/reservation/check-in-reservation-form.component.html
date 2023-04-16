@@ -11,19 +11,19 @@
                 <div>{{ getLabel("reservationInstructions") }}</div>
             </div>
             <mat-accordion>
-                <mat-expansion-panel>
+                <mat-expansion-panel expanded="true">
                     <mat-expansion-panel-header>
                         <mat-panel-title>{{ getLabel("reservationExpander") }}</mat-panel-title>
                     </mat-expansion-panel-header>
                     <ng-template matExpansionPanelContent>
                         <div id="reservation-items">
                             <div class="reservation-item">
-                                <span class="reservation-item-title">{{ getLabel('date') }}</span>
-                                <span class="reservation-item-value">{{ formatISODateToLocale() }}</span>
-                            </div>
-                            <div class="reservation-item">
                                 <span class="reservation-item-title">{{ getLabel('refNo') }}</span>
                                 <span class="reservation-item-value">{{ form.value.refNo }}</span>
+                            </div>
+                            <div class="reservation-item">
+                                <span class="reservation-item-title">{{ getLabel('date') }}</span>
+                                <span class="reservation-item-value">{{ formatISODateToLocale() }}</span>
                             </div>
                             <div class="reservation-item">
                                 <span class="reservation-item-title">{{ getLabel('ticketNo') }}</span>
@@ -94,46 +94,3 @@
     </div>
 
 </div>
-
-<mat-autocomplete #destinations="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of dropdownDestinations | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #customers="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of dropdownCustomers | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #pickupPoints="matAutocomplete" (optionSelected)="updateFieldsAfterPickupPointSelection($event.option.value)" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of dropdownPickupPoints | async" [value]="option">
-        <span>{{ option.description.substring(0, 30) }}</span>
-        <span>{{ option.exactPoint.substring(0, 30) }}</span>
-        <span>{{ option.time }}</span>
-    </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #drivers="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of dropdownDrivers | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #ships="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of dropdownShips | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
-
-<mat-autocomplete #ports="matAutocomplete" [displayWith]="autocompleteFields" autoActiveFirstOption>
-    <mat-option *ngFor="let option of dropdownPorts | async" [value]="option">
-        {{ option.description }}
-    </mat-option>
-</mat-autocomplete>
-
-<ng-template #voucherMenu xPosition="before">
-    <button mat-menu-item class="reverse" (click)="doVoucherTasksOnServer()"><span>{{ getLabel('createVoucherOnServer') }}</span></button>
-    <button mat-menu-item class="reverse" (click)="doVoucherTasksOnClient()"><span>{{ getLabel('createVoucherOnClient') }}</span></button>
-</ng-template>

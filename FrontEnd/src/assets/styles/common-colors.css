@@ -59,4 +59,7 @@
     --color-red: #d94040;
     --color-yellow: #f39c12;
     --color-blue: #2980b9;
+    /* Check-in */
+    --reservation-item-label: #efba24;
+    --reservation-item-title: #65bfa2;
 }

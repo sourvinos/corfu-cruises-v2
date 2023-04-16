@@ -6,15 +6,34 @@
     margin: 0;
 }
 
-#passenger-list {
+#passengers {
     display: flex;
     flex-direction: column;
-    height: 100%;
-    margin-top: 0.7rem;
+}
+
+.passenger {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.lastname {
+    color: var(--reservation-item-label);
+    font-family: var(--font-family-asty);
+    font-weight: 300;
+}
+
+.firstname {
+    color: var(--reservation-item-title);
+    font-family: var(--font-family-asty);
+    font-weight: 300;
 }
 
 #footer {
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    margin: 1rem 0.5rem 0 0.5rem;
 }
 
 .passenger-count-wrapper {
@@ -27,7 +46,7 @@
     font-size: 2.1875rem;
 }
 
-.passenger-count-wrapper .material-icons.primary {
+.material-icons.primary {
     color: var(--color-input-focus);
 }
 
@@ -47,4 +66,36 @@
 
 .fa-trash-alt {
     color: var(--color-table-delete-icon) !important;
+}
+
+@media only screen and (max-width: 430px) {
+    .lastname, .firstname, .passenger-count {
+        font-size: 12px;
+    }
+}
+
+@media only screen and (min-width: 431px) {
+    .lastname, .firstname, .passenger-count {
+        font-size: 14px;
+    }
+}
+
+.edit {
+    color: var(--color-yellow);
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+}
+
+.delete {
+    color: var(--color-red);
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+}
+
+.fullname {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }

@@ -60,7 +60,7 @@ button .mat-button-wrapper img {
 }
 
 button.mat-mini-fab {
-    background-color: var(--color-b) !important;
+    background-color: var(--color-b);
     box-shadow: none !important;
     color: var(--color-a) !important;
     height: 38px !important;
@@ -146,8 +146,7 @@ button.reset-table-filters span i {
 
 @media only screen and (max-width: 430px) {
     .mat-button-wrapper span {
-        font-size: 12px;
-        margin-top: -1px;
+        font-size: 13px;
     }
     .mat-button-wrapper .material-icons .navigation {
         font-size: 12px;
@@ -162,4 +161,10 @@ button.reset-table-filters span i {
     .mat-button-wrapper .material-icons .navigation {
         font-size: 13.6px;
     }
+}
+
+.material-icons {
+    align-items: center;
+    color: var(--color-button-text);
+    display: flex;
 }
