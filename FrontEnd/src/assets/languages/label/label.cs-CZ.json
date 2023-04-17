@@ -2212,7 +2212,7 @@
             },
             {
                 "id": "reservationInstructions",
-                "description": "Zobrazí se údaje o rezervaci a můžete upravit údaje o osobách, které s vámi cestují."
+                "description": "Zobrazí se rezervace a můžete upravit údaje o osobách, které s vámi cestují."
             },
             {
                 "id": "reservationExpander",

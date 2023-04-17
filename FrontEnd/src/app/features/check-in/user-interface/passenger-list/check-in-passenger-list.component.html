@@ -1,14 +1,14 @@
 <div id="passenger-list">
 
     <div *ngIf="passengers" id="passengers">
-        <div *ngFor="let passenger of passengers" class="passengers">
+        <div *ngFor="let passenger of passengers">
             <div class="passenger">
                 <div class="fullname">
                     <span class="lastname">{{ passenger.lastname }}</span>
                     <span class="firstname">{{ passenger.firstname }}</span>
                 </div>
-                <span (click)="editRecord(passenger)" class="clickable edit material-icons">edit</span>
-                <span (click)="deleteRecord(passenger)"class="clickable delete material-icons">delete</span>
+                <span (click)="editRecord(passenger)" class="clickable edit-icon material-icons">edit</span>
+                <span (click)="deleteRecord(passenger)" class="clickable delete-icon material-icons">delete</span>
             </div>
         </div>
     </div>

@@ -96,8 +96,12 @@
     </div>
 
     <div id="footer">
-        <span class="material-icons">help</span>
-        <span (click)="showHelpDialog()">{{ getLabel("needHelp") }}</span>
+        <div class="button-group-right">
+            <button (click)="showHelpDialog()" class="primary" mat-flat-button>
+                <mat-icon class="button-icon">help</mat-icon>
+                <span>{{ getLabel("needHelp") }}</span>
+            </button>
+        </div>
     </div>
 
 </div>

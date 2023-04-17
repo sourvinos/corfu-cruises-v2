@@ -1,32 +1,26 @@
-:host {
-    height: 100%;
-}
-
-#table-wrapper {
-    margin: 0;
-}
-
-#passengers {
-    display: flex;
-    flex-direction: column;
-}
-
 .passenger {
     display: flex;
     flex-direction: row;
     gap: 1rem;
 }
 
-.lastname {
-    color: var(--reservation-item-label);
+.fullname {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.lastname, .firstname {
     font-family: var(--font-family-asty);
     font-weight: 300;
 }
 
+.lastname {
+    color: var(--reservation-item-label);
+}
+
 .firstname {
     color: var(--reservation-item-title);
-    font-family: var(--font-family-asty);
-    font-weight: 300;
 }
 
 #footer {
@@ -58,44 +52,33 @@
 .passenger-count {
     color: var(--color-c);
     font-family: var(--font-family-asty);
-    font-size: 1rem;
     font-weight: 300;
     margin-top: 0.1875rem;
     transition: all var(--theme-change-delay) ease-in;
 }
 
-.fa-trash-alt {
-    color: var(--color-table-delete-icon) !important;
+.edit-icon {
+    align-items: center;
+    color: var(--color-yellow);
+    display: flex;
+    font-size: 1.1875rem;
+}
+
+.delete-icon {
+    align-items: center;
+    color: var(--color-red);
+    display: flex;
+    font-size: 1.1875rem;
 }
 
 @media only screen and (max-width: 430px) {
     .lastname, .firstname, .passenger-count {
-        font-size: 12px;
+        font-size: 0.75rem;
     }
 }
 
 @media only screen and (min-width: 431px) {
     .lastname, .firstname, .passenger-count {
-        font-size: 14px;
+        font-size: 0.875rem;
     }
-}
-
-.edit {
-    color: var(--color-yellow);
-    font-size: 19px;
-    display: flex;
-    align-items: center;
-}
-
-.delete {
-    color: var(--color-red);
-    font-size: 19px;
-    display: flex;
-    align-items: center;
-}
-
-.fullname {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
 }

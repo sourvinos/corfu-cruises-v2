@@ -2212,7 +2212,7 @@
             },
             {
                 "id": "reservationInstructions",
-                "description": "Les détails de la réservation s'affichent et vous pouvez modifier les détails des personnes qui voyagent avec vous."
+                "description": "La réservation est affichée et vous pouvez modifier les détails des personnes qui voyagent avec vous."
             },
             {
                 "id": "reservationExpander",

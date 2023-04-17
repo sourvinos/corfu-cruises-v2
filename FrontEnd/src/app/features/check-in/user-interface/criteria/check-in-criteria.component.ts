@@ -92,9 +92,11 @@ export class CheckInCriteriaComponent {
 
     public searchByRefNo(): void {
         this.checkInService.getByRefNo(this.form.value.refNo).subscribe({
-            complete: () => {
-                this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok'])
-                this.router.navigate([this.parentUrl, 'id'])
+            next: (x) => {
+                this.localStorageService.saveItem('reservation', JSON.stringify(x.body))
+                this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok']).subscribe(() => {
+                    this.router.navigate(['check-in/', x.body.reservationId])
+                })
             },
             error: () => {
                 this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', 'center-buttons', ['ok'])

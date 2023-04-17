@@ -31,7 +31,7 @@ export class DialogService {
     private openObjectDialog(apiObject: any, iconStyle: string, justifyFooter = 'center', actions: string[]): Observable<boolean> {
         this.response = this.dialog.open(DialogAlertComponent, {
             height: '30rem',
-            width: '30rem',
+            width: '25rem',
             data: {
                 message: apiObject,
                 justifyFooter: justifyFooter,
@@ -45,7 +45,7 @@ export class DialogService {
     private openStringDialog(message: string | object, iconStyle: string, justifyFooter = 'center', actions: string[]): Observable<boolean> {
         this.response = this.dialog.open(DialogAlertComponent, {
             height: '30rem',
-            width: '30rem',
+            width: '25rem',
             data: {
                 message: message,
                 iconStyle: iconStyle,

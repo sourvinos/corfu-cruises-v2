@@ -2212,7 +2212,7 @@
             },
             {
                 "id": "reservationInstructions",
-                "description": "Die Buchungsdetails werden angezeigt und Sie können die Details der mitreisenden Personen bearbeiten."
+                "description": "Die Reservierung wird angezeigt und Sie können die Angaben zu den mitreisenden Personen bearbeiten."
             },
             {
                 "id": "reservationExpander",
