@@ -5,7 +5,7 @@ import { Subject } from 'rxjs'
 // Custom
 import { CheckInService } from '../../classes/services/check-in.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
@@ -170,7 +170,7 @@ export class CheckInReservationFormComponent {
     }
 
     private saveRecord(reservation: ReservationWriteDto): void {
-        this.checkInService.save(reservation).subscribe({
+        this.checkInService.save(reservation).pipe(indicate(this.isLoading)).subscribe({
             next: (response) => {
                 this.helperService.doPostSaveFormTasks('RefNo: ' + this.reservationHelperService.formatRefNo(response.message), 'success', this.parentUrl, this.form)
                 this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])

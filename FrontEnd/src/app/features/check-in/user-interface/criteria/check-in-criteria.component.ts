@@ -1,22 +1,22 @@
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
+import { MatDatepickerInputEvent } from '@angular/material/datepicker'
+import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 // Custom
 import { CheckInService } from '../../classes/services/check-in.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
-import { HelperService } from 'src/app/shared/services/helper.service'
+import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
-import { MatDatepickerInputEvent } from '@angular/material/datepicker'
 import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
-import { Router } from '@angular/router'
 
 @Component({
     selector: 'check-in-criteria',
@@ -35,26 +35,13 @@ export class CheckInCriteriaComponent {
     public icon = 'home'
     public parentUrl = '/home'
 
+    public isLoading = new Subject<boolean>()
     public selected: Date | null
     public destinations: SimpleEntity[] = []
 
     //#endregion
 
-    constructor(
-        private checkInService: CheckInService,
-        private dateAdapter: DateAdapter<any>,
-        private dateHelperService: DateHelperService,
-        private dialogService: DialogService,
-        private formBuilder: FormBuilder,
-        private helperService: HelperService,
-        private interactionService: InteractionService,
-        private localStorageService: LocalStorageService,
-        private messageHintService: MessageInputHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageDialogService,
-        private sessionStorageService: SessionStorageService,
-        private router: Router
-    ) { }
+    constructor(private checkInService: CheckInService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -91,7 +78,7 @@ export class CheckInCriteriaComponent {
     }
 
     public searchByRefNo(): void {
-        this.checkInService.getByRefNo(this.form.value.refNo).subscribe({
+        this.checkInService.getByRefNo(this.form.value.refNo).pipe(indicate(this.isLoading)).subscribe({
             next: (x) => {
                 this.localStorageService.saveItem('reservation', JSON.stringify(x.body))
                 this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok']).subscribe(() => {
@@ -105,7 +92,7 @@ export class CheckInCriteriaComponent {
     }
 
     public searchByTicketNo(): void {
-        this.checkInService.getByTicketNo(this.form.value.ticketNo).subscribe({
+        this.checkInService.getByTicketNo(this.form.value.ticketNo).pipe(indicate(this.isLoading)).subscribe({
             next: (x) => {
                 this.localStorageService.saveItem('reservation', JSON.stringify(x.body))
                 this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok']).subscribe(() => {

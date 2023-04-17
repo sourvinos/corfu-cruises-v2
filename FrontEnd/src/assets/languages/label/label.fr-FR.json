@@ -2211,10 +2211,6 @@
                 "description": "Check-in"
             },
             {
-                "id": "reservationInstructions",
-                "description": "La réservation est affichée et vous pouvez modifier les détails des personnes qui voyagent avec vous."
-            },
-            {
                 "id": "reservationExpander",
                 "description": "Résumé de la réservation"
             },

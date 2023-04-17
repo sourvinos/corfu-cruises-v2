@@ -5,11 +5,7 @@
     </div>
 
     <div id="content">
-        <form [formGroup]="form" autocomplete="off">
-            <div id="instructions">
-                <div class="material-icons">info</div>
-                <div>{{ getLabel("reservationInstructions") }}</div>
-            </div>
+        <form [formGroup]="form">
             <mat-accordion>
                 <mat-expansion-panel expanded="true">
                     <mat-expansion-panel-header>
@@ -95,6 +91,10 @@
                 <span>{{ getLabel("saveButton") }}</span>
             </button>
         </div>
+    </div>
+
+    <div *ngIf="isLoading | async">
+        <loading-spinner></loading-spinner>
     </div>
 
 </div>

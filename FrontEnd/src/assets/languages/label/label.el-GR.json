@@ -2211,10 +2211,6 @@
                 "description": "Check-in"
             },
             {
-                "id": "reservationInstructions",
-                "description": "Εμφανίζεται η κράτηση και μπορείτε να επεξεργαστείτε τα στοιχεία των ατόμων που ταξιδεύουν μαζί σας."
-            },
-            {
                 "id": "reservationExpander",
                 "description": "Σύνοψη κράτησης"
             },
