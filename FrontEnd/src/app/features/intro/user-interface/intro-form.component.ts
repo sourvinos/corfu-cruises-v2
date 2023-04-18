@@ -23,9 +23,15 @@ export class IntroFormComponent {
 
     //#endregion
 
-    constructor(private destinationService: DestinationService, private genderService: GenderService, private nationalityService: NationalityService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) {
+    constructor(private destinationService: DestinationService, private genderService: GenderService, private nationalityService: NationalityService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
+
+    //#region lifecycle hooks
+
+    ngOnInit(): void {
         this.populateStorageFromAPI()
     }
+
+    //#endregion
 
     //#region public methods
 

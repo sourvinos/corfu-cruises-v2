@@ -107,8 +107,11 @@ export class CheckInCriteriaComponent {
 
     public searchByDate(): void {
         this.checkInService.getByDate(this.form.value.complexGroup.date, this.form.value.complexGroup.destination, this.form.value.complexGroup.lastname, this.form.value.complexGroup.firstname).subscribe({
-            complete: () => {
-                this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok'])
+            next: (x) => {
+                this.localStorageService.saveItem('reservation', JSON.stringify(x.body))
+                this.dialogService.open(this.messageSnackbarService.reservationFound(), 'info', 'center-buttons', ['ok']).subscribe(() => {
+                    this.router.navigate(['check-in/', x.body.reservationId])
+                })
             },
             error: () => {
                 this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', 'center-buttons', ['ok'])
