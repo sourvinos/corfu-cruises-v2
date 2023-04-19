@@ -1,4 +1,5 @@
 using System.Linq;
+using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using AutoMapper;
 
@@ -23,7 +24,7 @@ namespace API.Features.Embarkation {
                     Ship = new SimpleEntity { Id = reservation.Ship.Id, Description = reservation.Ship.Description },
                     TotalPax = reservation.TotalPax,
                     EmbarkedPassengers = reservation.Passengers.Count(x => x.IsCheckedIn),
-                    EmbarkationStatus = GetEmbarkationStatus(),
+                    EmbarkationStatus = DetermineEmbarkationStatus(reservation),
                     PassengerIds = reservation.Passengers.Select(x => x.Id).ToArray(),
                     Passengers = reservation.Passengers.Select(passenger => new EmbarkationFinalPassengerVM {
                         Id = passenger.Id,
@@ -36,10 +37,24 @@ namespace API.Features.Embarkation {
                 })));
         }
 
-        private static SimpleEntity GetEmbarkationStatus() {
+        private static SimpleEntity DetermineEmbarkationStatus(Reservation reservation) {
+            var passengers = reservation.Passengers.Count;
+            var embarkedPassengers = reservation.Passengers.Count(x => x.IsCheckedIn);
+            if (passengers == 0 || embarkedPassengers == 0) {
+                return EmbarkationStatus(2, "None");
+            } else {
+                if (passengers == embarkedPassengers) {
+                    return EmbarkationStatus(1, "All");
+                } else {
+                    return EmbarkationStatus(3, "Some");
+                }
+            }
+        }
+
+        private static SimpleEntity EmbarkationStatus(int id, string status) {
             return new SimpleEntity {
-                Id = 1,
-                Description = "Something"
+                Id = id,
+                Description = status
             };
         }
 
