@@ -130,3 +130,8 @@
     border-bottom: 0.25rem solid;
     margin-top: auto;
 }
+
+.mat-menu-item span {
+    color: var(--color-c);
+    font-size: 0.75rem !important;
+}

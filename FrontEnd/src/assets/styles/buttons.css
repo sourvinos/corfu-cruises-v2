@@ -30,21 +30,21 @@ button.delete {
     color: var(--color-button-text) !important;
 }
 
-button.reverse {
-    color: var(--color-c) !important;
-}
-
 button.bold {
     font-weight: 700 !important;
 }
 
-button.transparent {
+button.mat-focus-indicator {
     background-color: transparent !important;
+}
+
+button.transparent {
+    background-color: transparent;
     color: var(--color-c) !important;
 }
 
 button.transparent:hover {
-    background-color: var(--color-x) !important;
+    background-color: transparent !important;
 }
 
 button.tab {
@@ -63,26 +63,22 @@ button.mat-mini-fab {
     background-color: var(--color-b);
     box-shadow: none !important;
     color: var(--color-a) !important;
-    height: 38px !important;
     margin: 0 !important;
     outline: 0 !important;
-    width: 38px !important;
 }
 
 button.mat-mini-fab .mat-button-wrapper {
     color: var(--color-c);
     line-height: 1.4375rem !important;
     margin: 0 auto;
-    padding: 0 !important;
-    transition: all var(--hover-change-delay) ease-in;
 }
 
-button.mat-mini-fab .mat-button-wrapper .material-icons {
-    margin-top: -0.25rem !important;
+button.mat-mini-fab .mat-button-wrapper .material-icons.reverse {
+    color: var(--color-c);
 }
 
-button.mat-mini-fab:hover:not(.transparent) {
-    background-color: var(--color-c) !important;
+button.mat-mini-fab:hover {
+    background-color: transparent !important;
     color: var(--color-a) !important;
 }
 
@@ -145,7 +141,7 @@ button.reset-table-filters span i {
 }
 
 @media only screen and (max-width: 430px) {
-    .mat-button-wrapper span {
+    .button-text {
         font-size: 13px;
     }
     .mat-button-wrapper .material-icons .navigation {
@@ -154,7 +150,7 @@ button.reset-table-filters span i {
 }
 
 @media only screen and (min-width: 431px) {
-    .mat-button-wrapper span {
+    .button-text {
         font-size: 14px;
         margin-top: 0;
     }

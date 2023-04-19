@@ -231,6 +231,6 @@
 </mat-autocomplete>
 
 <ng-template #voucherMenu xPosition="before">
-    <button mat-menu-item class="reverse" (click)="doVoucherTasksOnServer()"><span>{{ getLabel('createVoucherOnServer') }}</span></button>
-    <button mat-menu-item class="reverse" (click)="doVoucherTasksOnClient()"><span>{{ getLabel('createVoucherOnClient') }}</span></button>
+    <button mat-menu-item (click)="doVoucherTasksOnServer()"><span>{{ getLabel('createVoucherOnServer') }}</span></button>
+    <button mat-menu-item (click)="doVoucherTasksOnClient()"><span>{{ getLabel('createVoucherOnClient') }}</span></button>
 </ng-template>

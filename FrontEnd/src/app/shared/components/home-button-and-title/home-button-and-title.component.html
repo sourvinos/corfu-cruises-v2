@@ -1,6 +1,6 @@
 <div id="navigation">
     <button *ngIf="parentUrl != null" [routerLink]="[parentUrl]" class="navigation transparent" mat-mini-fab>
-        <span class="material-icons" id="goBack">{{ getIcon() }}</span>
+        <span class="material-icons reverse" id="goBack">{{ getIcon() }}</span>
     </button>
     <div id="title">
         <img *ngIf="featureIcon" [src]="getFeatureIcon()" style="height: 38px; width: 38px" (load)="loadImage()" [ngClass]="imageIsLoading()" id="feature-icon">
