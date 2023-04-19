@@ -29,24 +29,6 @@
                         </mat-action-row>
                     </ng-template>
                 </mat-expansion-panel>
-                <!-- TicketNo -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>{{ getLabel("haveTicketNo") }}</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <ng-template matExpansionPanelContent>
-                        <mat-form-field>
-                            <input class="no-margin-top" formControlName="ticketNo" matInput>
-                            <mat-error *ngIf="ticketNo.hasError('required')">{{ getHint("required") }}</mat-error>
-                        </mat-form-field>
-                        <mat-action-row>
-                            <button (click)="searchByTicketNo()" [disabled]="form.value.ticketNo==''" class="primary" mat-flat-button>
-                                <mat-icon *ngIf="form.value.ticketNo==''" class="button-icon">lock</mat-icon>
-                                <span>{{ getLabel("searchButton") }}</span>
-                            </button>
-                        </mat-action-row>
-                    </ng-template>
-                </mat-expansion-panel>
                 <!-- Complex group -->
                 <mat-expansion-panel>
                     <mat-expansion-panel-header>

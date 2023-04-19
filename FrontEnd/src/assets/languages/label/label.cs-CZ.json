@@ -2162,12 +2162,8 @@
                 "description": "Mám refNo"
             },
             {
-                "id": "haveTicketNo",
-                "description": "Mám číslo letenky"
-            },
-            {
                 "id": "haveNothing",
-                "description": "Nemám refNo ani číslo letenky"
+                "description": "Nemám refNo"
             },
             {
                 "id": "refNo",

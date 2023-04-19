@@ -2162,12 +2162,8 @@
                 "description": "Ich habe eine RefNo"
             },
             {
-                "id": "haveTicketNo",
-                "description": "Ich habe eine Fahrscheinnummer"
-            },
-            {
                 "id": "haveNothing",
-                "description": "Ich habe weder eine RefNo noch eine Fahrkartennummer"
+                "description": "Ich habe keine RefNo"
             },
             {
                 "id": "refNo",

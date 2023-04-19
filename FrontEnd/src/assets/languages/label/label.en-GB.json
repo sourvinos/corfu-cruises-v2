@@ -2162,12 +2162,8 @@
                 "description": "I have a refNo"
             },
             {
-                "id": "haveTicketNo",
-                "description": "I have a ticket number"
-            },
-            {
                 "id": "haveNothing",
-                "description": "I don't have a refNo or a ticket number"
+                "description": "I don't have a refNo"
             },
             {
                 "id": "refNo",

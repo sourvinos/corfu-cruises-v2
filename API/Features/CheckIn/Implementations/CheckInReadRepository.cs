@@ -27,19 +27,6 @@ namespace API.Features.CheckIn {
             return await reservation;
         }
 
-        public async Task<Reservation> GetByTicketNoAsync(string ticketNo) {
-            var reservation = context.Reservations
-               .AsNoTracking()
-               .Include(x => x.Customer)
-               .Include(x => x.Destination)
-               .Include(x => x.PickupPoint).ThenInclude(y => y.CoachRoute).ThenInclude(z => z.Port)
-               .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
-               .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
-               .Include(x => x.Passengers).ThenInclude(x => x.Gender)
-               .Where(x => x.TicketNo.ToLower() == ticketNo.ToLower()).FirstOrDefaultAsync();
-            return await reservation;
-        }
-
         public async Task<Reservation> GetByDateAsync(string date, int destinationId, string lastname, string firstname) {
             var reservation = context.Reservations
                .AsNoTracking()
@@ -51,8 +38,8 @@ namespace API.Features.CheckIn {
                .Include(x => x.Passengers).ThenInclude(x => x.Gender)
                .Where(x => x.Date == Convert.ToDateTime(date)
                     && x.DestinationId == destinationId
-                    && x.Passengers.Any(x => x.Lastname.Trim() == lastname.Trim())
-                    && x.Passengers.Any(x => x.Firstname.Trim() == firstname.Trim())).FirstOrDefaultAsync();
+                    && x.Passengers.Any(x => x.Lastname.Trim().ToLower() == lastname.Trim().ToLower())
+                    && x.Passengers.Any(x => x.Firstname.Trim().ToLower() == firstname.Trim().ToLower())).FirstOrDefaultAsync();
             return await reservation;
         }
 

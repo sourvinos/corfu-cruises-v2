@@ -2162,12 +2162,8 @@
                 "description": "Έχω αριθμό αναφοράς (refNo)"
             },
             {
-                "id": "haveTicketNo",
-                "description": "Έχω αριθμό εισιτηρίου"
-            },
-            {
                 "id": "haveNothing",
-                "description": "Δεν έχω αριθμό αναφοράς (refNo) ούτε αριθμό εισιτηρίου"
+                "description": "Δεν έχω αριθμό αναφοράς (refNo)"
             },
             {
                 "id": "refNo",
