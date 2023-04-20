@@ -2155,7 +2155,7 @@
             },
             {
                 "id": "genericInstructions",
-                "description": "Um fortzufahren, müssen wir Ihre Reservierung im System finden. Bitte wählen Sie eine der folgenden Möglichkeiten:"
+                "description": "Um fortzufahren, müssen wir Ihre Reservierung finden. Bitte wählen Sie eine der folgenden Möglichkeiten:"
             },
             {
                 "id": "haveRefNo",
@@ -2265,6 +2265,10 @@
             {
                 "id": "passengersExpander",
                 "description": "Daten der Passagiere"
+            },
+            {
+                "id": "sendEmailButton",
+                "description": "An meine E-Mail senden"
             },
             {
                 "id": "saveButton",

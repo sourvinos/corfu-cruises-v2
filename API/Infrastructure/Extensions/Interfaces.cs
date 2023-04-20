@@ -57,6 +57,7 @@ namespace API.Infrastructure.Extensions {
             // Check-In
             services.AddTransient<ICheckInReadRepository, CheckInReadRepository>();
             services.AddTransient<ICheckInUpdateRepository, CheckInUpdateRepository>();
+            services.AddTransient<ICheckInEmailSender, CheckInEmailSender>();
             // Validations
             services.AddTransient<ICoachRouteValidation, CoachRouteValidation>();
             services.AddTransient<IPickupPointValidation, PickupPointValidation>();

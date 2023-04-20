@@ -2155,7 +2155,7 @@
             },
             {
                 "id": "genericInstructions",
-                "description": "To continue, we need to find your reservation in the system. Please select one of the following:"
+                "description": "To continue, we need to find your reservation. Please select one of the following:"
             },
             {
                 "id": "haveRefNo",
@@ -2265,6 +2265,10 @@
             {
                 "id": "passengersExpander",
                 "description": "Passenger data"
+            },
+            {
+                "id": "sendEmailButton",
+                "description": "Send to my email"
             },
             {
                 "id": "saveButton",

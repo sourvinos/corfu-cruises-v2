@@ -2155,7 +2155,7 @@
             },
             {
                 "id": "genericInstructions",
-                "description": "Abychom mohli pokračovat, musíme v systému najít vaši rezervaci. Vyberte prosím jednu z následujících možností:"
+                "description": "Abychom mohli pokračovat, musíme najít vaši rezervaci. Vyberte prosím jednu z následujících možností:"
             },
             {
                 "id": "haveRefNo",
@@ -2265,6 +2265,10 @@
             {
                 "id": "passengersExpander",
                 "description": "Údaje o cestujících"
+            },
+            {
+                "id": "sendEmailButton",
+                "description": "Odeslat na můj e-mail"
             },
             {
                 "id": "saveButton",

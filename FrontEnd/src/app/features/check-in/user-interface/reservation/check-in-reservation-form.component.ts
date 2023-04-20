@@ -3,6 +3,7 @@ import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup } from '@angular/forms'
 import { Subject } from 'rxjs'
 // Custom
+import { CheckInEmailDialogService } from '../../classes/services/check-in-email-dialog.service'
 import { CheckInService } from '../../classes/services/check-in.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
@@ -44,7 +45,7 @@ export class CheckInReservationFormComponent {
 
     //#endregion
 
-    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private reservationHelperService: ReservationHelperService, private checkInService: CheckInService, private sessionStorageService: SessionStorageService) { }
+    constructor(private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private checkInEmailDialogService: CheckInEmailDialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private reservationHelperService: ReservationHelperService, private checkInService: CheckInService, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -63,6 +64,7 @@ export class CheckInReservationFormComponent {
     //#endregion
 
     //#region public methods
+
     public checkForDifferenceBetweenTotalPaxAndPassengers(element?: any): boolean {
         return this.reservationHelperService.checkForDifferenceBetweenTotalPaxAndPassengers(element, this.form.value.totalPax, this.form.value.passengers.length)
     }
@@ -90,6 +92,27 @@ export class CheckInReservationFormComponent {
 
     public onSave(): void {
         this.saveRecord(this.flattenForm())
+    }
+
+    public onSendEmail(): void {
+        this.checkInEmailDialogService.open(this.form.value.email, 'info', 'center-buttons', ['ok']).subscribe(response => {
+            if (response) {
+                this.form.patchValue((
+                    {
+                        email: response
+                    }))
+                this.checkInService.sendEmail(this.form.value.email).pipe(indicate(this.isLoading)).subscribe({
+                    complete: () => {
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.emailSent(), 'success', '', this.form, false, false)
+                    },
+                    error: () => {
+                        this.helperService.doPostSaveFormTasks(this.messageSnackbarService.emailNotSent(), 'error', '', this.form)
+                    }
+                })
+
+                // this.helperService.doPostSaveFormTasks(this.messageSnackbarService.emailSent(), 'success', '', this.form, true, false)
+            }
+        })
     }
 
     //#endregion

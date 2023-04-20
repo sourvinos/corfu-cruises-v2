@@ -13,16 +13,18 @@ namespace API.Features.CheckIn {
 
         #region variables
 
-        private readonly IMapper mapper;
+        private readonly ICheckInEmailSender checkInEmailSender;
         private readonly ICheckInReadRepository checkInReadRepo;
         private readonly ICheckInUpdateRepository checkInUpdateRepo;
+        private readonly IMapper mapper;
 
         #endregion
 
-        public CheckInController(IMapper mapper, ICheckInReadRepository checkInReadRepo, ICheckInUpdateRepository checkInUpdateRepo) {
-            this.mapper = mapper;
+        public CheckInController(ICheckInEmailSender checkInEmailSender, IMapper mapper, ICheckInReadRepository checkInReadRepo, ICheckInUpdateRepository checkInUpdateRepo) {
+            this.checkInEmailSender = checkInEmailSender;
             this.checkInReadRepo = checkInReadRepo;
             this.checkInUpdateRepo = checkInUpdateRepo;
+            this.mapper = mapper;
         }
 
         [HttpGet("refNo/{refNo}")]
@@ -76,6 +78,11 @@ namespace API.Features.CheckIn {
                     ResponseCode = 404
                 };
             }
+        }
+
+        [HttpPost("[action]")]
+        public SendEmailResponse SendCheckInDetails([FromBody] CheckInEmailVM email) {
+            return checkInEmailSender.SendEmail(email);
         }
 
     }

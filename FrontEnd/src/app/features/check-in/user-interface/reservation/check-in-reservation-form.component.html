@@ -86,6 +86,10 @@
 
     <div id="footer">
         <div class="button-group-right">
+            <button (click)="onSendEmail()" [disabled]="!form.valid || !checkForDifferenceBetweenTotalPaxAndPassengers()" class="secondary" mat-flat-button>
+                <mat-icon *ngIf="!form.valid || !checkForDifferenceBetweenTotalPaxAndPassengers()" class="button-icon">lock</mat-icon>
+                <span>{{ getLabel("sendEmailButton") }}</span>
+            </button>
             <button (click)="onSave()" [disabled]="!form.valid || !checkForDifferenceBetweenTotalPaxAndPassengers()" class="primary" mat-flat-button>
                 <mat-icon *ngIf="!form.valid || !checkForDifferenceBetweenTotalPaxAndPassengers()" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("saveButton") }}</span>
