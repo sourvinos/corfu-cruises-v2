@@ -2,79 +2,6 @@
     box-sizing: border-box !important;
 }
 
-.cdk-overlay-backdrop.cdk-overlay-backdrop-showing {
-    opacity: 0 !important;
-}
-
-.mat-dialog-container {
-    padding: 2rem !important;
-}
-
-svg {
-    display: block;
-    margin: 0.625rem auto 2rem auto;
-    width: 100px;
-}
-
-.path {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 0;
-}
-
-.path.circle {
-    animation: dash 0.9s ease-in-out;
-}
-
-.path.line {
-    animation: dash 0.9s 0.35s ease-in-out forwards;
-    stroke-dashoffset: 1000;
-}
-
-.path.check {
-    animation: dash-check 0.9s 0.35s ease-in-out forwards;
-    stroke-dashoffset: -100;
-}
-
-@keyframes dash {
-    0% {
-        stroke-dashoffset: 1000;
-    }
-
-    100% {
-        stroke-dashoffset: 0;
-    }
-}
-
-@keyframes dash {
-    0% {
-        stroke-dashoffset: 1000;
-    }
-
-    100% {
-        stroke-dashoffset: 0;
-    }
-}
-
-@keyframes dash-check {
-    0% {
-        stroke-dashoffset: -100;
-    }
-
-    100% {
-        stroke-dashoffset: 900;
-    }
-}
-
-@keyframes dash-check {
-    0% {
-        stroke-dashoffset: -100;
-    }
-
-    100% {
-        stroke-dashoffset: 900;
-    }
-}
-
 #dialog {
     display: flex;
     flex-direction: column;
@@ -99,12 +26,8 @@ svg {
     text-align: center;
 }
 
-#dialog-json-content {
-    color: var(--color-c);
-    font-family: monospace !important;
-    font-size: 0.75rem !important;
-    justify-content: left;
-    overflow: scroll;
+#form {
+    width: 100%;
 }
 
 #dialog-footer {

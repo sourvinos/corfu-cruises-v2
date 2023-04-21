@@ -97,11 +97,10 @@ export class CheckInReservationFormComponent {
     public onSendEmail(): void {
         this.checkInEmailDialogService.open(this.form.value.email, 'info', 'center-buttons', ['ok']).subscribe(response => {
             if (response) {
-                this.form.patchValue((
-                    {
-                        email: response
-                    }))
-                this.checkInService.sendEmail(this.form.value.email).pipe(indicate(this.isLoading)).subscribe({
+                this.form.patchValue(({
+                    email: response
+                }))
+                this.checkInService.sendEmail(this.form.value).pipe(indicate(this.isLoading)).subscribe({
                     complete: () => {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.emailSent(), 'success', '', this.form, false, false)
                     },
@@ -109,8 +108,6 @@ export class CheckInReservationFormComponent {
                         this.helperService.doPostSaveFormTasks(this.messageSnackbarService.emailNotSent(), 'error', '', this.form)
                     }
                 })
-
-                // this.helperService.doPostSaveFormTasks(this.messageSnackbarService.emailSent(), 'success', '', this.form, true, false)
             }
         })
     }

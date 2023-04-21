@@ -64,7 +64,7 @@
             },
             {
                 "id": "emailSent",
-                "message": "We sent you an email with instructions how to set a new password."
+                "message": "We've just sent you an email."
             },
             {
                 "id": "emailNotSent",

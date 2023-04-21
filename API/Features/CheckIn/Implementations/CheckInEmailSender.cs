@@ -12,16 +12,16 @@ namespace API.Features.CheckIn {
             this.settings = settings.Value;
         }
 
-        public SendEmailResponse SendEmail(CheckInEmailVM email) {
+        public SendEmailResponse SendEmail(CheckInReservationVM reservation) {
 
             var message = new MimeMessage();
             var htmlContent = "";
 
-            htmlContent += email.RefNo;
+            htmlContent += "<h1 style = 'font-weight: 500;'><span style = 'color: #0078d7;'>" + reservation.RefNo + "</span></h1>";
 
             message.From.Add(new MailboxAddress(settings.From, settings.UserName));
-            message.To.Add(new MailboxAddress("Guest", email.Email));
-            message.Subject = "";
+            message.To.Add(new MailboxAddress("Guest", reservation.Email));
+            message.Subject = "Your Reservation Details";
             message.Body = new TextPart("html") {
                 Text = htmlContent
             };

@@ -23,7 +23,7 @@
     </div>
 
     <div id="dialog-content">
-        <form [formGroup]="form" autocomplete="off">
+        <form [formGroup]="form" autocomplete="off" id="form">
             <mat-form-field>
                 <input [placeholder]="getLabel('email')" formControlName="email" matInput>
                 <mat-error *ngIf="email.hasError('required')">{{ getHint("required") }}</mat-error>

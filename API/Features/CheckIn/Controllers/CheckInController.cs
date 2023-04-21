@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using API.Features.Reservations;
+using API.Features.Schedules;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
@@ -15,27 +16,38 @@ namespace API.Features.CheckIn {
 
         private readonly ICheckInEmailSender checkInEmailSender;
         private readonly ICheckInReadRepository checkInReadRepo;
+        private readonly ICheckInReservationValidation checkInReservationValidation;
         private readonly ICheckInUpdateRepository checkInUpdateRepo;
         private readonly IMapper mapper;
+        private readonly IScheduleRepository scheduleRepo;
 
         #endregion
 
-        public CheckInController(ICheckInEmailSender checkInEmailSender, IMapper mapper, ICheckInReadRepository checkInReadRepo, ICheckInUpdateRepository checkInUpdateRepo) {
+        public CheckInController(ICheckInEmailSender checkInEmailSender, IMapper mapper, ICheckInReadRepository checkInReadRepo, ICheckInReservationValidation checkInReservationValidation, ICheckInUpdateRepository checkInUpdateRepo, IScheduleRepository scheduleRepo) {
             this.checkInEmailSender = checkInEmailSender;
             this.checkInReadRepo = checkInReadRepo;
+            this.checkInReservationValidation = checkInReservationValidation;
             this.checkInUpdateRepo = checkInUpdateRepo;
             this.mapper = mapper;
+            this.scheduleRepo = scheduleRepo;
         }
 
         [HttpGet("refNo/{refNo}")]
         public async Task<ResponseWithBody> GetByRefNoAsync(string refNo) {
             var x = await checkInReadRepo.GetByRefNoAsync(refNo);
             if (x != null) {
-                return new ResponseWithBody {
-                    Code = 200,
-                    Icon = Icons.Info.ToString(),
-                    Message = ApiMessages.OK(),
-                    Body = mapper.Map<Reservation, ReservationReadDto>(x)
+                var z = checkInReservationValidation.IsValid(x, scheduleRepo);
+                if (z == 200) {
+                    return new ResponseWithBody {
+                        Code = 200,
+                        Icon = Icons.Info.ToString(),
+                        Message = ApiMessages.OK(),
+                        Body = mapper.Map<Reservation, ReservationReadDto>(x)
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = 404
+                    };
                 };
             } else {
                 throw new CustomException() {
@@ -48,11 +60,18 @@ namespace API.Features.CheckIn {
         public async Task<ResponseWithBody> GetByDateAsync(string date, int destinationId, string lastname, string firstname) {
             var x = await checkInReadRepo.GetByDateAsync(date, destinationId, lastname, firstname);
             if (x != null) {
-                return new ResponseWithBody {
-                    Code = 200,
-                    Icon = Icons.Info.ToString(),
-                    Message = ApiMessages.OK(),
-                    Body = mapper.Map<Reservation, ReservationReadDto>(x)
+                var z = checkInReservationValidation.IsValid(x, scheduleRepo);
+                if (z == 200) {
+                    return new ResponseWithBody {
+                        Code = 200,
+                        Icon = Icons.Info.ToString(),
+                        Message = ApiMessages.OK(),
+                        Body = mapper.Map<Reservation, ReservationReadDto>(x)
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = 404
+                    };
                 };
             } else {
                 throw new CustomException() {
@@ -81,8 +100,8 @@ namespace API.Features.CheckIn {
         }
 
         [HttpPost("[action]")]
-        public SendEmailResponse SendCheckInDetails([FromBody] CheckInEmailVM email) {
-            return checkInEmailSender.SendEmail(email);
+        public SendEmailResponse SendCheckInReservation([FromBody] CheckInReservationVM reservation) {
+            return checkInEmailSender.SendEmail(reservation);
         }
 
     }

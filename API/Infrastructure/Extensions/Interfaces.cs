@@ -56,6 +56,7 @@ namespace API.Infrastructure.Extensions {
             services.AddTransient<IAvailabilityCalendar, AvailabilityCalendar>();
             // Check-In
             services.AddTransient<ICheckInReadRepository, CheckInReadRepository>();
+            services.AddTransient<ICheckInReservationValidation, CheckInReservationValidation>();
             services.AddTransient<ICheckInUpdateRepository, CheckInUpdateRepository>();
             services.AddTransient<ICheckInEmailSender, CheckInEmailSender>();
             // Validations

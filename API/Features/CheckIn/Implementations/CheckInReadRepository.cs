@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
+using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,8 @@ namespace API.Features.CheckIn {
                .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
                .Include(x => x.Passengers).ThenInclude(x => x.Occupant)
                .Include(x => x.Passengers).ThenInclude(x => x.Gender)
-               .Where(x => x.RefNo.ToLower() == refNo.ToLower()).FirstOrDefaultAsync();
+               .Where(x => x.RefNo.ToLower() == refNo.ToLower())
+               .FirstOrDefaultAsync();
             return await reservation;
         }
 
@@ -39,7 +41,8 @@ namespace API.Features.CheckIn {
                .Where(x => x.Date == Convert.ToDateTime(date)
                     && x.DestinationId == destinationId
                     && x.Passengers.Any(x => x.Lastname.Trim().ToLower() == lastname.Trim().ToLower())
-                    && x.Passengers.Any(x => x.Firstname.Trim().ToLower() == firstname.Trim().ToLower())).FirstOrDefaultAsync();
+                    && x.Passengers.Any(x => x.Firstname.Trim().ToLower() == firstname.Trim().ToLower()))
+                .FirstOrDefaultAsync();
             return await reservation;
         }
 
@@ -64,7 +67,6 @@ namespace API.Features.CheckIn {
                     .Where(x => x.ReservationId.ToString() == reservationId)
                     .SingleOrDefaultAsync();
         }
-
 
     }
 

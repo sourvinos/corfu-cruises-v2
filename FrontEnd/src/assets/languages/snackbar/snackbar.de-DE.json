@@ -64,7 +64,7 @@
             },
             {
                 "id": "emailSent",
-                "message": "Wir haben Ihnen eine E-Mail mit Anweisungen zum Einrichten eines neuen Passworts geschickt."
+                "message": "Wir haben Ihnen gerade eine E-Mail geschickt."
             },
             {
                 "id": "emailNotSent",

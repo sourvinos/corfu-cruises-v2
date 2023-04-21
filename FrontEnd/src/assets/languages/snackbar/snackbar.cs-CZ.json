@@ -64,7 +64,7 @@
             },
             {
                 "id": "emailSent",
-                "message": "Zaslali jsme vám e-mail s pokyny k nastavení nového hesla."
+                "message": "Právě jsme vám poslali email."
             },
             {
                 "id": "emailNotSent",

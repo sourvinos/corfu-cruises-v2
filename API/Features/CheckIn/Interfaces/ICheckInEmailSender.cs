@@ -2,7 +2,7 @@ namespace API.Features.CheckIn {
 
     public interface ICheckInEmailSender {
 
-        SendEmailResponse SendEmail(CheckInEmailVM email);
+        SendEmailResponse SendEmail(CheckInReservationVM email);
 
     }
 

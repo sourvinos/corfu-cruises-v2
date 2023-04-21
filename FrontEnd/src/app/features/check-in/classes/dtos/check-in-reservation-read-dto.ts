@@ -7,22 +7,21 @@ import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 export interface CheckInReservationReadDto {
 
     reservationId: Guid
-    customer: SimpleEntity
-    destination: SimpleEntity
-    driver: SimpleEntity
-    pickupPoint: PickupPointDropdownVM
-    port: SimpleEntity
-    ship: SimpleEntity
     date: string
     refNo: string
-    email: string
-    phones: string
-    remarks: string
+    ticketNo: string
     adults: number
     kids: number
     free: number
     totalPax: number
-    ticketNo: string
+    email: string
+    phones: string
+    remarks: string
+    customer: SimpleEntity
+    destination: SimpleEntity
+    pickupPoint: PickupPointDropdownVM
+    port: SimpleEntity
+    ship: SimpleEntity
     passengers: CheckInPassengerReadDto
 
 }
