@@ -2143,6 +2143,14 @@
             {
                 "id": "ledgersSubTitle",
                 "description": "Zeigen Sie Ihre Reservierungen für einen bestimmten Zeitraum an."
+            },
+            {
+                "id": "accountsTitle",
+                "description": "Buchhaltung"
+            },
+            {
+                "id": "accountsSubTitle",
+                "description": "Preislisten erstellen, Rechnungen für Ihre Dienstleistungen ausstellen und Kundenbücher einsehen."
             }
         ]
     },

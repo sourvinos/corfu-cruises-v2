@@ -92,7 +92,7 @@
             },
             {
                 "id": "featureNotAvailable",
-                "message": "Η επιλογή δεν είναι ακόμη διαθέσιμη."
+                "message": "Η επιλογή απαιτεί εξουσιοδότηση υψηλότερου επιπέδου."
             },
             {
                 "id": "reservationCreated",

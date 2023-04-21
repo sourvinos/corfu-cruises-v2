@@ -2143,6 +2143,14 @@
             {
                 "id": "ledgersSubTitle",
                 "description": "Zobrazení rezervací na určité časové období."
+            },
+            {
+                "id": "accountsTitle",
+                "description": "Účetnictví"
+            },
+            {
+                "id": "accountsSubTitle",
+                "description": "Vytvářejte ceníky, vystavujte faktury za své služby a prohlížejte účetní knihy zákazníků."
             }
         ]
     },

@@ -92,7 +92,7 @@
             },
             {
                 "id": "featureNotAvailable",
-                "message": "Cette option n'est pas encore disponible."
+                "message": "L'option requiert un niveau d'autorisation plus élevé."
             },
             {
                 "id": "reservationCreated",

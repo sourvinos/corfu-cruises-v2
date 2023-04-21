@@ -2143,6 +2143,14 @@
             {
                 "id": "ledgersSubTitle",
                 "description": "Affichez vos réservations pour une période donnée."
+            },
+            {
+                "id": "accountsTitle",
+                "description": "Comptabilité"
+            },
+            {
+                "id": "accountsSubTitle",
+                "description": "Créez des listes de prix, émettez des factures pour vos services et consultez les registres des clients."
             }
         ]
     },

@@ -92,7 +92,7 @@
             },
             {
                 "id": "featureNotAvailable",
-                "message": "Tato možnost zatím není k dispozici."
+                "message": "Tato možnost vyžaduje vyšší úroveň oprávnění."
             },
             {
                 "id": "reservationCreated",

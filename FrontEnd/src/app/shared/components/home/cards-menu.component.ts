@@ -1,8 +1,10 @@
 import { Component } from '@angular/core'
 // Custom
+import { ConnectedUser } from '../../classes/connected-user'
+import { DialogService } from '../../services/dialog.service'
 import { MessageLabelService } from '../../services/message-label.service'
 import { environment } from 'src/environments/environment'
-import { ConnectedUser } from '../../classes/connected-user'
+import { MessageDialogService } from '../../services/message-dialog.service'
 
 @Component({
     selector: 'cards-menu',
@@ -19,7 +21,7 @@ export class CardsMenuComponent {
 
     //#endregion
 
-    constructor(private messageLabelService: MessageLabelService) { }
+    constructor(private dialogService: DialogService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService) { }
 
     //#region public methods
 
@@ -41,6 +43,10 @@ export class CardsMenuComponent {
 
     public loadImage(): void {
         this.imgIsLoaded = true
+    }
+
+    public notAvailable(): void {
+        this.dialogService.open(this.messageSnackbarService.featureNotAvailable(), 'error', 'center-buttons', ['ok'])
     }
 
     //#endregion
