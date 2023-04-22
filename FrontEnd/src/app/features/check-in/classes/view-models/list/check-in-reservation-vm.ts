@@ -6,6 +6,7 @@ export interface CheckInReservationVM {
     body: {
 
         reservationId: string
+        date: string,
         refNo: string
         ticketNo: string
         customer: SimpleEntity

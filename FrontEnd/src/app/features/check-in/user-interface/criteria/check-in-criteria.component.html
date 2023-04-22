@@ -5,36 +5,23 @@
     </div>
 
     <div id="content">
-        <form [formGroup]="form" autocomplete="off">
-            <div id="instructions">
-                <div class="material-icons">info</div>
-                <div>{{ getLabel("genericInstructions") }}</div>
-            </div>
-            <mat-accordion>
-                <!-- RefNo -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>{{ getLabel("haveRefNo") }}</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <ng-template matExpansionPanelContent>
+        <mat-vertical-stepper [linear]="false" #stepper>
+            <mat-step>
+                <form [formGroup]="searchForm">
+                    <ng-template matStepLabel>Identification</ng-template>
+                    <mat-radio-group formControlName="selection">
+                        <mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option">
+                            {{ option }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                    <ng-template [ngIf]="searchForm.value.selection=='Yes'">
+                        <ng-template matStepLabel>RefNo</ng-template>
                         <mat-form-field>
-                            <input class="no-margin-top" formControlName="refNo" matInput>
-                            <mat-error *ngIf="refNo.hasError('required')">{{ getHint("required") }}</mat-error>
+                            <input matInput placeholder="I have a refNo" formControlName="refNo">
                         </mat-form-field>
-                        <mat-action-row>
-                            <button (click)="searchByRefNo()" [disabled]="form.value.refNo==''" class="primary" mat-flat-button>
-                                <mat-icon *ngIf="form.value.refNo==''" class="button-icon">lock</mat-icon>
-                                <span>{{ getLabel("searchButton") }}</span>
-                            </button>
-                        </mat-action-row>
                     </ng-template>
-                </mat-expansion-panel>
-                <!-- Complex group -->
-                <mat-expansion-panel>
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>{{ getLabel("haveNothing") }}</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <ng-template matExpansionPanelContent>
+                    <ng-template [ngIf]="searchForm.value.selection=='No'">
+                        <ng-template matStepLabel>No RefNo</ng-template>
                         <div formGroupName="complexGroup">
                             <!-- Date -->
                             <div class="group-field">
@@ -65,16 +52,107 @@
                                 <mat-error *ngIf="firstname.hasError('required')">{{ getHint("required") }}</mat-error>
                             </mat-form-field>
                         </div>
-                        <mat-action-row>
-                            <button [disabled]="!form.valid" (click)="searchByDate()" class="primary" mat-flat-button>
-                                <mat-icon *ngIf="!form.valid" class=" button-icon">lock</mat-icon>
-                                <span>{{ getLabel("searchButton") }}</span>
-                            </button>
-                        </mat-action-row>
                     </ng-template>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </form>
+                    <div>
+                        <button (click)="doSearch()" mat-button matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <form [formGroup]="reservationForm">
+                    <ng-template matStepLabel>Reservation summary</ng-template>
+                    <div id="reservation-items">
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('refNo') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.refNo }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('date') }}</span>
+                            <span class="reservation-item-value">{{ formatISODateToLocale() }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('ticketNo') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.ticketNo }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('destination') }}</span>
+                            <span class="reservation-item-value"> {{ reservationForm.value.destination.description }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('customer') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.customer.description }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('pickupPoint') }}</span>
+                            <span class="reservation-item-value">
+                                <span>{{ reservationForm.value.pickupPoint.description }}</span><br>
+                                <span>{{ reservationForm.value.exactPoint }}</span><br>
+                                <span>{{ reservationForm.value.time }}</span>
+                            </span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('adults') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.adults }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('kids') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.kids }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('free') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.free }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('totalPax') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.totalPax }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('email') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.email }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('phones') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.phones }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('remarks') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.remarks }}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-button matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Passengers</ng-template>
+                <check-in-passenger-list [passengers]="reservationForm.value.passengers"></check-in-passenger-list>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Send email</ng-template>
+                <button (click)="onSendEmail()" class="secondary" mat-flat-button>
+                    <span>Send boarding pass to my email</span>
+                </button>
+            </mat-step>
+            <ng-template matStepperIcon="edit">
+                <!-- <mat-icon>settings</mat-icon> -->
+            </ng-template>
+            <ng-template matStepperIcon="active">
+                <!-- <mat-icon>settings</mat-icon> -->
+            </ng-template>
+            <ng-template matStepperIcon="done">
+                <!-- <mat-icon>settings</mat-icon> -->
+            </ng-template>
+            <ng-template matStepperIcon="number">
+                <!-- <mat-icon>settings</mat-icon> -->
+            </ng-template>
+        </mat-vertical-stepper>
+        {{ reservationForm.value | json }}
     </div>
 
     <div id="footer">

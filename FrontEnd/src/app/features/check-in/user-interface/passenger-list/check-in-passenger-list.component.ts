@@ -1,3 +1,4 @@
+import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core'
 import { Guid } from 'guid-typescript'
 import { MatDialog } from '@angular/material/dialog'
@@ -30,7 +31,7 @@ export class CheckInPassengerListComponent {
 
     //#endregion
 
-    constructor(private dialog: MatDialog, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService) { }
+    constructor(private interactionService: InteractionService, private dialog: MatDialog, private emojiService: EmojiService, private helperService: HelperService, private messageLabelService: MessageLabelService) { }
 
     //#region public methods
 
@@ -51,6 +52,8 @@ export class CheckInPassengerListComponent {
         this.passengers.splice(index, 1)
         this.outputPassengerCount.emit(this.passengers.length)
         this.outputPassengers.emit(this.passengers)
+        this.interactionService.updateReservation()
+
     }
 
     public editRecord(record: any): void {
@@ -103,6 +106,7 @@ export class CheckInPassengerListComponent {
                 passenger.specialCare = result.specialCare
                 passenger.remarks = result.remarks
                 passenger.isCheckedIn = result.isCheckedIn
+                this.interactionService.updateReservation()
             }
         })
 
@@ -129,6 +133,7 @@ export class CheckInPassengerListComponent {
                 this.passengers.push(newPassenger)
                 this.outputPassengerCount.emit(this.passengers.length)
                 this.outputPassengers.emit(this.passengers)
+                this.interactionService.updateReservation()
             }
         })
     }
