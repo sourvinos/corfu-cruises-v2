@@ -49,7 +49,7 @@ namespace API.Features.Reservations {
                     ReservationId = passenger.ReservationId,
                     Lastname = passenger.Lastname,
                     Firstname = passenger.Firstname,
-                    Birthdate = DateHelpers.DateTimeToISOString(passenger.Birthdate),
+                    Birthdate = DateHelpers.DateToISOString(passenger.Birthdate),
                     Remarks = passenger.Remarks,
                     SpecialCare = passenger.SpecialCare,
                     IsCheckedIn = passenger.IsCheckedIn,

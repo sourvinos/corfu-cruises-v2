@@ -158,7 +158,7 @@ export class ReservationHelperService {
         const passengers = []
         form.passengers.forEach((passenger: any) => {
             const x: PassengerWriteDto = {
-                reservationId: passenger.reservationId,
+                reservationId: form.reservationId,
                 genderId: passenger.gender.id,
                 nationalityId: passenger.nationality.id,
                 occupantId: 2,

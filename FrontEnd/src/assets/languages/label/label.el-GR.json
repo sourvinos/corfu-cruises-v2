@@ -2155,132 +2155,155 @@
         ]
     },
     {
-        "feature": "checkInCriteria",
+        "feature": "checkIn",
         "labels": [
             {
                 "id": "header",
                 "description": "Check-in"
             },
             {
-                "id": "genericInstructions",
-                "description": "Για να συνεχίσουμε, πρέπει να βρούμε την κράτησή σας. Παρακαλούμε επιλέξτε ένα από τα παρακάτω:"
+                "id": "next",
+                "description": "Συνέχεια"
             },
             {
-                "id": "haveRefNo",
-                "description": "Έχω αριθμό αναφοράς (refNo)"
+                "id": "previous",
+                "description": "Πίσω"
             },
             {
-                "id": "haveNothing",
-                "description": "Δεν έχω αριθμό αναφοράς (refNo)"
+                "id": "step-1-header",
+                "description": "Αναζήτηση"
             },
             {
-                "id": "refNo",
-                "description": "RefNo"
+                "id": "step-1-haveRefNo",
+                "description": "Εχετε αριθμό αναφοράς (refNo)"
             },
             {
-                "id": "ticketNo",
-                "description": "Εισιτήριο"
+                "id": "step-1-yes",
+                "description": "Ναι"
             },
             {
-                "id": "date",
+                "id": "step-1-no",
+                "description": "Οχι"
+            },
+            {
+                "id": "step-1-refNo",
+                "description": "Συμπληρώστε το refNo και κάντε κλικ στο 'Συνέχεια'"
+            },
+            {
+                "id": "step-1-details",
+                "description": "Συμπληρώστε τα πάντα και κάντε κλικ στο 'Συνέχεια'"
+            },
+            {
+                "id": "step-1-error",
+                "description": "Η κράτηση δεν βρέθηκε"
+            },
+            {
+                "id": "step-1-date",
                 "description": "Ημερομηνία"
             },
             {
-                "id": "destination",
+                "id": "step-1-destination",
                 "description": "Προορισμός"
             },
             {
-                "id": "lastname",
+                "id": "step-1-lastname",
                 "description": "Επώνυμο"
             },
             {
-                "id": "firstname",
+                "id": "step-1-firstname",
                 "description": "Ονομα"
             },
             {
-                "id": "searchButton",
-                "description": "Συνέχεια"
+                "id": "step-2-header",
+                "description": "Λεπτομέρειες κράτησης"
+            },
+            {
+                "id": "step-2-refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "step-2-date",
+                "description": "Ημερομηνία"
+            },
+            {
+                "id": "step-2-ticket",
+                "description": "Εισιτήριο"
+            },
+            {
+                "id": "step-2-destination",
+                "description": "Προορισμός"
+            },
+            {
+                "id": "step-2-customer",
+                "description": "Πελάτης"
+            },
+            {
+                "id": "step-2-pickupPoint",
+                "description": "Σημείο παραλαβής"
+            },
+            {
+                "id": "step-2-exactPoint",
+                "description": "Ακριβές σημείο"
+            },
+            {
+                "id": "step-2-time",
+                "description": "Ωρα"
+            },
+            {
+                "id": "step-2-adults",
+                "description": "Ενήλικες"
+            },
+            {
+                "id": "step-2-kids",
+                "description": "Παιδιά"
+            },
+            {
+                "id": "step-2-free",
+                "description": "Δωρεάν"
+            },
+            {
+                "id": "step-2-pax",
+                "description": "Σύνολο επιβατών"
+            },
+            {
+                "id": "step-2-remarks",
+                "description": "Σχόλια"
+            },
+            {
+                "id": "step-2-phones",
+                "description": "Τηλέφωνα"
+            },
+            {
+                "id": "step-3-header",
+                "description": "Επιβάτες"
+            },
+            {
+                "id": "step-3-instructions",
+                "description": "Για να συνεχίσετε πρέπει να δώσετε τα στοιχεία όλων των επιβατών"
+            },
+            {
+                "id": "step-4-header",
+                "description": "Αποστολή επιβεβαίωσης"
+            },
+            {
+                "id": "step-4-email",
+                "description": "Δώστε μας ένα email στο οποίο θα στείλουμε την επιβεβαίωση"
+            },
+            {
+                "id": "step-4-error",
+                "description": "Δεν μπορέσαμε να σας στείλουμε το email. Παρακαλούμε δοκιμάστε ξανά σε λιγάκι"
+            },
+            {
+                "id": "step-5-header",
+                "description": "Ολοκλήρωση"
+            },
+            {
+                "id": "step-5-finish",
+                "description": "Σας έχουμε στείλει ένα email το οποίο πρέπει να δείξετε κατά την επιβίβαση."
             },
             {
                 "id": "needHelp",
                 "description": "Χρειάζεστε βοήθεια;"
-            }
-        ]
-    },
-    {
-        "feature": "checkInReservationForm",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Check-in"
-            },
-            {
-                "id": "reservationExpander",
-                "description": "Σύνοψη κράτησης"
-            },
-            {
-                "id": "date",
-                "description": "Ημερομηνία"
-            },
-            {
-                "id": "refNo",
-                "description": "RefNo"
-            },
-            {
-                "id": "ticketNo",
-                "description": "Εισιτήριο"
-            },
-            {
-                "id": "destination",
-                "description": "Προορισμός"
-            },
-            {
-                "id": "customer",
-                "description": "Πελάτης"
-            },
-            {
-                "id": "pickupPoint",
-                "description": "Σημείο παραλαβής"
-            },
-            {
-                "id": "adults",
-                "description": "Ενήλικες"
-            },
-            {
-                "id": "kids",
-                "description": "Παιδιά"
-            },
-            {
-                "id": "free",
-                "description": "Δωρεάν"
-            },
-            {
-                "id": "totalPax",
-                "description": "Σύνολο ατόμων"
-            },
-            {
-                "id": "email",
-                "description": "Email"
-            },
-            {
-                "id": "phones",
-                "description": "Τηλέφωνα"
-            },
-            {
-                "id": "remarks",
-                "description": "Παρατηρήσεις"
-            },
-            {
-                "id": "passengersExpander",
-                "description": "Στοιχεία επιβατών"
-            },
-            {
-                "id": "sendEmailButton",
-                "description": "Αποστολή στο email μου"
-            },
-            {
-                "id": "saveButton",
-                "description": "Αποθήκευση"
             }
         ]
     }

@@ -15,7 +15,11 @@
 }
 
 .mat-radio-label-content {
+    color: var(--color-c);
     display: flex !important;
     flex-direction: row;
+    font-family: var(--font-family-asty);
+    font-size: 0.8rem;
+    font-weight: 300;
     width: 100%;
 }

@@ -6,84 +6,90 @@
 
     <div id="content">
         <mat-vertical-stepper [linear]="false" #stepper>
-            <mat-step>
-                <form [formGroup]="searchForm">
-                    <ng-template matStepLabel>Identification</ng-template>
-                    <mat-radio-group formControlName="selection">
-                        <mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option">
-                            {{ option }}
-                        </mat-radio-button>
-                    </mat-radio-group>
-                    <ng-template [ngIf]="searchForm.value.selection=='Yes'">
-                        <ng-template matStepLabel>RefNo</ng-template>
-                        <mat-form-field>
-                            <input matInput placeholder="I have a refNo" formControlName="refNo">
-                        </mat-form-field>
-                    </ng-template>
-                    <ng-template [ngIf]="searchForm.value.selection=='No'">
-                        <ng-template matStepLabel>No RefNo</ng-template>
-                        <div formGroupName="complexGroup">
-                            <!-- Date -->
-                            <div class="group-field">
-                                <mat-form-field id="date">
-                                    <input (dateChange)="patchFormWithSelectedDate($event)" [matDatepicker]="picker" [placeholder]="getLabel('date')" formControlName="date" matInput>
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker></mat-datepicker>
-                                    <mat-error *ngIf="date.hasError('required')">{{ getHint("invalid") }}</mat-error>
+            <!-- Search -->
+            <mat-step completed="false">
+                <div id="identification">
+                    <form [formGroup]="searchForm" id="search-form">
+                        <ng-template matStepLabel>{{ getLabel("step-1-header") }}</ng-template>
+                        <div class="text">{{ getLabel("step-1-haveRefNo") }}</div>
+                        <mat-radio-group formControlName="selection">
+                            <mat-radio-button class="example-radio-button" *ngFor="let option of options" [value]="option.id">
+                                {{ option.description }}
+                            </mat-radio-button>
+                        </mat-radio-group>
+                        <ng-template [ngIf]="searchForm.value.selection==1">
+                            <mat-form-field>
+                                <input matInput [placeholder]="getLabel('step-1-refNo')" formControlName="refNo">
+                            </mat-form-field>
+                        </ng-template>
+                        <ng-template [ngIf]="searchForm.value.selection==2">
+                            <div id="complex-group" formGroupName="complexGroup">
+                                <div class="text">{{ getLabel("step-1-details") }}</div>
+                                <!-- Date -->
+                                <div class="group-field">
+                                    <mat-form-field id="date">
+                                        <input (dateChange)="patchFormWithSelectedDate($event)" [matDatepicker]="picker" [placeholder]="getLabel('step-1-date')" formControlName="date" matInput>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-error *ngIf="date.hasError('required')">{{ getHint("invalid") }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <!-- Destination -->
+                                <mat-form-field>
+                                    <mat-label>{{ getLabel("step-1-destination") }}</mat-label>
+                                    <mat-select formControlName="destination">
+                                        <mat-option *ngFor="let destination of destinations" [value]="destination.id">
+                                            {{ destination.description }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <!-- Lastname -->
+                                <mat-form-field>
+                                    <input [placeholder]="getLabel('step-1-lastname')" formControlName="lastname" matInput>
+                                    <mat-error *ngIf="lastname.hasError('required')">{{ getHint("required") }}</mat-error>
+                                </mat-form-field>
+                                <!-- Firstname -->
+                                <mat-form-field>
+                                    <input [placeholder]="getLabel('step-1-firstname')" formControlName="firstname" matInput>
+                                    <mat-error *ngIf="firstname.hasError('required')">{{ getHint("required") }}</mat-error>
                                 </mat-form-field>
                             </div>
-                            <!-- Destination -->
-                            <mat-form-field>
-                                <mat-label>{{ getLabel("destination") }}</mat-label>
-                                <mat-select formControlName="destination">
-                                    <mat-option *ngFor="let destination of destinations" [value]="destination.id">
-                                        {{ destination.description }}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                            <!-- Lastname -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('lastname')" formControlName="lastname" matInput>
-                                <mat-error *ngIf="lastname.hasError('required')">{{ getHint("required") }}</mat-error>
-                            </mat-form-field>
-                            <!-- Firstname -->
-                            <mat-form-field>
-                                <input [placeholder]="getLabel('firstname')" formControlName="firstname" matInput>
-                                <mat-error *ngIf="firstname.hasError('required')">{{ getHint("required") }}</mat-error>
-                            </mat-form-field>
+                        </ng-template>
+                        <div class="buttons">
+                            <button [disabled]="searchForm.value.selection==''" (click)="doSearch()" class="primary" mat-button matStepperNext>
+                                <span>{{ getLabel("next") }}</span>
+                            </button>
                         </div>
-                    </ng-template>
-                    <div>
-                        <button (click)="doSearch()" mat-button matStepperNext>Next</button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </mat-step>
-            <mat-step>
+            <!-- Reservation -->
+            <mat-step completed="false">
                 <form [formGroup]="reservationForm">
-                    <ng-template matStepLabel>Reservation summary</ng-template>
-                    <div id="reservation-items">
+                    <ng-template matStepLabel>{{ getLabel("step-2-header") }}</ng-template>
+                    <div *ngIf="isReservationFound=='yes'" id="reservation-items">
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('refNo') }}</span>
-                            <span class="reservation-item-value">{{ reservationForm.value.refNo }}</span>
-                        </div>
-                        <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('date') }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-date') }}</span>
                             <span class="reservation-item-value">{{ formatISODateToLocale() }}</span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('ticketNo') }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-refNo') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.refNo }}</span>
+                        </div>
+                        <div class="reservation-item">
+                            <span class="reservation-item-title">{{ getLabel('step-2-ticket') }}</span>
                             <span class="reservation-item-value">{{ reservationForm.value.ticketNo }}</span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('destination') }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-destination') }}</span>
                             <span class="reservation-item-value"> {{ reservationForm.value.destination.description }}</span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('customer') }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-customer') }}</span>
                             <span class="reservation-item-value">{{ reservationForm.value.customer.description }}</span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('pickupPoint') }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-pickupPoint') }}</span>
                             <span class="reservation-item-value">
                                 <span>{{ reservationForm.value.pickupPoint.description }}</span><br>
                                 <span>{{ reservationForm.value.exactPoint }}</span><br>
@@ -91,68 +97,79 @@
                             </span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('adults') }}</span>
-                            <span class="reservation-item-value">{{ reservationForm.value.adults }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-adults') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.adults | replaceZero }}</span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('kids') }}</span>
-                            <span class="reservation-item-value">{{ reservationForm.value.kids }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-kids') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.kids | replaceZero }}</span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('free') }}</span>
-                            <span class="reservation-item-value">{{ reservationForm.value.free }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-free') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.free | replaceZero }}</span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('totalPax') }}</span>
-                            <span class="reservation-item-value">{{ reservationForm.value.totalPax }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-pax') }}</span>
+                            <span class="reservation-item-value">{{ reservationForm.value.totalPax | replaceZero }}</span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('email') }}</span>
-                            <span class="reservation-item-value">{{ reservationForm.value.email }}</span>
-                        </div>
-                        <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('phones') }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-phones') }}</span>
                             <span class="reservation-item-value">{{ reservationForm.value.phones }}</span>
                         </div>
                         <div class="reservation-item">
-                            <span class="reservation-item-title">{{ getLabel('remarks') }}</span>
+                            <span class="reservation-item-title">{{ getLabel('step-2-remarks') }}</span>
                             <span class="reservation-item-value">{{ reservationForm.value.remarks }}</span>
                         </div>
                     </div>
-                    <div>
-                        <button mat-button matStepperPrevious>Back</button>
-                        <button mat-button matStepperNext>Next</button>
+                    <div *ngIf="isReservationFound=='no'">
+                        <span class="error">{{ getLabel("step-1-error") }}</span>
+                    </div>
+                    <div class="buttons">
+                        <button mat-button matStepperPrevious class="secondary">{{ getLabel("previous") }}</button>
+                        <button [disabled]="isReservationFound=='no'" mat-button matStepperNext class="primary">
+                            <span>{{ getLabel("next") }}</span>
+                        </button>
                     </div>
                 </form>
             </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Passengers</ng-template>
-                <check-in-passenger-list [passengers]="reservationForm.value.passengers"></check-in-passenger-list>
-                <div>
-                    <button mat-button matStepperPrevious>Back</button>
-                    <button mat-button matStepperNext>Next</button>
+            <!-- Passengers -->
+            <mat-step completed="false">
+                <ng-template matStepLabel>{{ getLabel("step-3-header") }}</ng-template>
+                <check-in-passenger-list [passengers]="reservationForm.value.passengers" [initialPassengerCount]="reservationForm.value.totalPax"></check-in-passenger-list>
+                <span class="instructions" *ngIf="reservationForm.value.totalPax!=reservationForm.value.passengers.length">{{ getLabel("step-3-instructions") }}</span>
+                <div class="buttons">
+                    <button mat-button matStepperPrevious class="secondary">{{ getLabel("previous") }}</button>
+                    <button [disabled]="reservationForm.value.totalPax!=reservationForm.value.passengers.length" mat-button matStepperNext class="primary">
+                        <span>{{ getLabel("next") }}</span>
+                    </button>
                 </div>
             </mat-step>
-            <mat-step>
-                <ng-template matStepLabel>Send email</ng-template>
-                <button (click)="onSendEmail()" class="secondary" mat-flat-button>
-                    <span>Send boarding pass to my email</span>
-                </button>
+            <!-- Email -->
+            <mat-step completed="false">
+                <ng-template matStepLabel>{{ getLabel("step-4-header") }}</ng-template>
+                <form [formGroup]="searchForm" id="search-form">
+                    <mat-form-field>
+                        <input matInput [placeholder]="getLabel('step-4-email')" formControlName="email">
+                        <mat-error *ngIf="email.hasError('required') && !email.hasError('email')">{{ getHint("required") }}</mat-error>
+                        <mat-error *ngIf="!email.hasError('required') && email.hasError('email')">{{ getHint("invalid") }}</mat-error>
+                    </mat-form-field>
+                </form>
+                <span *ngIf="!isEmailSent" class="error">{{ getLabel("step-4-error") }}</span>
+                <div class="buttons">
+                    <button mat-button matStepperPrevious class="secondary">{{ getLabel("previous") }}</button>
+                    <button [disabled]="email.hasError('required') || email.hasError('email')" (click)="onSendEmail(stepper)" mat-button matStepperNext class="primary">{{ getLabel("next")}}</button>
+                </div>
             </mat-step>
-            <ng-template matStepperIcon="edit">
-                <!-- <mat-icon>settings</mat-icon> -->
-            </ng-template>
-            <ng-template matStepperIcon="active">
-                <!-- <mat-icon>settings</mat-icon> -->
-            </ng-template>
-            <ng-template matStepperIcon="done">
-                <!-- <mat-icon>settings</mat-icon> -->
-            </ng-template>
-            <ng-template matStepperIcon="number">
-                <!-- <mat-icon>settings</mat-icon> -->
-            </ng-template>
+            <!-- Finish -->
+            <mat-step completed="false">
+                <ng-template matStepLabel>{{ getLabel("step-5-header") }}</ng-template>
+                <div class="text">{{ getLabel("step-5-finish") }}</div>
+                <div class="buttons">
+                    <button (click)="gotoIntroForm()" mat-button matStepperNext class="primary">OK</button>
+                </div>
+            </mat-step>
         </mat-vertical-stepper>
-        {{ reservationForm.value | json }}
+        <!-- {{ searchForm.value | json }} -->
     </div>
 
     <div id="footer">

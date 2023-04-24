@@ -24,6 +24,7 @@ export class CheckInPassengerListComponent {
     @ViewChild('table') table: Table | undefined
 
     @Input() passengers: CheckInPassengerReadDto[] = []
+    @Input() initialPassengerCount: number
     @Input() reservationId: Guid
     @Output() outputPassengerCount = new EventEmitter()
     @Output() outputPassengers = new EventEmitter()

@@ -2155,132 +2155,151 @@
         ]
     },
     {
-        "feature": "checkInCriteria",
+        "feature": "checkIn",
         "labels": [
             {
                 "id": "header",
                 "description": "Check-in"
             },
             {
-                "id": "genericInstructions",
-                "description": "Abychom mohli pokračovat, musíme najít vaši rezervaci. Vyberte prosím jednu z následujících možností:"
+                "id": "next",
+                "description": "Pokračovat na"
             },
             {
-                "id": "haveRefNo",
-                "description": "Mám refNo"
+                "id": "previous",
+                "description": "Zpět"
             },
             {
-                "id": "haveNothing",
-                "description": "Nemám refNo"
+                "id": "step-1-header",
+                "description": "Hledat na"
             },
             {
-                "id": "refNo",
-                "description": "RefNo"
+                "id": "step-1-haveRefNo",
+                "description": "Máte refNo?"
             },
             {
-                "id": "ticketNo",
-                "description": "Vstupenka"
+                "id": "step-1-yes",
+                "description": "Ano"
             },
             {
-                "id": "date",
+                "id": "step-1-no",
+                "description": "Ne"
+            },
+            {
+                "id": "step-1-refNo",
+                "description": "Vyplňte refNo a klikněte na tlačítko 'Pokračovat'."
+            },
+            {
+                "id": "step-1-details",
+                "description": "Vyplňte vše a poté klikněte na tlačítko 'Zpět'."
+            },
+            {
+                "id": "step-1-date",
                 "description": "Datum"
             },
             {
-                "id": "destination",
+                "id": "step-1-destination",
                 "description": "Destinace"
             },
             {
-                "id": "lastname",
+                "id": "step-1-lastname",
                 "description": "Příjmení"
             },
             {
-                "id": "firstname",
+                "id": "step-1-firstname",
                 "description": "Jméno"
             },
             {
-                "id": "searchButton",
-                "description": "Pokračovat"
+                "id": "step-2-header",
+                "description": "Údaje o rezervaci"
             },
             {
-                "id": "needHelp",
-                "description": "Potřebujete pomoc?"
-            }
-        ]
-    },
-    {
-        "feature": "checkInReservationForm",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Check-in"
-            },
-            {
-                "id": "reservationExpander",
-                "description": "Shrnutí rezervace"
-            },
-            {
-                "id": "date",
-                "description": "Datum"
-            },
-            {
-                "id": "refNo",
+                "id": "step-2-refNo",
                 "description": "RefNo"
             },
             {
-                "id": "ticketNo",
+                "id": "step-2-date",
+                "description": "Datum"
+            },
+            {
+                "id": "step-2-ticket",
                 "description": "Vstupenka"
             },
             {
-                "id": "destination",
+                "id": "step-2-destination",
                 "description": "Destinace"
             },
             {
-                "id": "customer",
+                "id": "step-2-customer",
                 "description": "Zákazník"
             },
             {
-                "id": "pickupPoint",
+                "id": "step-2-pickupPoint",
                 "description": "Místo vyzvednutí"
             },
             {
-                "id": "adults",
+                "id": "step-2-exactPoint",
+                "description": "Přesné místo"
+            },
+            {
+                "id": "step-2-time",
+                "description": "Čas"
+            },
+            {
+                "id": "step-2-adults",
                 "description": "Dospělí"
             },
             {
-                "id": "kids",
+                "id": "step-2-kids",
                 "description": "Děti"
             },
             {
-                "id": "free",
+                "id": "step-2-free",
                 "description": "Zdarma"
             },
             {
-                "id": "totalPax",
-                "description": "Total pax"
+                "id": "step-2-pax",
+                "description": "Celkový počet osob"
             },
             {
-                "id": "email",
-                "description": "Email"
+                "id": "step-2-remarks",
+                "description": "Poznámky"
             },
             {
-                "id": "phones",
-                "description": "Telefon"
+                "id": "step-2-phones",
+                "description": "Telefony"
             },
             {
-                "id": "remarks",
-                "description": "Komentáře"
+                "id": "step-3-header",
+                "description": "Cestující"
             },
             {
-                "id": "passengersExpander",
-                "description": "Údaje o cestujících"
+                "id": "step-3-instructions",
+                "description": "Chcete-li pokračovat, musíte uvést údaje o všech cestujících."
             },
             {
-                "id": "sendEmailButton",
-                "description": "Odeslat na můj e-mail"
+                "id": "step-4-header",
+                "description": "Odeslat potvrzení"
             },
             {
-                "id": "saveButton",
-                "description": "Uložit"
+                "id": "step-4-email",
+                "description": "Uveďte e-mail, na který vám zašleme potvrzení."
+            },
+            {
+                "id": "step-4-error",
+                "description": "E-mail se nám nepodařilo odeslat. Zkuste to prosím znovu."
+            },
+            {
+                "id": "step-5-header",
+                "description": "Připraveno"
+            },
+            {
+                "id": "step-5-finish",
+                "description": "Zaslali jsme vám e-mail, který musíte ukázat při nástupu do letadla"
+            },
+            {
+                "id": "needHelp",
+                "description": "Potřebujete asistenci?"
             }
         ]
     }

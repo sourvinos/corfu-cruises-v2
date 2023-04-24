@@ -36,18 +36,11 @@ namespace API.Features.CheckIn {
         public async Task<ResponseWithBody> GetByRefNoAsync(string refNo) {
             var x = await checkInReadRepo.GetByRefNoAsync(refNo);
             if (x != null) {
-                var z = checkInReservationValidation.IsValid(x, scheduleRepo);
-                if (z == 200) {
-                    return new ResponseWithBody {
-                        Code = 200,
-                        Icon = Icons.Info.ToString(),
-                        Message = ApiMessages.OK(),
-                        Body = mapper.Map<Reservation, ReservationReadDto>(x)
-                    };
-                } else {
-                    throw new CustomException() {
-                        ResponseCode = 404
-                    };
+                return new ResponseWithBody {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<Reservation, ReservationReadDto>(x)
                 };
             } else {
                 throw new CustomException() {
@@ -60,18 +53,11 @@ namespace API.Features.CheckIn {
         public async Task<ResponseWithBody> GetByDateAsync(string date, int destinationId, string lastname, string firstname) {
             var x = await checkInReadRepo.GetByDateAsync(date, destinationId, lastname, firstname);
             if (x != null) {
-                var z = checkInReservationValidation.IsValid(x, scheduleRepo);
-                if (z == 200) {
-                    return new ResponseWithBody {
-                        Code = 200,
-                        Icon = Icons.Info.ToString(),
-                        Message = ApiMessages.OK(),
-                        Body = mapper.Map<Reservation, ReservationReadDto>(x)
-                    };
-                } else {
-                    throw new CustomException() {
-                        ResponseCode = 404
-                    };
+                return new ResponseWithBody {
+                    Code = 200,
+                    Icon = Icons.Info.ToString(),
+                    Message = ApiMessages.OK(),
+                    Body = mapper.Map<Reservation, ReservationReadDto>(x)
                 };
             } else {
                 throw new CustomException() {
@@ -86,7 +72,11 @@ namespace API.Features.CheckIn {
             var x = await checkInReadRepo.GetByIdAsync(reservation.ReservationId.ToString(), false);
             reservation.UserId = x.UserId;
             if (x != null) {
-                checkInUpdateRepo.Update(reservation.ReservationId, mapper.Map<ReservationWriteDto, Reservation>(reservation));
+                AttachPortIdToDto(reservation);
+                UpdateDriverIdWithNull(reservation);
+                UpdateShipIdWithNull(reservation);
+                var z = mapper.Map<ReservationWriteDto, Reservation>(reservation);
+                checkInUpdateRepo.Update(reservation.ReservationId, z);
                 return new Response {
                     Code = 200,
                     Icon = Icons.Success.ToString(),
@@ -102,6 +92,21 @@ namespace API.Features.CheckIn {
         [HttpPost("[action]")]
         public SendEmailResponse SendCheckInReservation([FromBody] CheckInReservationVM reservation) {
             return checkInEmailSender.SendEmail(reservation);
+        }
+
+        private ReservationWriteDto AttachPortIdToDto(ReservationWriteDto reservation) {
+            reservation.PortId = checkInReservationValidation.GetPortIdFromPickupPointId(reservation);
+            return reservation;
+        }
+
+        private static ReservationWriteDto UpdateDriverIdWithNull(ReservationWriteDto reservation) {
+            if (reservation.DriverId == 0) reservation.DriverId = null;
+            return reservation;
+        }
+
+        private static ReservationWriteDto UpdateShipIdWithNull(ReservationWriteDto reservation) {
+            if (reservation.ShipId == 0) reservation.ShipId = null;
+            return reservation;
         }
 
     }

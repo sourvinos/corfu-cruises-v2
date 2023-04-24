@@ -247,7 +247,7 @@
             },
             {
                 "id": "headerTime",
-                "description": "Uhr"
+                "description": "Uhrzeit"
             },
             {
                 "id": "newRecord",
@@ -709,7 +709,7 @@
             },
             {
                 "id": "headerTime",
-                "description": "Uhr"
+                "description": "Uhrzeit"
             }
         ]
     },
@@ -758,7 +758,7 @@
             },
             {
                 "id": "time",
-                "description": "Uhr"
+                "description": "Uhrzeit"
             },
             {
                 "id": "ticketNo",
@@ -2155,132 +2155,151 @@
         ]
     },
     {
-        "feature": "checkInCriteria",
+        "feature": "checkIn",
         "labels": [
             {
                 "id": "header",
                 "description": "Einchecken"
             },
             {
-                "id": "genericInstructions",
-                "description": "Um fortzufahren, müssen wir Ihre Reservierung finden. Bitte wählen Sie eine der folgenden Möglichkeiten:"
+                "id": "next",
+                "description": "Weiter"
             },
             {
-                "id": "haveRefNo",
-                "description": "Ich habe eine RefNo"
+                "id": "previous",
+                "description": "Zurück"
             },
             {
-                "id": "haveNothing",
-                "description": "Ich habe keine RefNo"
+                "id": "step-1-header",
+                "description": "Suche"
             },
             {
-                "id": "refNo",
-                "description": "RefNo"
+                "id": "step-1-haveRefNo",
+                "description": "Haben Sie eine RefNo?"
             },
             {
-                "id": "ticketNo",
-                "description": "Ticket"
+                "id": "step-1-yes",
+                "description": "Ja"
             },
             {
-                "id": "date",
+                "id": "step-1-no",
+                "description": "Nein"
+            },
+            {
+                "id": "step-1-refNo",
+                "description": "Geben Sie die Referenznummer ein und klicken Sie dann auf 'Weiter'."
+            },
+            {
+                "id": "step-1-details",
+                "description": "Füllen Sie alles aus und klicken Sie dann auf 'Weiter'."
+            },
+            {
+                "id": "step-1-date",
                 "description": "Datum"
             },
             {
-                "id": "destination",
+                "id": "step-1-destination",
                 "description": "Reiseziel"
             },
             {
-                "id": "lastname",
+                "id": "step-1-lastname",
                 "description": "Nachname"
             },
             {
-                "id": "firstname",
+                "id": "step-1-firstname",
                 "description": "Vorname"
             },
             {
-                "id": "searchButton",
-                "description": "Weiter"
+                "id": "step-2-header",
+                "description": "Details zur Reservierung"
+            },
+            {
+                "id": "step-2-refNo",
+                "description": "RefNo"
+            },
+            {
+                "id": "step-2-date",
+                "description": "Datum"
+            },
+            {
+                "id": "step-2-ticket",
+                "description": "Fahrschein"
+            },
+            {
+                "id": "step-2-destination",
+                "description": "Reiseziel"
+            },
+            {
+                "id": "step-2-customer",
+                "description": "Kunde"
+            },
+            {
+                "id": "step-2-pickupPoint",
+                "description": "Abholpunkt"
+            },
+            {
+                "id": "step-2-exactPoint",
+                "description": "Genauer punkt"
+            },
+            {
+                "id": "step-2-time",
+                "description": "Uhrzeit"
+            },
+            {
+                "id": "step-2-adults",
+                "description": "Erwachsene"
+            },
+            {
+                "id": "step-2-kids",
+                "description": "Kinder"
+            },
+            {
+                "id": "step-2-free",
+                "description": "Frei"
+            },
+            {
+                "id": "step-2-pax",
+                "description": "Total Pax"
+            },
+            {
+                "id": "step-2-remarks",
+                "description": "Kommentare"
+            },
+            {
+                "id": "step-2-phones",
+                "description": "Telefonnummern"
+            },
+            {
+                "id": "step-3-header",
+                "description": "Passagiere"
+            },
+            {
+                "id": "step-3-instructions",
+                "description": "Um fortzufahren, müssen Sie die Angaben zu allen Passagieren machen"
+            },
+            {
+                "id": "step-4-header",
+                "description": "Bestätigung senden"
+            },
+            {
+                "id": "step-4-email",
+                "description": "Geben Sie uns eine E-Mail an, an die wir die Bestätigung senden sollen."
+            },
+            {
+                "id": "step-4-error",
+                "description": "Wir konnten Ihnen die E-Mail nicht senden. Bitte versuchen Sie es erneut."
+            },
+            {
+                "id": "step-5-header",
+                "description": "Fertig"
+            },
+            {
+                "id": "step-5-finish",
+                "description": "Wir haben Ihnen eine E-Mail geschickt, die Sie beim Einsteigen vorlegen müssen."
             },
             {
                 "id": "needHelp",
                 "description": "Brauchen Sie Hilfe?"
-            }
-        ]
-    },
-    {
-        "feature": "checkInReservationForm",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Check-in"
-            },
-            {
-                "id": "reservationExpander",
-                "description": "Zusammenfassung der Reservierung"
-            },
-            {
-                "id": "date",
-                "description": "Datum"
-            },
-            {
-                "id": "refNo",
-                "description": "RefNo"
-            },
-            {
-                "id": "ticketNo",
-                "description": "Fahrschein"
-            },
-            {
-                "id": "destination",
-                "description": "Reiseziel"
-            },
-            {
-                "id": "customer",
-                "description": "Kunde"
-            },
-            {
-                "id": "pickupPoint",
-                "description": "Abholpunkt"
-            },
-            {
-                "id": "adults",
-                "description": "Erwachsene"
-            },
-            {
-                "id": "kids",
-                "description": "Kinder"
-            },
-            {
-                "id": "free",
-                "description": "Frei"
-            },
-            {
-                "id": "totalPax",
-                "description": "Total pax"
-            },
-            {
-                "id": "email",
-                "description": "Email"
-            },
-            {
-                "id": "phones",
-                "description": "Telefonnummern"
-            },
-            {
-                "id": "remarks",
-                "description": "Kommentare"
-            },
-            {
-                "id": "passengersExpander",
-                "description": "Daten der Passagiere"
-            },
-            {
-                "id": "sendEmailButton",
-                "description": "An meine E-Mail senden"
-            },
-            {
-                "id": "saveButton",
-                "description": "Speichern"
             }
         ]
     }

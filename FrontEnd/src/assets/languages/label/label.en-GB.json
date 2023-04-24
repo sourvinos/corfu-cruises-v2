@@ -2155,132 +2155,151 @@
         ]
     },
     {
-        "feature": "checkInCriteria",
+        "feature": "checkIn",
         "labels": [
             {
                 "id": "header",
                 "description": "Check-in"
             },
             {
-                "id": "genericInstructions",
-                "description": "To continue, we need to find your reservation. Please select one of the following:"
+                "id": "next",
+                "description": "Next"
             },
             {
-                "id": "haveRefNo",
-                "description": "I have a refNo"
+                "id": "previous",
+                "description": "Previous"
             },
             {
-                "id": "haveNothing",
-                "description": "I don't have a refNo"
+                "id": "step-1-header",
+                "description": "Search"
             },
             {
-                "id": "refNo",
-                "description": "RefNo"
+                "id": "step-1-haveRefNo",
+                "description": "Do you have a refNo"
             },
             {
-                "id": "ticketNo",
-                "description": "Ticket"
+                "id": "step-1-yes",
+                "description": "Yes"
             },
             {
-                "id": "date",
+                "id": "step-1-no",
+                "description": "No"
+            },
+            {
+                "id": "step-1-refNo",
+                "description": "Fill in the refNo and then click 'Next'"
+            },
+            {
+                "id": "step-1-details",
+                "description": "Fill in everything and then click 'Next'"
+            },
+            {
+                "id": "step-1-date",
                 "description": "Date"
             },
             {
-                "id": "destination",
+                "id": "step-1-destination",
                 "description": "Destination"
             },
             {
-                "id": "lastname",
+                "id": "step-1-lastname",
                 "description": "Lastname"
             },
             {
-                "id": "firstname",
+                "id": "step-1-firstname",
                 "description": "Firstname"
             },
             {
-                "id": "searchButton",
-                "description": "Continue"
+                "id": "step-2-header",
+                "description": "Reservation details"
             },
             {
-                "id": "needHelp",
-                "description": "Need help?"
-            }
-        ]
-    },
-    {
-        "feature": "checkInReservationForm",
-        "labels": [
-            {
-                "id": "header",
-                "description": "Check-in"
-            },
-            {
-                "id": "reservationExpander",
-                "description": "Reservation summary"
-            },
-            {
-                "id": "date",
-                "description": "Date"
-            },
-            {
-                "id": "refNo",
+                "id": "step-2-refNo",
                 "description": "RefNo"
             },
             {
-                "id": "ticketNo",
+                "id": "step-2-date",
+                "description": "Date"
+            },
+            {
+                "id": "step-2-ticket",
                 "description": "Ticket"
             },
             {
-                "id": "destination",
+                "id": "step-2-destination",
                 "description": "Destination"
             },
             {
-                "id": "customer",
+                "id": "step-2-customer",
                 "description": "Customer"
             },
             {
-                "id": "pickupPoint",
+                "id": "step-2-pickupPoint",
                 "description": "Pickup point"
             },
             {
-                "id": "adults",
+                "id": "step-2-exactPoint",
+                "description": "Exact point"
+            },
+            {
+                "id": "step-2-time",
+                "description": "Time"
+            },
+            {
+                "id": "step-2-adults",
                 "description": "Adults"
             },
             {
-                "id": "kids",
+                "id": "step-2-kids",
                 "description": "Kids"
             },
             {
-                "id": "free",
+                "id": "step-2-free",
                 "description": "Free"
             },
             {
-                "id": "totalPax",
+                "id": "step-2-pax",
                 "description": "Total pax"
             },
             {
-                "id": "email",
-                "description": "Email"
-            },
-            {
-                "id": "phones",
-                "description": "Phones"
-            },
-            {
-                "id": "remarks",
+                "id": "step-2-remarks",
                 "description": "Remarks"
             },
             {
-                "id": "passengersExpander",
-                "description": "Passenger data"
+                "id": "step-2-phones",
+                "description": "Phones"
             },
             {
-                "id": "sendEmailButton",
-                "description": "Send to my email"
+                "id": "step-3-header",
+                "description": "Passengers"
             },
             {
-                "id": "saveButton",
-                "description": "Save"
+                "id": "step-3-instructions",
+                "description": "To continue you must provide the details of all passengers"
+            },
+            {
+                "id": "step-4-header",
+                "description": "Send confirmation"
+            },
+            {
+                "id": "step-4-email",
+                "description": "Give us an email to which we will send the confirmation"
+            },
+            {
+                "id": "step-4-error",
+                "description": "We were unable to send you the email. Please try again"
+            },
+            {
+                "id": "step-5-header",
+                "description": "Done"
+            },
+            {
+                "id": "step-5-finish",
+                "description": "We have sent you an email which you must show upon boarding"
+            },
+            {
+                "id": "needHelp",
+                "description": "Do you need assistance?"
             }
         ]
     }

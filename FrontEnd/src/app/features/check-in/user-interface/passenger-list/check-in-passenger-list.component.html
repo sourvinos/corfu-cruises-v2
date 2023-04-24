@@ -18,7 +18,7 @@
             <span class="material-icons primary">group</span>
             <span class="passenger-count">{{ passengers != null ? passengers.length : 0 }}</span>
         </div>
-        <button (click)="newRow()" class="transparent" mat-mini-fab>
+        <button [disabled]="passengers.length >= initialPassengerCount" (click)="newRow()" class="transparent" mat-mini-fab>
             <span class="material-icons reverse">add</span>
         </button>
     </div>

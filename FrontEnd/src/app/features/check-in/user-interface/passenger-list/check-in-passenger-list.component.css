@@ -1,12 +1,14 @@
 .passenger {
+    align-items: center;
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    padding-bottom: 0.5rem;
 }
 
 .fullname {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
 }
 
@@ -17,6 +19,7 @@
 
 .lastname {
     color: var(--reservation-item-label);
+    width: 50%;
 }
 
 .firstname {

@@ -4,14 +4,12 @@ import { CheckInCriteriaComponent } from '../../user-interface/criteria/check-in
 import { CheckInEmailDialogComponent } from '../../user-interface/email-dialog/check-in-email-dialog.component'
 import { CheckInPassengerFormComponent } from '../../user-interface/passenger-form/check-in-passenger-form.component'
 import { CheckInPassengerListComponent } from '../../user-interface/passenger-list/check-in-passenger-list.component'
-import { CheckInReservationFormComponent } from '../../user-interface/reservation/check-in-reservation-form.component'
 import { CheckInRoutingModule } from './check-in.routing.module'
 import { SharedModule } from 'src/app/shared/modules/shared.module'
 
 @NgModule({
     declarations: [
         CheckInCriteriaComponent,
-        CheckInReservationFormComponent,
         CheckInPassengerListComponent,
         CheckInPassengerFormComponent,
         CheckInEmailDialogComponent

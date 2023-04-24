@@ -1,6 +1,6 @@
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms'
+import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
@@ -17,8 +17,9 @@ import { MessageInputHintService } from 'src/app/shared/services/message-input-h
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
-import { CheckInReservationVM } from '../../classes/view-models/list/check-in-reservation-vm'
 import { ReservationWriteDto } from 'src/app/features/reservations/classes/dtos/form/reservation-write-dto'
+import { ReservationHelperService } from 'src/app/features/reservations/classes/services/reservation.helper.service'
+import { MatStepper } from '@angular/material/stepper'
 
 @Component({
     selector: 'check-in-criteria',
@@ -31,7 +32,7 @@ export class CheckInCriteriaComponent {
     //#region variables
 
     private unsubscribe = new Subject<void>()
-    public feature = 'checkInCriteria'
+    public feature = 'checkIn'
     public featureIcon = 'check-in'
     public searchForm: FormGroup
     public reservationForm: FormGroup
@@ -41,12 +42,16 @@ export class CheckInCriteriaComponent {
     public isLoading = new Subject<boolean>()
     public selected: Date | null
     public destinations: SimpleEntity[] = []
-    public options: string[] = ['Yes', 'No']
-    private reservation: CheckInReservationVM
+    public options: any[] = [
+        { 'id': 1, 'description': this.getLabel('step-1-yes') },
+        { 'id': 2, 'description': this.getLabel('step-1-no') }
+    ]
+    public isEmailSent = true
+    public isReservationFound = 'notYet'
 
     //#endregion
 
-    constructor(private checkInService: CheckInService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private reservationHelperService: ReservationHelperService, private checkInService: CheckInService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -68,7 +73,7 @@ export class CheckInCriteriaComponent {
     //#region public methods
 
     public doSearch(): void {
-        if (this.searchForm.value.selection == 'Yes') {
+        if (this.searchForm.value.selection == 1) {
             this.searchByRefNo()
         } else {
             this.searchByDate()
@@ -81,6 +86,10 @@ export class CheckInCriteriaComponent {
 
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
+    }
+
+    public gotoIntroForm(): void {
+        this.router.navigate(['/'])
     }
 
     public formatISODateToLocale(): string {
@@ -98,23 +107,27 @@ export class CheckInCriteriaComponent {
     }
 
     public searchByRefNo(): void {
+        this.isReservationFound = 'notYet'
         this.checkInService.getByRefNo(this.searchForm.value.refNo).pipe(indicate(this.isLoading)).subscribe({
             next: (x) => {
                 this.patchReservationForm(x.body)
+                this.isReservationFound = 'yes'
             },
             error: () => {
-                alert('NOT Found')
+                this.isReservationFound = 'no'
             }
         })
     }
 
     public searchByDate(): void {
+        this.isReservationFound = 'notYet'
         this.checkInService.getByDate(this.searchForm.value.complexGroup.date, this.searchForm.value.complexGroup.destination, this.searchForm.value.complexGroup.lastname, this.searchForm.value.complexGroup.firstname).pipe(indicate(this.isLoading)).subscribe({
             next: (x) => {
                 this.patchReservationForm(x.body)
+                this.isReservationFound = 'yes'
             },
             error: () => {
-                alert('NOT Found')
+                this.isReservationFound = 'no'
             }
         })
     }
@@ -123,13 +136,16 @@ export class CheckInCriteriaComponent {
         this.dialogService.open(this.messageSnackbarService.helpDialog(), 'info', 'center-buttons', ['ok'])
     }
 
-    public onSendEmail(): void {
+    public onSendEmail(stepper: MatStepper): void {
+        this.reservationForm.patchValue({
+            email: this.searchForm.value.email
+        })
         this.checkInService.sendEmail(this.reservationForm.value).pipe(indicate(this.isLoading)).subscribe({
             complete: () => {
-                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.emailSent(), 'success', '', this.reservationForm, false, false)
+                stepper.next()
             },
             error: () => {
-                this.helperService.doPostSaveFormTasks(this.messageSnackbarService.emailNotSent(), 'error', '', this.reservationForm)
+                this.isEmailSent = false
             }
         })
     }
@@ -143,6 +159,10 @@ export class CheckInCriteriaComponent {
         this.unsubscribe.unsubscribe()
     }
 
+    private flattenForm(): ReservationWriteDto {
+        return this.reservationHelperService.flattenForm(this.reservationForm.value)
+    }
+
     private getToday(): string {
         return (this.dateHelperService.formatDateToIso(new Date()))
     }
@@ -151,13 +171,13 @@ export class CheckInCriteriaComponent {
         this.searchForm = this.formBuilder.group({
             selection: '',
             refNo: '',
-            ticketNo: '',
             complexGroup: this.formBuilder.group({
-                date: [this.getToday(), Validators.required],
-                destination: ['', Validators.required],
-                lastname: ['', Validators.required],
-                firstname: ['', Validators.required]
-            })
+                date: [this.getToday()],
+                destination: [''],
+                lastname: [''],
+                firstname: ['']
+            }),
+            email: ['', [Validators.required, Validators.email]]
         })
     }
 
@@ -211,7 +231,7 @@ export class CheckInCriteriaComponent {
             this.setTabTitle()
         })
         this.interactionService.saveReservation.subscribe(() => {
-            this.saveReservation(this.reservationForm.value)
+            this.saveReservation(this.flattenForm())
         })
     }
 
@@ -229,17 +249,16 @@ export class CheckInCriteriaComponent {
             free: reservation.free,
             totalPax: reservation.totalPax,
             driver: reservation.driver,
-            port: reservation.port,
+            port: reservation.pickupPoint.port,
             ship: reservation.ship,
             phones: reservation.phones,
             email: reservation.email,
             remarks: reservation.remarks,
             passengers: reservation.passengers,
         })
-    }
-
-    private patchFormWithPassengers(passengers: any): void {
-        this.reservationForm.patchValue({ passengers: passengers })
+        this.searchForm.patchValue({
+            email: reservation.email
+        })
     }
 
     private saveReservation(reservation: ReservationWriteDto): void {
@@ -283,6 +302,10 @@ export class CheckInCriteriaComponent {
 
     get firstname(): AbstractControl {
         return this.searchForm.get('complexGroup.firstname')
+    }
+
+    get email(): AbstractControl {
+        return this.searchForm.get('email')
     }
 
     //#endregion
