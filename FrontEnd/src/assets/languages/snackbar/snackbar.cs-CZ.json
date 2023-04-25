@@ -15,6 +15,10 @@
                 "message": "Ověření se nezdařilo."
             },
             {
+                "error": 402,
+                "message": "Odbavení po odjezdu není povoleno."
+            },
+            {
                 "error": 404,
                 "message": "Tento záznam nelze nalézt."
             },

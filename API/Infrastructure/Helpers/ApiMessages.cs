@@ -49,6 +49,7 @@ namespace API.Infrastructure.Helpers {
         public static string InvalidPortOrder() { return "The stop order already exists."; }
         public static string InvalidAccountFields() { return "One or more fields are invalid."; }
         public static string CustomerIdDoesNotMatchConnectedSimpleUserCustomerId() { return "Customer Id should match the connected customer id."; }
+        public static string CheckInAfterDepartureIsNotAllowed() { return "Check-in after departure is not allowed"; }
 
         #endregion
 

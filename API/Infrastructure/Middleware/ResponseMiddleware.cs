@@ -57,6 +57,7 @@ namespace API.Infrastructure.Middleware {
         private static string GetErrorMessage(int httpResponseCode) {
             return httpResponseCode switch {
                 401 => ApiMessages.AuthenticationFailed(),
+                402 => ApiMessages.CheckInAfterDepartureIsNotAllowed(),
                 404 => ApiMessages.RecordNotFound(),
                 408 => ApiMessages.InvalidCoachRoute(),
                 409 => ApiMessages.DuplicateRecord(),

@@ -20,6 +20,7 @@ import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { ReservationWriteDto } from 'src/app/features/reservations/classes/dtos/form/reservation-write-dto'
 import { ReservationHelperService } from 'src/app/features/reservations/classes/services/reservation.helper.service'
 import { MatStepper } from '@angular/material/stepper'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'check-in-criteria',
@@ -47,11 +48,26 @@ export class CheckInCriteriaComponent {
         { 'id': 2, 'description': this.getLabel('step-1-no') }
     ]
     public isEmailSent = true
-    public isReservationFound = 'notYet'
 
     //#endregion
 
-    constructor(private reservationHelperService: ReservationHelperService, private checkInService: CheckInService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(
+        private reservationHelperService: ReservationHelperService,
+        private checkInService: CheckInService,
+        private dateAdapter: DateAdapter<any>,
+        private dateHelperService: DateHelperService,
+        private dialogService: DialogService,
+        private formBuilder: FormBuilder,
+        private helperService: HelperService,
+        private interactionService: InteractionService,
+        private localStorageService: LocalStorageService,
+        private messageHintService: MessageInputHintService,
+        private messageLabelService: MessageLabelService,
+        private messageSnackbarService: MessageDialogService,
+        private router: Router,
+        private sessionStorageService: SessionStorageService,
+        private emojiService: EmojiService
+    ) { }
 
     //#region lifecycle hooks
 
@@ -72,12 +88,21 @@ export class CheckInCriteriaComponent {
 
     //#region public methods
 
-    public doSearch(): void {
+    public doSearch(stepper: MatStepper): void {
         if (this.searchForm.value.selection == 1) {
-            this.searchByRefNo()
-        } else {
-            this.searchByDate()
+            this.searchByRefNo().then((response) => {
+                response == true ? stepper.next() : null
+            })
         }
+        if (this.searchForm.value.selection == 2) {
+            this.searchByDate().then((response) => {
+                response == true ? stepper.next() : null
+            })
+        }
+    }
+
+    public getEmoji(emoji: string): string {
+        return this.emojiService.getEmoji(emoji)
     }
 
     public getHint(id: string, minmax = 0): string {
@@ -106,29 +131,47 @@ export class CheckInCriteriaComponent {
         })
     }
 
-    public searchByRefNo(): void {
-        this.isReservationFound = 'notYet'
-        this.checkInService.getByRefNo(this.searchForm.value.refNo).pipe(indicate(this.isLoading)).subscribe({
-            next: (x) => {
-                this.patchReservationForm(x.body)
-                this.isReservationFound = 'yes'
-            },
-            error: () => {
-                this.isReservationFound = 'no'
-            }
+    public requiredFieldsShouldBeGiven(): boolean {
+        if (this.searchForm.value.selection == '') {
+            return true
+        }
+        if (this.searchForm.value.selection == 1) {
+            return this.searchForm.value.refNo == ''
+        }
+        if (this.searchForm.value.selection == 2) {
+            return (this.searchForm.value.complexGroup.date == '' || this.searchForm.value.complexGroup.destination == '' || this.searchForm.value.complexGroup.lastname == '' || this.searchForm.value.complexGroup.firstname == '')
+        }
+    }
+
+    public searchByRefNo(): Promise<any> {
+        return new Promise((resolve) => {
+            this.checkInService.getByRefNo(this.searchForm.value.refNo).pipe(indicate(this.isLoading)).subscribe({
+                next: (x) => {
+                    this.patchReservationForm(x.body)
+                    resolve(true)
+                },
+                error: (errorFromInterceptor) => {
+                    this.showError(errorFromInterceptor)
+                    resolve(false)
+                }
+            })
+            return false
         })
     }
 
-    public searchByDate(): void {
-        this.isReservationFound = 'notYet'
-        this.checkInService.getByDate(this.searchForm.value.complexGroup.date, this.searchForm.value.complexGroup.destination, this.searchForm.value.complexGroup.lastname, this.searchForm.value.complexGroup.firstname).pipe(indicate(this.isLoading)).subscribe({
-            next: (x) => {
-                this.patchReservationForm(x.body)
-                this.isReservationFound = 'yes'
-            },
-            error: () => {
-                this.isReservationFound = 'no'
-            }
+    public searchByDate(): Promise<any> {
+        return new Promise((resolve) => {
+            this.checkInService.getByDate(this.searchForm.value.complexGroup.date, this.searchForm.value.complexGroup.destination, this.searchForm.value.complexGroup.lastname, this.searchForm.value.complexGroup.firstname).pipe(indicate(this.isLoading)).subscribe({
+                next: (x) => {
+                    this.patchReservationForm(x.body)
+                    resolve(true)
+                },
+                error: (errorFromInterceptor) => {
+                    this.showError(errorFromInterceptor)
+                    resolve(false)
+                }
+            })
+            return false
         })
     }
 
@@ -272,16 +315,23 @@ export class CheckInCriteriaComponent {
         })
     }
 
+    private showError(error: any): void {
+        switch (error.status) {
+            case 402:
+                this.dialogService.open(this.messageSnackbarService.checkInAfterDepartureIsNotAllowed(), 'error', 'center-buttons', ['ok'])
+                break
+            case 404:
+                this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', 'center-buttons', ['ok'])
+                break
+        }
+    }
+
     //#endregion
 
     //#region getters
 
     get refNo(): AbstractControl {
         return this.searchForm.get('refNo')
-    }
-
-    get ticketNo(): AbstractControl {
-        return this.searchForm.get('ticketNo')
     }
 
     get complexGroup(): AbstractControl {

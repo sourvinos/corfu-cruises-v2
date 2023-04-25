@@ -7,13 +7,14 @@ export class EmojiService {
     public getEmoji(emoji: string): string {
         switch (emoji) {
             case 'error': return '❌'
+            case 'green-circle': return '🟢'
             case 'null': return '🚫'
             case 'ok': return '✔️'
-            case 'wildcard': return '⭐'
-            case 'remarks': return '🔔'
             case 'red-circle': return '🔴'
+            case 'remarks': return '🔔'
+            case 'warning-triangle': return '⚠️'
+            case 'wildcard': return '⭐'
             case 'yellow-circle': return '🟡'
-            case 'green-circle': return '🟢'
         }
 
     }

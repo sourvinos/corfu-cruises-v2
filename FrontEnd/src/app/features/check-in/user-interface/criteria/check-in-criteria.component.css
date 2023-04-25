@@ -37,7 +37,7 @@
 
 @media only screen and (max-width: 430px) {
     #content {
-        margin: 0 1rem 0 1rem;
+        margin: 0 1rem 0 0;
     }
     #header {
         display: none;
@@ -62,11 +62,6 @@
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
-    margin-top: 1rem;
-}
-
-#complex-group {
-    margin-top: 13px;
 }
 
 .text {
@@ -79,6 +74,7 @@
 #reservation-items {
     display: flex;
     flex-direction: column;
+    margin-bottom: 0.5rem;
 }
 
 .reservation-item {
@@ -104,14 +100,22 @@
 }
 
 .instructions {
-    background-color: var(--color-blue);
-    color: var(--color-button-text);
+    align-items: center;
+    background-color: var(--color-yellow);
     display: flex;
-    font-family: var(--font-family-asty);
-    font-size: 12px;
-    font-weight: 300;
-    margin-top: 5px;
     padding: 0.5rem;
+}
+
+.instructions .emoji {
+    font-size: 1rem;
+    margin-top: -0.3125rem;
+}
+
+.instructions .text {
+    color: var(--color-button-text);
+    font-family: var(--font-family-asty);
+    font-size: 0.8125rem;
+    font-weight: 300;
 }
 
 .error {

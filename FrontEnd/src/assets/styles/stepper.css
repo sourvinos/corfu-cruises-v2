@@ -22,7 +22,6 @@
 
 .mat-vertical-content-container {
     background: none;
-    padding-top: 1rem !important;
 }
 
 .mat-stepper-vertical-line::before {

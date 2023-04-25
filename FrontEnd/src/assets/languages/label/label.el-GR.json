@@ -2187,7 +2187,7 @@
             },
             {
                 "id": "step-1-refNo",
-                "description": "Συμπληρώστε το refNo και κάντε κλικ στο 'Συνέχεια'"
+                "description": "RefNo"
             },
             {
                 "id": "step-1-details",
@@ -2279,7 +2279,7 @@
             },
             {
                 "id": "step-3-instructions",
-                "description": "Για να συνεχίσετε πρέπει να δώσετε τα στοιχεία όλων των επιβατών"
+                "description": "Για να συνεχίσετε πρέπει να καταχωρήσετε τα στοιχεία όλων των επιβατών"
             },
             {
                 "id": "step-4-header",
@@ -2287,7 +2287,7 @@
             },
             {
                 "id": "step-4-email",
-                "description": "Δώστε μας ένα email στο οποίο θα στείλουμε την επιβεβαίωση"
+                "description": "Email"
             },
             {
                 "id": "step-4-error",

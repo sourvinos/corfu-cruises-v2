@@ -63,6 +63,10 @@
                 "message": "Η είσοδος με τα στοιχεία που δώσατε απαγορεύεται."
             },
             {
+                "id": "checkInAfterDepartureIsNotAllowed",
+                "message": "Το check-in μετά την αναχώρηση απαγορεύεται."
+            },
+            {
                 "id": "emailSent",
                 "message": "Μόλις σας στείλαμε ένα email."
             },

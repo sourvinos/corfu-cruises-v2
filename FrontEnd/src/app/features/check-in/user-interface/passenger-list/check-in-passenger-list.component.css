@@ -26,13 +26,6 @@
     color: var(--reservation-item-title);
 }
 
-#footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    margin: 1rem 0.5rem 0 0.5rem;
-}
-
 .passenger-count-wrapper {
     align-items: center;
     display: flex;
@@ -72,6 +65,13 @@
     color: var(--color-red);
     display: flex;
     font-size: 1.1875rem;
+}
+
+#footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 0.5rem 1rem 0.5rem;
 }
 
 @media only screen and (max-width: 430px) {

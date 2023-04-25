@@ -15,6 +15,10 @@
                 "message": "Authentifizierung fehlgeschlagen."
             },
             {
+                "error": 402,
+                "message": "Einchecken nach der Abreise ist nicht erlaubt."
+            },
+            {
                 "error": 404,
                 "message": "Dieser Datensatz kann nicht gefunden werden."
             },

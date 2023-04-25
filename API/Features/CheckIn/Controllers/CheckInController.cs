@@ -16,18 +16,18 @@ namespace API.Features.CheckIn {
 
         private readonly ICheckInEmailSender checkInEmailSender;
         private readonly ICheckInReadRepository checkInReadRepo;
-        private readonly ICheckInReservationValidation checkInReservationValidation;
+        private readonly ICheckInReservationValidation checkInValidReservation;
         private readonly ICheckInUpdateRepository checkInUpdateRepo;
         private readonly IMapper mapper;
         private readonly IScheduleRepository scheduleRepo;
 
         #endregion
 
-        public CheckInController(ICheckInEmailSender checkInEmailSender, IMapper mapper, ICheckInReadRepository checkInReadRepo, ICheckInReservationValidation checkInReservationValidation, ICheckInUpdateRepository checkInUpdateRepo, IScheduleRepository scheduleRepo) {
+        public CheckInController(ICheckInEmailSender checkInEmailSender, ICheckInReadRepository checkInReadRepo, ICheckInReservationValidation checkInValidReservation, ICheckInUpdateRepository checkInUpdateRepo, IMapper mapper, IScheduleRepository scheduleRepo) {
             this.checkInEmailSender = checkInEmailSender;
             this.checkInReadRepo = checkInReadRepo;
-            this.checkInReservationValidation = checkInReservationValidation;
             this.checkInUpdateRepo = checkInUpdateRepo;
+            this.checkInValidReservation = checkInValidReservation;
             this.mapper = mapper;
             this.scheduleRepo = scheduleRepo;
         }
@@ -36,11 +36,18 @@ namespace API.Features.CheckIn {
         public async Task<ResponseWithBody> GetByRefNoAsync(string refNo) {
             var x = await checkInReadRepo.GetByRefNoAsync(refNo);
             if (x != null) {
-                return new ResponseWithBody {
-                    Code = 200,
-                    Icon = Icons.Info.ToString(),
-                    Message = ApiMessages.OK(),
-                    Body = mapper.Map<Reservation, ReservationReadDto>(x)
+                var z = checkInValidReservation.IsValid(x, scheduleRepo);
+                if (z == 200) {
+                    return new ResponseWithBody {
+                        Code = 200,
+                        Icon = Icons.Info.ToString(),
+                        Message = ApiMessages.OK(),
+                        Body = mapper.Map<Reservation, ReservationReadDto>(x)
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = 402
+                    };
                 };
             } else {
                 throw new CustomException() {
@@ -53,11 +60,18 @@ namespace API.Features.CheckIn {
         public async Task<ResponseWithBody> GetByDateAsync(string date, int destinationId, string lastname, string firstname) {
             var x = await checkInReadRepo.GetByDateAsync(date, destinationId, lastname, firstname);
             if (x != null) {
-                return new ResponseWithBody {
-                    Code = 200,
-                    Icon = Icons.Info.ToString(),
-                    Message = ApiMessages.OK(),
-                    Body = mapper.Map<Reservation, ReservationReadDto>(x)
+                var z = checkInValidReservation.IsValid(x, scheduleRepo);
+                if (z == 200) {
+                    return new ResponseWithBody {
+                        Code = 200,
+                        Icon = Icons.Info.ToString(),
+                        Message = ApiMessages.OK(),
+                        Body = mapper.Map<Reservation, ReservationReadDto>(x)
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = 402
+                    };
                 };
             } else {
                 throw new CustomException() {
@@ -70,18 +84,24 @@ namespace API.Features.CheckIn {
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public async Task<Response> Put([FromBody] ReservationWriteDto reservation) {
             var x = await checkInReadRepo.GetByIdAsync(reservation.ReservationId.ToString(), false);
-            reservation.UserId = x.UserId;
             if (x != null) {
-                AttachPortIdToDto(reservation);
-                UpdateDriverIdWithNull(reservation);
-                UpdateShipIdWithNull(reservation);
-                var z = mapper.Map<ReservationWriteDto, Reservation>(reservation);
-                checkInUpdateRepo.Update(reservation.ReservationId, z);
-                return new Response {
-                    Code = 200,
-                    Icon = Icons.Success.ToString(),
-                    Message = reservation.RefNo
-                };
+                var z = checkInValidReservation.IsValid(reservation, scheduleRepo);
+                if (z == 200) {
+                    reservation.UserId = x.UserId;
+                    AttachPortIdToDto(reservation);
+                    UpdateDriverIdWithNull(reservation);
+                    UpdateShipIdWithNull(reservation);
+                    checkInUpdateRepo.Update(reservation.ReservationId, mapper.Map<ReservationWriteDto, Reservation>(reservation));
+                    return new Response {
+                        Code = 200,
+                        Icon = Icons.Success.ToString(),
+                        Message = reservation.RefNo
+                    };
+                } else {
+                    throw new CustomException() {
+                        ResponseCode = 402
+                    };
+                }
             } else {
                 throw new CustomException() {
                     ResponseCode = 404
@@ -95,7 +115,7 @@ namespace API.Features.CheckIn {
         }
 
         private ReservationWriteDto AttachPortIdToDto(ReservationWriteDto reservation) {
-            reservation.PortId = checkInReservationValidation.GetPortIdFromPickupPointId(reservation);
+            reservation.PortId = checkInValidReservation.GetPortIdFromPickupPointId(reservation.PickupPointId);
             return reservation;
         }
 

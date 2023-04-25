@@ -49,6 +49,7 @@ export class MessageDialogService {
 
     public accountNotConfirmed(): string { return this.getDescription(this.feature, 'accountNotConfirmed') }
     public authenticationFailed(): string { return this.getDescription(this.feature, 'authenticationFailed') }
+    public checkInAfterDepartureIsNotAllowed(): string { return this.getDescription(this.feature, 'checkInAfterDepartureIsNotAllowed') }
     public emailSent(): string { return this.getDescription(this.feature, 'emailSent') }
     public emailNotSent(): string { return this.getDescription(this.feature, 'emailNotSent') }
     public formIsDirty(): string { return this.getDescription(this.feature, 'formIsDirty') }

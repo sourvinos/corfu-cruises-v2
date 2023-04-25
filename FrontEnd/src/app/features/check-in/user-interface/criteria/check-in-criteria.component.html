@@ -20,11 +20,11 @@
                         <ng-template [ngIf]="searchForm.value.selection==1">
                             <mat-form-field>
                                 <input matInput [placeholder]="getLabel('step-1-refNo')" formControlName="refNo">
+                                <mat-hint>Δώστε μας το RefNo όπως σας έχει δοθεί</mat-hint>
                             </mat-form-field>
                         </ng-template>
                         <ng-template [ngIf]="searchForm.value.selection==2">
                             <div id="complex-group" formGroupName="complexGroup">
-                                <div class="text">{{ getLabel("step-1-details") }}</div>
                                 <!-- Date -->
                                 <div class="group-field">
                                     <mat-form-field id="date">
@@ -32,6 +32,7 @@
                                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                         <mat-datepicker #picker></mat-datepicker>
                                         <mat-error *ngIf="date.hasError('required')">{{ getHint("invalid") }}</mat-error>
+                                        <mat-hint>Πότε είναι η εκδρομή σας;</mat-hint>
                                     </mat-form-field>
                                 </div>
                                 <!-- Destination -->
@@ -42,21 +43,24 @@
                                             {{ destination.description }}
                                         </mat-option>
                                     </mat-select>
+                                    <mat-hint>Ποιόν προορισμό έχετε επιλέξει;</mat-hint>
                                 </mat-form-field>
                                 <!-- Lastname -->
                                 <mat-form-field>
                                     <input [placeholder]="getLabel('step-1-lastname')" formControlName="lastname" matInput>
                                     <mat-error *ngIf="lastname.hasError('required')">{{ getHint("required") }}</mat-error>
+                                    <mat-hint>Συμπληρώστε ένα οποιοδήποτε επίθετο από αυτά που μας έχετε δώσει</mat-hint>
                                 </mat-form-field>
                                 <!-- Firstname -->
                                 <mat-form-field>
                                     <input [placeholder]="getLabel('step-1-firstname')" formControlName="firstname" matInput>
                                     <mat-error *ngIf="firstname.hasError('required')">{{ getHint("required") }}</mat-error>
+                                    <mat-hint>Συμπληρώστε ένα οποιοδήποτε όνομα από αυτά που μας έχετε δώσει</mat-hint>
                                 </mat-form-field>
                             </div>
                         </ng-template>
                         <div class="buttons">
-                            <button [disabled]="searchForm.value.selection==''" (click)="doSearch()" class="primary" mat-button matStepperNext>
+                            <button [disabled]="requiredFieldsShouldBeGiven()" (click)="doSearch(stepper)" class="primary" mat-button>
                                 <span>{{ getLabel("next") }}</span>
                             </button>
                         </div>
@@ -67,7 +71,7 @@
             <mat-step completed="false">
                 <form [formGroup]="reservationForm">
                     <ng-template matStepLabel>{{ getLabel("step-2-header") }}</ng-template>
-                    <div *ngIf="isReservationFound=='yes'" id="reservation-items">
+                    <div id="reservation-items">
                         <div class="reservation-item">
                             <span class="reservation-item-title">{{ getLabel('step-2-date') }}</span>
                             <span class="reservation-item-value">{{ formatISODateToLocale() }}</span>
@@ -121,12 +125,9 @@
                             <span class="reservation-item-value">{{ reservationForm.value.remarks }}</span>
                         </div>
                     </div>
-                    <div *ngIf="isReservationFound=='no'">
-                        <span class="error">{{ getLabel("step-1-error") }}</span>
-                    </div>
                     <div class="buttons">
                         <button mat-button matStepperPrevious class="secondary">{{ getLabel("previous") }}</button>
-                        <button [disabled]="isReservationFound=='no'" mat-button matStepperNext class="primary">
+                        <button mat-button matStepperNext class="primary">
                             <span>{{ getLabel("next") }}</span>
                         </button>
                     </div>
@@ -135,8 +136,11 @@
             <!-- Passengers -->
             <mat-step completed="false">
                 <ng-template matStepLabel>{{ getLabel("step-3-header") }}</ng-template>
+                <span class="instructions" *ngIf="reservationForm.value.totalPax!=reservationForm.value.passengers.length">
+                    <span class="emoji">{{ getEmoji('warning-triangle')}}</span>
+                    <span class="text">{{ getLabel("step-3-instructions") }}</span>
+                </span>
                 <check-in-passenger-list [passengers]="reservationForm.value.passengers" [initialPassengerCount]="reservationForm.value.totalPax"></check-in-passenger-list>
-                <span class="instructions" *ngIf="reservationForm.value.totalPax!=reservationForm.value.passengers.length">{{ getLabel("step-3-instructions") }}</span>
                 <div class="buttons">
                     <button mat-button matStepperPrevious class="secondary">{{ getLabel("previous") }}</button>
                     <button [disabled]="reservationForm.value.totalPax!=reservationForm.value.passengers.length" mat-button matStepperNext class="primary">
@@ -147,6 +151,9 @@
             <!-- Email -->
             <mat-step completed="false">
                 <ng-template matStepLabel>{{ getLabel("step-4-header") }}</ng-template>
+                <span class="instructions">
+                    <span class="text">Δώστε μας ένα email στο οποίο θα σας στείλουμε την κάρτα επιβίβασης</span>
+                </span>
                 <form [formGroup]="searchForm" id="search-form">
                     <mat-form-field>
                         <input matInput [placeholder]="getLabel('step-4-email')" formControlName="email">
@@ -169,7 +176,6 @@
                 </div>
             </mat-step>
         </mat-vertical-stepper>
-        <!-- {{ searchForm.value | json }} -->
     </div>
 
     <div id="footer">

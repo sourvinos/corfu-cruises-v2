@@ -5,7 +5,8 @@ namespace API.Features.CheckIn {
 
     public interface ICheckInReservationValidation {
 
-        int GetPortIdFromPickupPointId(ReservationWriteDto reservation);
+        int GetPortIdFromPickupPointId(int pickupPointId);
+        int IsValid(Reservation reservation, IScheduleRepository scheduleRepo);
         int IsValid(ReservationWriteDto reservation, IScheduleRepository scheduleRepo);
 
     }
