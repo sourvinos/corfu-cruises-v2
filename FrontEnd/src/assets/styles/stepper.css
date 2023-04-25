@@ -2,6 +2,10 @@
     background-color: transparent !important;
 }
 
+.mat-step-header.cdk-program-focused {
+    background-color: transparent !important;
+}
+
 .mat-step-header .mat-step-label.mat-step-label-active {
     color: var(--color-c);
     font-family: var(--font-family-asty);

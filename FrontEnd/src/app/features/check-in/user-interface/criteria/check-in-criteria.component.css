@@ -31,10 +31,6 @@
     padding: 0.5rem;
 }
 
-.no-margin-top {
-    margin-top: -1.75rem !important;
-}
-
 @media only screen and (max-width: 430px) {
     #content {
         margin: 0 1rem 0 0;
@@ -53,6 +49,12 @@
     gap: 1rem;
 }
 
+#reservation-items {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
 .mat-radio-group {
     display: flex;
     gap: 1rem;
@@ -69,12 +71,6 @@
     font-family: var(--font-family-asty);
     font-size: 0.8rem;
     font-weight: 300;
-}
-
-#reservation-items {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0.5rem;
 }
 
 .reservation-item {
@@ -106,30 +102,27 @@
     padding: 0.5rem;
 }
 
+.instructions.last {
+    margin-bottom: 1rem;
+}
+
 .instructions .emoji {
     font-size: 1rem;
     margin-top: -0.3125rem;
 }
 
 .instructions .text {
-    color: var(--color-button-text);
+    color: var(--color-c);
     font-family: var(--font-family-asty);
     font-size: 0.8125rem;
     font-weight: 300;
+    margin-left: 0.5rem;
 }
 
-.error {
-    background-color: var(--color-red);
-    color: var(--color-button-text);
-    display: flex;
-    font-family: var(--font-family-asty);
-    font-size: 12px;
-    font-weight: 300;
-    margin-top: 5px;
-    padding: 0.5rem;
+.instructions .transparent {
+    background-color: transparent;
 }
 
-#fullname {
-    display: flex;
-    flex-direction: row;
+.instructions .yellow {
+    background-color: var(--color-yellow);
 }

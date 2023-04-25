@@ -2163,11 +2163,11 @@
             },
             {
                 "id": "next",
-                "description": "Συνέχεια"
+                "description": "Επόμενο"
             },
             {
                 "id": "previous",
-                "description": "Πίσω"
+                "description": "Προηγούμενο"
             },
             {
                 "id": "step-1-header",
@@ -2175,7 +2175,7 @@
             },
             {
                 "id": "step-1-haveRefNo",
-                "description": "Εχετε αριθμό αναφοράς (refNo)"
+                "description": "Εχετε αριθμό αναφοράς; (refNo)"
             },
             {
                 "id": "step-1-yes",
@@ -2190,28 +2190,40 @@
                 "description": "RefNo"
             },
             {
-                "id": "step-1-details",
-                "description": "Συμπληρώστε τα πάντα και κάντε κλικ στο 'Συνέχεια'"
-            },
-            {
-                "id": "step-1-error",
-                "description": "Η κράτηση δεν βρέθηκε"
+                "id": "step-1-refNo-hint",
+                "description": "Δώστε μας το refNo όπως σας έχει δοθεί"
             },
             {
                 "id": "step-1-date",
                 "description": "Ημερομηνία"
             },
             {
+                "id": "step-1-date-hint",
+                "description": "Πότε είναι η εκδρομή σας;"
+            },
+            {
                 "id": "step-1-destination",
                 "description": "Προορισμός"
+            },
+            {
+                "id": "step-1-destination-hint",
+                "description": "Ποιόν προορισμό έχετε επιλέξει;"
             },
             {
                 "id": "step-1-lastname",
                 "description": "Επώνυμο"
             },
             {
+                "id": "step-1-lastname-hint",
+                "description": "Συμπληρώστε ένα οποιοδήποτε επίθετο από αυτά που μας έχετε δώσει"
+            },
+            {
                 "id": "step-1-firstname",
                 "description": "Ονομα"
+            },
+            {
+                "id": "step-1-firstname-hint",
+                "description": "Συμπληρώστε ένα οποιοδήποτε όνομα από αυτά που μας έχετε δώσει"
             },
             {
                 "id": "step-2-header",
@@ -2290,8 +2302,8 @@
                 "description": "Email"
             },
             {
-                "id": "step-4-error",
-                "description": "Δεν μπορέσαμε να σας στείλουμε το email. Παρακαλούμε δοκιμάστε ξανά σε λιγάκι"
+                "id": "step-4-instructions",
+                "description": "Δώστε μας ένα email στο οποίο θα σας στείλουμε την επιβεβαίωση."
             },
             {
                 "id": "step-5-header",

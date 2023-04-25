@@ -2171,11 +2171,11 @@
             },
             {
                 "id": "step-1-header",
-                "description": "Search"
+                "description": "Find reservation"
             },
             {
                 "id": "step-1-haveRefNo",
-                "description": "Do you have a refNo"
+                "description": "Do you have a refNo?"
             },
             {
                 "id": "step-1-yes",
@@ -2187,27 +2187,43 @@
             },
             {
                 "id": "step-1-refNo",
-                "description": "Fill in the refNo and then click 'Next'"
+                "description": "RefNo"
             },
             {
-                "id": "step-1-details",
-                "description": "Fill in everything and then click 'Next'"
+                "id": "step-1-refNo-hint",
+                "description": "Give us the refNo as given to you"
             },
             {
                 "id": "step-1-date",
                 "description": "Date"
             },
             {
+                "id": "step-1-date-hint",
+                "description": "When is your trip?"
+            },
+            {
                 "id": "step-1-destination",
                 "description": "Destination"
+            },
+            {
+                "id": "step-1-destination-hint",
+                "description": "Which destination have you chosen?"
             },
             {
                 "id": "step-1-lastname",
                 "description": "Lastname"
             },
             {
+                "id": "step-1-lastname-hint",
+                "description": "Fill in any of the lastnames you have given us"
+            },
+            {
                 "id": "step-1-firstname",
-                "description": "Firstname"
+                "description": "Name"
+            },
+            {
+                "id": "step-1-firstname-hint",
+                "description": "Fill in any of the firstnames you have given us"
             },
             {
                 "id": "step-2-header",
@@ -2275,7 +2291,7 @@
             },
             {
                 "id": "step-3-instructions",
-                "description": "To continue you must provide the details of all passengers"
+                "description": "To continue you must enter the details of all passengers."
             },
             {
                 "id": "step-4-header",
@@ -2283,11 +2299,11 @@
             },
             {
                 "id": "step-4-email",
-                "description": "Give us an email to which we will send the confirmation"
+                "description": "Email"
             },
             {
-                "id": "step-4-error",
-                "description": "We were unable to send you the email. Please try again"
+                "id": "step-4-instructions",
+                "description": "Give us an email to which we will send you the confirmation."
             },
             {
                 "id": "step-5-header",
@@ -2295,7 +2311,7 @@
             },
             {
                 "id": "step-5-finish",
-                "description": "We have sent you an email which you must show upon boarding"
+                "description": "We have sent you an email which you must show upon boarding."
             },
             {
                 "id": "needHelp",

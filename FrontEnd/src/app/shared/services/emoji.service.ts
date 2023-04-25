@@ -6,6 +6,8 @@ export class EmojiService {
 
     public getEmoji(emoji: string): string {
         switch (emoji) {
+            case 'email': return '📬'
+            case 'question': return '🤔'
             case 'error': return '❌'
             case 'green-circle': return '🟢'
             case 'null': return '🚫'
