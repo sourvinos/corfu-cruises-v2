@@ -18,30 +18,34 @@ namespace API.Features.CheckIn {
             var message = new MimeMessage();
             var htmlContent = "";
 
-            htmlContent += "<h1 style = 'font-weight: 500;'><span style = 'color: #0078d7;'>" + reservation.RefNo + "</span></h1>";
-            htmlContent += "<p>Date: " + DateHelpers.FormatDateStringToLocaleString(reservation.Date) + "<p>";
-            htmlContent += "<p>Ticket: " + reservation.TicketNo + "<p>";
-            htmlContent += "<p>Destination: " + reservation.Destination.Description + "<p>";
-            htmlContent += "<p>Customer: " + reservation.Customer.Description + "<p>";
-            htmlContent += "<p>Pickup point: " + reservation.PickupPoint.Description + "<p>";
-            htmlContent += "<p>Exact point: " + reservation.PickupPoint.ExactPoint + "<p>";
-            htmlContent += "<p>Adults: " + reservation.Adults + "<p>";
-            htmlContent += "<p>Kids: " + reservation.Kids + "<p>";
-            htmlContent += "<p>Free: " + reservation.Free + "<p>";
-            htmlContent += "<p>Total pax: " + reservation.TotalPax + "<p>";
-            htmlContent += "<p>Phones: " + reservation.Phones + "<p>";
-            htmlContent += "<p>Remarks: " + reservation.Remarks + "<p>";
-
-            htmlContent += "<p>";
-            htmlContent += "<p>Passengers</p>";
-
+            htmlContent += "<div id='details'>";
+            htmlContent += "    <div style='padding: 0.5rem;'>";
+            htmlContent += "        <span style='color: darkblue; font-family: 'Asty CF Std'; font-size: 10px; font-weight: 300;'>RefNo: </span>";
+            htmlContent += "        <span style='color: #115abb; font-family: 'Asty CF Std'; font-size: 10px; font-weight: 300;'>" + reservation.RefNo + "</span>";
+            htmlContent += "    </div>";
+            htmlContent += "    <div style='padding: 0.5rem;'>";
+            htmlContent += "        <span style='color: darkblue; font-family: 'Asty CF Std'; font-size: 10px; font-weight: 300;'>Date: </span>";
+            htmlContent += "        <span style='color: #115abb; font-family: 'Asty CF Std'; font-size: 10px; font-weight: 300;'>" + DateHelpers.FormatDateStringToLocaleString(reservation.Date) + "</span>";
+            htmlContent += "    </div>";
+            htmlContent += "    <div style='padding: 0.5rem;'>";
+            htmlContent += "        <span style='color: darkblue; font-family: 'Asty CF Std'; font-size: 10px; font-weight: 300;'>Destination: </span>";
+            htmlContent += "        <span style='color: #115abb; font-family: 'Asty CF Std'; font-size: 10px; font-weight: 300;'>" + reservation.Destination.Description + "</span>";
+            htmlContent += "    </div>";
+            htmlContent += "    <div style='padding: 0.5rem;'>";
+            htmlContent += "        <span style='color: darkblue; font-family: 'Asty CF Std'; font-size: 10px; font-weight: 300;'>Customer: </span>";
+            htmlContent += "        <span style='color: #115abb; font-family: 'Asty CF Std'; font-size: 10px; font-weight: 300;'>" + reservation.Customer.Description + "</span>";
+            htmlContent += "    </div>";
+            htmlContent += "</div>";
+            htmlContent += "<div id='passengers' style='padding: 0.5rem;>";
+            htmlContent += "    <div class='header'>";
+            htmlContent += "        <span style='color: darkblue; font-family:'Asty CF Std'; font-weight: 300;'>Passengers</span>";
+            htmlContent += "    </div>";
             foreach (var passenger in reservation.Passengers) {
-                htmlContent += "<p>" + passenger.Lastname + " " + passenger.Firstname + "</p>";
+                htmlContent += "    <div class='passenger' style='padding: 0.5rem;'>";
+                htmlContent += "        <span style='color: #115abb; font-family: 'Asty CF Std'; font-size: 10px; font-weight: 300;'>" + passenger.Lastname + " " + passenger.Firstname + "</span>";
+                htmlContent += "    </div>";
             }
-
-            htmlContent += "<p></p>";
-            htmlContent += "<p></p>";
-            htmlContent += "<p>Enjoy your trip!</p>";
+            htmlContent += "</div>";
 
             message.From.Add(new MailboxAddress(settings.From, settings.UserName));
             message.To.Add(new MailboxAddress("Guest", reservation.Email));
