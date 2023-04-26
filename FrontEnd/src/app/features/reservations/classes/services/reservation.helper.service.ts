@@ -85,7 +85,7 @@ export class ReservationHelperService {
         const destination = new RegExp(/[a-zA-Z]{1,6}/).exec(refNo)[0]
         const number = new RegExp(/[0-9]{1,6}/g).exec(refNo).slice(-6)[0]
         const zeros = '000000'.slice(number.length)
-        return destination.toUpperCase() + '-' + zeros + number
+        return destination.toUpperCase() + '' + zeros + number
     }
 
     public getLinkedCustomer(isNewRecord: boolean): any {

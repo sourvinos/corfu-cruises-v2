@@ -94,13 +94,6 @@ ul {
     margin-top: 0;
 }
 
-.instructions {
-    color: var(--color-c);
-    font-family: var(--font-family-ubuntu);
-    font-size: 0.85rem;
-    overflow-y: scroll;
-}
-
 .subscript {
     font-size: 0.5rem;
 }
@@ -128,6 +121,10 @@ ul {
 
 .yellow {
     color: var(--color-yellow) !important;
+}
+
+.blue {
+    color: var(--color-blue) !important;
 }
 
 .disabled:hover {

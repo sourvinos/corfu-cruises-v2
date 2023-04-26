@@ -2163,19 +2163,19 @@
             },
             {
                 "id": "next",
-                "description": "Continuer"
+                "description": "Suivant"
             },
             {
                 "id": "previous",
-                "description": "Retourner"
+                "description": "Précédent"
             },
             {
                 "id": "step-1-header",
-                "description": "Recherche"
+                "description": "Trouver une réservation"
             },
             {
                 "id": "step-1-haveRefNo",
-                "description": "Avez-vous un RefNo?"
+                "description": "Avez-vous une réfNo?"
             },
             {
                 "id": "step-1-yes",
@@ -2187,27 +2187,43 @@
             },
             {
                 "id": "step-1-refNo",
-                "description": "Complétez le numéro de référence et cliquez sur 'Continuer'."
+                "description": "RefNo"
             },
             {
-                "id": "step-1-details",
-                "description": "Remplissez tout et cliquez sur 'Continuer'."
+                "id": "step-1-refNo-hint",
+                "description": "Donnez-nous le refNo tel qu'il vous a été donné"
             },
             {
                 "id": "step-1-date",
                 "description": "Date"
             },
             {
+                "id": "step-1-date-hint",
+                "description": "Quelle est la date de votre voyage?"
+            },
+            {
                 "id": "step-1-destination",
                 "description": "Destination"
+            },
+            {
+                "id": "step-1-destination-hint",
+                "description": "Quelle destination avez-vous choisie?"
             },
             {
                 "id": "step-1-lastname",
                 "description": "Nom"
             },
             {
+                "id": "step-1-lastname-hint",
+                "description": "Remplissez les noms que vous nous avez donnés"
+            },
+            {
                 "id": "step-1-firstname",
                 "description": "Prénom"
+            },
+            {
+                "id": "step-1-firstname-hint",
+                "description": "Complétez les prénoms que vous nous avez donnés"
             },
             {
                 "id": "step-2-header",
@@ -2235,7 +2251,7 @@
             },
             {
                 "id": "step-2-pickupPoint",
-                "description": "Point d'enlèvement"
+                "description": "Point d'embarquement"
             },
             {
                 "id": "step-2-exactPoint",
@@ -2251,11 +2267,11 @@
             },
             {
                 "id": "step-2-kids",
-                "description": "Enfants"
+                "description": "Enfant"
             },
             {
                 "id": "step-2-free",
-                "description": "Gratuit"
+                "description": "Libre"
             },
             {
                 "id": "step-2-pax",
@@ -2275,7 +2291,7 @@
             },
             {
                 "id": "step-3-instructions",
-                "description": "Pour continuer, vous devez fournir les détails de tous les passagers."
+                "description": "Pour continuer, vous devez entrer les détails de tous les passagers."
             },
             {
                 "id": "step-4-header",
@@ -2283,23 +2299,23 @@
             },
             {
                 "id": "step-4-email",
-                "description": "Indiquez-nous un e-mail auquel nous enverrons la confirmation."
+                "description": "Email"
             },
             {
-                "id": "step-4-error",
-                "description": "Nous n'avons pas pu vous envoyer l'e-mail. Veuillez réessayer."
+                "id": "step-4-instructions",
+                "description": "Donnez-nous un email auquel nous vous enverrons la confirmation."
             },
             {
                 "id": "step-5-header",
-                "description": "Prêt"
+                "description": "Fait"
             },
             {
                 "id": "step-5-finish",
-                "description": "Nous vous avons envoyé un courriel que vous devez présenter à l'embarquement."
+                "description": "Nous vous avons envoyé un e-mail que vous devez nous montrer à l'embarquement."
             },
             {
                 "id": "needHelp",
-                "description": "Avez-vous besoin d'aide ?"
+                "description": "Avez-vous besoin d'aide?"
             }
         ]
     }

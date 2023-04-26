@@ -121,7 +121,7 @@
 #total-pax #total-pax-body {
     color: var(--color-c);
     font-size: 1.5rem;
-    margin-top: 0.9375rem;
+    margin-top: 0.8125rem;
     text-align: center;
     transform: scale(0.8, 1.8);
 }

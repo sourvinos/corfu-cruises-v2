@@ -2171,7 +2171,7 @@
             },
             {
                 "id": "step-1-header",
-                "description": "Suche"
+                "description": "Reservierung finden"
             },
             {
                 "id": "step-1-haveRefNo",
@@ -2187,27 +2187,43 @@
             },
             {
                 "id": "step-1-refNo",
-                "description": "Geben Sie die Referenznummer ein und klicken Sie dann auf 'Weiter'."
+                "description": "RefNo"
             },
             {
-                "id": "step-1-details",
-                "description": "Füllen Sie alles aus und klicken Sie dann auf 'Weiter'."
+                "id": "step-1-refNo-hint",
+                "description": "Geben Sie die von Ihnen angegebene RefNo an"
             },
             {
                 "id": "step-1-date",
                 "description": "Datum"
             },
             {
+                "id": "step-1-date-hint",
+                "description": "Wann ist Ihre Reise?"
+            },
+            {
                 "id": "step-1-destination",
                 "description": "Reiseziel"
+            },
+            {
+                "id": "step-1-destination-hint",
+                "description": "Welches Ziel haben Sie gewählt?"
             },
             {
                 "id": "step-1-lastname",
                 "description": "Nachname"
             },
             {
+                "id": "step-1-lastname-hint",
+                "description": "Geben Sie einen der Nachnamen ein, die Sie uns gegeben haben"
+            },
+            {
                 "id": "step-1-firstname",
-                "description": "Vorname"
+                "description": "Name"
+            },
+            {
+                "id": "step-1-firstname-hint",
+                "description": "Geben Sie einen der Vornamen ein, die Sie uns gegeben haben"
             },
             {
                 "id": "step-2-header",
@@ -2223,7 +2239,7 @@
             },
             {
                 "id": "step-2-ticket",
-                "description": "Fahrschein"
+                "description": "Ticket"
             },
             {
                 "id": "step-2-destination",
@@ -2275,7 +2291,7 @@
             },
             {
                 "id": "step-3-instructions",
-                "description": "Um fortzufahren, müssen Sie die Angaben zu allen Passagieren machen"
+                "description": "Um fortzufahren, müssen Sie die Daten aller Passagiere eingeben."
             },
             {
                 "id": "step-4-header",
@@ -2283,11 +2299,11 @@
             },
             {
                 "id": "step-4-email",
-                "description": "Geben Sie uns eine E-Mail an, an die wir die Bestätigung senden sollen."
+                "description": "E-Mail"
             },
             {
-                "id": "step-4-error",
-                "description": "Wir konnten Ihnen die E-Mail nicht senden. Bitte versuchen Sie es erneut."
+                "id": "step-4-instructions",
+                "description": "Geben Sie uns eine E-Mail an, an die wir Ihnen die Bestätigung schicken werden."
             },
             {
                 "id": "step-5-header",
@@ -2295,7 +2311,7 @@
             },
             {
                 "id": "step-5-finish",
-                "description": "Wir haben Ihnen eine E-Mail geschickt, die Sie beim Einsteigen vorlegen müssen."
+                "description": "Wir haben Ihnen eine E-Mail geschickt, die Sie uns beim Einsteigen zeigen müssen."
             },
             {
                 "id": "needHelp",

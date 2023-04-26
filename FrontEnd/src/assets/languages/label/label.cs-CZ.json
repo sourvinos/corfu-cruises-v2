@@ -2159,19 +2159,19 @@
         "labels": [
             {
                 "id": "header",
-                "description": "Check-in"
+                "description": "Odbavení na"
             },
             {
                 "id": "next",
-                "description": "Pokračovat na"
+                "description": "Další"
             },
             {
                 "id": "previous",
-                "description": "Zpět"
+                "description": "Předchozí"
             },
             {
                 "id": "step-1-header",
-                "description": "Hledat na"
+                "description": "Vyhledat rezervaci"
             },
             {
                 "id": "step-1-haveRefNo",
@@ -2187,27 +2187,43 @@
             },
             {
                 "id": "step-1-refNo",
-                "description": "Vyplňte refNo a klikněte na tlačítko 'Pokračovat'."
+                "description": "RefNo"
             },
             {
-                "id": "step-1-details",
-                "description": "Vyplňte vše a poté klikněte na tlačítko 'Zpět'."
+                "id": "step-1-refNo-hint",
+                "description": "Uveďte nám refNo, které jste nám dali"
             },
             {
                 "id": "step-1-date",
                 "description": "Datum"
             },
             {
+                "id": "step-1-date-hint",
+                "description": "Kdy se vaše cesta koná?"
+            },
+            {
                 "id": "step-1-destination",
                 "description": "Destinace"
+            },
+            {
+                "id": "step-1-destination-hint",
+                "description": "Kterou destinaci jste si vybrali?"
             },
             {
                 "id": "step-1-lastname",
                 "description": "Příjmení"
             },
             {
+                "id": "step-1-lastname-hint",
+                "description": "Vyplňte kterékoli z příjmení, které jste nám uvedli"
+            },
+            {
                 "id": "step-1-firstname",
                 "description": "Jméno"
+            },
+            {
+                "id": "step-1-firstname-hint",
+                "description": "Vyplňte všechna křestní jména, která jste nám poskytli"
             },
             {
                 "id": "step-2-header",
@@ -2259,7 +2275,7 @@
             },
             {
                 "id": "step-2-pax",
-                "description": "Celkový počet osob"
+                "description": "Total pax"
             },
             {
                 "id": "step-2-remarks",
@@ -2275,7 +2291,7 @@
             },
             {
                 "id": "step-3-instructions",
-                "description": "Chcete-li pokračovat, musíte uvést údaje o všech cestujících."
+                "description": "Chcete-li pokračovat, musíte zadat údaje o všech cestujících."
             },
             {
                 "id": "step-4-header",
@@ -2283,23 +2299,23 @@
             },
             {
                 "id": "step-4-email",
-                "description": "Uveďte e-mail, na který vám zašleme potvrzení."
+                "description": "E-mail"
             },
             {
-                "id": "step-4-error",
-                "description": "E-mail se nám nepodařilo odeslat. Zkuste to prosím znovu."
+                "id": "step-4-instructions",
+                "description": "Zadejte nám e-mail, na který vám zašleme potvrzení."
             },
             {
                 "id": "step-5-header",
-                "description": "Připraveno"
+                "description": "Hotovo"
             },
             {
                 "id": "step-5-finish",
-                "description": "Zaslali jsme vám e-mail, který musíte ukázat při nástupu do letadla"
+                "description": "Zaslali jsme vám e-mail, který nám musíte ukázat při nástupu do letadla."
             },
             {
                 "id": "needHelp",
-                "description": "Potřebujete asistenci?"
+                "description": "Potřebujete pomoc?"
             }
         ]
     }

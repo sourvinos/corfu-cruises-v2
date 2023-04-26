@@ -139,7 +139,7 @@
             <!-- Passengers -->
             <mat-step completed="false">
                 <ng-template matStepLabel>{{ getLabel("step-3-header") }}</ng-template>
-                <span class="instructions yellow" *ngIf="reservationForm.value.totalPax!=reservationForm.value.passengers.length">
+                <span class="instructions yellow with-margin-bottom" *ngIf="reservationForm.value.totalPax!=reservationForm.value.passengers.length">
                     <span class="emoji">{{ getEmoji('warning-triangle')}}</span>
                     <span class="text">{{ getLabel("step-3-instructions") }}</span>
                 </span>
@@ -154,7 +154,7 @@
             <!-- Email -->
             <mat-step completed="false">
                 <ng-template matStepLabel>{{ getLabel("step-4-header") }}</ng-template>
-                <span class="instructions transparent">
+                <span class="instructions blue">
                     <span class="emoji">{{ getEmoji('email')}}</span>
                     <span class="text">{{ getLabel("step-4-instructions") }}</span>
                 </span>
@@ -167,14 +167,13 @@
                 </form>
                 <div class="buttons">
                     <button mat-button matStepperPrevious class="secondary">{{ getLabel("previous") }}</button>
-                    <!-- <button [disabled]="email.hasError('required') || email.hasError('email')" (click)="onSendEmail(stepper)" mat-button matStepperNext class="primary">{{ getLabel("next")}}</button> -->
-                    <button mat-button matStepperNext class="primary">{{ getLabel("next")}}</button>
+                    <button [disabled]="email.hasError('required') || email.hasError('email')" (click)="onSendEmail(stepper)" mat-button matStepperNext class="primary">{{ getLabel("next")}}</button>
                 </div>
             </mat-step>
             <!-- Finish -->
             <mat-step completed="false">
                 <ng-template matStepLabel>{{ getLabel("step-5-header") }}</ng-template>
-                <span class="instructions last transparent">
+                <span class="instructions last blue">
                     <span class="emoji">{{ getEmoji('email')}}</span>
                     <span class="text">{{ getLabel("step-5-finish") }}</span>
                 </span>
