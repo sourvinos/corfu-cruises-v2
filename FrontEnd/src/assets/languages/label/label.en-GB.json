@@ -2147,14 +2147,6 @@
             {
                 "id": "ledgersSubTitle",
                 "description": "Display your reservations for a time period."
-            },
-            {
-                "id": "accountsTitle",
-                "description": "Accounting"
-            },
-            {
-                "id": "accountsSubTitle",
-                "description": "Create price lists, issue invoices for your services and view the customer ledgers."
             }
         ]
     },
