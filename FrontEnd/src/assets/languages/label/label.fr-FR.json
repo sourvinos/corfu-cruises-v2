@@ -1479,6 +1479,10 @@
                 "description": "Destinations"
             },
             {
+                "id": "criteria-ports",
+                "description": "Ports"
+            },
+            {
                 "id": "criteria-ships",
                 "description": "Navires"
             },

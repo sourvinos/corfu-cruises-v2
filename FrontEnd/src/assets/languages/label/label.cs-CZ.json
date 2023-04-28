@@ -1479,6 +1479,10 @@
                 "description": "Destinace"
             },
             {
+                "id": "criteria-ports",
+                "description": "Přístavy"
+            },
+            {
                 "id": "criteria-ships",
                 "description": "Lodě"
             },
