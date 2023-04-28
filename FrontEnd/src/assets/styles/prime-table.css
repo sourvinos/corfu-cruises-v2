@@ -28,14 +28,9 @@
     scrollbar-gutter: stable;
 }
 
-.p-datatable .p-datatable-thead > tr {
-    background-color: var(--color-x);
-    transition: all var(--theme-change-delay) ease-in;
-}
-
 .p-datatable .p-datatable-thead > tr > th {
     background-color: var(--color-x);
-    border-right: 0.0625rem solid transparent !important;
+    border-right: 0.0625rem solid var(--color-e) !important;
     color: var(--color-c) !important;
     font-family: var(--font-family-asty) !important;
     font-size: var(--font-size-table-header) !important;
@@ -58,12 +53,10 @@
 
 .p-datatable .p-datatable-thead > tr:nth-child(1) > th:first-child {
     border-left: 1px solid var(--color-e);
-    border-radius: 0.3125rem 0 0 0;
 }
 
 .p-datatable .p-datatable-thead > tr:nth-child(1) > th:last-child {
     border-right: 1px solid var(--color-e) !important;
-    border-radius: 0 0.3125rem 0 0;
 }
 
 .p-datatable .p-datatable-thead > tr:nth-child(2) > th:first-child {
@@ -114,16 +107,6 @@
 .p-datatable .p-datatable-tbody > tr > td > img {
     height: 1.0625rem;
     width: 1.25rem;
-}
-
-.p-datatable .p-datatable-tfoot {
-    background-color: var(--color-b) !important;
-}
-
-.p-datatable .p-datatable-tfoot > tr > td {
-    background-color: transparent;
-    border: none;
-    justify-content: flex-end;
 }
 
 .p-datatable .p-sortable-column .p-sortable-column-icon {
@@ -405,4 +388,14 @@ div:not(.p-column-filter).p-column-filter-row:hover {
 
 .is-not-active {
     color: var(--color-table-inactive);
+}
+
+.p-datatable .p-datatable-tfoot > tr > td {
+    background-color: var(--color-x);
+    border: 1px solid var(--color-e);
+    color: var(--color-c) !important;
+    font-family: var(--font-family-asty) !important;
+    font-size: var(--font-size-table-row);
+    font-weight: 300;
+    padding: 0.6rem 0.5rem 0.6rem 0.5rem;
 }

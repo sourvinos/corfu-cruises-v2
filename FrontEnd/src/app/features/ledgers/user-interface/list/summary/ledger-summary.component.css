@@ -1,12 +1,32 @@
 #table-wrapper {
-    margin: 0 !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 1rem 0 0 0 !important;
 }
 
-.p-datatable-wrapper {
-    overflow-y: auto;
-    scrollbar-gutter: auto;
+table {
+    border-collapse: collapse;
 }
 
-.p-datatable-flex-scrollable .p-datatable-wrapper {
-    scrollbar-gutter: auto;
+th {
+    background-color: var(--color-x);
+    border: 0.0625rem solid var(--color-e);
+    color: var(--color-c) !important;
+    font-family: var(--font-family-asty) !important;
+    font-size: var(--font-size-table-header) !important;
+    font-weight: 300 !important;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    text-align: center !important;
+}
+
+td {
+    border-bottom: 0.0625rem solid var(--color-d);
+    color: var(--color-c);
+    font-family: var(--font-family-asty) !important;
+    font-size: var(--font-size-table-row);
+    font-weight: 300;
+    padding: 0.4375rem 0.5rem;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
 }

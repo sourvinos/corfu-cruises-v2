@@ -55,6 +55,37 @@
                         </div>
                     </div>
                 </fieldset>
+                <!-- Ports -->
+                <fieldset class="fieldset">
+                    <legend>
+                        <span>{{ getLabel('ports') }}</span>
+                        <div class="selected">
+                            <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.ports.length }}</span>
+                            <span class="icon">{{ getEmoji(form.value.ports.length > 0 ? 'ok' : 'error') }}</span>
+                        </div>
+                    </legend>
+                    <div class="filter">
+                        <div class="styled-input-square">
+                            <div class="styled-input-single">
+                                <input (click)="toggleAllCheckboxes(form, 'port', 'allPortsCheckbox')" formControlName="allPortsCheckbox" id="all-ports" type="checkbox">
+                                <label class="no-label" for="all-ports"></label>
+                            </div>
+                        </div>
+                        <div class="list-filter">
+                            <input (keyup)="filterList($event, 'ports')" formControlName="portsFilter" id="portsFilter">
+                        </div>
+                    </div>
+                    <div class="list-wrapper">
+                        <div *ngFor="let port of ports" [attr.id]=port.description>
+                            <div class="styled-input-square">
+                                <div class="styled-input-single" (change)="checkboxChange($event, 'allPortsCheckbox', 'ports', ports, port.description)">
+                                    <input [attr.id]="'port' + port.id" [checked]="lookup('ports', port.id)" [value]="port.id" class="port" formArrayName="ports" type="checkbox">
+                                    <label [attr.for]="'port' + port.id" [attr.id]="'port-label' + port.id">{{ port.description | trimString:33 }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
                 <!-- Ships -->
                 <fieldset class="fieldset">
                     <legend>

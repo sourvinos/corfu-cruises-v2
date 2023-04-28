@@ -17,6 +17,22 @@
                 <th class="width-3" pSortableColumn="totalNoShow">{{ getLabel('headerNoShow') }}</th>
                 <th class="width-3">{{ getLabel('headerRemarks') }}</th>
             </tr>
+            <tr>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+                <th class="no-padding"></th>
+            </tr>
         </ng-template>
         <ng-template pTemplate="body" let-reservation>
             <tr [pSelectableRow]="reservation" style="height:32px">
@@ -30,11 +46,11 @@
                     <span *ngIf="reservation.hasTransfer">{{ getEmoji('green-circle') }} </span>
                     <span *ngIf="!reservation.hasTransfer">{{ getEmoji('red-circle') }}</span>
                 </td>
-                <td class="number width-3">{{ reservation.adults | replaceZero }}</td>
-                <td class="number width-3">{{ reservation.kids | replaceZero }}</td>
-                <td class="number width-3">{{ reservation.free | replaceZero }}</td>
-                <td class="number width-3">{{ reservation.totalPax }}</td>
-                <td class="number width-3">{{ reservation.embarkedPassengers }}</td>
+                <td class="center width-3">{{ reservation.adults | replaceZero }}</td>
+                <td class="center width-3">{{ reservation.kids | replaceZero }}</td>
+                <td class="center width-3">{{ reservation.free | replaceZero }}</td>
+                <td class="center width-3">{{ reservation.totalPax }}</td>
+                <td class="center width-3">{{ reservation.embarkedPassengers }}</td>
                 <td class="text-with-emoji number width-3">
                     <span>{{ reservation.totalNoShow | replaceZero }}</span>
                     <span *ngIf="reservation.totalPax - reservation.embarkedPassengers == 0" class="emoji"></span>
@@ -44,6 +60,18 @@
                     <span (click)="showRemarks(reservation.remarks)" [ngClass]="hasRemarks(reservation.remarks)?'clickable':''" *ngIf="hasRemarks(reservation.remarks)" class="remarks">{{ getEmoji('remarks') }}</span>
                 </td>
             </tr>
+        </ng-template>
+        <ng-template pTemplate="footer" let-columns>
+            <tr>
+                <td colspan="7"></td>
+                <td class="center">{{ data.customer.adults | replaceZero }}</td>
+                <td class="center">{{ data.customer.kids | replaceZero }}</td>
+                <td class="center">{{ data.customer.free | replaceZero }}</td>
+                <td class="center">{{ data.customer.totalPax | replaceZero }}</td>
+                <td class="center">{{ data.customer.totalEmbarked | replaceZero }}</td>
+                <td class="number">{{ data.customer.totalNoShow | replaceZero }}&nbsp;{{ getEmoji('error') }}</td>
+                <td></td>
+            </tr>            
         </ng-template>
     </p-table>
 </div>

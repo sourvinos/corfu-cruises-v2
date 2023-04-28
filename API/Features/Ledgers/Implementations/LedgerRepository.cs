@@ -23,7 +23,7 @@ namespace API.Features.Ledger {
             this.userManager = userManager;
         }
 
-        public IEnumerable<LedgerVM> Get(string fromDate, string toDate, int[] destinationIds, int?[] shipIds) {
+        public IEnumerable<LedgerVM> Get(string fromDate, string toDate, int[] destinationIds, int[] portIds, int?[] shipIds) {
             var connectedCustomerId = GetConnectedCustomerIdForConnectedUser();
             var records = context.Reservations
                 .AsNoTracking()
@@ -37,6 +37,7 @@ namespace API.Features.Ledger {
                     && x.Date <= Convert.ToDateTime(toDate)
                     && (connectedCustomerId == null || x.CustomerId == connectedCustomerId)
                     && destinationIds.Contains(x.DestinationId)
+                    && portIds.Contains(x.PortId)
                     && (shipIds.Contains(x.ShipId) || x.ShipId == null))
                 .AsEnumerable()
                 .GroupBy(x => new { x.Customer.Id, x.Customer.Description }).OrderBy(x => x.Key.Description)

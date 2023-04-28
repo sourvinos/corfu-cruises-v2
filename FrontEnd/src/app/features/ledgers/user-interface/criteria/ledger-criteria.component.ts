@@ -43,6 +43,7 @@ export class LedgerCriteriaComponent {
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
     public destinations: SimpleEntity[] = []
+    public ports: SimpleEntity[] = []
     public ships: SimpleEntity[] = []
 
     public isAdmin = false
@@ -66,6 +67,7 @@ export class LedgerCriteriaComponent {
 
     ngAfterViewInit(): void {
         this.checkGroupCheckbox('all-destinations', this.destinations, 'destinations')
+        this.checkGroupCheckbox('all-ports', this.ports, 'ports')
         this.checkGroupCheckbox('all-ships', this.ships, 'ships')
     }
 
@@ -158,10 +160,13 @@ export class LedgerCriteriaComponent {
             fromDate: ['', [Validators.required]],
             toDate: ['', [Validators.required]],
             destinations: this.formBuilder.array([], Validators.required),
+            ports: this.formBuilder.array([], Validators.required),
             ships: this.formBuilder.array([], Validators.required),
             destinationsFilter: '',
+            portsFilter: '',
             shipsFilter: '',
             allDestinationsCheckbox: '',
+            allPortsCheckbox: '',
             allShipsCheckbox: ''
         })
     }
@@ -176,6 +181,7 @@ export class LedgerCriteriaComponent {
 
     private populateDropdowns(): void {
         this.populateDropdownFromLocalStorage('destinations')
+        this.populateDropdownFromLocalStorage('ports')
         this.populateDropdownFromLocalStorage('ships')
     }
 
@@ -186,8 +192,10 @@ export class LedgerCriteriaComponent {
                 fromDate: this.criteria.fromDate,
                 toDate: this.criteria.toDate,
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
+                ports: this.addSelectedCriteriaFromStorage('ports'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
                 allDestinationsCheckbox: this.criteria.allDestinationsCheckbox,
+                allPortsCheckbox: this.criteria.allPortsCheckbox,
                 allShipsCheckbox: this.criteria.allShipsCheckbox
             })
         }

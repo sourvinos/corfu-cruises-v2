@@ -19,6 +19,7 @@ export class LedgerListResolver {
             criteria.fromDate,
             criteria.toDate,
             this.buildIds(criteria, 'destinations'),
+            this.buildIds(criteria, 'ports'),
             this.buildIds(criteria, 'ships')
         ).pipe(
             map((ledgerList) => new LedgerListResolved(ledgerList)),

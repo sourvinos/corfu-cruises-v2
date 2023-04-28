@@ -1386,6 +1386,10 @@
                 "description": "Προορισμοί"
             },
             {
+                "id": "ports",
+                "description": "Λιμάνια"
+            },
+            {
                 "id": "ships",
                 "description": "Πλοία"
             },

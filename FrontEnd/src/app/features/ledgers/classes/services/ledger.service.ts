@@ -14,10 +14,11 @@ export class LedgerService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/ledgers')
     }
 
-    get(fromDate: string, toDate: string, destinationIds: number[], shipIds: number[]): Observable<LedgerVM> {
+    get(fromDate: string, toDate: string, destinationIds: number[], portIds: number[], shipIds: number[]): Observable<LedgerVM> {
         return this.http.get<LedgerVM>(
             this.url + '?fromDate=' + fromDate + '&toDate=' + toDate +
             this.buildDestinationsQuery(destinationIds) +
+            this.buildPortsQuery(portIds) +
             this.buildShipsQuery(shipIds))
     }
 
@@ -25,6 +26,14 @@ export class LedgerService extends HttpDataService {
         let query = ''
         destinationIds.forEach(destinationId => {
             query += '&destinationId=' + destinationId
+        })
+        return query
+    }
+
+    private buildPortsQuery(portIds: number[]): string {
+        let query = ''
+        portIds.forEach(portId => {
+            query += '&portId=' + portId
         })
         return query
     }

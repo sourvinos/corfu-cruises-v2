@@ -4,14 +4,8 @@
         <h1 mat-dialog-title>{{ data.customer.customer.description }}</h1>
     </div>
 
-    <mat-tab-group mat-align-tabs="start" mat-stretch-tabs="false">
-        <mat-tab label="{{ getLabel('summary-tab') }}">
-            <ledger-customer-summary [portGroup]="data.customer.ports"></ledger-customer-summary>
-        </mat-tab>
-        <mat-tab label="{{ getLabel('reservations-tab') }}">
-            <ledger-customer-reservations [customerReservations]="data.customer.reservations"></ledger-customer-reservations>
-        </mat-tab>
-    </mat-tab-group>
+    <ledger-customer-reservations [customerReservations]="data.customer.reservations"></ledger-customer-reservations>
+    <ledger-customer-summary [portGroup]="data.customer.ports"></ledger-customer-summary>
 
     <div id="dialog-footer">
         <div class="button-group-right">
