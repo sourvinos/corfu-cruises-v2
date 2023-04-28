@@ -1,5 +1,4 @@
 using API.Infrastructure.Account;
-using API.Infrastructure.Helpers;
 using Microsoft.Extensions.Options;
 using MimeKit;
 
@@ -18,7 +17,7 @@ namespace API.Features.CheckIn {
             var message = new MimeMessage();
             var htmlContent = "";
 
-            htmlContent += "<p style='font-family: Roboto;'>Dear guests,</p>";
+            htmlContent += "<p>Dear guests,</p>";
             htmlContent += "<p style='font-size: 2.5rem'>Your RefNo is " + reservation.RefNo + "</p>";
             htmlContent += "<p></p>";
             htmlContent += "<p>We wish you a happy trip!</p>";
