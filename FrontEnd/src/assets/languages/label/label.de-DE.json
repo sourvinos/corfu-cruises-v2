@@ -1170,6 +1170,10 @@
                 "description": "Einschiffungskriterien"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Schreiben Sie etwas..."
+            },
+            {
                 "id": "date",
                 "description": "Datum"
             },
@@ -1374,6 +1378,10 @@
                 "description": "Kundenbücher"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Schreiben Sie etwas..."
+            },
+            {
                 "id": "date",
                 "description": "Datumsbereich"
             },
@@ -1506,6 +1514,10 @@
             {
                 "id": "header",
                 "description": "Kriterien für die Erstellung eines Passagiermanifests"
+            },
+            {
+                "id": "filterPlaceholder",
+                "description": "Schreiben Sie etwas..."
             },
             {
                 "id": "headerRouteSelector",

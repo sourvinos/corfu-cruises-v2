@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div class="list-filter">
-                            <input (keyup)="filterList($event, 'destinations')" formControlName="destinationsFilter" id="destinationsFilter">
+                            <input (keyup)="filterList($event, 'destinations')" formControlName="destinationsFilter" id="destinationsFilter" [placeholder]="getLabel('filterPlaceholder')">
                         </div>
                     </div>
                     <div class="list-wrapper">
@@ -72,7 +72,7 @@
                             </div>
                         </div>
                         <div class="list-filter">
-                            <input (keyup)="filterList($event, 'ports')" formControlName="portsFilter" id="portsFilter">
+                            <input (keyup)="filterList($event, 'ports')" formControlName="portsFilter" id="portsFilter" [placeholder]="getLabel('filterPlaceholder')">
                         </div>
                     </div>
                     <div class="list-wrapper">
@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <div class="list-filter">
-                            <input (keyup)="filterList($event, 'ships')" formControlName="shipsFilter" id="shipsFilter">
+                            <input (keyup)="filterList($event, 'ships')" formControlName="shipsFilter" id="shipsFilter" [placeholder]="getLabel('filterPlaceholder')">
                         </div>
                     </div>
                     <div class="list-wrapper">

@@ -1170,6 +1170,10 @@
                 "description": "Κριτήρια επιβίβασης"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Γράψτε κάτι..."
+            },
+            {
                 "id": "date",
                 "description": "Ημερομηνία"
             },
@@ -1374,6 +1378,10 @@
                 "description": "Καρτέλες πελατών"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Γράψτε κάτι..."
+            },
+            {
                 "id": "date",
                 "description": "Εύρος ημερομηνίας"
             },
@@ -1506,6 +1514,10 @@
             {
                 "id": "header",
                 "description": "Κριτήρια δημιουργίας κατάστασης επιβαινόντων"
+            },
+            {
+                "id": "filterPlaceholder",
+                "description": "Γράψτε κάτι..."
             },
             {
                 "id": "headerRouteSelector",

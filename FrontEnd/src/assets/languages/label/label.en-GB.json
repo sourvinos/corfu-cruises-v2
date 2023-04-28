@@ -1170,6 +1170,10 @@
                 "description": "Embarkation criteria"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Type something..."
+            },
+            {
                 "id": "date",
                 "description": "Date"
             },
@@ -1374,6 +1378,10 @@
                 "description": "Customer ledgers"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Type something..."
+            },
+            {
                 "id": "date",
                 "description": "Date range"
             },
@@ -1506,6 +1514,10 @@
             {
                 "id": "header",
                 "description": "Criteria for creating a passengers manifest"
+            },
+            {
+                "id": "filterPlaceholder",
+                "description": "Type something..."
             },
             {
                 "id": "headerRouteSelector",

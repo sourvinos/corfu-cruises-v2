@@ -1170,6 +1170,10 @@
                 "description": "Critères d'embarquement"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Écrivez quelque chose..."
+            },
+            {
                 "id": "date",
                 "description": "Date"
             },
@@ -1374,6 +1378,10 @@
                 "description": "Registres des clients"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Écrivez quelque chose..."
+            },
+            {
                 "id": "date",
                 "description": "Plage de dates"
             },
@@ -1506,6 +1514,10 @@
             {
                 "id": "header",
                 "description": "Critères pour la création d'un manifeste des passagers"
+            },
+            {
+                "id": "filterPlaceholder",
+                "description": "Écrivez quelque chose..."
             },
             {
                 "id": "headerRouteSelector",

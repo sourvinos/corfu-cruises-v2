@@ -1170,6 +1170,10 @@
                 "description": "Kritéria pro nalodění"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Napište něco..."
+            },
+            {
                 "id": "date",
                 "description": "Datum"
             },
@@ -1374,6 +1378,10 @@
                 "description": "Vyúčtování zákazníkům"
             },
             {
+                "id": "filterPlaceholder",
+                "description": "Napište něco..."
+            },
+            {
                 "id": "date",
                 "description": "Rozsah dat"
             },
@@ -1506,6 +1514,10 @@
             {
                 "id": "header",
                 "description": "Kritéria pro vytvoření seznamu cestujících"
+            },
+            {
+                "id": "filterPlaceholder",
+                "description": "Napište něco..."
             },
             {
                 "id": "headerRouteSelector",

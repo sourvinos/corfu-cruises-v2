@@ -19,12 +19,14 @@
 
 .list-filter input {
     background-color: transparent;
-    border: none;
     border-bottom: 1px solid var(--color-c);
+    border: none;
     color: var(--color-c);
-    margin-top: 0.5625rem;
+    font-family: var(--font-family-asty);
+    font-weight: 300;
+    margin-top: 0.4375rem;
     outline: none;
-    padding-bottom: 0.1875rem;
+    padding-bottom: 0.125rem;
     width: 10rem;
 }
 
