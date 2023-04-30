@@ -20,6 +20,10 @@ export class UserService extends HttpDataService {
         return this.http.post<any>(environment.apiUrl + '/users/changePassword/', formData)
     }
 
+    public saveUser(formData: any): Observable<any> {
+        return this.http.post<any>(this.url, formData)
+    }
+
     //#endregion
 
 }

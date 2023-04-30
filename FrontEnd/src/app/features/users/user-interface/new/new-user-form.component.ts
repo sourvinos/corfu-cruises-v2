@@ -7,9 +7,9 @@ import { ConfirmValidParentMatcher, ValidationService } from '../../../../shared
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.directive'
 import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
+import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
-import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { UserNewDto } from '../../classes/dtos/new-user-dto'
@@ -156,7 +156,7 @@ export class NewUserFormComponent {
     }
 
     private saveRecord(user: UserNewDto): void {
-        this.userService.add(user).subscribe({
+        this.userService.saveUser(user).subscribe({
             complete: () => {
                 this.helperService.doPostSaveFormTasks(this.messageSnackbarService.success(), 'success', this.parentUrl, this.form)
             },

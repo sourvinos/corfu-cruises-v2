@@ -35,7 +35,7 @@ export class ReservationHttpService extends HttpDataService {
         return this.http.get<ReservationListVM>(this.url + '/refNo/' + refNo)
     }
 
-    public save(formData: any): Observable<any> {
+    public saveReservation(formData: any): Observable<any> {
         return formData.reservationId == null
             ? this.http.post<any>(this.url, formData)
             : this.http.put<any>(this.url, formData)

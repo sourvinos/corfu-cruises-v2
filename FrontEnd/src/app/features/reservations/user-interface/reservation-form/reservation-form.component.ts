@@ -419,7 +419,7 @@ export class ReservationFormComponent {
     }
 
     private saveRecord(reservation: ReservationWriteDto): void {
-        this.reservationService.save(reservation).subscribe({
+        this.reservationService.saveReservation(reservation).subscribe({
             next: (response) => {
                 const date = this.dateHelperService.formatDateToIso(new Date(this.form.value.date))
                 this.sessionStorageService.saveItem('date', date)

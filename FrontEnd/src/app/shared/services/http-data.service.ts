@@ -1,4 +1,3 @@
-import { Guid } from 'guid-typescript'
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
 
@@ -15,18 +14,10 @@ export class HttpDataService {
             return this.http.get<any>(this.url + '/' + id)
     }
 
-    public add(formData: any): Observable<any> {
-        return this.http.post<any>(this.url, formData)
-    }
-
-    public update(id: string | number | Guid, formData: any): Observable<any> {
-        if (id != undefined) {
-            return this.http.put<any>(this.url + '/' + id, formData)
-        }
-    }
-
     public save(formData: any): Observable<any> {
-        return this.http.put<any>(this.url, formData)
+        return formData.id == 0
+            ? this.http.post<any>(this.url, formData)
+            : this.http.put<any>(this.url, formData)
     }
 
     public delete(id: string | number): Observable<any> {
