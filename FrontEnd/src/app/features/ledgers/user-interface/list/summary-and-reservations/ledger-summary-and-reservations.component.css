@@ -1,3 +1,7 @@
-.mat-tab-group {
-    margin: 1rem 0;
+#dialog {
+    gap: 1rem;
+}
+
+#dialog-footer {
+    margin: 0.6rem 1rem 0 1rem !important;
 }

@@ -1497,14 +1497,6 @@
             {
                 "id": "ok-button",
                 "description": "OK"
-            },
-            {
-                "id": "summary-tab",
-                "description": "Résumé"
-            },
-            {
-                "id": "reservations-tab",
-                "description": "Réservations"
             }
         ]
     },
