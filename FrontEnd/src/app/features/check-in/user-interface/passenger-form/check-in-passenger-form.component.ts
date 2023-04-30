@@ -6,6 +6,7 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { map, startWith } from 'rxjs/operators'
 // Custom
+import { CheckInPassengerReadDto } from '../../classes/dtos/check-in-passenger-read-dto'
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -13,11 +14,10 @@ import { InputTabStopDirective } from 'src/app/shared/directives/input-tabstop.d
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { NationalityVM } from 'src/app/features/reservations/classes/view-models/passenger/nationality-vm'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { ValidationService } from 'src/app/shared/services/validation.service'
-import { CheckInPassengerReadDto } from '../../classes/dtos/check-in-passenger-read-dto'
-import { NationalityVM } from 'src/app/features/reservations/classes/view-models/passenger/nationality-vm'
 
 @Component({
     selector: 'check-in-passenger-form',

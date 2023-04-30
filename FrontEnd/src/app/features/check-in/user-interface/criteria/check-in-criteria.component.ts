@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms'
 import { MatDatepickerInputEvent } from '@angular/material/datepicker'
+import { MatStepper } from '@angular/material/stepper'
 import { Router } from '@angular/router'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -9,18 +10,17 @@ import { takeUntil } from 'rxjs/operators'
 import { CheckInService } from '../../classes/services/check-in.service'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
+import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService, indicate } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
 import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { ReservationHelperService } from 'src/app/features/reservations/classes/services/reservation.helper.service'
+import { ReservationWriteDto } from 'src/app/features/reservations/classes/dtos/form/reservation-write-dto'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
-import { ReservationWriteDto } from 'src/app/features/reservations/classes/dtos/form/reservation-write-dto'
-import { ReservationHelperService } from 'src/app/features/reservations/classes/services/reservation.helper.service'
-import { MatStepper } from '@angular/material/stepper'
-import { EmojiService } from 'src/app/shared/services/emoji.service'
 
 @Component({
     selector: 'check-in-criteria',
@@ -51,23 +51,7 @@ export class CheckInCriteriaComponent {
 
     //#endregion
 
-    constructor(
-        private reservationHelperService: ReservationHelperService,
-        private checkInService: CheckInService,
-        private dateAdapter: DateAdapter<any>,
-        private dateHelperService: DateHelperService,
-        private dialogService: DialogService,
-        private formBuilder: FormBuilder,
-        private helperService: HelperService,
-        private interactionService: InteractionService,
-        private localStorageService: LocalStorageService,
-        private messageHintService: MessageInputHintService,
-        private messageLabelService: MessageLabelService,
-        private messageSnackbarService: MessageDialogService,
-        private router: Router,
-        private sessionStorageService: SessionStorageService,
-        private emojiService: EmojiService
-    ) { }
+    constructor(private checkInService: CheckInService, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private emojiService: EmojiService, private formBuilder: FormBuilder, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private reservationHelperService: ReservationHelperService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
