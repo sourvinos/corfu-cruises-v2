@@ -90,10 +90,10 @@ export class EditUserFormComponent {
 
     public changePassword(): void {
         if (ConnectedUser.id != this.record.id.toString()) {
-            this.dialogService.open(this.messageSnackbarService.passwordCanBeChangedOnlyByAccountOwner(), 'error', 'right-buttons', ['ok'])
+            this.dialogService.open(this.messageSnackbarService.passwordCanBeChangedOnlyByAccountOwner(), 'error', ['ok'])
         } else {
             if (this.form.dirty) {
-                this.dialogService.open(this.messageSnackbarService.formIsDirty(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(() => {
+                this.dialogService.open(this.messageSnackbarService.formIsDirty(), 'warning', ['abort', 'ok']).subscribe(() => {
                     // 
                 })
             } else {

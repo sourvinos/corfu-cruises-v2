@@ -17,7 +17,6 @@ export class ModalActionResultComponent {
     public content: string
     public iconStyle: any
     public titleColor = ''
-    public justifyFooter = 'center-buttons'
 
     //#endregion
 

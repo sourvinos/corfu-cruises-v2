@@ -74,7 +74,7 @@ export class DestinationFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.destinationService.delete(this.form.value.id).subscribe({
                     complete: () => {

@@ -1,12 +1,10 @@
-import { Component, Inject } from '@angular/core'
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Component, Inject } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
-// Custom
-import { MessageLabelService } from 'src/app/shared/services/message-label.service'
-import { CheckInService } from '../../classes/services/check-in.service'
-import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { Subject } from 'rxjs'
+// Custom
+import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 
 @Component({
     selector: 'check-in-email-dialog',
@@ -22,15 +20,13 @@ export class CheckInEmailDialogComponent {
     public content: any
     public iconStyle: any
     public titleColor = ''
-    public justifyFooter = 'center-buttons'
     public isLoading = new Subject<boolean>()
     public form: FormGroup
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private checkInService: CheckInService, private dialogRef: MatDialogRef<CheckInEmailDialogComponent>, private formBuilder: FormBuilder, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService) {
+    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<CheckInEmailDialogComponent>, private formBuilder: FormBuilder, private messageHintService: MessageInputHintService, private messageLabelService: MessageLabelService) {
         this.iconStyle = data.iconStyle
-        this.justifyFooter = data.justifyFooter
     }
 
     //#region lifecycle hooks
@@ -61,14 +57,6 @@ export class CheckInEmailDialogComponent {
 
     public onSendEmail(): void {
         this.dialogRef.close(this.form.value.email)
-        // this.checkInService.sendEmail(this.form.value).pipe(indicate(this.isLoading)).subscribe({
-        //     complete: () => {
-        //         this.messageSnackbarService.emailSent(), 'success'
-        //     },
-        //     error: () => {
-        //         this.messageSnackbarService.emailNotSent(), 'error'
-        //     }
-        // })
     }
 
     //#endregion
@@ -85,6 +73,7 @@ export class CheckInEmailDialogComponent {
     //#endregion
 
     //#region getters
+
     get email(): AbstractControl {
         return this.form.get('email')
     }

@@ -19,22 +19,22 @@ export class CheckInEmailDialogService {
 
     //#region public methods
 
-    public open(message: any, iconStyle: string, justifyFooter = 'center', actions: string[]): Observable<boolean> {
-        return this.openDialog(message, iconStyle, justifyFooter, actions)
+    public open(message: any, iconStyle: string, actions: string[]): Observable<boolean> {
+        return this.openDialog(message, iconStyle, actions)
     }
 
     //#endregion
 
     //#region private methods
 
-    private openDialog(apiObject: any, iconStyle: string, justifyFooter = 'center', actions: string[]): Observable<boolean> {
+    private openDialog(apiObject: any, iconStyle: string, actions: string[]): Observable<boolean> {
         this.response = this.dialog.open(CheckInEmailDialogComponent, {
             height: '30rem',
             width: '25rem',
             data: {
-                message: apiObject,
-                justifyFooter: justifyFooter,
-                actions: actions
+                actions: actions,
+                iconStyle: iconStyle,
+                message: apiObject
             },
             panelClass: 'dialog'
         })

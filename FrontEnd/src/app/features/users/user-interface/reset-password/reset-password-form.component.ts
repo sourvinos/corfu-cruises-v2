@@ -114,7 +114,7 @@ export class ResetPasswordFormComponent {
                 this.isLoading = false
             },
             error: () => {
-                this.dialogService.open(this.messageSnackbarService.unableToResetPassword(), 'error', 'right-buttons', ['ok'])
+                this.dialogService.open(this.messageSnackbarService.unableToResetPassword(), 'error', ['ok'])
                 this.router.navigate(['/login'])
                 this.isLoading = false
             }

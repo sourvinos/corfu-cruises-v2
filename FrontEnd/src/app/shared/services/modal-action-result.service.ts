@@ -22,7 +22,7 @@ export class ModalActionResultService {
     public open(message: string, iconStyle: string, actions: string[]): Observable<boolean> {
         this.response = this.dialog.open(ModalActionResultComponent, {
             height: '30rem',
-            width: '30rem',
+            width: '25rem',
             data: {
                 actions: actions,
                 iconStyle: iconStyle,

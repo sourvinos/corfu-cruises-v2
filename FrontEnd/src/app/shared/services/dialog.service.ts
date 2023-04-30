@@ -18,23 +18,23 @@ export class DialogService {
 
     //#region public methods
 
-    public open(message: any, iconStyle: string, justifyFooter = 'center', actions: string[]): Observable<boolean> {
+    public open(message: any, iconStyle: string, actions: string[]): Observable<boolean> {
         return typeof message === 'object'
-            ? this.openObjectDialog(message, iconStyle, justifyFooter, actions)
-            : this.openStringDialog(message, iconStyle, justifyFooter, actions)
+            ? this.openObjectDialog(message, iconStyle, actions)
+            : this.openStringDialog(message, iconStyle, actions)
     }
 
     //#endregion
 
     //#region private methods
 
-    private openObjectDialog(apiObject: any, iconStyle: string, justifyFooter = 'center', actions: string[]): Observable<boolean> {
+    private openObjectDialog(apiObject: any, iconStyle: string, actions: string[]): Observable<boolean> {
         this.response = this.dialog.open(DialogAlertComponent, {
             height: '30rem',
             width: '25rem',
             data: {
                 message: apiObject,
-                justifyFooter: justifyFooter,
+                iconStyle: iconStyle,
                 actions: actions
             },
             panelClass: 'dialog'
@@ -42,14 +42,13 @@ export class DialogService {
         return this.response.afterClosed()
     }
 
-    private openStringDialog(message: string | object, iconStyle: string, justifyFooter = 'center', actions: string[]): Observable<boolean> {
+    private openStringDialog(message: string | object, iconStyle, actions: string[]): Observable<boolean> {
         this.response = this.dialog.open(DialogAlertComponent, {
             height: '30rem',
             width: '25rem',
             data: {
                 message: message,
                 iconStyle: iconStyle,
-                justifyFooter: justifyFooter,
                 actions: actions
             },
             panelClass: 'dialog'

@@ -165,7 +165,7 @@ export class ReservationFormComponent {
     }
 
     public onDelete(): void {
-        this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.confirmDelete(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.reservationService.delete(this.form.value.reservationId).subscribe({
                     complete: () => {

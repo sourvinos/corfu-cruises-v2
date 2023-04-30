@@ -12,7 +12,7 @@
 
 svg {
     display: block;
-    margin: 0.625rem auto 2rem auto;
+    margin: 0.625rem auto 1.3rem auto;
     width: 100px;
 }
 
@@ -93,6 +93,7 @@ svg {
     display: flex;
     font-family: var(--font-family-asty) !important;
     font-weight: var(--font-weight-dialog-content) !important;
+    height: 100%;
     justify-content: center;
     line-height: 1.8rem;
     overflow: hidden;
@@ -100,7 +101,7 @@ svg {
 }
 
 #dialog-footer {
-    margin-top: auto;
+    margin: auto auto;
 }
 
 .mat-dialog-actions {

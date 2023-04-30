@@ -17,13 +17,11 @@ export class DialogAlertComponent {
     public content: any
     public iconStyle: any
     public titleColor = ''
-    public justifyFooter = 'center-buttons'
 
     //#endregion
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: any, private dialogRef: MatDialogRef<DialogAlertComponent>, private messageLabelService: MessageLabelService) {
         this.iconStyle = data.iconStyle
-        this.justifyFooter = data.justifyFooter
     }
 
     //#region lifecycle hooks

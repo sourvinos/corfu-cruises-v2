@@ -46,7 +46,7 @@ export class CardsMenuComponent {
     }
 
     public notAvailable(): void {
-        this.dialogService.open(this.messageSnackbarService.featureNotAvailable(), 'error', 'center-buttons', ['ok'])
+        this.dialogService.open(this.messageSnackbarService.featureNotAvailable(), 'error', ['ok'])
     }
 
     //#endregion

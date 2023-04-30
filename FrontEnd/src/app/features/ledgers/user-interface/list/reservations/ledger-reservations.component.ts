@@ -48,7 +48,7 @@ export class LedgerCustomerReservationListComponent {
     }
 
     public showRemarks(remarks: string): void {
-        this.dialogService.open(remarks, 'info', 'center-buttons', ['ok'])
+        this.dialogService.open(remarks, 'info', ['ok'])
     }
 
     //#endregion

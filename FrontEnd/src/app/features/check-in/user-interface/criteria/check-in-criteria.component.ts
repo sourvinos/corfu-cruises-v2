@@ -176,7 +176,7 @@ export class CheckInCriteriaComponent {
     }
 
     public showHelpDialog(): void {
-        this.dialogService.open(this.messageSnackbarService.helpDialog(), 'info', 'center-buttons', ['ok'])
+        this.dialogService.open(this.messageSnackbarService.helpDialog(), 'info', ['ok'])
     }
 
     public onSendEmail(stepper: MatStepper): void {
@@ -318,10 +318,10 @@ export class CheckInCriteriaComponent {
     private showError(error: any): void {
         switch (error.status) {
             case 402:
-                this.dialogService.open(this.messageSnackbarService.checkInAfterDepartureIsNotAllowed(), 'error', 'center-buttons', ['ok'])
+                this.dialogService.open(this.messageSnackbarService.checkInAfterDepartureIsNotAllowed(), 'error', ['ok'])
                 break
             case 404:
-                this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', 'center-buttons', ['ok'])
+                this.dialogService.open(this.messageSnackbarService.reservationNotFound(), 'error', ['ok'])
                 break
         }
     }

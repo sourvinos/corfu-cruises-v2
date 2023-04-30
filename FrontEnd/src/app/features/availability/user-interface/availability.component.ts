@@ -75,7 +75,7 @@ export class AvailabilityComponent {
     //#region public methods
 
     public askToRefreshCalendar(): void {
-        this.dialogService.open(this.messageSnackbarService.askToRefreshCalendar(), 'warning', 'right-buttons', ['abort', 'ok']).subscribe(response => {
+        this.dialogService.open(this.messageSnackbarService.askToRefreshCalendar(), 'warning', ['abort', 'ok']).subscribe(response => {
             if (response) {
                 this.isSizeChanged = false
                 this.router.navigate([this.url])
@@ -160,7 +160,7 @@ export class AvailabilityComponent {
     }
 
     public showApiObject(day: DayVM): void {
-        this.dialogService.open(day, 'info', 'center-buttons', ['ok'])
+        this.dialogService.open(day, 'info', ['ok'])
     }
 
     //#endregion
