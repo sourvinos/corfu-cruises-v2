@@ -96,6 +96,23 @@ export class DateHelperService {
             parseInt(day), 0, 0, 0, 0)
     }
 
+    /**
+     * Subtracts 100 years if the given year is in the future
+     * Solves the problem where 1.1.40 becomes 1.1.2040 instead of 1.1.1940
+     * @param date a moment.js object
+     * @returns a moment.js object
+     */
+    public gotoPreviousCenturyIfFutureDate(date: any): Date {
+        // const given = date
+        const today = new Date()
+        // const past = given
+        if (date > today) {
+            return date.add(-100, 'years')
+        } else {
+            return date
+        }
+    }
+
     //#endregion
 
     //#region private methods

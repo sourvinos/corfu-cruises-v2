@@ -23,7 +23,7 @@
             <div class="group-field">
                 <!-- Birthdate -->
                 <mat-form-field>
-                    <input [inputTabStop]="input" [matDatepicker]="picker" [max]="maxBirthDate" [min]="minBirthDate" [placeholder]="getLabel('birthdate')" data-tabindex="3" formControlName="birthdate" matInput type="text">
+                    <input (blur)="convertFutureDateToPastDate()" [inputTabStop]="input" [matDatepicker]="picker" [max]="maxBirthDate" [min]="minBirthDate" [placeholder]="getLabel('birthdate')" data-tabindex="3" formControlName="birthdate" matInput type="text">
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                     <mat-error *ngIf="birthdate.hasError('required')">{{ getHint("required") }}</mat-error>

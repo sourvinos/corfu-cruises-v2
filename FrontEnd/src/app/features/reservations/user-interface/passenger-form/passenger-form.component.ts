@@ -83,6 +83,12 @@ export class PassengerFormComponent {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
     }
 
+    public convertFutureDateToPastDate(): void {
+        this.form.patchValue({
+            birthdate: this.dateHelperService.gotoPreviousCenturyIfFutureDate(this.form.value.birthdate)
+        })
+    }
+
     public enableOrDisableAutoComplete(event: any): void {
         this.isAutoCompleteDisabled = this.helperService.enableOrDisableAutoComplete(event)
     }
