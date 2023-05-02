@@ -50,7 +50,7 @@ namespace Schedules {
 
         [Fact]
         public async Task Admins_Can_Delete() {
-            await RecordDeleted.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
+            await RecordDeleted.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16db");
         }
 
     }

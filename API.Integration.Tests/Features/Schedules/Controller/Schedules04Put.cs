@@ -55,14 +55,14 @@ namespace Schedules {
         [Theory]
         [ClassData(typeof(UpdateInvalidSchedule))]
         public async Task Admins_Can_Not_Update_When_Invalid(UpdateTestSchedule record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(UpdateValidSchedule))]
         public async Task Admins_Can_Update_When_Valid(UpdateTestSchedule record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record);
         }
 
     }

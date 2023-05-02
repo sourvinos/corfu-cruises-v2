@@ -19,7 +19,7 @@ namespace Schedules {
                     DestinationId = 1,
                     PortId = 1,
                     Date = "2022-12-04",
-                    DepartureTime = "08:00",
+                    Time = "08:00",
                     MaxPax = 185
                 }
             };

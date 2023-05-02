@@ -18,7 +18,7 @@ namespace Schedules {
         public int DestinationId { get; set; }
         public int PortId { get; set; }
         public string Date { get; set; }
-        public string DepartureTime { get; set; }
+        public string Time { get; set; }
         public int MaxPax { get; set; }
  
     }

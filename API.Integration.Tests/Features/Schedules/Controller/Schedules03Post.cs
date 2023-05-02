@@ -55,14 +55,14 @@ namespace Schedules {
         [Theory]
         [ClassData(typeof(CreateInvalidSchedule))]
         public async Task Admins_Can_Not_Create_When_Invalid(NewTestSchedule record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record.TestScheduleBody);
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record.TestScheduleBody);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(CreateValidSchedule))]
         public async Task Admins_Can_Create_When_Valid(NewTestSchedule record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record.TestScheduleBody);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record.TestScheduleBody);
         }
 
     }
