@@ -53,7 +53,6 @@ export class ShipCrewFormComponent {
     public dropdownShips: Observable<ShipActiveVM[]>
     public isAutoCompleteDisabled = true
 
-    public maxBirthDate = new Date()
     public minBirthDate = new Date(new Date().getFullYear() - 99, 0, 1)
 
     //#endregion

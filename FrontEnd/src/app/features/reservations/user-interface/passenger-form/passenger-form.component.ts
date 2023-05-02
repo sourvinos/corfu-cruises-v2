@@ -39,7 +39,6 @@ export class PassengerFormComponent {
     public parentUrl = null
 
     public minBirthDate = new Date(new Date().getFullYear() - 99, 0, 1)
-    public maxBirthDate = new Date()
 
     public isAutoCompleteDisabled = true
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
