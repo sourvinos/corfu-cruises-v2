@@ -1,9 +1,18 @@
+using System;
+using System.Linq;
+
 namespace API.Model.Tests.Infrastructure {
 
     public static class Helpers {
 
         public static string GetLongString() {
-            return "YPxZejXuUpNAMHNCeZgVuIRxi5vKRuED1olwgOyLn1Z8UZ8WfSbzYCqotbzTm7i4GcRLMmexYaO5hSHmQKnGTONYXAyqw9n5iUyd6lf924Y6NWasIuJWCzAv7kaG6cOa7";
+
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var random = new Random();
+            var randomString = new string(Enumerable.Repeat(chars, 129).Select(s => s[random.Next(s.Length)]).ToArray());
+
+            return randomString;
+
         }
 
     }

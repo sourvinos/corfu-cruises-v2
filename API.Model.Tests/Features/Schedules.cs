@@ -44,8 +44,8 @@ namespace API.Model.Tests.Features.Schedules {
         [ClassData(typeof(ValidateTime))]
         public void Invalid_DepartureTime(string time) {
             new ScheduleValidator()
-                .TestValidate(new ScheduleWriteDto { DepartureTime = time })
-                .ShouldHaveValidationErrorFor(x => x.DepartureTime);
+                .TestValidate(new ScheduleWriteDto { Time = time })
+                .ShouldHaveValidationErrorFor(x => x.Time);
         }
 
     }

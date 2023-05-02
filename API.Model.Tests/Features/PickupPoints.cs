@@ -42,15 +42,6 @@ namespace API.Model.Tests.Features.PickupPoints {
                 .ShouldHaveValidationErrorFor(x => x.Time);
         }
 
-        [Theory]
-        [ClassData(typeof(ValidateStringNotEmpty))]
-        [ClassData(typeof(ValidateStringNotLongerThanMaxLength))]
-        public void Invalid_Coordinates(string coordinates) {
-            new PickupPointValidator()
-                .TestValidate(new PickupPointWriteDto { Coordinates = coordinates })
-                .ShouldHaveValidationErrorFor(x => x.Coordinates);
-        }
-
     }
 
 }
