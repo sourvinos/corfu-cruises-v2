@@ -14,7 +14,7 @@ namespace Embarkation {
         private readonly AppSettingsFixture _appSettingsFixture;
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
-        private readonly string _actionVerb = "put";
+        private readonly string _actionVerb = "patch";
         private readonly string _baseUrl;
         private readonly string _url = "/embarkation/embarkPassengers?ignoreCurrentStatus=true&id=934&id=935";
 
@@ -45,7 +45,7 @@ namespace Embarkation {
         [Theory]
         [ClassData(typeof(FoundSinglePassenger))]
         public async Task Admins_Can_Update(TestPassenger record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record);
         }
 
     }

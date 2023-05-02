@@ -56,14 +56,14 @@ namespace PickupPoints {
         [Theory]
         [ClassData(typeof(UpdateInvalidPickupPoint))]
         public async Task Admins_Can_Not_Update_When_Invalid(TestPickupPoint record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
         [Theory]
         [ClassData(typeof(UpdateValidPickupPoint))]
         public async Task Admins_Can_Update_When_Valid(TestPickupPoint record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record);
         }
 
     }

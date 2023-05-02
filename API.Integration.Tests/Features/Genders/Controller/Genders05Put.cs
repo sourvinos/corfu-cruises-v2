@@ -54,13 +54,13 @@ namespace Genders {
 
         [Fact]
         public async Task Admins_Can_Not_Update_When_Not_Found() {
-            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
+            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16db");
         }
 
         [Theory]
         [ClassData(typeof(UpdateValidGender))]
         public async Task Admins_Can_Update_When_Valid(TestGender record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record);
         }
 
     }

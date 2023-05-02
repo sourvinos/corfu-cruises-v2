@@ -53,9 +53,9 @@ namespace Registrars {
 
         [Fact]
         public async Task Admins_Can_Get_Active() {
-            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
+            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16db");
             var records = JsonSerializer.Deserialize<List<SimpleEntity>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(4, records.Count);
+            Assert.Equal(10, records.Count);
         }
 
     }
