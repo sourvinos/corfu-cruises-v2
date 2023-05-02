@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Xunit;
 
 namespace Responses {
+    
     public static class RecordDeleted {
 
         public static async Task Action(HttpClient httpClient, string baseUrl, string url, string username, string password) {

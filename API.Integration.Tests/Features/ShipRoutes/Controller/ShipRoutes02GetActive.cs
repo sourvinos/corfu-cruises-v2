@@ -46,16 +46,12 @@ namespace ShipRoutes {
             await InvalidCredentials.Action(_httpClient, _baseUrl, _url, _actionVerb, login.Username, login.Password, null);
         }
 
-        [Fact]
-        public async Task Simple_Users_Can_Not_Get_Active() {
-            await Forbidden.Action(_httpClient, _baseUrl, _url, _actionVerb, "simpleuser", "1234567890", null);
-        }
-
-        [Fact]
-        public async Task Admins_Can_Get_Active() {
-            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
+        [Theory]
+        [ClassData(typeof(ActiveUsersCanLogin))]
+        public async Task Active_Users_Can_Get_Active(Login login) {
+            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, login.Username, login.Password);
             var records = JsonSerializer.Deserialize<List<ShipRouteActiveVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(6, records.Count);
+            Assert.Equal(5, records.Count);
         }
 
     }

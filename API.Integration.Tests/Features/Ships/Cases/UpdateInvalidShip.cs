@@ -17,7 +17,7 @@ namespace Ships {
                 new TestShip {
                     Id = 6,
                     StatusCode = 449,
-                    ShipOwnerId = 7,
+                    ShipOwnerId = 3,
                     Description = Helpers.CreateRandomString(5),
                 }
             };

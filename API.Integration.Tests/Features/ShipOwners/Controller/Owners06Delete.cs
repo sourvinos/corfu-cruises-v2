@@ -19,7 +19,7 @@ namespace ShipOwners {
         private readonly string _baseUrl;
         private readonly string _inUseUrl = "/shipOwners/4";
         private readonly string _notFoundUrl = "/shipOwners/999";
-        private readonly string _url = "/shipOwners/6";
+        private readonly string _url = "/shipOwners/7";
 
         #endregion
 
@@ -52,17 +52,17 @@ namespace ShipOwners {
 
         [Fact]
         public async Task Admins_Not_Found_When_Not_Exists() {
-            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
+            await RecordNotFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16db");
         }
 
         [Fact]
         public async Task Admins_Can_Not_Delete_In_Use() {
-            await RecordInUse.Action(_httpClient, _baseUrl, _inUseUrl, "john", "ec11fc8c16da");
+            await RecordInUse.Action(_httpClient, _baseUrl, _inUseUrl, "john", "ec11fc8c16db");
         }
 
         [Fact]
         public async Task Admins_Can_Delete_Not_In_Use() {
-            await RecordDeleted.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
+            await RecordDeleted.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16db");
         }
 
     }
