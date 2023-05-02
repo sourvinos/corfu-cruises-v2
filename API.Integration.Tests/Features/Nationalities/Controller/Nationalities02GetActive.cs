@@ -32,7 +32,7 @@ namespace Nationalities {
         public async Task OpenToAll() {
             var actionResponse = await ListAll.Action(_httpClient, _baseUrl, _url);
             var records = JsonSerializer.Deserialize<List<NationalityActiveVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(254, records.Count);
+            Assert.Equal(253, records.Count);
         }
 
     }

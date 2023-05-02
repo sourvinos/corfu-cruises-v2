@@ -35,7 +35,7 @@ namespace API.IntegrationTests.ShipCrews {
             return new object[] {
                 new TestCrew {
                     StatusCode = 457,
-                    GenderId = 3,
+                    GenderId = 4,
                     NationalityId = 1,
                     ShipId = 6,
                     Lastname = Helpers.CreateRandomString(128),
@@ -93,7 +93,7 @@ namespace API.IntegrationTests.ShipCrews {
                     StatusCode = 454,
                     GenderId = 1,
                     NationalityId = 1,
-                    ShipId = 8,
+                    ShipId = 1,
                     Lastname = Helpers.CreateRandomString(128),
                     Firstname = Helpers.CreateRandomString(128),
                     Birthdate = "1970-01-01"
