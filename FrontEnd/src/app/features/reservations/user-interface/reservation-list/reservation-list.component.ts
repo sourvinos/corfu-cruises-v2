@@ -174,10 +174,6 @@ export class ReservationListComponent {
         return this.dateHelperService.formatISODateToLocale(date, showWeekday, showYear)
     }
 
-    public formatRefNo(refNo: string): string {
-        return this.reservationHelperService.formatRefNo(refNo)
-    }
-
     public getDateFromStorage(): string {
         const date = this.sessionStorageService.getItem('date')
         if (date != '') {

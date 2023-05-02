@@ -81,13 +81,6 @@ export class ReservationHelperService {
         }
     }
 
-    public formatRefNo(refNo: string): string {
-        const destination = new RegExp(/[a-zA-Z]{1,6}/).exec(refNo)[0]
-        const number = new RegExp(/[0-9]{1,6}/g).exec(refNo).slice(-6)[0]
-        const zeros = '000000'.slice(number.length)
-        return destination.toUpperCase() + '' + zeros + number
-    }
-
     public getLinkedCustomer(isNewRecord: boolean): any {
         if (ConnectedUser.isAdmin == false && isNewRecord) {
             return JSON.parse(this.sessionStorageService.getItem('customers')).filter((x: { id: number }) => x.id == ConnectedUser.customerId)

@@ -135,7 +135,7 @@
                 <ng-template let-reservation pTemplate="body">
                     <tr (click)="highlightRow(reservation.reservationId)" (dblclick)="editRecord(reservation.reservationId)" [attr.id]="reservation.reservationId" style="height:32px">
                         <td class="center width-3"><p-tableCheckbox (click)="calculateSelectedPax()" [value]="reservation"></p-tableCheckbox></td>
-                        <td class="center width-5">{{ formatRefNo(reservation.refNo) }}</td>
+                        <td class="center width-5">{{ reservation.refNo }}</td>
                         <td class="width-8">{{ reservation.ticketNo }}</td>
                         <td class="width-5">{{ reservation.customer.description }}</td>
                         <td class="center width-6">{{ reservation.destination.abbreviation }}</td>
