@@ -3,9 +3,11 @@ import { Router } from '@angular/router'
 // Customer
 import { DestinationService } from '../../destinations/classes/services/destination.service'
 import { GenderService } from '../../genders/classes/services/gender.service'
+import { HelperService } from 'src/app/shared/services/helper.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { NationalityService } from '../../nationalities/classes/services/nationality.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
+import { Title } from '@angular/platform-browser'
 import { environment } from 'src/environments/environment'
 
 @Component({
@@ -23,11 +25,12 @@ export class IntroFormComponent {
 
     //#endregion
 
-    constructor(private destinationService: DestinationService, private genderService: GenderService, private nationalityService: NationalityService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService) { }
+    constructor(private destinationService: DestinationService, private genderService: GenderService, private helperService: HelperService, private nationalityService: NationalityService, private messageLabelService: MessageLabelService, private router: Router, private sessionStorageService: SessionStorageService, private titleService: Title) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
+        this.setWindowTitle()
         this.populateStorageFromAPI()
     }
 
@@ -63,6 +66,10 @@ export class IntroFormComponent {
         this.destinationService.getActive().subscribe(response => { this.sessionStorageService.saveItem('destinations', JSON.stringify(response)) })
         this.nationalityService.getActive().subscribe(response => { this.sessionStorageService.saveItem('nationalities', JSON.stringify(response)) })
         this.genderService.getActive().subscribe(response => { this.sessionStorageService.saveItem('genders', JSON.stringify(response)) })
+    }
+
+    private setWindowTitle(): void {
+        this.titleService.setTitle(this.helperService.getApplicationTitle())
     }
 
     //#endregion

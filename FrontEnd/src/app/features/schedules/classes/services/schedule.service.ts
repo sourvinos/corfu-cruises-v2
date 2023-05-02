@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { firstValueFrom, Observable } from 'rxjs'
+import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { ScheduleWriteVM } from '../form/schedule-write-vm'
@@ -15,14 +15,6 @@ export class ScheduleService extends HttpDataService {
     }
 
     //#region public methods
-
-    public getAll(): Observable<any> {
-        return this.http.get<any>(this.url)
-    }
-
-    public async getForCalendar(fromDate: string, toDate: string): Promise<any> {
-        return await firstValueFrom(this.http.get<any>(this.url + '/fromDate/' + fromDate + '/toDate/' + toDate))
-    }
 
     public addRange(scheduleObjects: ScheduleWriteVM[]): Observable<any[]> {
         return this.http.post<any[]>(this.url, scheduleObjects)
