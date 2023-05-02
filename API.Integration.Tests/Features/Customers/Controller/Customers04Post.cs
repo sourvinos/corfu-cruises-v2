@@ -54,7 +54,7 @@ namespace Customers {
         [Theory]
         [ClassData(typeof(CreateValidCustomer))]
         public async Task Admins_Can_Create_When_Valid(TestCustomer record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record);
         }
 
     }

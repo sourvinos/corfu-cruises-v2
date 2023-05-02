@@ -16,6 +16,6 @@
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
             }
-        },
+        }
     ]
 }

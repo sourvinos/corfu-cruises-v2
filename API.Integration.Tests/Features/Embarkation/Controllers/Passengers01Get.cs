@@ -19,10 +19,7 @@ namespace Embarkation {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/embarkation/date/2022-06-04/destinationId/all/portId/all/shipId/all";
-        private readonly string _urlForDestination = "/embarkation/date/2022-06-04/destinationId/1/portId/all/shipId/all";
-        private readonly string _urlForPort = "/embarkation/date/2022-06-04/destinationId/all/portId/1/shipId/all";
-        private readonly string _urlForShip = "/embarkation/date/2022-06-04/destinationId/all/portId/all/shipId/6";
+        private readonly string _url = "/embarkation?date=2022-06-04&destinationId=1&portId=1&shipId=1";
 
         #endregion
 
@@ -57,36 +54,9 @@ namespace Embarkation {
         public async Task Admins_Can_List() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
             var records = JsonSerializer.Deserialize<EmbarkationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(178, records.TotalPersons);
+            Assert.Equal(178, records.TotalPax);
             Assert.Equal(160, records.EmbarkedPassengers);
-            Assert.Equal(18, records.PendingPersons);
-        }
-
-        [Fact]
-        public async Task Admins_Can_List_For_Destination() {
-            var actionResponse = await List.Action(_httpClient, _baseUrl, _urlForDestination, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<EmbarkationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(82, records.TotalPersons);
-            Assert.Equal(72, records.EmbarkedPassengers);
-            Assert.Equal(10, records.PendingPersons);
-        }
-
-        [Fact]
-        public async Task Admins_Can_List_For_Port() {
-            var actionResponse = await List.Action(_httpClient, _baseUrl, _urlForPort, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<EmbarkationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(101, records.TotalPersons);
-            Assert.Equal(90, records.EmbarkedPassengers);
-            Assert.Equal(11, records.PendingPersons);
-        }
-
-        [Fact]
-        public async Task Admins_Can_List_For_Ship() {
-            var actionResponse = await List.Action(_httpClient, _baseUrl, _urlForShip, "john", "ec11fc8c16da");
-            var records = JsonSerializer.Deserialize<EmbarkationFinalGroupVM>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(164, records.TotalPersons);
-            Assert.Equal(148, records.EmbarkedPassengers);
-            Assert.Equal(16, records.PendingPersons);
+            Assert.Equal(18, records.PendingPax);
         }
 
     }

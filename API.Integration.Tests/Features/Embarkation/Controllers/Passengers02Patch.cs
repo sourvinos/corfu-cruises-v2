@@ -16,7 +16,7 @@ namespace Embarkation {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "put";
         private readonly string _baseUrl;
-        private readonly string _url = "/embarkation/903";
+        private readonly string _url = "/embarkation/embarkPassengers?ignoreCurrentStatus=true&id=934&id=935";
 
         #endregion
 

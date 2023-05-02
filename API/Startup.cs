@@ -16,8 +16,7 @@ using Microsoft.Extensions.DependencyInjection;
 // dotnet watch run --environment LocalDevelopment | LocalTesting | ProductionLive | ProductionDemo
 // dotnet publish /p:Configuration=Release /p:EnvironmentName=ProductionDemo | ProductionLive
 
-namespace API
-{
+namespace API {
 
     public class Startup {
 
@@ -30,7 +29,8 @@ namespace API
         }
 
         public void ConfigureLocalDevelopmentServices(IServiceCollection services) {
-            services.AddDbContextFactory<AppDbContext>(options => options.UseMySql(Configuration.GetConnectionString("LocalDevelopment"), new MySqlServerVersion(new Version(8, 0, 19)), builder => {
+            services.AddDbContextFactory<AppDbContext>(options =>
+                options.UseMySql(Configuration.GetConnectionString("LocalDevelopment"), new MySqlServerVersion(new Version(8, 0, 19)), builder => {
                 builder.EnableStringComparisonTranslations();
             }));
             ConfigureServices(services);
