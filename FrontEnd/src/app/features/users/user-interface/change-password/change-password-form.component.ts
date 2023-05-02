@@ -1,7 +1,7 @@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute } from '@angular/router'
 import { Component } from '@angular/core'
-import { Subject, Subscription } from 'rxjs'
+import { Subscription } from 'rxjs'
 // Custom
 import { AccountService } from 'src/app/shared/services/account.service'
 import { ChangePasswordViewModel } from '../../classes/view-models/change-password-view-model'
@@ -28,7 +28,6 @@ export class ChangePasswordFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public isLoading = new Subject<boolean>()
     public parentUrl = '/users'
 
     public confirmValidParentMatcher = new ConfirmValidParentMatcher()

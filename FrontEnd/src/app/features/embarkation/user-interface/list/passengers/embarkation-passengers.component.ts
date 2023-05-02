@@ -1,6 +1,5 @@
 import { Component, Inject, NgZone } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { Subject } from 'rxjs'
 // Custom
 import { EmbarkationPassengerVM } from '../../../classes/view-models/list/embarkation-passenger-vm'
 import { EmbarkationService } from '../../../classes/services/embarkation.service'
@@ -23,7 +22,6 @@ export class EmbarkationPassengerListComponent {
     private feature = 'embarkationList'
     public reservation: EmbarkationReservationVM
     public initialReservation: EmbarkationReservationVM
-    public isLoading = new Subject<boolean>()
 
     //#endregion
 

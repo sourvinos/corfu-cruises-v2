@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { BehaviorSubject, Observable, Subject } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
@@ -51,7 +51,6 @@ export class ReservationFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isAutoCompleteDisabled = true
-    public isLoading = new Subject<boolean>()
     public parentUrl = ''
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')

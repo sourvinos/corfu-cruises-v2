@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
-import { Component} from '@angular/core'
+import { BehaviorSubject, Observable, Subscription } from 'rxjs'
+import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
 import { map, startWith } from 'rxjs/operators'
 // Custom
@@ -38,7 +38,6 @@ export class PickupPointFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public isLoading = new Subject<boolean>()
     public parentUrl = '/pickupPoints'
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')

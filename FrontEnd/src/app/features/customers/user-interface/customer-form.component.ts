@@ -1,7 +1,7 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { Component } from '@angular/core'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Subject, Subscription } from 'rxjs'
+import { Subscription } from 'rxjs'
 // Custom
 import { CustomerReadDto } from '../classes/dtos/customer-read-dto'
 import { CustomerService } from 'src/app/features/customers/classes/services/customer.service'
@@ -33,7 +33,6 @@ export class CustomerFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public isLoading = new Subject<boolean>()
     public parentUrl = '/customers'
 
     //#endregion

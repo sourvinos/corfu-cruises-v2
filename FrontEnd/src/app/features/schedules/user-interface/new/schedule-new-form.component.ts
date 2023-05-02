@@ -2,7 +2,7 @@ import { Component } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { DateRange } from '@angular/material/datepicker'
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Subject, Subscription } from 'rxjs'
+import { Subscription } from 'rxjs'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
@@ -39,7 +39,6 @@ export class ScheduleNewFormComponent {
     public icon = 'arrow_back'
     public input: InputTabStopDirective
     public isAutoCompleteDisabled = true
-    public isLoading = new Subject<boolean>()
     public parentUrl = '/schedules'
 
     public destinations: SimpleEntity[]

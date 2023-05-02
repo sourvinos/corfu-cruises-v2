@@ -1,5 +1,5 @@
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { BehaviorSubject, Observable, Subject, Subscription } from 'rxjs'
+import { BehaviorSubject, Observable, Subscription } from 'rxjs'
 import { Component } from '@angular/core'
 import { map, startWith } from 'rxjs/operators'
 // Custom
@@ -31,7 +31,6 @@ export class NewUserFormComponent {
     public form: FormGroup
     public icon = 'arrow_back'
     public input: InputTabStopDirective
-    public isLoading = new Subject<boolean>()
     public parentUrl = '/users'
 
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
