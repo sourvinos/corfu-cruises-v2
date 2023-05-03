@@ -9,7 +9,7 @@ namespace API.Features.Embarkation {
         public string TicketNo { get; set; }
         public string Remarks { get; set; }
         public SimpleEntity Customer { get; set; }
-        public SimpleEntity Destination { get; set; }
+        public EmbarkationFinalDestinationListVM Destination { get; set; }
         public SimpleEntity Driver { get; set; }
         public SimpleEntity PickupPoint { get; set; }
         public SimpleEntity Port { get; set; }
