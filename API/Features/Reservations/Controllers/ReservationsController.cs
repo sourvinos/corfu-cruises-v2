@@ -88,12 +88,12 @@ namespace API.Features.Reservations {
         [Authorize(Roles = "user, admin")]
         [ServiceFilter(typeof(ModelValidationAttribute))]
         public Task<Response> Post([FromBody] ReservationWriteDto reservation) {
+            AttachPortIdToDto(reservation);
+            UpdateDriverIdWithNull(reservation);
+            UpdateShipIdWithNull(reservation);
             var x = validReservation.IsValid(reservation, scheduleRepo);
             if (x == 200) {
                 AttachNewRefNoToDto(reservation);
-                AttachPortIdToDto(reservation);
-                UpdateDriverIdWithNull(reservation);
-                UpdateShipIdWithNull(reservation);
                 reservationUpdateRepo.Create(mapper.Map<ReservationWriteDto, Reservation>((ReservationWriteDto)reservationUpdateRepo.AttachUserIdToDto(reservation)));
                 return Task.FromResult(new Response {
                     Code = 200,
@@ -114,11 +114,11 @@ namespace API.Features.Reservations {
             var x = await reservationReadRepo.GetByIdAsync(reservation.ReservationId.ToString(), false);
             if (x != null) {
                 if (Identity.IsUserAdmin(httpContext) || validReservation.IsUserOwner(x.CustomerId)) {
+                    AttachPortIdToDto(reservation);
+                    UpdateDriverIdWithNull(reservation);
+                    UpdateShipIdWithNull(reservation);
                     var z = validReservation.IsValid(reservation, scheduleRepo);
                     if (z == 200) {
-                        AttachPortIdToDto(reservation);
-                        UpdateDriverIdWithNull(reservation);
-                        UpdateShipIdWithNull(reservation);
                         reservationUpdateRepo.Update(reservation.ReservationId, mapper.Map<ReservationWriteDto, Reservation>((ReservationWriteDto)reservationUpdateRepo.AttachUserIdToDto(reservation)));
                         return new Response {
                             Code = 200,

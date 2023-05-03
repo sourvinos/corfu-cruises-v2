@@ -17,13 +17,11 @@ namespace Reservations {
         private static object[] Simple_Users_Can_Create_Records_For_Future_Date() {
             return new object[] {
                 new TestNewReservation {
-                    Date = "2022-09-15",
-                    Now = new DateTime(2022, 09, 14, 12, 0, 0),
                     CustomerId = 2,
                     DestinationId = 1,
-                    DriverId = 0,
                     PickupPointId = 12,
-                    ShipId = null,
+                    Date = "2022-09-15",
+                    Now = new DateTime(2022, 09, 14, 12, 0, 0),
                     TicketNo = "xxxx",
                     Adults = 3,
                     Passengers = new List<TestPassenger>()

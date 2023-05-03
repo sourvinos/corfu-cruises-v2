@@ -18,11 +18,9 @@ namespace Reservations {
                 new TestNewReservation {
                     CustomerId = 1,
                     DestinationId = 1,
-                    DriverId = 0,
                     PickupPointId = 642,
-                    ShipId = null,
-                    Date = "2022-03-04",
-                    Now = new DateTime(2022, 3, 5, 12, 00, 00),
+                    Date = "2022-09-15",
+                    Now = new DateTime(2022, 9, 16, 12, 00, 00),
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
@@ -43,11 +41,9 @@ namespace Reservations {
                 new TestNewReservation {
                     CustomerId = 1,
                     DestinationId = 1,
-                    DriverId = null,
                     PickupPointId = 642,
-                    ShipId = 0,
-                    Date = "2022-12-04",
-                    Now = new DateTime(2022, 3, 5, 12, 00, 00),
+                    Date = "2022-09-15",
+                    Now = new DateTime(2022, 9, 14, 12, 00, 00),
                     TicketNo = "xxxx",
                     Adults = 2,
                     Kids = 1,

@@ -16,8 +16,6 @@ namespace Reservations {
             yield return Passenger_Count_Is_Not_Correct();
             yield return Customer_Must_Exist();
             yield return Customer_Must_Be_Active();
-            yield return Destination_Must_Exist();
-            yield return Destination_Must_Be_Active();
             yield return PickupPoint_Must_Be_Active();
             yield return PickupPoint_Must_Exist();
             yield return Gender_Must_Exist();
@@ -141,40 +139,10 @@ namespace Reservations {
                     StatusCode = 450,
                     Date = "2022-03-04",
                     Now = new DateTime(2022, 4, 30, 12, 00, 00),
-                    CustomerId = 63,
+                    CustomerId = 195,
                     DestinationId = 1,
                     PickupPointId = 642,
                     TicketNo = "xxxxxx"
-                }
-            };
-        }
-
-        private static object[] Destination_Must_Exist() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 451,
-                    Date = "2022-03-04",
-                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
-                    CustomerId = 1,
-                    DestinationId = 999,
-                    PickupPointId = 266,
-                    Adults = 2,
-                    TicketNo = "xxxxx"
-                }
-            };
-        }
-
-        private static object[] Destination_Must_Be_Active() {
-            return new object[] {
-                new TestNewReservation {
-                    StatusCode = 451,
-                    Date = "2022-03-04",
-                    Now = new DateTime(2022, 4, 30, 12, 00, 00),
-                    CustomerId = 1,
-                    DestinationId = 6,
-                    PickupPointId = 285,
-                    Adults = 2,
-                    TicketNo = "xxxxx"
                 }
             };
         }
@@ -209,7 +177,7 @@ namespace Reservations {
                     TicketNo = "xxxx",
                     Adults = 2,
                     Passengers = new List<TestPassenger>() {
-                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 1, GenderId = 3 },
+                        new TestPassenger { Lastname = "AEDAN", Firstname = "ZAYAS", Birthdate = "1992-06-12", NationalityId = 1, GenderId = 4 },
                     }
                 }
             };

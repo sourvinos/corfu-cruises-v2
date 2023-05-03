@@ -56,7 +56,7 @@ namespace Reservations {
         [Theory]
         [ClassData(typeof(ActiveAdminsCanNotCreateWhenInvalid))]
         public async Task Admins_Can_Not_Create_When_Invalid(TestNewReservation record) {
-            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            var actionResponse = await RecordInvalidNotSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record);
             Assert.Equal((HttpStatusCode)record.StatusCode, actionResponse.StatusCode);
         }
 
@@ -69,7 +69,7 @@ namespace Reservations {
         [Theory]
         [ClassData(typeof(ActiveAdminsCanCreateWhenValid))]
         public async Task Admins_Can_Create_When_Valid(TestNewReservation record) {
-            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16da", record);
+            await RecordSaved.Action(_httpClient, _baseUrl, _url, _actionVerb, "john", "ec11fc8c16db", record);
         }
 
     }

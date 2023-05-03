@@ -16,11 +16,11 @@ namespace Reservations {
         private readonly HttpClient _httpClient;
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
-        private readonly string _adminUrl = "/reservations/refNo/PA685";
+        private readonly string _adminUrl = "/reservations/refNo/blc21409";
         private readonly string _baseUrl;
-        private readonly string _notFoundUrl = "/reservations/refNo/PA685";
-        private readonly string _simpleUserUrl_not_owned = "/reservations/refNo/PA685";
-        private readonly string _simpleUserUrl_owned = "/reservations/refNo/PA616";
+        private readonly string _notFoundUrl = "/reservations/refNo/pa685";
+        private readonly string _simpleUserUrl_not_owned = "/reservations/refNo/bl3505";
+        private readonly string _simpleUserUrl_owned = "/reservations/refNo/pa24963";
 
         #endregion
 
@@ -48,7 +48,7 @@ namespace Reservations {
 
         [Fact]
         public async Task Active_Users_Get_Empty_List_If_Not_Exists() {
-            await RecordFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16da");
+            await RecordFound.Action(_httpClient, _baseUrl, _notFoundUrl, "john", "ec11fc8c16db");
         }
 
         [Fact]
@@ -63,7 +63,7 @@ namespace Reservations {
 
         [Fact]
         public async Task Admins_Can_Get_By_RefNo() {
-            await RecordFound.Action(_httpClient, _baseUrl, _adminUrl, "john", "ec11fc8c16da");
+            await RecordFound.Action(_httpClient, _baseUrl, _adminUrl, "john", "ec11fc8c16db");
         }
 
     }

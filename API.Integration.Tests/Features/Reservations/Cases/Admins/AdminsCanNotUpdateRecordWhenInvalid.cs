@@ -258,7 +258,7 @@ namespace Reservations {
                     DestinationId = 1,
                     DriverId = 18,
                     PickupPointId = 248,
-                    ShipId = 9,
+                    ShipId = 99,
                     Date = "2022-05-01",
                     TicketNo = "21",
                     Adults = 2,

@@ -1,6 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
 using API.Features.Reservations;
@@ -21,7 +20,7 @@ namespace Reservations {
         private readonly TestHostFixture _testHostFixture = new();
         private readonly string _actionVerb = "get";
         private readonly string _baseUrl;
-        private readonly string _url = "/reservations/date/2022-05-13";
+        private readonly string _url = "/reservations/date/2022-09-15";
 
         #endregion
 
@@ -51,14 +50,14 @@ namespace Reservations {
         public async Task Simple_Users_Can_List_Only_Owned() {
             var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "simpleuser", "1234567890");
             var records = JsonSerializer.Deserialize<List<ReservationListVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(123, 123);
+            Assert.Equal(2, records.Count);
         }
 
         [Fact]
         public async Task Admins_Can_List() {
-            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16da");
+            var actionResponse = await List.Action(_httpClient, _baseUrl, _url, "john", "ec11fc8c16db");
             var records = JsonSerializer.Deserialize<List<ReservationListVM>>(await actionResponse.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-            Assert.Equal(123, 123);
+            Assert.Equal(220, records.Count);
         }
 
     }
