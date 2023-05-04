@@ -229,12 +229,6 @@ export class HelperService {
         }, 100)
     }
 
-    public toggleVirtualTable(isVirtual: boolean): any {
-        setTimeout(() => {
-            return !isVirtual
-        }, 300)
-    }
-
     public clearStyleFromVirtualTable(): void {
         const x = document.getElementsByClassName('p-scroller-content') as HTMLCollectionOf<HTMLElement>
         x[0].style.transform = null
@@ -289,3 +283,4 @@ export class HelperService {
     //#endregion
 
 }
+

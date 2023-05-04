@@ -202,7 +202,7 @@ export class ManifestListComponent {
     }
 
     private toggleVirtualTable(): void {
-        this.helperService.toggleVirtualTable(this.isVirtual)
+        // this.helperService.toggleVirtualTable(this.isVirtual)
     }
 
     private updateTotals(totals: number[], filteredVelue: any[]): void {

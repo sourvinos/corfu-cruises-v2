@@ -54,9 +54,8 @@ import { InterceptorService } from '../shared/services/interceptor.service'
     providers: [
         Title,
         {
-            provide: HTTP_INTERCEPTORS,
-            useClass: InterceptorService, multi: true
-        },
+            provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true
+        }
     ],
     bootstrap: [AppComponent]
 })

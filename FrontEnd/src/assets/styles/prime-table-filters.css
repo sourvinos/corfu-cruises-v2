@@ -37,7 +37,7 @@
 .p-multiselect .p-multiselect-label {
     font-size: 0.6875rem;
     margin: 0;
-    padding: 0.5rem 0 0 0;
+    padding: 0.375rem 0 0 0;
     text-align: left;
 }
 
@@ -90,10 +90,11 @@
 }
 
 .p-column-filter-menu-button, .p-column-filter-clear-button {
+    background-image: url("/assets/images/tables/filter-remove.svg");
     border-radius: 0;
     box-shadow: none !important;
     color: var(--color-table-dropdown-filter-clear);
-    height: 1rem;
+    height: 0.9375rem;
     margin: 0.125rem 0 0 -0.1875rem !important;
     position: absolute !important;
     top: 0.25rem;
@@ -101,13 +102,13 @@
 }
 
 .p-column-filter-menu-button, .p-column-filter-clear-button:hover {
-    background-color: transparent;
-    color: var(--color-table-dropdown-filter-clear) !important;
+    background-color: var(--color-x);
+    background-image: url("/assets/images/tables/filter-remove.svg");
 }
 
 .p-multiselect .p-multiselect-trigger {
     color: var(--color-c) !important;
     justify-content: flex-end;
-    margin-top: 0;
+    margin-top: 0.4375rem;
     width: 1.1rem;
 }

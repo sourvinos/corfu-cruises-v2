@@ -1,8 +1,8 @@
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { DateAdapter } from '@angular/material/core'
 import { MatDialog } from '@angular/material/dialog'
-import { Subject } from 'rxjs'
+import { Subscription } from 'rxjs'
 import { Table } from 'primeng/table'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
@@ -23,6 +23,8 @@ import { ModalActionResultService } from 'src/app/shared/services/modal-action-r
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { environment } from 'src/environments/environment'
+import { EmbarkationDestinationVM } from '../../../classes/view-models/list/embarkation-destination-vm'
+import { EmbarkationPortVM } from '../../../classes/view-models/list/embarkation-port-vm'
 
 @Component({
     selector: 'embarkation-reservations',
@@ -36,57 +38,44 @@ export class EmbarkationReservationsComponent {
 
     @ViewChild('table') table: Table
 
-    private unsubscribe = new Subject<void>()
+    private subscription = new Subscription()
+    private virtualElement: any
     public feature = 'embarkationList'
     public featureIcon = 'embarkation'
     public icon = 'arrow_back'
+    public isVirtual = true
     public parentUrl = '/embarkation'
     public records: EmbarkationGroupVM
-    private virtualElement: any
 
     public criteriaPanels: EmbarkationCriteriaVM
-
     public totals = [0, 0, 0]
     public totalsFiltered = [0, 0, 0]
 
-    public distinctCustomers: string[]
-    public distinctDestinations: string[]
-    public distinctDrivers: string[]
-    public distinctPickupPoints: string[]
-    public distinctPorts: string[]
-    public distinctShips: string[]
+    public distinctCustomers: SimpleEntity[] = []
+    public distinctDestinations: EmbarkationDestinationVM[] = []
+    public distinctDrivers: SimpleEntity[] = []
+    public distinctPickupPoints: SimpleEntity[] = []
+    public distinctPorts: EmbarkationPortVM[] = []
+    public distinctShips: SimpleEntity[] = []
     public distinctEmbarkationStatuses: string[]
-
-    private currentUrl = '/embarkation/list'
-    private scannerEnabled: boolean
-    private searchByTicketNo: string
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
-        this.router.events.subscribe((navigation) => {
-            if (navigation instanceof NavigationEnd && navigation.url == this.currentUrl) {
-                this.loadRecords().then(() => {
-                    this.populateDropdownFilters()
-                    this.filterTableFromStoredFilters()
-                    this.updateTotals('totals', this.records.reservations)
-                    this.updateTotals('totalsFiltered', this.records.reservations)
-                    this.populateCriteriaPanelsFromStorage()
-                    this.enableDisableFilters()
-                    this.getLocale()
-                })
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private dateAdapter: DateAdapter<any>, private dateHelperService: DateHelperService, private dialogService: DialogService, private embarkationPDFService: EmbarkationPDFService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private localStorageService: LocalStorageService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
+        this.loadRecords()
+        this.populateDropdownFilters()
+        this.filterTableFromStoredFilters()
+        this.updateTotals('totals', this.records.reservations)
+        this.updateTotals('totalsFiltered', this.records.reservations)
+        this.populateCriteriaPanelsFromStorage()
+        this.enableDisableFilters()
+        this.getLocale()
         this.subscribeToInteractionService()
         this.setTabTitle()
-    }
-
-    ngAfterViewInit(): void {
         this.doVirtualTableTasks()
     }
 
@@ -103,9 +92,11 @@ export class EmbarkationReservationsComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
+        setTimeout(() => { this.isVirtual = false }, 100)
+        this.helperService.clearTableCheckboxes()
         this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.updateTotals('totalsFiltered', event.filteredValue)
-        this.helperService.clearStyleFromVirtualTable()
+        setTimeout(() => { this.isVirtual = true }, 100)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -154,20 +145,8 @@ export class EmbarkationReservationsComponent {
         return remarks.length > 0 ? true : false
     }
 
-    public isListFiltered(): boolean {
-        const filters = this.sessionStorageService.getItem(this.feature)
-        if (filters != undefined && filters != '') {
-            const x = []
-            for (const i in JSON.parse(filters)) {
-                x.push(JSON.parse(filters)[i])
-            }
-            return x.filter(({ value }) => value != null).length != 0
-        }
-        return false
-    }
-
     public resetTableFilters(): void {
-        this.helperService.clearTableTextFilters(this.table, ['refNo', 'ticketNo', 'totalPersons'])
+        this.helperService.clearTableTextFilters(this.table, ['refNo', 'ticketNo', 'totalPax'])
     }
 
     public showPassengers(reservation: EmbarkationReservationVM): void {
@@ -181,25 +160,12 @@ export class EmbarkationReservationsComponent {
         this.dialogService.open(remarks, 'info', ['ok'])
     }
 
-    public showScannerWindow(): void {
-        this.searchByTicketNo = ''
-        this.scannerEnabled = true
-        setTimeout(() => {
-            this.positionVideo()
-        }, 1000)
-    }
-
-    public unHighlightAllRows(): void {
-        this.helperService.unHighlightAllRows()
-    }
-
     //#endregion
 
     //#region private methods
 
     private cleanup(): void {
-        this.unsubscribe.next()
-        this.unsubscribe.unsubscribe()
+        this.subscription.unsubscribe()
     }
 
     private doVirtualTableTasks(): void {
@@ -283,12 +249,6 @@ export class EmbarkationReservationsComponent {
         this.distinctEmbarkationStatuses = this.helperService.getDistinctRecords(this.records.reservations, 'embarkationStatus', 'description')
     }
 
-    private positionVideo(): void {
-        document.getElementById('video').style.left = (window.outerWidth / 2) - 320 + 'px'
-        document.getElementById('video').style.top = (document.getElementById('wrapper').clientHeight / 2) - 240 + 'px'
-        document.getElementById('video').style.display = 'flex'
-    }
-
     private scrollToSavedPosition(): void {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
@@ -309,8 +269,7 @@ export class EmbarkationReservationsComponent {
         })
         response.afterClosed().subscribe(result => {
             if (result !== undefined && result == true) {
-                this.router.navigate([this.currentUrl])
-                this.doVirtualTableTasks()
+                this.router.navigateByUrl(this.router.url)
             }
         })
     }

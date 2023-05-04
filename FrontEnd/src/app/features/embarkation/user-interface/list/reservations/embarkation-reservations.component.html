@@ -20,7 +20,7 @@
             <criteria-panel [backgroundImage]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
+            <p-table #table (onFilter)="filterRecords($event)" [scrollable]="true" [value]="records.reservations" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="ticketNo" scrollHeight="flex" selectionMode="single" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-4" pSortableColumn="embarkationStatus.description">{{ getLabel('headerEmbarkationStatus') }}</th>
@@ -135,7 +135,7 @@
                     </tr>
                 </ng-template>
                 <ng-template let-reservation pTemplate="body">
-                    <tr (click)="unHighlightAllRows()" (dblclick)="showPassengers(reservation)" [attr.id]=reservation.refNo [pSelectableRow]="reservation" style="height:32px">
+                    <tr (dblclick)="showPassengers(reservation)" [attr.id]=reservation.refNo [pSelectableRow]="reservation" style="height:32px">
                         <td class="center width-4">
                             <span>{{ getEmbarkationStatusIcon(reservation.embarkationStatus) }}</span>
                             <span class="no-display">{{ reservation.embarkationStatus.description }}</span>
@@ -192,13 +192,9 @@
             </div>
         </div>
         <div class="button-group-right">
-            <button (click)="createPdf()" [disabled]="records.reservations.length == 0" class="secondary" mat-flat-button>
+            <button (click)="createPdf()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
                 <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("createPDF") }}</span>
-            </button>
-            <button (click)="showScannerWindow()" [disabled]="records.reservations.length == 0" class="primary" mat-flat-button>
-                <mat-icon *ngIf="records.reservations.length == 0" class="button-icon">lock</mat-icon>
-                <span>{{ getLabel('scanOpenButton') }}</span>
             </button>
         </div>
     </div>

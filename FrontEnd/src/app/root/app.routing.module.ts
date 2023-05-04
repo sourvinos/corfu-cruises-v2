@@ -1,6 +1,6 @@
 // Base
 import { NgModule } from '@angular/core'
-import { NoPreloading, RouterModule, Routes } from '@angular/router'
+import { NoPreloading, RouteReuseStrategy, RouterModule, Routes } from '@angular/router'
 // Components
 import { EmptyPageComponent } from '../shared/components/empty-page/empty-page.component'
 import { ForgotPasswordFormComponent } from '../features/users/user-interface/forgot-password/forgot-password-form.component'
@@ -8,8 +8,9 @@ import { HomeComponent } from '../shared/components/home/home.component'
 import { IntroFormComponent } from '../features/intro/user-interface/intro-form.component'
 import { LoginFormComponent } from '../features/login/user-interface/login-form.component'
 import { ResetPasswordFormComponent } from '../features/users/user-interface/reset-password/reset-password-form.component'
-// Guards
+// Utils
 import { AuthGuardService } from '../shared/services/auth-guard.service'
+import { CustomRouteReuseStrategy } from '../shared/services/route-reuse-strategy'
 
 const appRoutes: Routes = [
     // Intro
@@ -51,15 +52,14 @@ const appRoutes: Routes = [
 @NgModule({
     declarations: [],
     entryComponents: [],
-    imports: [
-        RouterModule.forRoot(appRoutes, {
-            onSameUrlNavigation: 'reload',
-            preloadingStrategy: NoPreloading,
-            useHash: true
-        })
-    ],
     exports: [
         RouterModule
+    ],
+    imports: [
+        RouterModule.forRoot(appRoutes, { onSameUrlNavigation: 'reload', preloadingStrategy: NoPreloading, useHash: true })
+    ],
+    providers: [
+        { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy }
     ]
 })
 

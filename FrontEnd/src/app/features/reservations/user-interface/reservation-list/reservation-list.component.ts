@@ -1,4 +1,4 @@
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component, ViewChild } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { Subscription } from 'rxjs'
@@ -6,7 +6,6 @@ import { Table } from 'primeng/table'
 // Custom
 import { ConnectedUser } from 'src/app/shared/classes/connected-user'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
-import { DriverDistinctVM } from 'src/app/features/drivers/classes/view-models/driver-distinct-vm'
 import { DriverReportService } from '../../classes/driver-report/services/driver-report.service'
 import { EmojiService } from './../../../../shared/services/emoji.service'
 import { HelperService } from './../../../../shared/services/helper.service'
@@ -15,13 +14,9 @@ import { ListResolved } from 'src/app/shared/classes/list-resolved'
 import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
-import { ReservationHelperService } from '../../classes/services/reservation.helper.service'
 import { ReservationHttpService } from '../../classes/services/reservation.http.service'
-import { ReservationListCoachRouteVM } from '../../classes/view-models/list/reservation-list-coachRoute-vm'
 import { ReservationListDestinationVM } from 'src/app/features/reservations/classes/view-models/list/reservation-list-destination-vm'
 import { ReservationListOverbookedDestinationVM } from '../../classes/view-models/list/reservation-list-overbooked-destination-vm'
-import { ReservationListPickupPointVM } from '../../classes/view-models/list/reservation-list-pickupPoint-vm'
-import { ReservationListPortVM } from '../../classes/view-models/list/reservation-list-port-vm'
 import { ReservationListVM } from '../../classes/view-models/list/reservation-list-vm'
 import { ReservationToDriverComponent } from '../reservation-to-driver/reservation-to-driver-form.component'
 import { ReservationToShipComponent } from '../reservation-to-ship/reservation-to-ship-form.component'
@@ -42,51 +37,42 @@ export class ReservationListComponent {
     @ViewChild('table') table: Table | undefined
 
     private subscription = new Subscription()
+    private virtualElement: any
     public feature = 'reservationList'
     public featureIcon = 'reservations'
     public icon = 'arrow_back'
+    public isVirtual = true
     public parentUrl = '/reservations'
     public records: ReservationListVM[] = []
-    public selectedRecords: ReservationListVM[] = []
-    private virtualElement: any
 
-    public totalPax = [0, 0, 0]
     public overbookedDestinations: ReservationListOverbookedDestinationVM[] = []
+    public selectedRecords: ReservationListVM[] = []
+    public totalPax = [0, 0, 0]
 
-    public dropdownCoachRoutes: ReservationListCoachRouteVM[] = []
-    public dropdownCustomers: SimpleEntity[] = []
-    public dropdownDestinations: ReservationListDestinationVM[] = []
-    public dropdownDrivers: DriverDistinctVM[] = []
-    public dropdownPickupPoints: ReservationListPickupPointVM[] = []
-    public dropdownPorts: ReservationListPortVM[] = []
-    public dropdownShips: SimpleEntity[] = []
+    public distinctCoachRoutes: SimpleEntity[] = []
+    public distinctCustomers: SimpleEntity[] = []
+    public distinctDestinations: ReservationListDestinationVM[] = []
+    public distinctDrivers: SimpleEntity[] = []
+    public distinctPickupPoints: SimpleEntity[] = []
+    public distinctPorts: SimpleEntity[] = []
+    public distinctShips: SimpleEntity[] = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private reservationHelperService: ReservationHelperService, private reservationService: ReservationHttpService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) {
-        this.router.routeReuseStrategy.shouldReuseRoute = (): boolean => false
-        this.subscription = this.router.events.subscribe((event) => {
-            if (event instanceof NavigationEnd) {
-                this.updateRouter()
-                this.loadRecords()
-                this.populateDropdownFilters()
-                this.filterTableFromStoredFilters()
-                this.updateTotals(this.totalPax, this.records)
-                this.calculateOverbookings()
-                this.enableDisableFilters()
-                this.storeCriteria()
-            }
-        })
-    }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private driverReportService: DriverReportService, private emojiService: EmojiService, private helperService: HelperService, private interactionService: InteractionService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private reservationService: ReservationHttpService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
 
     //#region lifecycle hooks
 
     ngOnInit(): void {
+        this.loadRecords()
+        this.populateDropdownFilters()
+        this.filterTableFromStoredFilters()
+        this.updateTotals(this.totalPax, this.records)
+        this.calculateOverbookings()
+        this.enableDisableFilters()
+        this.storeCriteria()
         this.subscribeToInteractionService()
         this.setTabTitle()
-    }
-
-    ngAfterViewInit(): void {
         this.doVirtualTableTasks()
     }
 
@@ -163,11 +149,12 @@ export class ReservationListComponent {
     }
 
     public filterRecords(event?: { filteredValue: any[] }): void {
-        this.helperService.clearStyleFromVirtualTable()
+        setTimeout(() => { this.isVirtual = false }, 100)
         this.helperService.clearTableCheckboxes()
         this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.selectedRecords.splice(0)
         this.updateTotals(this.totalPax, event.filteredValue)
+        setTimeout(() => { this.isVirtual = true }, 100)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -197,6 +184,10 @@ export class ReservationListComponent {
 
     public highlightRow(id: any): void {
         this.helperService.highlightRow(id)
+    }
+
+    public isAdmin(): boolean {
+        return ConnectedUser.isAdmin
     }
 
     public isFilterDisabled(): boolean {
@@ -231,7 +222,7 @@ export class ReservationListComponent {
         const date = this.sessionStorageService.getItem('date')
         if (date != '') {
             this.overbookedDestinations = []
-            this.dropdownDestinations.forEach((destination) => {
+            this.distinctDestinations.forEach((destination) => {
                 this.reservationService.isDestinationOverbooked(this.sessionStorageService.getItem('date'), destination.id).subscribe((response) => {
                     this.overbookedDestinations.push({
                         description: destination.abbreviation,
@@ -287,7 +278,7 @@ export class ReservationListComponent {
 
     private getDistinctDriverIds(): any[] {
         const driverIds = []
-        this.dropdownDrivers.forEach(driver => {
+        this.distinctDrivers.forEach(driver => {
             driverIds.push(driver.id)
         })
         return driverIds
@@ -303,10 +294,6 @@ export class ReservationListComponent {
 
     private hightlightSavedRow(): void {
         this.helperService.highlightSavedRow(this.feature)
-    }
-
-    public isAdmin(): boolean {
-        return ConnectedUser.isAdmin
     }
 
     private isAnyRowSelected(): boolean {
@@ -332,13 +319,13 @@ export class ReservationListComponent {
     }
 
     private populateDropdownFilters(): void {
-        this.dropdownCoachRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'description')
-        this.dropdownCustomers = this.helperService.getDistinctRecords(this.records, 'customer', 'description')
-        this.dropdownDestinations = this.helperService.getDistinctRecords(this.records, 'destination', 'description')
-        this.dropdownDrivers = this.helperService.getDistinctRecords(this.records, 'driver', 'description')
-        this.dropdownPickupPoints = this.helperService.getDistinctRecords(this.records, 'pickupPoint', 'description')
-        this.dropdownPorts = this.helperService.getDistinctRecords(this.records, 'port', 'description')
-        this.dropdownShips = this.helperService.getDistinctRecords(this.records, 'ship', 'descriptiοn')
+        this.distinctCoachRoutes = this.helperService.getDistinctRecords(this.records, 'coachRoute', 'abbreviation')
+        this.distinctCustomers = this.helperService.getDistinctRecords(this.records, 'customer', 'description')
+        this.distinctDestinations = this.helperService.getDistinctRecords(this.records, 'destination', 'description')
+        this.distinctDrivers = this.helperService.getDistinctRecords(this.records, 'driver', 'description')
+        this.distinctPickupPoints = this.helperService.getDistinctRecords(this.records, 'pickupPoint', 'description')
+        this.distinctPorts = this.helperService.getDistinctRecords(this.records, 'port', 'description')
+        this.distinctShips = this.helperService.getDistinctRecords(this.records, 'ship', 'description')
     }
 
     private refreshList(): void {
@@ -356,24 +343,6 @@ export class ReservationListComponent {
         this.helperService.scrollToSavedPosition(this.virtualElement, this.feature)
     }
 
-    private storeSelectedId(id: string): void {
-        this.sessionStorageService.saveItem(this.feature + '-id', id)
-    }
-
-    private storeScrollTop(): void {
-        this.sessionStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
-    }
-
-    private updateTotals(totalPax: number[], filteredValue: any[]): void {
-        totalPax[0] = this.records.reduce((sum: number, array: { totalPax: number }) => sum + array.totalPax, 0)
-        totalPax[1] = filteredValue.reduce((sum: number, array: { totalPax: number }) => sum + array.totalPax, 0)
-        totalPax[2] = this.selectedRecords.reduce((sum: number, array: { totalPax: number }) => sum + array.totalPax, 0)
-    }
-
-    private updateRouter(): void {
-        this.router.navigated = false
-    }
-
     private setTabTitle(): void {
         this.helperService.setTabTitle(this.feature)
     }
@@ -384,10 +353,24 @@ export class ReservationListComponent {
         }
     }
 
+    private storeScrollTop(): void {
+        this.sessionStorageService.saveItem(this.feature + '-scrollTop', this.virtualElement.scrollTop)
+    }
+
+    private storeSelectedId(id: string): void {
+        this.sessionStorageService.saveItem(this.feature + '-id', id)
+    }
+
     private subscribeToInteractionService(): void {
         this.interactionService.refreshTabTitle.subscribe(() => {
             this.setTabTitle()
         })
+    }
+
+    private updateTotals(totalPax: number[], filteredValue: any[]): void {
+        totalPax[0] = this.records.reduce((sum: number, array: { totalPax: number }) => sum + array.totalPax, 0)
+        totalPax[1] = filteredValue.reduce((sum: number, array: { totalPax: number }) => sum + array.totalPax, 0)
+        totalPax[2] = this.selectedRecords.reduce((sum: number, array: { totalPax: number }) => sum + array.totalPax, 0)
     }
 
     //#endregion
