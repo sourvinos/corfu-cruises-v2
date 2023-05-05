@@ -31,18 +31,6 @@
     padding: 0.5rem;
 }
 
-@media only screen and (max-width: 430px) {
-    #content {
-        margin: 0 1rem 0 0;
-    }
-    #header {
-        display: none;
-    }
-    #footer {
-        margin: auto auto 0 auto;
-    }
-}
-
 #search-form {
     display: flex;
     flex-direction: column;
@@ -132,4 +120,16 @@
 
 .instructions.with-margin-bottom {
     margin-bottom: 0.9rem !important;
+}
+
+@media (width <= 430px) {
+    #content {
+        margin: 0 1rem 0 0;
+    }
+    #header {
+        display: none;
+    }
+    #footer {
+        margin: auto auto 0 auto;
+    }
 }

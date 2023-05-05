@@ -1,4 +1,4 @@
-@media only screen and (min-width: 431px) {
+@media (width >= 431px) {
     * {
         --font-size-button: 0.85rem;
         --font-size-checkbox-label: 80%;

@@ -111,13 +111,13 @@ svg {
     padding: 0;
 }
 
-@media only screen and (max-width: 430px) {
+@media (width <= 430px) {
     #dialog-content {
         font-size: var(--font-size-dialog-text);
     }
 }
 
-@media only screen and (min-width: 431px) {
+@media (width >= 431px) {
     #dialog-content {
         font-size: var(--font-size-dialog-text);
     }

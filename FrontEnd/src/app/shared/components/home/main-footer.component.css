@@ -20,7 +20,7 @@ a:link:hover {
     transition: all var(--theme-change-delay) ease-in;
 }
 
-@media only screen and (max-width: 430px) {
+@media (width <= 430px) {
     :host {
         margin: auto 4rem 0 4rem;
     }
@@ -29,7 +29,7 @@ a:link:hover {
     }
 }
 
-@media only screen and (min-width: 431px) {
+@media (width >= 431px) {
     #footer {
         font-size: 0.8rem;
     }
