@@ -41,7 +41,6 @@ export class ReservationListComponent {
     public feature = 'reservationList'
     public featureIcon = 'reservations'
     public icon = 'arrow_back'
-    public isVirtual = true
     public parentUrl = '/reservations'
     public records: ReservationListVM[] = []
 
@@ -149,12 +148,10 @@ export class ReservationListComponent {
     }
 
     public filterRecords(event?: { filteredValue: any[] }): void {
-        setTimeout(() => { this.isVirtual = false }, 100)
         this.helperService.clearTableCheckboxes()
         this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.selectedRecords.splice(0)
         this.updateTotals(this.totalPax, event.filteredValue)
-        setTimeout(() => { this.isVirtual = true }, 100)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {

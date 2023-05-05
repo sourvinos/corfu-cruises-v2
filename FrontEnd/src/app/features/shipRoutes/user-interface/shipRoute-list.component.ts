@@ -69,7 +69,6 @@ export class ShipRouteListComponent {
     public filterRecords(event: { filteredValue: any[] }): void {
         this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.recordsFilteredCount = event.filteredValue.length
-        this.helperService.clearStyleFromVirtualTable()
     }
 
     public getLabel(id: string): string {

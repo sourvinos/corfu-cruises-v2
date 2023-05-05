@@ -6,8 +6,8 @@ import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
-import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { PickupPointListVM } from '../classes/view-models/pickupPoint-list-vm'
 import { PickupPointPdfService } from '../classes/services/pickupPoint-pdf.service'
@@ -80,7 +80,6 @@ export class PickupPointListComponent {
         this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.recordsFiltered = event.filteredValue
         this.recordsFilteredCount = event.filteredValue.length
-        this.helperService.clearStyleFromVirtualTable()
     }
 
     public getEmoji(emoji: string): string {

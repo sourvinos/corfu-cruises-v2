@@ -40,7 +40,7 @@
                     </tr>
                 </ng-template>
                 <ng-template let-record pTemplate="body">
-                    <tr [attr.id]=record.id [pSelectableRow]="record" (click)="unHighlightAllRows()" (dblclick)="editRecord(record.id)">
+                    <tr (click)="unHighlightAllRows()" (dblclick)="editRecord(record.id)" [attr.id]=record.id [pSelectableRow]="record" style="height: 32px;">
                         <td class="center width-10">
                             <span *ngIf="record.isActive" class="is-active material-icons-outlined">check_circle</span>
                             <span *ngIf="!record.isActive" class="is-not-active material-icons-outlined">highlight_off</span>

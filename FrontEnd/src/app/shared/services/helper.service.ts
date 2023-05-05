@@ -229,11 +229,6 @@ export class HelperService {
         }, 100)
     }
 
-    public clearStyleFromVirtualTable(): void {
-        const x = document.getElementsByClassName('p-scroller-content') as HTMLCollectionOf<HTMLElement>
-        x[0].style.transform = null
-    }
-
     public scrollToSavedPosition(virtualElement: any, feature: string): void {
         if (virtualElement != undefined) {
             setTimeout(() => {

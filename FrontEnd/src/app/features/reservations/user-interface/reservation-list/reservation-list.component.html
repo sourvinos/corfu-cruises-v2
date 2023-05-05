@@ -15,7 +15,7 @@
 
     <div id="content">
         <div id="table-wrapper">
-            <p-table #table (onHeaderCheckboxToggle)="calculateSelectedPax()" (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="isVirtual" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
+            <p-table #table (onHeaderCheckboxToggle)="calculateSelectedPax()" (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="reservationId" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
                 <ng-template pTemplate="header">
                     <tr>
                         <th class="width-3"></th>

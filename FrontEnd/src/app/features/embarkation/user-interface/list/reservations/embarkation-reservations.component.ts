@@ -43,7 +43,6 @@ export class EmbarkationReservationsComponent {
     public feature = 'embarkationList'
     public featureIcon = 'embarkation'
     public icon = 'arrow_back'
-    public isVirtual = true
     public parentUrl = '/embarkation'
     public records: EmbarkationGroupVM
 
@@ -92,11 +91,9 @@ export class EmbarkationReservationsComponent {
     }
 
     public filterRecords(event: { filteredValue: any[] }): void {
-        setTimeout(() => { this.isVirtual = false }, 100)
         this.helperService.clearTableCheckboxes()
         this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
         this.updateTotals('totalsFiltered', event.filteredValue)
-        setTimeout(() => { this.isVirtual = true }, 100)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -158,6 +155,10 @@ export class EmbarkationReservationsComponent {
 
     public showRemarks(remarks: string): void {
         this.dialogService.open(remarks, 'info', ['ok'])
+    }
+
+    public unHighlightAllRows(): void {
+        this.helperService.unHighlightAllRows()
     }
 
     //#endregion
