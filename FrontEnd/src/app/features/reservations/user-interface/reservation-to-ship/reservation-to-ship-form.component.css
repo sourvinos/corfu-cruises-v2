@@ -1,10 +1,11 @@
 #dialog-header {
+    gap: 1rem;
     margin-left: 0;
 }
 
 #dialog-content {
     height: 100%;
-    margin: 1rem 0 !important;
+    margin: 1rem 1rem !important;
 }
 
 #dialog-footer {
