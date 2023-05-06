@@ -45,7 +45,6 @@
 
 @media (width <= 430px) {
     .mat-card {
-        height: 11rem;
         padding: 0.5rem !important;
         width: 15rem;
     }
@@ -63,9 +62,8 @@
 
 @media (width >= 431px) {
     .mat-card {
-        height: 17.5rem;
-        padding: 1.5rem 0.7rem !important;
-        width: 15rem;
+        padding: 1.5rem 1.5rem !important;
+        width: 18rem;
     }
     .mat-card-title {
         font-size: 1.2rem;

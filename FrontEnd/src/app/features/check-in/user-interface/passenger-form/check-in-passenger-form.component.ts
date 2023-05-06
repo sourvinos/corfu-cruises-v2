@@ -39,7 +39,6 @@ export class CheckInPassengerFormComponent {
     public parentUrl = null
 
     public minBirthDate = new Date(new Date().getFullYear() - 99, 0, 1)
-    public maxBirthDate = new Date()
 
     public isAutoCompleteDisabled = true
     public arrowIcon = new BehaviorSubject('arrow_drop_down')
@@ -81,6 +80,12 @@ export class CheckInPassengerFormComponent {
 
     public checkForEmptyAutoComplete(event: { target: { value: any } }): void {
         if (event.target.value == '') this.isAutoCompleteDisabled = true
+    }
+
+    public convertFutureDateToPastDate(): void {
+        this.form.patchValue({
+            birthdate: this.dateHelperService.gotoPreviousCenturyIfFutureDate(this.form.value.birthdate)
+        })
     }
 
     public enableOrDisableAutoComplete(event: any): void {
