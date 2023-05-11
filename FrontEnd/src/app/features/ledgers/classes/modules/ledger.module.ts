@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core'
 import { LedgerCriteriaComponent } from '../../user-interface/criteria/ledger-criteria.component'
 import { LedgerCustomerListComponent } from '../../user-interface/list/customers/ledger-customer-list.component'
 import { LedgerCustomerReservationListComponent } from '../../user-interface/list/reservations/ledger-reservations.component'
-import { LedgerCustomerSummaryAndReservationsComponent } from '../../user-interface/list/summary-and-reservations/ledger-summary-and-reservations.component'
 import { LedgerCustomerSummaryComponent } from '../../user-interface/list/summary/ledger-summary.component'
 import { LedgerRoutingModule } from './ledger.routing.module'
 import { SharedModule } from 'src/app/shared/modules/shared.module'
@@ -12,7 +11,6 @@ import { SharedModule } from 'src/app/shared/modules/shared.module'
     declarations: [
         LedgerCriteriaComponent,
         LedgerCustomerListComponent,
-        LedgerCustomerSummaryAndReservationsComponent,
         LedgerCustomerReservationListComponent,
         LedgerCustomerSummaryComponent
     ],

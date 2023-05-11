@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 import { Observable, of } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 // Custom
-import { LedgerCriteriaVM } from '../view-models/criteria/ledger-criteria-vm'
 import { LedgerListResolved } from './ledger-list-resolved'
+import { LedgerSearchCriteria } from '../view-models/criteria/ledger-search-criteria'
 import { LedgerService } from '../services/ledger.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 
@@ -14,26 +14,26 @@ export class LedgerListResolver {
     constructor(private ledgerService: LedgerService, private sessionStorageService: SessionStorageService) { }
 
     resolve(): Observable<LedgerListResolved> {
-        const criteria: LedgerCriteriaVM = JSON.parse(this.sessionStorageService.getItem('ledger-criteria'))
-        return this.ledgerService.get(
-            criteria.fromDate,
-            criteria.toDate,
-            this.buildIds(criteria, 'destinations'),
-            this.buildIds(criteria, 'ports'),
-            this.buildIds(criteria, 'ships')
-        ).pipe(
+        const storedCriteria = JSON.parse(this.sessionStorageService.getItem('ledger-criteria'))
+        const searchCriteria: LedgerSearchCriteria = {
+            fromDate: storedCriteria.fromDate,
+            toDate: storedCriteria.toDate,
+            destinationIds: this.buildIds(storedCriteria.destinations),
+            portIds: this.buildIds(storedCriteria.ports),
+            shipIds: this.buildIds(storedCriteria.ships)
+        }
+        return this.ledgerService.get(searchCriteria).pipe(
             map((ledgerList) => new LedgerListResolved(ledgerList)),
             catchError((err: any) => of(new LedgerListResolved(null, err)))
         )
     }
 
-    private buildIds(criteria: any, array: string): number[] {
+    private buildIds(criteria: any): number[] {
         const ids = []
-        criteria[array].forEach((element: { id: any }) => {
-            ids.push(element.id)
+        criteria.forEach((element: { id: any }) => {
+            ids.push(parseInt(element.id))
         })
         return ids
     }
-
 
 }

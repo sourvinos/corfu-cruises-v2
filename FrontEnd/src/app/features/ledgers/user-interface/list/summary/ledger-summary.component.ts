@@ -1,9 +1,7 @@
-import { Component, Inject, Input } from '@angular/core'
-import { MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { Component, Input } from '@angular/core'
 // Custom
 import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { LedgerPortGroupVM } from '../../../classes/view-models/list/ledger-port-group-vm'
-import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 
 @Component({
@@ -16,13 +14,13 @@ export class LedgerCustomerSummaryComponent {
 
     //#region variables
 
-    @Input() portGroup: LedgerPortGroupVM
+    @Input() portGroup: LedgerPortGroupVM[]
     private feature = 'ledgerList'
-    public customerReservations: LedgerVM
+    // public customerReservations: LedgerVM
 
     //#endregion
 
-    constructor(@Inject(MAT_DIALOG_DATA) public data: any, private emojiService: EmojiService, private messageLabelService: MessageLabelService) { }
+    constructor(private emojiService: EmojiService, private messageLabelService: MessageLabelService) { }
 
     //#region public methods
 

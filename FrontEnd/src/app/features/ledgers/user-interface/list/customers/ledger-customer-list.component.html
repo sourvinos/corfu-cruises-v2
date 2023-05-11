@@ -19,33 +19,30 @@
             <criteria-panel [backgroundImage]="'var(--color-criteria-b)'" [feature]="feature" [header]="'criteria-ports'" [icon]="'ports'" [records]="criteriaPanels.ports" [sortField]="'description'"></criteria-panel>
             <criteria-panel [backgroundImage]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
+        <!-- <button (click)="isExpanded=true">Expand</button> -->
+        <!-- <button (click)="isExpanded=false">Collapse</button> -->
         <div id="table-wrapper">
-            <p-table #table (onFilter)="filterRecords($event)" [(selection)]="selectedRecords" [scrollable]="true" [value]="records" [virtualScrollItemSize]="32" [virtualScroll]="true" dataKey="customer.id" scrollHeight="flex" selectionMode="multiple" sortMode="multiple">
-                <ng-template pTemplate="header">
-                    <tr>
-                        <th class="width-3"></th>
-                        <th pSortableColumn="customer.description">{{ getLabel("headerCustomer") }}</th>
-                    </tr>
-                    <tr>
-                        <th class="width-3"><p-tableHeaderCheckbox></p-tableHeaderCheckbox></th>
-                        <th><input (input)="table.filter($event.target.value, 'customer.description', 'contains')" [disabled]="records.length==0" [value]="$any(table).filters['customer.description']?.value" class="p-inputtext"></th>
-                    </tr>
-                </ng-template>
-                <ng-template let-customer pTemplate="body">
-                    <tr [attr.id]="customer.customer.id" (click)="highlightRow(customer.customer.id)" (dblclick)="showCustomerReservations(customer)" style="height:32px">
-                        <td class="center width-3"><p-tableCheckbox [value]="customer"></p-tableCheckbox></td>
-                        <td (click)="highlightRow(customer.customer.id)">{{ customer.customer.description }}</td>
-                    </tr>
-                </ng-template>
-            </p-table>
+            <p-accordion [multiple]="true">
+                <p-accordionTab *ngFor="let customer of records" [header]=customer.customer.description [selected]="isExpanded">
+                    <ng-template pTemplate="content">
+                        <ledger-customer-reservations [reservations]="customer.reservations"></ledger-customer-reservations>
+                        <ledger-customer-summary [portGroup]="customer.ports"></ledger-customer-summary>
+                        <div class="button-group-right">
+                            <button (click)="exportSelected(customer)" class="primary" mat-flat-button>
+                                <span>{{ getLabel("createPdfButton") }}</span>
+                            </button>
+                        </div>
+                    </ng-template>
+                </p-accordionTab>
+            </p-accordion>
         </div>
     </div>
 
     <div id="footer">
         <table-total-filtered-records [filteredRecordCount]="recordsFilteredCount" [recordCount]="records.length"></table-total-filtered-records>
         <div class="button-group-right">
-            <button [disabled]="selectedRecords.length==0" (click)="exportSelected()" class="primary" mat-flat-button>
-                <mat-icon *ngIf="selectedRecords.length==0" class="button-icon">lock</mat-icon>
+            <button [disabled]="records.length==0" (click)="exportAll()" class="primary" mat-flat-button>
+                <mat-icon *ngIf="records.length==0" class="button-icon">lock</mat-icon>
                 <span>{{ getLabel("createPdfButton") }}</span>
             </button>
         </div>

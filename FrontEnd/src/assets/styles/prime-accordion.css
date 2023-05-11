@@ -1,0 +1,32 @@
+.p-accordion p-accordiontab .p-accordion-tab {
+    border-radius: 0 !important;
+    border: 1px solid var(--color-g) !important;
+    box-shadow: 0 0 0 0 #000000;
+}
+
+.p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link:focus {
+    box-shadow: 0 0 0 0 #000000 !important;
+}
+
+.p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link {
+    background-color: var(--color-a) !important;
+    border: none !important;
+    box-shadow: 0 0 0 0 #000000 !important;
+}
+
+.p-accordion-header-text {
+    color: var(--color-c) !important;
+    font-family: var(--font-family-asty) !important;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.p-accordion-content {
+    background-color: var(--color-g) !important;
+    border: none !important;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0 !important;
+    padding: 0 !important;
+}

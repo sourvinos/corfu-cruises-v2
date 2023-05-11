@@ -7,7 +7,6 @@ import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-criteria-vm'
-import { LedgerCustomerSummaryAndReservationsComponent } from '../summary-and-reservations/ledger-summary-and-reservations.component'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
@@ -39,6 +38,17 @@ export class LedgerCustomerListComponent {
 
     public selectedRecords: LedgerVM[] = []
     public isAdmin = false
+    public allExpandState: boolean
+
+    private _isExpanded = false
+
+    public get isExpanded(): boolean {
+        return this._isExpanded
+    }
+
+    public set isExpanded(value: boolean) {
+        this._isExpanded = value
+    }
 
     //#endregion
 
@@ -51,14 +61,22 @@ export class LedgerCustomerListComponent {
         this.subscribeToInteractionService()
         this.setTabTitle()
         this.populateCriteriaPanelsFromStorage()
-        this.enableDisableFilters()
     }
 
     //#endregion
 
     //#region public methods
 
-    public exportSelected(): void {
+    public exportSelected(customer: LedgerVM): void {
+        this.selectedRecords.length = 0
+        this.selectedRecords.push(customer)
+        this.helperService.sortNestedArray(this.selectedRecords, 'customer.description')
+        this.ledgerPdfService.doReportTasks(this.selectedRecords, this.criteriaPanels)
+    }
+
+    public exportAll(): void {
+        this.selectedRecords.length = 0
+        this.selectedRecords = this.records
         this.helperService.sortNestedArray(this.selectedRecords, 'customer.description')
         this.ledgerPdfService.doReportTasks(this.selectedRecords, this.criteriaPanels)
     }
@@ -92,26 +110,9 @@ export class LedgerCustomerListComponent {
         this.helperService.clearTableTextFilters(this.table, ['customer.description'])
     }
 
-    public showCustomerReservations(customer: LedgerVM): void {
-        this.dialog.open(LedgerCustomerSummaryAndReservationsComponent, {
-            height: '800px',
-            width: '1110px',
-            maxWidth: '1110px',
-            data: {
-                customer: customer,
-                actions: ['abort', 'ok']
-            },
-            panelClass: 'dialog'
-        })
-    }
-
     //#endregion
 
     //#region private methods
-
-    private enableDisableFilters(): void {
-        this.records.length == 0 ? this.helperService.disableTableFilters() : this.helperService.enableTableFilters()
-    }
 
     private loadRecords(): Promise<any> {
         return new Promise((resolve) => {

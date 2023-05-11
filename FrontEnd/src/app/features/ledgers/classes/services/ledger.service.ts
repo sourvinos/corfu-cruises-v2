@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
+import { LedgerSearchCriteria } from '../view-models/criteria/ledger-search-criteria'
 import { LedgerVM } from '../view-models/list/ledger-vm'
 import { environment } from 'src/environments/environment'
 
@@ -14,36 +15,8 @@ export class LedgerService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/ledgers')
     }
 
-    get(fromDate: string, toDate: string, destinationIds: number[], portIds: number[], shipIds: number[]): Observable<LedgerVM> {
-        return this.http.get<LedgerVM>(
-            this.url + '?fromDate=' + fromDate + '&toDate=' + toDate +
-            this.buildDestinationsQuery(destinationIds) +
-            this.buildPortsQuery(portIds) +
-            this.buildShipsQuery(shipIds))
-    }
-
-    private buildDestinationsQuery(destinationIds: number[]): string {
-        let query = ''
-        destinationIds.forEach(destinationId => {
-            query += '&destinationId=' + destinationId
-        })
-        return query
-    }
-
-    private buildPortsQuery(portIds: number[]): string {
-        let query = ''
-        portIds.forEach(portId => {
-            query += '&portId=' + portId
-        })
-        return query
-    }
-
-    private buildShipsQuery(shipIds: number[]): string {
-        let query = ''
-        shipIds.forEach(shipId => {
-            query += '&shipId=' + shipId
-        })
-        return query
+    get(criteria: LedgerSearchCriteria): Observable<LedgerVM> {
+        return this.http.request<LedgerVM>('post', this.url, { body: criteria })
     }
 
 }
