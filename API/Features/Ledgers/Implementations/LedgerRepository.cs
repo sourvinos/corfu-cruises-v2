@@ -23,7 +23,7 @@ namespace API.Features.Ledger {
             this.userManager = userManager;
         }
 
-        public IEnumerable<LedgerVM> Get(string fromDate, string toDate, int[] destinationIds, int[] portIds, int?[] shipIds) {
+        public IEnumerable<LedgerVM> Get(string fromDate, string toDate, int[] customerIds, int[] destinationIds, int[] portIds, int?[] shipIds) {
             var connectedCustomerId = GetConnectedCustomerIdForConnectedUser();
             var records = context.Reservations
                 .AsNoTracking()
@@ -35,7 +35,9 @@ namespace API.Features.Ledger {
                 .Include(x => x.Passengers)
                 .Where(x => x.Date >= Convert.ToDateTime(fromDate)
                     && x.Date <= Convert.ToDateTime(toDate)
-                    && (connectedCustomerId == null || x.CustomerId == connectedCustomerId)
+                    && (connectedCustomerId == null
+                        ? customerIds.Contains(x.CustomerId)
+                        : x.CustomerId == connectedCustomerId)
                     && destinationIds.Contains(x.DestinationId)
                     && portIds.Contains(x.PortId)
                     && (shipIds.Contains(x.ShipId) || x.ShipId == null))

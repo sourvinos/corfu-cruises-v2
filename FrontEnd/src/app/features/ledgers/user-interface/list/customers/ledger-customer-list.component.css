@@ -2,12 +2,13 @@
     overflow-y: scroll;
 }
 
-.p-accordion-content button {
-    margin-left: auto;
+#expand-buttons {
+    display: flex;
+    gap: 0.5rem;
 }
 
-.button-group-right {
-    margin: 0 2rem 1rem auto;
+.button-right {
+    margin: 0 1.5rem 1rem auto;
 }
 
 @media (width <= 1919px) {

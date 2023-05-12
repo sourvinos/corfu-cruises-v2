@@ -1,7 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component, ViewChild } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
-import { Table } from 'primeng/table'
+import { Component } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -25,34 +23,18 @@ export class LedgerCustomerListComponent {
 
     //#region variables
 
-    @ViewChild('table') table: Table | undefined
-
     public feature = 'ledgerList'
     public featureIcon = 'ledgers'
     public icon = 'arrow_back'
     public parentUrl = '/ledgers'
     public records: LedgerVM[] = []
-    public recordsFilteredCount: number
 
     public criteriaPanels: LedgerCriteriaVM
-
-    public selectedRecords: LedgerVM[] = []
-    public isAdmin = false
-    public allExpandState: boolean
-
-    private _isExpanded = false
-
-    public get isExpanded(): boolean {
-        return this._isExpanded
-    }
-
-    public set isExpanded(value: boolean) {
-        this._isExpanded = value
-    }
+    public activeIndex = []
 
     //#endregion
 
-    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService, public dialog: MatDialog) { }
+    constructor(private activatedRoute: ActivatedRoute, private dateHelperService: DateHelperService, private helperService: HelperService, private interactionService: InteractionService, private ledgerPdfService: LedgerPDFService, private messageLabelService: MessageLabelService, private messageSnackbarService: MessageDialogService, private modalActionResultService: ModalActionResultService, private router: Router, private sessionStorageService: SessionStorageService) { }
 
     //#region lifecycle hooks
 
@@ -68,22 +50,11 @@ export class LedgerCustomerListComponent {
     //#region public methods
 
     public exportSelected(customer: LedgerVM): void {
-        this.selectedRecords.length = 0
-        this.selectedRecords.push(customer)
-        this.helperService.sortNestedArray(this.selectedRecords, 'customer.description')
-        this.ledgerPdfService.doReportTasks(this.selectedRecords, this.criteriaPanels)
+        this.ledgerPdfService.doReportTasks(this.records.filter(x => x.customer.id == customer.customer.id), this.criteriaPanels)
     }
 
     public exportAll(): void {
-        this.selectedRecords.length = 0
-        this.selectedRecords = this.records
-        this.helperService.sortNestedArray(this.selectedRecords, 'customer.description')
-        this.ledgerPdfService.doReportTasks(this.selectedRecords, this.criteriaPanels)
-    }
-
-    public filterRecords(event: { filteredValue: any[] }): void {
-        this.sessionStorageService.saveItem(this.feature + '-' + 'filters', JSON.stringify(this.table.filters))
-        this.recordsFilteredCount = event.filteredValue.length
+        this.ledgerPdfService.doReportTasks(this.records, this.criteriaPanels)
     }
 
     public formatDateToLocale(date: string, showWeekday = false, showYear = false): string {
@@ -106,8 +77,8 @@ export class LedgerCustomerListComponent {
         this.helperService.highlightRow(id)
     }
 
-    public resetTableFilters(): void {
-        this.helperService.clearTableTextFilters(this.table, ['customer.description'])
+    public toggleAccordions(state: string): void {
+        this.activeIndex = Array.from(Array(state == 'open' ? this.records.length : 0).keys())
     }
 
     //#endregion
@@ -119,7 +90,6 @@ export class LedgerCustomerListComponent {
             const listResolved = this.activatedRoute.snapshot.data[this.feature]
             if (listResolved.error === null) {
                 this.records = Object.assign([], listResolved.result)
-                this.recordsFilteredCount = this.records.length
                 resolve(this.records)
             } else {
                 this.modalActionResultService.open(this.messageSnackbarService.filterResponse(listResolved.error), 'error', ['ok']).subscribe(() => {

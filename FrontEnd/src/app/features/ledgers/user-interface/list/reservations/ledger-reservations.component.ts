@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { DialogService } from 'src/app/shared/services/dialog.service'
 import { EmojiService } from 'src/app/shared/services/emoji.service'
-import { LedgerReservationVM } from '../../../classes/view-models/list/ledger-reservation-vm'
+import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { environment } from 'src/environments/environment'
 
@@ -17,7 +17,7 @@ export class LedgerCustomerReservationListComponent {
 
     //#region variables
 
-    @Input() reservations: LedgerReservationVM[]
+    @Input() customer: LedgerVM
     private feature = 'ledgerList'
 
     //#endregion

@@ -11,6 +11,7 @@ export class TableTotalFilteredRecordsComponent {
 
     @Input() recordCount: number
     @Input() filteredRecordCount: number
+    @Input() showFilteredCount: boolean
 
     public getIcon(filename: string): string {
         return environment.criteriaIconDirectory + filename + '.svg'

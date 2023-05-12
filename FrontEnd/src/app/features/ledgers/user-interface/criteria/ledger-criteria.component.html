@@ -24,6 +24,37 @@
                 </mat-form-field>
             </div>
             <div class="group-field">
+                <!-- Customers -->
+                <fieldset class="fieldset">
+                    <legend>
+                        <span>{{ getLabel('customers') }}</span>
+                        <div class="selected">
+                            <span class="selected-count">{{ getLabel("selected") }}: {{ form.value.customers.length }}</span>
+                            <span class="icon">{{ getEmoji(form.value.customers.length > 0 ? 'ok' : 'error') }}</span>
+                        </div>
+                    </legend>
+                    <div class="filter">
+                        <div class="styled-input-square">
+                            <div class="styled-input-single">
+                                <input (click)="toggleAllCheckboxes(form, 'customer', 'allCustomersCheckbox')" formControlName="allCustomersCheckbox" id="all-customers" type="checkbox">
+                                <label class="no-label" for="all-customers"></label>
+                            </div>
+                        </div>
+                        <div class="list-filter">
+                            <input (keyup)="filterList($event, 'customers')" formControlName="customersFilter" id="customersFilter" [placeholder]="getLabel('filterPlaceholder')">
+                        </div>
+                    </div>
+                    <div class="list-wrapper">
+                        <div *ngFor="let customer of customers" [attr.id]=customer.description>
+                            <div class="styled-input-square">
+                                <div class="styled-input-single" (change)="checkboxChange($event, 'allCustomersCheckbox', 'customers', customers, customer.description)">
+                                    <input [attr.id]="'customer' + customer.id" [checked]="lookup('customers', customer.id)" [value]="customer.id" class="customer" formArrayName="customers" type="checkbox">
+                                    <label [attr.for]="'customer' + customer.id" [attr.id]="'customer-label' + customer.id">{{ customer.description | trimString:33 }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
                 <!-- Destinations -->
                 <fieldset class="fieldset">
                     <legend>

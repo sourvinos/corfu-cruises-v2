@@ -42,6 +42,7 @@ export class LedgerCriteriaComponent {
     public selectedFromDate = new Date()
     public selectedRangeValue: DateRange<Date>
     public selectedToDate = new Date()
+    public customers: SimpleEntity[] = []
     public destinations: SimpleEntity[] = []
     public ports: SimpleEntity[] = []
     public ships: SimpleEntity[] = []
@@ -66,6 +67,7 @@ export class LedgerCriteriaComponent {
     }
 
     ngAfterViewInit(): void {
+        this.checkGroupCheckbox('all-customers', this.customers, 'customers')
         this.checkGroupCheckbox('all-destinations', this.destinations, 'destinations')
         this.checkGroupCheckbox('all-ports', this.ports, 'ports')
         this.checkGroupCheckbox('all-ships', this.ships, 'ships')
@@ -159,12 +161,15 @@ export class LedgerCriteriaComponent {
         this.form = this.formBuilder.group({
             fromDate: ['', [Validators.required]],
             toDate: ['', [Validators.required]],
+            customers: this.formBuilder.array([], Validators.required),
             destinations: this.formBuilder.array([], Validators.required),
             ports: this.formBuilder.array([], Validators.required),
             ships: this.formBuilder.array([], Validators.required),
+            customersFilter: '',
             destinationsFilter: '',
             portsFilter: '',
             shipsFilter: '',
+            allCustomersCheckbox: '',
             allDestinationsCheckbox: '',
             allPortsCheckbox: '',
             allShipsCheckbox: ''
@@ -180,6 +185,7 @@ export class LedgerCriteriaComponent {
     }
 
     private populateDropdowns(): void {
+        this.populateDropdownFromLocalStorage('customers')
         this.populateDropdownFromLocalStorage('destinations')
         this.populateDropdownFromLocalStorage('ports')
         this.populateDropdownFromLocalStorage('ships')
@@ -191,9 +197,11 @@ export class LedgerCriteriaComponent {
             this.form.patchValue({
                 fromDate: this.criteria.fromDate,
                 toDate: this.criteria.toDate,
+                customers: this.addSelectedCriteriaFromStorage('customers'),
                 destinations: this.addSelectedCriteriaFromStorage('destinations'),
                 ports: this.addSelectedCriteriaFromStorage('ports'),
                 ships: this.addSelectedCriteriaFromStorage('ships'),
+                allCustomersCheckbox: this.criteria.allCustomersCheckbox,
                 allDestinationsCheckbox: this.criteria.allDestinationsCheckbox,
                 allPortsCheckbox: this.criteria.allPortsCheckbox,
                 allShipsCheckbox: this.criteria.allShipsCheckbox

@@ -18,6 +18,7 @@ export class LedgerListResolver {
         const searchCriteria: LedgerSearchCriteria = {
             fromDate: storedCriteria.fromDate,
             toDate: storedCriteria.toDate,
+            customerIds: this.buildIds(storedCriteria.customers),
             destinationIds: this.buildIds(storedCriteria.destinations),
             portIds: this.buildIds(storedCriteria.ports),
             shipIds: this.buildIds(storedCriteria.ships)

@@ -16,7 +16,6 @@ export class LedgerCustomerSummaryComponent {
 
     @Input() portGroup: LedgerPortGroupVM[]
     private feature = 'ledgerList'
-    // public customerReservations: LedgerVM
 
     //#endregion
 
@@ -31,10 +30,6 @@ export class LedgerCustomerSummaryComponent {
     public getLabel(id: string): string {
         return this.messageLabelService.getDescription(this.feature, id)
     }
-
-    //#endregion
-
-    //#region private methods
 
     //#endregion
 
