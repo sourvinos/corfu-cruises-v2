@@ -9,9 +9,14 @@
 }
 
 .p-accordion .p-accordion-header:not(.p-disabled) .p-accordion-header-link {
-    background-color: var(--color-a) !important;
+    background-color: var(--color-x) !important;
     border: none !important;
     box-shadow: 0 0 0 0 #000000 !important;
+    padding: 0.5rem !important;
+}
+
+.p-icon-wrapper {
+    color: var(--color-c) !important;
 }
 
 .p-accordion-header-text {

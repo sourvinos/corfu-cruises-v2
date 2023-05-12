@@ -60,7 +60,7 @@ button .mat-button-wrapper img {
 }
 
 button.mat-mini-fab {
-    background-color: var(--color-b);
+    background-color: var(--color-e);
     box-shadow: none !important;
     color: var(--color-a) !important;
     margin: 0 !important;
