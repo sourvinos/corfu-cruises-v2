@@ -161,7 +161,7 @@ export class LedgerCriteriaComponent {
         this.form = this.formBuilder.group({
             fromDate: ['', [Validators.required]],
             toDate: ['', [Validators.required]],
-            customers: this.formBuilder.array([], Validators.required),
+            customers: this.formBuilder.array([], ConnectedUser.isAdmin ? Validators.required : null),
             destinations: this.formBuilder.array([], Validators.required),
             ports: this.formBuilder.array([], Validators.required),
             ships: this.formBuilder.array([], Validators.required),

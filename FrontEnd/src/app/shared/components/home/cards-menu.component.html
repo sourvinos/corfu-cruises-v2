@@ -11,13 +11,13 @@
         <mat-divider inset></mat-divider>
         <mat-card-subtitle>{{ getLabel("availabilitySubTitle") }}</mat-card-subtitle>
     </mat-card>
-    <mat-card *ngIf="isAdmin()" routerLink="/embarkation">
+    <mat-card *userPermission="['admin']" routerLink="/embarkation">
         <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('embarkation')" style="height: 100px; margin-left: 1rem; width: 100px">
         <mat-card-title>{{ getLabel("embarkationTitle") }}</mat-card-title>
         <mat-divider inset></mat-divider>
         <mat-card-subtitle>{{ getLabel("embarkationSubTitle") }}</mat-card-subtitle>
     </mat-card>
-    <mat-card *ngIf="!isAdmin()" routerLink="/ledgers">
+    <mat-card *userPermission="['simple-user']" routerLink="/ledgers">
         <img (load)="loadImage()" [ngClass]="imageIsLoading()" [src]="getIcon('ledgers')" style="height: 100px; margin-left: 1rem; width: 100px">
         <mat-card-title>{{ getLabel("ledgersTitle") }}</mat-card-title>
         <mat-divider inset></mat-divider>

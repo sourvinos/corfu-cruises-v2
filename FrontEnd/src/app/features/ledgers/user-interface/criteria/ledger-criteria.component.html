@@ -25,7 +25,7 @@
             </div>
             <div class="group-field">
                 <!-- Customers -->
-                <fieldset class="fieldset">
+                <fieldset *userPermission="['admin']" class="fieldset">
                     <legend>
                         <span>{{ getLabel('customers') }}</span>
                         <div class="selected">
