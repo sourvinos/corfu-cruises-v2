@@ -7,7 +7,6 @@
 
 @import url("common-colors.css");
 
-@import url("accordion.css");
 @import url("autocomplete.css");
 @import url("buttons.css");
 @import url("card.css");
@@ -23,8 +22,8 @@
 @import url("input-not-focused-not-error.css");
 @import url("input.css");
 @import url("loader.css");
+@import url("mat-expansion-panel");
 @import url("menu.css");
-@import url("prime-accordion.css");
 @import url("prime-button.css");
 @import url("prime-checkbox.css");
 @import url("prime-fieldset.css");

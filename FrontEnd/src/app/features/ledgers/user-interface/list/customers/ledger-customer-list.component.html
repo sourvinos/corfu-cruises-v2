@@ -4,13 +4,12 @@
         <home-button-and-title [feature]="feature" [featureIcon]="featureIcon" [icon]="icon" [parentUrl]="parentUrl"></home-button-and-title>
         <div class="filter-pill">
             <div class="pill date">
-                <img [src]="getIcon('calendar')">
                 <div class="description">{{ formatDateToLocale(criteriaPanels.fromDate, true, true) }} - {{ formatDateToLocale(criteriaPanels.toDate, true, true) }}</div>
             </div>
-            <button (click)="toggleAccordions('open')" class="primary prime-icon" mat-flat-button>
+            <button (click)="expandAll()" class="primary prime-icon" mat-flat-button>
                 <i class="pi pi-angle-double-down"></i>
             </button>
-            <button (click)="toggleAccordions('close')" class="primary prime-icon" mat-flat-button>
+            <button (click)="collapseAll()" class="primary prime-icon" mat-flat-button>
                 <i class="pi pi-angle-double-up"></i>
             </button>
         </div>
@@ -23,9 +22,12 @@
             <criteria-panel [backgroundImage]="'var(--color-criteria-c)'" [feature]="feature" [header]="'criteria-ships'" [icon]="'ships'" [records]="criteriaPanels.ships" [sortField]="'description'"></criteria-panel>
         </div>
         <div id="table-wrapper">
-            <p-accordion [multiple]="true" [activeIndex]="activeIndex">
-                <p-accordionTab *ngFor="let customer of records" [header]=customer.customer.description>
-                    <ng-template pTemplate="content">
+            <mat-accordion multi>
+                <mat-expansion-panel *ngFor="let customer of records">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>{{ customer.customer.description }}</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <ng-template matExpansionPanelContent>
                         <ledger-customer-reservations [customer]="customer"></ledger-customer-reservations>
                         <ledger-customer-summary [portGroup]="customer.ports"></ledger-customer-summary>
                         <div class="button-right">
@@ -34,8 +36,8 @@
                             </button>
                         </div>
                     </ng-template>
-                </p-accordionTab>
-            </p-accordion>
+                </mat-expansion-panel>
+            </mat-accordion>
         </div>
     </div>
 

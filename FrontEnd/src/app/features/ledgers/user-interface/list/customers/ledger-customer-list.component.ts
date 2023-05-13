@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router'
-import { Component } from '@angular/core'
+import { Component, QueryList, ViewChildren } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
@@ -7,8 +7,9 @@ import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LedgerCriteriaVM } from '../../../classes/view-models/criteria/ledger-criteria-vm'
 import { LedgerPDFService } from '../../../classes/services/ledger-pdf.service'
 import { LedgerVM } from '../../../classes/view-models/list/ledger-vm'
-import { MessageLabelService } from 'src/app/shared/services/message-label.service'
+import { MatExpansionPanel } from '@angular/material/expansion'
 import { MessageDialogService } from 'src/app/shared/services/message-dialog.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { environment } from 'src/environments/environment'
@@ -23,6 +24,8 @@ export class LedgerCustomerListComponent {
 
     //#region variables
 
+    @ViewChildren(MatExpansionPanel) panels: QueryList<MatExpansionPanel>
+
     public feature = 'ledgerList'
     public featureIcon = 'ledgers'
     public icon = 'arrow_back'
@@ -30,7 +33,6 @@ export class LedgerCustomerListComponent {
     public records: LedgerVM[] = []
 
     public criteriaPanels: LedgerCriteriaVM
-    public activeIndex = []
 
     //#endregion
 
@@ -47,10 +49,18 @@ export class LedgerCustomerListComponent {
 
     //#endregion
 
-    //#region public methods
+    //#region public methods2
+
+    public collapseAll(): void {
+        this.helperService.toggleExpansionPanel(this.panels, false)
+    }
 
     public exportSelected(customer: LedgerVM): void {
         this.ledgerPdfService.doReportTasks(this.records.filter(x => x.customer.id == customer.customer.id), this.criteriaPanels)
+    }
+
+    public expandAll(): void {
+        this.helperService.toggleExpansionPanel(this.panels, true)
     }
 
     public exportAll(): void {
@@ -75,10 +85,6 @@ export class LedgerCustomerListComponent {
 
     public highlightRow(id: any): void {
         this.helperService.highlightRow(id)
-    }
-
-    public toggleAccordions(state: string): void {
-        this.activeIndex = Array.from(Array(state == 'open' ? this.records.length : 0).keys())
     }
 
     //#endregion
