@@ -132,7 +132,7 @@ button.button-icon {
 }
 
 .checkbox-with-lock-icon .mat-icon.lock {
-    margin-top: 0;
+    margin: 0 -3px 0 -4px;
 }
 
 button.prime-icon span i {

@@ -43,20 +43,20 @@
             <div id="checkboxes">
                 <!-- Admin -->
                 <div class="styled-input-square">
-                    <div class="styled-input-single">
+                    <div class="styled-input-single" [class]="isAdmin() ? '' : 'disabled'">
                         <div class="checkbox-with-lock-icon">
                             <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
-                            <input [attr.disabled]="!isAdmin() ? false : null" formControlName="isAdmin" id="isAdmin" type="checkbox">
+                            <input formControlName="isAdmin" id="isAdmin" type="checkbox" />
                             <label for="isAdmin">{{ getLabel("isAdmin") }}</label>
                         </div>
                     </div>
                 </div>
                 <!-- Active -->
                 <div class="styled-input-square">
-                    <div class="styled-input-single">
+                    <div class="styled-input-single" [class]="isAdmin() ? '' : 'disabled'">
                         <div class="checkbox-with-lock-icon">
                             <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
-                            <input [attr.disabled]="!isAdmin() ? false : null" formControlName="isActive" id="isActive" type="checkbox">
+                            <input formControlName="isActive" id="isActive" type="checkbox">
                             <label for="isActive">{{ getLabel("isActive") }}</label>
                         </div>
                     </div>

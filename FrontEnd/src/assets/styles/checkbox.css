@@ -19,7 +19,6 @@
     font-family: var(--font-family-asty);
     font-size: var(--font-size-checkbox-label);
     font-weight: 300;
-    margin-left: 0.8rem;
     max-height: var(--font-size-checkbox-label) !important;
     overflow: hidden;
     padding: 0.65rem 2.5rem 0.65rem 1.875rem;
@@ -53,7 +52,7 @@
 }
 
 .styled-input-single label::after {
-    background-color: var(--color-checkbox-background);
+    background-color: var(--color-checkbox-background) !important;
     height: 1.25rem;
     left: 0.3125rem;
     margin: -10px 0 0 0;
@@ -64,9 +63,7 @@
 }
 
 .styled-input-single input[type="radio"], .styled-input-single input[type="checkbox"] {
-    left: -1rem;
     position: absolute;
-    top: 18px;
     visibility: hidden;
 }
 

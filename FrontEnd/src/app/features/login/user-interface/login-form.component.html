@@ -27,8 +27,10 @@
             <div id="columns">
                 <div class="styled-input-square">
                     <div class="styled-input-single">
-                        <input formControlName="noRobot" id="no-robot" type="checkbox">
-                        <label for="no-robot">{{ getLabel("noRobotCheckbox") }}</label>
+                        <div class="checkbox-with-lock-icon">
+                            <input formControlName="noRobot" id="noRobot" type="checkbox" />
+                            <label for="noRobot">{{ getLabel("noRobotCheckbox") }}</label>
+                        </div>
                     </div>
                 </div>
                 <div id="forgot-password">
