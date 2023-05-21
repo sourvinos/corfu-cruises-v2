@@ -70,11 +70,8 @@
                 <!-- IsBoarded -->
                 <div class="styled-input-square">
                     <div class="styled-input-single" [class]="isAdmin() ? '' : 'disabled'">
-                        <div class="checkbox-with-lock-icon">
-                            <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
-                            <input formControlName="isCheckedIn" id="isCheckedIn" type="checkbox">
-                            <label for="isCheckedIn">{{ getLabel("isCheckedIn") }}</label>
-                        </div>
+                        <input formControlName="isCheckedIn" id="isCheckedIn" type="checkbox">
+                        <label for="isCheckedIn">{{ getLabel("isCheckedIn") }}</label>
                     </div>
                 </div>
             </div>

@@ -62,7 +62,7 @@ textarea {
     display: flex !important;
     font-family: var(--font-family-asty) !important;
     font-weight: 300 !important;
-    padding: 0 !important;
+    padding: 0 0 0.25rem 0 !important;
     width: 100% !important;
 }
 

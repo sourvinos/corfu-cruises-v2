@@ -125,16 +125,6 @@ button.button-icon {
     margin-left: auto;
 }
 
-.checkbox-with-lock-icon {
-    display: flex;
-    align-items: center;
-    margin-left: 40px;
-}
-
-.checkbox-with-lock-icon .mat-icon.lock {
-    margin: 0 -3px 0 -4px;
-}
-
 button.prime-icon span i {
     margin-top: -6px;
 }

@@ -44,21 +44,15 @@
                 <!-- Admin -->
                 <div class="styled-input-square">
                     <div class="styled-input-single" [class]="isAdmin() ? '' : 'disabled'">
-                        <div class="checkbox-with-lock-icon">
-                            <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
-                            <input formControlName="isAdmin" id="isAdmin" type="checkbox" />
-                            <label for="isAdmin">{{ getLabel("isAdmin") }}</label>
-                        </div>
+                        <input formControlName="isAdmin" id="isAdmin" type="checkbox" />
+                        <label for="isAdmin">{{ getLabel("isAdmin") }}</label>
                     </div>
                 </div>
                 <!-- Active -->
                 <div class="styled-input-square">
                     <div class="styled-input-single" [class]="isAdmin() ? '' : 'disabled'">
-                        <div class="checkbox-with-lock-icon">
-                            <mat-icon *ngIf="!isAdmin()" class="lock">lock</mat-icon>
-                            <input formControlName="isActive" id="isActive" type="checkbox">
-                            <label for="isActive">{{ getLabel("isActive") }}</label>
-                        </div>
+                        <input formControlName="isActive" id="isActive" type="checkbox">
+                        <label for="isActive">{{ getLabel("isActive") }}</label>
                     </div>
                 </div>
             </div>
