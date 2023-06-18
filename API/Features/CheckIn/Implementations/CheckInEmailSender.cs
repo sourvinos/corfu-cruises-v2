@@ -21,6 +21,8 @@ namespace API.Features.CheckIn {
             htmlContent += "<p style='font-size: 2.5rem'>Your RefNo is " + reservation.RefNo + "</p>";
             htmlContent += "<p></p>";
             htmlContent += "<p>We wish you a happy trip!</p>";
+            htmlContent += "<p></p>";
+            htmlContent += "<p>This is an automated email, so please don't reply.</p>";
 
             message.From.Add(new MailboxAddress(settings.From, settings.UserName));
             message.To.Add(new MailboxAddress("Guest", reservation.Email));
