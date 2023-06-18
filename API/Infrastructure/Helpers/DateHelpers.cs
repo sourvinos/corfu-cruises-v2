@@ -30,8 +30,8 @@ namespace API.Infrastructure.Helpers {
         }
 
         public static string GetTrimmedUnixTime() {
-            string ms = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString();
-            return ms.Substring(ms.Length - 6, 6);
+            var trimmed = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds().ToString().Substring(6, 7);
+            return trimmed[..2] + "." + trimmed.Substring(2, 2) + "." + trimmed.Substring(4, 3);
         }
 
         public static string FormatDateStringToLocaleString(string date) {

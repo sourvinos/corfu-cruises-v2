@@ -68,7 +68,7 @@ namespace API.Features.Reservations {
         }
 
         public string AssignRefNoToNewDto(ReservationWriteDto reservation) {
-            return GetDestinationAbbreviation(reservation) + DateHelpers.GetTrimmedUnixTime();
+            return GetDestinationAbbreviation(reservation) + "." + DateHelpers.GetTrimmedUnixTime();
         }
 
         private string GetDestinationAbbreviation(ReservationWriteDto reservation) {
