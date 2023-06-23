@@ -40,7 +40,7 @@ export class LedgerPDFService {
             content: [
                 {
                     table: {
-                        widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 20, 'auto', '*'],
+                        widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto', 20, 'auto', '*'],
                         body: this.rows,
                         heights: 5
                     },
@@ -127,7 +127,7 @@ export class LedgerPDFService {
         customer.reservations.forEach((reservation: LedgerReservationVM) => {
             this.rows.push(this.addReservationDetails(reservation))
         })
-        this.rows.push(this.addReservationsTotals(customer))
+        // this.rows.push(this.addReservationsTotals(customer))
         this.rows.push(this.addBlankLine())
         customer.ports.forEach((port: any) => {
             this.rows.push(this.addPortHeader(port))
@@ -141,7 +141,7 @@ export class LedgerPDFService {
 
     private addReportHeader(): any {
         const row = ([
-            { text: environment.appName, color: '#0a5f91', fontSize: 20, style: 'AkaAcidCanterBold', colSpan: 14, border: [false, false, false, false] },
+            { text: environment.appName, color: '#0a5f91', fontSize: 20, style: 'AkaAcidCanterBold', colSpan: 15, border: [false, false, false, false] },
             { text: '' },
             { text: '' },
             { text: '' },
@@ -155,13 +155,15 @@ export class LedgerPDFService {
             { text: '' },
             { text: '' },
             { text: '' },
+            { text: '' }
         ])
         return row
     }
 
     private addCustomerHeader(criteria: LedgerCriteriaVM, customer: LedgerVM): any {
         const row = ([
-            { text: customer.customer.description, colSpan: 12, margin: [0, 0, 0, 10], border: [false, false, false, false] },
+            { text: customer.customer.description, colSpan: 13, margin: [0, 0, 0, 10], border: [false, false, false, false] },
+            { text: '' },
             { text: '' },
             { text: '' },
             { text: '' },
@@ -174,7 +176,7 @@ export class LedgerPDFService {
             { text: '' },
             { text: '' },
             { text: this.dateHelperService.formatISODateToLocale(criteria.fromDate) + ' ' + this.dateHelperService.formatISODateToLocale(criteria.toDate), alignment: 'right', colSpan: 2, border: [false, false, false, false] },
-            { text: '' },
+            { text: '' }
         ])
         return row
     }
@@ -183,6 +185,7 @@ export class LedgerPDFService {
         const row = ([
             { text: 'Date', alignment: 'center' },
             { text: 'Destination', alignment: 'center' },
+            { text: 'Pickup point', alignment: 'center' },
             { text: 'Port', alignment: 'center' },
             { text: 'Ship', alignment: 'center' },
             { text: 'RefNo', alignment: 'center' },
@@ -203,6 +206,7 @@ export class LedgerPDFService {
         const row = ([
             { text: this.dateHelperService.formatISODateToLocale(reservation.date) },
             { text: reservation.destination.abbreviation },
+            { text: reservation.pickupPoint.description },
             { text: reservation.port.abbreviation },
             { text: reservation.ship.description },
             { text: reservation.refNo },
@@ -221,7 +225,8 @@ export class LedgerPDFService {
 
     private addReservationsTotals(customer: LedgerVM): any {
         const row = [
-            { text: '', colSpan: 6, border: [false, false, false, false] },
+            { text: '', colSpan: 7, border: [false, false, false, false] },
+            { text: '' },
             { text: '' },
             { text: '' },
             { text: '' },
@@ -254,6 +259,7 @@ export class LedgerPDFService {
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
+            { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] }
         ]
         return row
@@ -261,6 +267,7 @@ export class LedgerPDFService {
 
     private addPortHeader(port: { port: any }): any {
         const row = [
+            { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
@@ -281,7 +288,8 @@ export class LedgerPDFService {
 
     private addPortDetailsHeader(): any {
         const row = [
-            { text: '', colSpan: 6, border: [false, false, false, false] },
+            { text: '', colSpan: 7, border: [false, false, false, false] },
+            { text: '' },
             { text: '' },
             { text: '' },
             { text: '' },
@@ -301,7 +309,8 @@ export class LedgerPDFService {
 
     private addPortPerTransferTotals(hasTransfer: HasTransferGroupVM): any {
         const row = [
-            { text: '', colSpan: 6, border: [false, false, false, false] },
+            { text: '', colSpan: 7, border: [false, false, false, false] },
+            { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },

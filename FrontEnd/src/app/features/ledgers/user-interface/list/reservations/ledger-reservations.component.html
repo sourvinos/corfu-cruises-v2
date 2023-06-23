@@ -4,8 +4,9 @@
             <tr>
                 <th class="width-5" pSortableColumn="date">{{ getLabel('headerDate') }}</th>
                 <th class="width-6" pSortableColumn="destination.abbreviation">{{ getLabel('headerDestination') }}</th>
-                <th class="width-6" pSortableColumn="ship.description">{{ getLabel('headerShip') }}</th>
+                <th class="width-6" pSortableColumn="pickupPoint.description">{{ getLabel('headerPickupPoint') }}</th>
                 <th class="width-6" pSortableColumn="port.abbreviation">{{ getLabel('headerPort') }}</th>
+                <th class="width-6" pSortableColumn="ship.description">{{ getLabel('headerShip') }}</th>
                 <th class="width-5" pSortableColumn="refNo">{{ getLabel('headerRefNo') }}</th>
                 <th class="width-5" pSortableColumn="ticketNo">{{ getLabel('headerTicket') }}</th>
                 <th class="width-4" pSortableColumn="hasTransfer">{{ getLabel('headerHasTransfer') }}</th>
@@ -32,14 +33,16 @@
                 <th class="no-padding"></th>
                 <th class="no-padding"></th>
                 <th class="no-padding"></th>
+                <th class="no-padding"></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-reservation>
             <tr [pSelectableRow]="reservation" style="height:32px">
                 <td class="center width-5">{{ formatDateToLocale(reservation.date) }}</td>
                 <td class="center width-6">{{ reservation.destination.abbreviation }}</td>
-                <td class="width-6">{{ reservation.ship.description == "(EMPTY)" ? getEmoji('null'): reservation.ship.description }}</td>
+                <td class="width-6">{{ reservation.pickupPoint.description }}</td>
                 <td class="center width-6">{{ reservation.port.abbreviation }}</td>
+                <td class="width-6">{{ reservation.ship.description == "(EMPTY)" ? getEmoji('null'): reservation.ship.description }}</td>
                 <td class="center width-5">{{ reservation.refNo }}</td>
                 <td class="width-5">{{ reservation.ticketNo }}</td>
                 <td [ngClass]="reservation.hasTransfer ? 'has-transfer' : 'no-transfer'" class="center emoji width-4">
@@ -55,12 +58,12 @@
                 <td class="center width-3"><span (click)="showRemarks(reservation.remarks)" [ngClass]="hasRemarks(reservation.remarks)?'clickable':''" *ngIf="hasRemarks(reservation.remarks)" class="remarks">{{ getEmoji('remarks') }}</span></td>
             </tr>
             <tr *ngIf="hasRemarks(reservation.remarks)">
-                <td class="right" colspan="14">{{ reservation.remarks }}</td>
+                <td class="right" colspan="15">{{ reservation.remarks }}</td>
             </tr>
         </ng-template>
         <ng-template pTemplate="footer" let-columns>
             <tr>
-                <td colspan="7"></td>
+                <td colspan="8"></td>
                 <td class="center">{{ customer.adults | replaceZero }}</td>
                 <td class="center">{{ customer.kids | replaceZero }}</td>
                 <td class="center">{{ customer.free | replaceZero }}</td>

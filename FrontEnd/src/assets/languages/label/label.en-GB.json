@@ -1431,6 +1431,10 @@
                 "description": "Destination"
             },
             {
+                "id": "headerPickupPoint",
+                "description": "Pickup point"
+            },
+            {
                 "id": "headerShip",
                 "description": "Ship"
             },

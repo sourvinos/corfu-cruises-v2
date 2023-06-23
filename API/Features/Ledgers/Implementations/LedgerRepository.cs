@@ -84,6 +84,10 @@ namespace API.Features.Ledger {
                             Description = x.Destination.Description,
                             Abbreviation = x.Destination.Abbreviation
                         },
+                        PickupPoint = new SimpleEntity {
+                            Id = x.PickupPoint.Id,
+                            Description = x.PickupPoint.Description
+                        },
                         Port = new LedgerSimpleEntityVM {
                             Id = x.Port.Id,
                             Description = x.Port.Description,

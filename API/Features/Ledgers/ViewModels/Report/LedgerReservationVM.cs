@@ -9,6 +9,7 @@ namespace API.Features.Ledger {
         public string RefNo { get; set; }
         public Guid ReservationId { get; set; }
         public LedgerSimpleEntityVM Destination { get; set; }
+        public SimpleEntity PickupPoint { get; set; }
         public LedgerSimpleEntityVM Port { get; set; }
         public SimpleEntity Ship { get; set; }
         public string TicketNo { get; set; }

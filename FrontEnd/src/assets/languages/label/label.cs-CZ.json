@@ -1431,6 +1431,10 @@
                 "description": "Destinace"
             },
             {
+                "id": "headerPickupPoint",
+                "description": "Místo vyzvednutí"
+            },
+            {
                 "id": "headerShip",
                 "description": "Loď"
             },

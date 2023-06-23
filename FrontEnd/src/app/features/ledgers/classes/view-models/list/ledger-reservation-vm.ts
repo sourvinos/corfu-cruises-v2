@@ -8,6 +8,7 @@ export interface LedgerReservationVM {
     refNo: string
     reservationId: string
     destination: LedgerDestinationVM
+    pickupPoint: SimpleEntity
     ship: SimpleEntity
     port: LedgerPortVM
     ticketNo: string

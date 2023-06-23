@@ -1431,6 +1431,10 @@
                 "description": "Reiseziel"
             },
             {
+                "id": "headerPickupPoint",
+                "description": "Abholpunkt"
+            },
+            {
                 "id": "headerShip",
                 "description": "Schiff"
             },
