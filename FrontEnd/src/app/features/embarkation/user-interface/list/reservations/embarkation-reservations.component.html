@@ -145,9 +145,9 @@
                         <td class="width-6">{{ reservation.customer.description }}</td>
                         <td class="center width-6">{{ reservation.destination.abbreviation }}</td>
                         <td class="width-8">{{ reservation.pickupPoint.description }}</td>
-                        <td class="width-6">{{ reservation.driver.description }}</td>
+                        <td class="width-6">{{ reservation.driver.description == "(EMPTY)" ? getEmoji('null'): reservation.driver.description }}</td>
                         <td class="center width-5">{{ reservation.port.abbreviation }}</td>
-                        <td class="width-5">{{ reservation.ship.description }}</td>
+                        <td class="width-5">{{ reservation.ship.description == "(EMPTY)" ? getEmoji('null'): reservation.ship.description }}</td>
                         <td class="right width-3">
                             <span>{{ reservation.totalPax | replaceZero }}</span>
                             <span *ngIf="reservation.totalPax - reservation.passengers.length == 0" class="emoji-with-text">{{ getEmoji('ok') }}</span>

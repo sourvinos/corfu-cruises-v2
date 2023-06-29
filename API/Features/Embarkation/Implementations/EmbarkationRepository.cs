@@ -33,11 +33,10 @@ namespace API.Features.Embarkation {
                 .Include(x => x.Port)
                 .Include(x => x.Ship)
                 .Include(x => x.Passengers).ThenInclude(x => x.Nationality)
-                .Where(x => x.Date == Convert.ToDateTime(date) &&
-                    destinationIds.Contains(x.DestinationId) &&
-                    portIds.Contains(x.PortId) &&
-                    shipIds.Contains(x.ShipId)
-                )
+                .Where(x => x.Date == Convert.ToDateTime(date)
+                    && destinationIds.Contains(x.DestinationId)
+                    && portIds.Contains(x.PortId)
+                    && (shipIds.Contains(x.ShipId) || x.ShipId == null))
                 .ToListAsync();
             int TotalPax = reservations.Sum(x => x.TotalPax);
             int embarkedPassengers = reservations.SelectMany(c => c.Passengers).Count(x => x.IsCheckedIn);

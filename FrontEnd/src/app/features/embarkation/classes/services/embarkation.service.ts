@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 // Custom
 import { EmbarkationReservationVM } from '../view-models/list/embarkation-reservation-vm'
+import { EmbarkationSearchCriteria } from '../view-models/criteria/embarkation-search-criteria'
 import { HttpDataService } from 'src/app/shared/services/http-data.service'
 import { environment } from 'src/environments/environment'
 
@@ -14,12 +15,8 @@ export class EmbarkationService extends HttpDataService {
         super(httpClient, environment.apiUrl + '/embarkation')
     }
 
-    get(date: string, destinationIds: number[], portIds: number[], shipIds: number[]): Observable<EmbarkationReservationVM> {
-        return this.http.get<any>(
-            this.url + '?date=' + date
-            + this.buildDestinationsQuery(destinationIds)
-            + this.buildPortsQuery(portIds)
-            + this.buildShipsQuery(shipIds))
+    get(criteria: EmbarkationSearchCriteria): Observable<EmbarkationReservationVM> {
+        return this.http.request<EmbarkationReservationVM>('post', this.url, { body: criteria })
     }
 
     embarkSinglePassenger(id: number): Observable<any> {
@@ -36,30 +33,6 @@ export class EmbarkationService extends HttpDataService {
             }
         })
         return this.http.patch(this.url + '/embarkPassengers?', null, { params: params })
-    }
-
-    private buildDestinationsQuery(destinationIds: number[]): string {
-        let query = ''
-        destinationIds.forEach(destinationId => {
-            query += '&destinationId=' + destinationId
-        })
-        return query
-    }
-
-    private buildPortsQuery(portIds: number[]): string {
-        let query = ''
-        portIds.forEach(portId => {
-            query += '&portId=' + portId
-        })
-        return query
-    }
-
-    private buildShipsQuery(shipIds: number[]): string {
-        let query = ''
-        shipIds.forEach(shipId => {
-            query += '&shipId=' + shipId
-        })
-        return query
     }
 
 }
