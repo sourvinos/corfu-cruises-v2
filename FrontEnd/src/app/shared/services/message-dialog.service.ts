@@ -68,6 +68,8 @@ export class MessageDialogService {
     public reservationFound(): string { return this.getDescription(this.feature, 'reservationFound') }
     public reservationNotFound(): string { return this.getDescription(this.feature, 'reservationNotFound') }
     public helpDialog(): string { return this.getDescription(this.feature, 'helpDialog') }
+    public mustSaveBeforeContinue(): string { return this.getDescription(this.feature, 'mustSaveBeforeContinue') }
+    public passengerDataIsMissing(): string { return this.getDescription(this.feature, 'passengerDataIsMissing') }
 
     public filterResponse(error: any, feature = 'snackbarMessages'): string {
         let returnValue = ''

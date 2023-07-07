@@ -133,6 +133,10 @@
             {
                 "id": "helpDialog",
                 "message": "You can contact the place where you made the reservation or one of us at +30 26610 71150 or +30 26620 61400"
+            },
+            {
+                "id": "mustSaveBeforeContinue",
+                "message": "To continue, you must have provided the details of all passengers and the record must be saved."
             }
         ]
     }

@@ -23,7 +23,8 @@ export interface ReservationReadDto {
     free: number
     totalPax: number
     ticketNo: string
-    passengers: PassengerReadDto
+    passengers: PassengerReadDto,
+    userId: string
 
 }
 

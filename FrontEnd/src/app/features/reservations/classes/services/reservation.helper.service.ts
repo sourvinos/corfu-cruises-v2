@@ -131,7 +131,8 @@ export class ReservationHelperService {
             free: form.free,
             totalPax: form.totalPax,
             ticketNo: form.ticketNo,
-            passengers: form.passengers
+            passengers: form.passengers,
+            userId: form.userId
         }
     }
 

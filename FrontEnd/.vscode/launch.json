@@ -7,15 +7,9 @@
             "request": "launch",
             "preLaunchTask": "npm: start",
             "url": "https://localhost:4200",
-            "webRoot": "${workspaceFolder}",
-            "sourceMaps": true,
-            "sourceMapPathOverrides": {
-                "webpack:/*": "${webRoot}/*",
-                "/./*": "${webRoot}/*",
-                "/src/*": "${webRoot}/src/*",
-                "/*": "*",
-                "/./~/*": "${workspaceFolder}/node_modules/*"
-            }
+            "skipFiles": [
+                "**/node_modules/**"
+            ]
         }
     ]
 }

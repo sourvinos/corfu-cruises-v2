@@ -61,11 +61,13 @@ export class ReservationFormComponent {
     public dropdownPorts: Observable<PortActiveVM[]>
     public dropdownShips: Observable<DriverActiveVM[]>
 
+    private formMustCloseAfterSave = true
+    private mirrorRecord: ReservationWriteDto
     public isNewRecord: boolean
+    public isTabMiscVisible: boolean
+    public isTabPassengersVisible: boolean
+    public isTabReservationVisible: boolean
     public passengerDifferenceColor: string
-    public isReservationTabVisible: boolean
-    public isPassengersTabVisible: boolean
-    public isMiscTabVisible: boolean
 
     //#endregion
 
@@ -117,7 +119,12 @@ export class ReservationFormComponent {
     }
 
     public doVoucherTasksOnClient(): void {
-        this.voucherService.createVoucherOnClient(this.reservationHelperService.createVoucher(this.form.value))
+        if (this.recordNotSaved() || this.passengersMissing()) {
+            this.formMustCloseAfterSave = false
+            this.modalActionResultService.open(this.messageSnackbarService.mustSaveBeforeContinue(), 'error', ['ok'])
+        } else {
+            this.voucherService.createVoucherOnClient(this.reservationHelperService.createVoucher(this.form.value))
+        }
     }
 
     public doVoucherTasksOnServer(): void {
@@ -189,21 +196,21 @@ export class ReservationFormComponent {
     }
 
     public showReservationTab(): void {
-        this.isReservationTabVisible = true
-        this.isPassengersTabVisible = false
-        this.isMiscTabVisible = false
+        this.isTabReservationVisible = true
+        this.isTabPassengersVisible = false
+        this.isTabMiscVisible = false
     }
 
     public showPassengersTab(): void {
-        this.isReservationTabVisible = false
-        this.isPassengersTabVisible = true
-        this.isMiscTabVisible = false
+        this.isTabReservationVisible = false
+        this.isTabPassengersVisible = true
+        this.isTabMiscVisible = false
     }
 
     public showMiscTab(): void {
-        this.isReservationTabVisible = false
-        this.isPassengersTabVisible = false
-        this.isMiscTabVisible = true
+        this.isTabReservationVisible = false
+        this.isTabPassengersVisible = false
+        this.isTabMiscVisible = true
     }
 
     public showCachedReservationDialog(): void {
@@ -251,6 +258,10 @@ export class ReservationFormComponent {
         this.sessionStorageService.deleteItems([{ 'item': 'nationality', 'when': 'always' }])
     }
 
+    private cloneRecord(): void {
+        this.mirrorRecord = this.flattenForm()
+    }
+
     private doNewOrEditTasks(): void {
         if (this.isNewRecord) {
             this.getStoredDate()
@@ -260,6 +271,7 @@ export class ReservationFormComponent {
             this.getRecord()
             this.populateFields()
             this.getPassengerDifferenceColor()
+            this.cloneRecord()
         }
     }
 
@@ -369,8 +381,17 @@ export class ReservationFormComponent {
             phones: ['', Validators.maxLength(128)],
             remarks: ['', Validators.maxLength(128)],
             imageBase64: '',
-            passengers: [[]]
+            passengers: [[]],
+            userId: ''
         })
+    }
+
+    private passengersMissing(): boolean {
+        return this.form.value.totalPax != this.form.value.passengers.length
+    }
+
+    private recordNotSaved(): boolean {
+        return JSON.stringify(this.mirrorRecord) != JSON.stringify(this.flattenForm())
     }
 
     private patchFormWithPassengers(passengers: any): void {
@@ -413,7 +434,8 @@ export class ReservationFormComponent {
             phones: this.record.phones,
             remarks: this.record.remarks,
             imageBase64: '',
-            passengers: this.record.passengers
+            passengers: this.record.passengers,
+            userId: this.record.userId
         })
     }
 
@@ -423,7 +445,12 @@ export class ReservationFormComponent {
                 const date = this.dateHelperService.formatDateToIso(new Date(this.form.value.date))
                 this.sessionStorageService.saveItem('date', date)
                 this.parentUrl = '/reservations/date/' + date
-                this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.parentUrl, this.form)
+                this.helperService.doPostSaveFormTasks('RefNo: ' + response.message, 'success', this.parentUrl, this.form, this.formMustCloseAfterSave, this.formMustCloseAfterSave)
+                this.form.patchValue({
+                    reservationId: response.id,
+                    refNo: response.message
+                })
+                this.cloneRecord()
                 this.localStorageService.deleteItems([{ 'item': 'reservation', 'when': 'always' },])
                 this.sessionStorageService.deleteItems([{ 'item': 'nationality', 'when': 'always' }])
             },
@@ -490,8 +517,8 @@ export class ReservationFormComponent {
     }
 
     private updateTabVisibility(): void {
-        this.isReservationTabVisible = true
-        this.isPassengersTabVisible = false
+        this.isTabReservationVisible = true
+        this.isTabPassengersVisible = false
     }
 
     //#endregion

@@ -19,7 +19,7 @@
         </div>
 
         <form id="form" [formGroup]="form" autocomplete="off">
-            <div *ngIf="isReservationTabVisible" id="reservation">
+            <div *ngIf="isTabReservationVisible" id="reservation">
                 <div class="tab-content">
                     <div class="group-field">
                         <!-- RefNo -->
@@ -146,12 +146,12 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="isPassengersTabVisible" id="passengers">
+            <div *ngIf="isTabPassengersVisible" id="passengers">
                 <div class="tab-content">
                     <passenger-list [passengers]="form.value.passengers" [reservationId]="form.value.reservationId" (outputPassengerCount)="getPassengerDifferenceColor($event)" (outputPassengers)="doTasksAfterPassengerFormIsClosed($event)"></passenger-list>
                 </div>
             </div>
-            <div *ngIf="isMiscTabVisible" id="misc">
+            <div *ngIf="isTabMiscVisible" id="misc">
                 <div class="tab-content">
                     <mat-form-field>
                         <mat-icon class="lock">lock</mat-icon>
