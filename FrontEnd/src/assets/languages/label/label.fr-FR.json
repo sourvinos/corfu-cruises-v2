@@ -1605,6 +1605,10 @@
                 "description": "Genre"
             },
             {
+                "id": "headerPhones",
+                "description": "Téléphone"
+            },
+            {
                 "id": "countPassengers",
                 "description": "p"
             },

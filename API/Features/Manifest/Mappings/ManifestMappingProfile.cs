@@ -44,9 +44,10 @@ namespace API.Features.Manifest {
                     Crew = source.Ship.ShipCrews
                         .ConvertAll(crew => new ManifestFinalCrewVM {
                             Id = crew.Id,
-                            Lastname = crew.Lastname.ToUpper(),
-                            Firstname = crew.Firstname.ToUpper(),
+                            Lastname = crew.Lastname.Trim().ToUpper(),
+                            Firstname = crew.Firstname.Trim().ToUpper(),
                             Birthdate = DateHelpers.DateToISOString(crew.Birthdate),
+                            Phones = "",
                             Gender = new SimpleEntity {
                                 Id = crew.Gender.Id,
                                 Description = crew.Gender.Description
@@ -75,10 +76,11 @@ namespace API.Features.Manifest {
                 }))
                 .ForMember(x => x.Passengers, x => x.MapFrom(source => source.Passengers.Select(passenger => new ManifestFinalPassengerVM {
                     Id = passenger.Id,
-                    Lastname = passenger.Lastname.ToUpper(),
-                    Firstname = passenger.Firstname.ToUpper(),
+                    Lastname = passenger.Lastname.Trim().ToUpper(),
+                    Firstname = passenger.Firstname.Trim().ToUpper(),
                     Birthdate = DateHelpers.DateToISOString(passenger.Birthdate),
                     Remarks = passenger.Remarks,
+                    Phones = passenger.Reservation.Phones,
                     SpecialCare = passenger.SpecialCare,
                     Gender = new SimpleEntity {
                         Id = passenger.Gender.Id,

@@ -17,8 +17,8 @@ namespace API.Features.Manifest {
         }
 
         [Authorize(Roles = "admin")]
-        public ManifestFinalVM Get([FromQuery(Name = "date")] string date, [FromQuery(Name = "destinationId")] int destinationId, [FromQuery(Name = "shipId")] int shipId, [FromQuery(Name = "portId")] int[] portIds) {
-            return repo.Get(date, destinationId, shipId, portIds);
+        public ManifestFinalVM Post([FromBody] ManifestCriteriaVM criteria) {
+            return repo.Get(criteria.Date, criteria.DestinationId, criteria.PortIds, criteria.ShipId);
         }
 
     }

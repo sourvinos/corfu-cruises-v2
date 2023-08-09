@@ -28,6 +28,7 @@
                         <th class="width-10" pSortableColumn="nationality.description">{{ getLabel("headerCountry") }}</th>
                         <th pSortableColumn="lastname">{{ getLabel('headerLastname') }}</th>
                         <th pSortableColumn="firstname">{{ getLabel('headerFirstname') }}</th>
+                        <th pSortableColumn="firstname">{{ getLabel('headerPhones') }}</th>
                     </tr>
                     <tr>
                         <th class="width-10">
@@ -71,6 +72,7 @@
                         </th>
                         <th><input (input)="table.filter($event.target.value, 'lastname', 'contains')" [disabled]="records.passengers.length==0" [value]="$any(table).filters['lastname']?.value" class="p-inputtext"></th>
                         <th><input (input)="table.filter($event.target.value, 'firstname', 'contains')" [disabled]="records.passengers.length==0" [value]="$any(table).filters['firstname']?.value" class="p-inputtext"></th>
+                        <th><input (input)="table.filter($event.target.value, 'phones', 'contains')" [disabled]="records.passengers.length==0" [value]="$any(table).filters['phones']?.value" class="p-inputtext"></th>
                     </tr>
                 </ng-template>
                 <ng-template let-passenger pTemplate="body">
@@ -83,6 +85,7 @@
                         </td>
                         <td>{{ passenger.lastname }}</td>
                         <td>{{ passenger.firstname }}</td>
+                        <td>{{ passenger.phones }}</td>
                     </tr>
                 </ng-template>
             </p-table>

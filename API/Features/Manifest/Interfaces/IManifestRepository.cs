@@ -2,7 +2,7 @@ namespace API.Features.Manifest {
 
     public interface IManifestRepository {
 
-        ManifestFinalVM Get(string date, int destinationId, int shipId, int[] portIds);
+        ManifestFinalVM Get(string date, int destinationId, int[] portIds, int? shipId);
 
     }
 

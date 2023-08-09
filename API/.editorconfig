@@ -1,0 +1,5 @@
+# https://learn.microsoft.com/en-us/dotnet/fundamentals/code-analysis/style-rules/csharp-formatting-options
+
+[*]
+csharp_new_line_before_open_brace = false
+csharp_new_line_before_else = false

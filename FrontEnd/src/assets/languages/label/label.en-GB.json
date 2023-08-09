@@ -1605,6 +1605,10 @@
                 "description": "Gender"
             },
             {
+                "id": "headerPhones",
+                "description": "Phones"
+            },
+            {
                 "id": "countPassengers",
                 "description": "p"
             },

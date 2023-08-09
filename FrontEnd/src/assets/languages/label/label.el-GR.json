@@ -1605,6 +1605,10 @@
                 "description": "Φύλο"
             },
             {
+                "id": "headerPhones",
+                "description": "Τηλέφωνα"
+            },
+            {
                 "id": "countPassengers",
                 "description": "ε"
             },
