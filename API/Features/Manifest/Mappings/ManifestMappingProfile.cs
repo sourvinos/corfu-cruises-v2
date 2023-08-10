@@ -54,7 +54,7 @@ namespace API.Features.Manifest {
                             },
                             Nationality = new ManifestFinalNationalityVM {
                                 Id = crew.Nationality.Id,
-                                Code = crew.Nationality.Code,
+                                Code = crew.Nationality.Code.ToUpper(),
                                 Description = crew.Nationality.Description
                             },
                             Occupant = new SimpleEntity {
@@ -88,7 +88,7 @@ namespace API.Features.Manifest {
                     },
                     Nationality = new ManifestFinalNationalityVM {
                         Id = passenger.Nationality.Id,
-                        Code = passenger.Nationality.Code,
+                        Code = passenger.Nationality.Code.ToUpper(),
                         Description = passenger.Nationality.Description
                     },
                     Occupant = new SimpleEntity {

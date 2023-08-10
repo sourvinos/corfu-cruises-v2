@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core'
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { LogoService } from 'src/app/features/reservations/classes/services/logo.service'
+import { ManifestPassengerVM } from '../view-models/list/manifest-passenger-vm'
 import { ManifestVM } from '../view-models/list/manifest-vm'
 // Fonts
 import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
 import { strAkaAcidCanterBold } from '../../../../../assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
 import { strPFHandbookPro } from '../../../../../assets/fonts/PF-Handbook-Pro.Base64.encoded'
-import { ManifestPassengerVM } from '../view-models/list/manifest-passenger-vm'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -56,8 +56,8 @@ export class ManifestPdfService {
                     [
                         this.createTable(this.pdfVM,
                             ['', '', '', '', '', 'date', '', '', '', ''],
-                            ['', 'lastname', 'firstname', 'gender', 'nationality', 'birthdate', 'property', 'specialCare', 'phones', 'remarks'],
-                            ['right', 'left', 'left', 'center', 'center', 'left', 'left', 'left', 'left', 'left'])
+                            ['', 'lastname', 'firstname', 'gender', 'nationality', 'birthdate', 'occupant', 'specialCare', 'phones', 'remarks'],
+                            ['right', 'left', 'left', 'center', 'center', 'center', 'center', 'left', 'left', 'left'])
                     ],
                     {
                         table: {
@@ -223,9 +223,9 @@ export class ManifestPdfService {
                 bold: false,
                 style: 'table',
                 layout: 'noBorders',
-                widths: [20, 70, 40, 50, 40, '10%', '10%', 50, 50, 50],
+                widths: [15, 70, 30, 30, 30, 35, 30, 50, 50, 70],
             },
-            layout: 'lightHorizontalLines'
+            layout: ''
         }
     }
 

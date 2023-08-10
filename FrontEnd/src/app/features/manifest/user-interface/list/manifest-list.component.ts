@@ -9,16 +9,16 @@ import { EmojiService } from 'src/app/shared/services/emoji.service'
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { ListResolved } from 'src/app/shared/classes/list-resolved'
+import { ManifestCriteriaPanelVM } from '../../classes/view-models/criteria/manifest-criteria-panel-vm'
 import { ManifestPdfService } from '../../classes/services/manifest-pdf.service'
 import { ManifestRouteSelectorComponent } from './manifest-route-selector.component'
 import { ManifestVM } from '../../classes/view-models/list/manifest-vm'
-import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { MessageDialogService } from '../../../../shared/services/message-dialog.service'
+import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { ModalActionResultService } from 'src/app/shared/services/modal-action-result.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
 import { environment } from 'src/environments/environment'
-import { ManifestCriteriaPanelVM } from '../../classes/view-models/criteria/manifest-criteria-panel-vm'
 
 @Component({
     selector: 'manifest-list',

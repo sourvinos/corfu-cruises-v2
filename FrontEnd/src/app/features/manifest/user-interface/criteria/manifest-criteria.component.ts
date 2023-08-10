@@ -12,11 +12,11 @@ import { FieldsetCriteriaService } from 'src/app/shared/services/fieldset-criter
 import { HelperService } from 'src/app/shared/services/helper.service'
 import { InteractionService } from 'src/app/shared/services/interaction.service'
 import { LocalStorageService } from 'src/app/shared/services/local-storage.service'
+import { ManifestSearchCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
 import { MessageInputHintService } from 'src/app/shared/services/message-input-hint.service'
 import { MessageLabelService } from 'src/app/shared/services/message-label.service'
 import { SessionStorageService } from 'src/app/shared/services/session-storage.service'
 import { SimpleEntity } from 'src/app/shared/classes/simple-entity'
-import { ManifestSearchCriteriaVM } from '../../classes/view-models/criteria/manifest-criteria-vm'
 
 @Component({
     selector: 'manifest-criteria',
