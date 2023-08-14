@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core'
 // Custom
 import { DateHelperService } from 'src/app/shared/services/date-helper.service'
 import { HasTransferGroupVM } from '../view-models/list/ledger-port-group-vm'
@@ -12,6 +11,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts'
 import pdfMake from 'pdfmake/build/pdfmake'
 import { strAkaAcidCanterBold } from 'src/assets/fonts/Aka-Acid-CanterBold.Base64.encoded'
 import { strUbuntuCondensed } from 'src/assets/fonts/UbuntuCondensed.Base64.encoded'
+import { Injectable } from '@angular/core'
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs
 
@@ -127,7 +127,7 @@ export class LedgerPDFService {
         customer.reservations.forEach((reservation: LedgerReservationVM) => {
             this.rows.push(this.addReservationDetails(reservation))
         })
-        // this.rows.push(this.addReservationsTotals(customer))
+        this.rows.push(this.addReservationsTotals(customer))
         this.rows.push(this.addBlankLine())
         customer.ports.forEach((port: any) => {
             this.rows.push(this.addPortHeader(port))
@@ -135,6 +135,8 @@ export class LedgerPDFService {
             port.hasTransferGroup.forEach((hasTransfer: HasTransferGroupVM) => {
                 this.rows.push(this.addPortPerTransferTotals(hasTransfer))
             })
+            this.rows.push(this.addPortTotal(port))
+            this.rows.push(this.addBlankLine())
         })
         this.rows.push(this.addBlankLine())
     }
@@ -274,7 +276,7 @@ export class LedgerPDFService {
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
-            { text: port.port.description, colSpan: 7, border: [true, true, true, true], fillColor: '#deecf5' },
+            { text: port.port.description, colSpan: 7, border: [true, true, true, true], alignment: 'center', fillColor: '#deecf5' },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
@@ -282,6 +284,27 @@ export class LedgerPDFService {
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] }
+        ]
+        return row
+    }
+
+    private addPortTotal(port: any): any {
+        const row = [
+            { text: '', colSpan: 7, border: [false, false, false, false] },
+            { text: '', border: [false, false, false, false] },
+            { text: '', border: [false, false, false, false] },
+            { text: '', border: [false, false, false, false] },
+            { text: '', border: [false, false, false, false] },
+            { text: '', border: [false, false, false, false] },
+            { text: '', border: [false, false, false, false] },
+            { text: this.formatZeroAsEmpty(port.adults), alignment: 'right', border: [true, true, true, true], fillColor: '#deecf5' },
+            { text: this.formatZeroAsEmpty(port.kids), alignment: 'right', border: [true, true, true, true], fillColor: '#deecf5' },
+            { text: this.formatZeroAsEmpty(port.free), alignment: 'right', border: [true, true, true, true], fillColor: '#deecf5' },
+            { text: this.formatZeroAsEmpty(port.totalPax), alignment: 'right', border: [true, true, true, true], fillColor: '#deecf5' },
+            { text: this.formatZeroAsEmpty(port.totalPassengers), alignment: 'right', border: [true, true, true, true], fillColor: '#deecf5' },
+            { text: this.formatZeroAsEmpty(port.totalPax - port.totalPassengers), alignment: 'right', border: [true, true, true, true], fillColor: '#deecf5' },
+            { text: '', fillColor: '#deecf5' },
+            { text: '', border: [false, false, false, false] },
         ]
         return row
     }
@@ -301,7 +324,7 @@ export class LedgerPDFService {
             { text: 'Total' },
             { text: 'Actual' },
             { text: 'N/S', alignment: 'center' },
-            { text: 'Transfer' },
+            { text: 'Transfer', alignment: 'center' },
             { text: '', border: [false, false, false, false] }
         ]
         return row
@@ -315,7 +338,7 @@ export class LedgerPDFService {
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
             { text: '', border: [false, false, false, false] },
-            { text: '', border: [false, false, false, false] },
+            { text: '' },
             { text: this.formatZeroAsEmpty(hasTransfer.adults), alignment: 'right', border: [true, true, true, true] },
             { text: this.formatZeroAsEmpty(hasTransfer.kids), alignment: 'right', border: [true, true, true, true] },
             { text: this.formatZeroAsEmpty(hasTransfer.free), alignment: 'right', border: [true, true, true, true] },
