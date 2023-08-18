@@ -1,10 +1,10 @@
 // ng build --output-path="release" --configuration=production-demo
 
 export const environment = {
-    apiUrl: 'http://spacetravels-001-site1.btempurl.com/api',
-    url: 'http://spacetravels-001-site1.btempurl.com',
+    apiUrl: 'http://itsmemakis-001-site1.ctempurl.com/api',
+    url: 'http://itsmemakis-001-site1.ctempurl.com',
     appName: 'Corfu Cruises',
-    clientUrl: 'http://spacetravels-001-site1.btempurl.com',
+    clientUrl: 'http://itsmemakis-001-site1.ctempurl.com',
     defaultLanguage: 'en-GB',
     defaultTheme: 'light',
     emailFooter: {

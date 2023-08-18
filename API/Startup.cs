@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 // dotnet watch run --environment LocalDevelopment | LocalTesting | ProductionLive | ProductionDemo
 // dotnet publish /p:Configuration=Release /p:EnvironmentName=ProductionDemo | ProductionLive
@@ -31,8 +32,8 @@ namespace API {
         public void ConfigureLocalDevelopmentServices(IServiceCollection services) {
             services.AddDbContextFactory<AppDbContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("LocalDevelopment"), new MySqlServerVersion(new Version(8, 0, 19)), builder => {
-                builder.EnableStringComparisonTranslations();
-            }));
+                    builder.EnableStringComparisonTranslations();
+                }));
             ConfigureServices(services);
         }
 
@@ -118,6 +119,7 @@ namespace API {
             app.UseDefaultFiles();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSerilogRequestLogging();
             app.UseRouting();
             app.UseCors();
             app.UseAuthentication();
