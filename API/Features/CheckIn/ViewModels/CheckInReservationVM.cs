@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using API.Features.PickupPoints;
+﻿using API.Features.PickupPoints;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
+using System.Collections.Generic;
 
 namespace API.Features.CheckIn {
 

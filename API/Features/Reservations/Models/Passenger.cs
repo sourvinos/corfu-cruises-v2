@@ -1,7 +1,7 @@
-using System;
 using API.Features.Genders;
 using API.Features.Nationalities;
 using API.Features.Occupants;
+using System;
 
 namespace API.Features.Reservations {
 

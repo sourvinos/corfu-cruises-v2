@@ -1,13 +1,12 @@
-using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
 using API.Features.Users;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using System.Security.Claims;
+using System;
 
 namespace API.Infrastructure.Extensions {
 

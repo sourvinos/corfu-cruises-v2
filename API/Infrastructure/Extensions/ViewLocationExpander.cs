@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Razor;
+using System.Collections.Generic;
 
 namespace API.Infrastructure.Extensions {
 

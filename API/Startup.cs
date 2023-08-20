@@ -1,4 +1,3 @@
-using System;
 using API.Infrastructure.Account;
 using API.Infrastructure.Auth;
 using API.Infrastructure.Classes;
@@ -13,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using System;
 
 // dotnet watch run --environment LocalDevelopment | LocalTesting | ProductionLive | ProductionDemo
 // dotnet publish /p:Configuration=Release /p:EnvironmentName=ProductionDemo | ProductionLive

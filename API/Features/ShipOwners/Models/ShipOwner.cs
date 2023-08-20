@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using API.Features.Ships;
 using API.Features.Users;
+using System.Collections.Generic;
 
 namespace API.Features.ShipOwners {
 

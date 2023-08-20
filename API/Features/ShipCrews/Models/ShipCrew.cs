@@ -1,9 +1,9 @@
-using System;
 using API.Features.Genders;
 using API.Features.Nationalities;
 using API.Features.Occupants;
 using API.Features.Ships;
 using API.Features.Users;
+using System;
 
 namespace API.Features.ShipCrews {
 

@@ -1,9 +1,9 @@
-using System;
-using System.Linq;
 using API.Features.PickupPoints;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Helpers;
 using AutoMapper;
+using System.Linq;
+using System;
 
 namespace API.Features.Reservations {
 

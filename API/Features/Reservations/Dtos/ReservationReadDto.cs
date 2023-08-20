@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using API.Features.PickupPoints;
 using API.Infrastructure.Classes;
+using System.Collections.Generic;
 
 namespace API.Features.Reservations {
 

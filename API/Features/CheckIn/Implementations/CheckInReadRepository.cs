@@ -1,13 +1,12 @@
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
-using API.Infrastructure.Helpers;
 using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Linq;
+using System.Threading.Tasks;
+using System;
 
 namespace API.Features.CheckIn {
 

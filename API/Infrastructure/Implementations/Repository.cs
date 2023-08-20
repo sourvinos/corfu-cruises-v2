@@ -1,11 +1,11 @@
-using System;
-using System.Collections.Generic;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Interfaces;
 using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System;
 
 namespace API.Infrastructure.Implementations {
 

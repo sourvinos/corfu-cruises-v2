@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using API.Features.Users;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
@@ -10,6 +7,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 namespace API.Features.Ledger {
 

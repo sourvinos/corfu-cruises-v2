@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using API.Infrastructure.Classes;
+using System.Collections.Generic;
 
 namespace API.Features.Embarkation {
 

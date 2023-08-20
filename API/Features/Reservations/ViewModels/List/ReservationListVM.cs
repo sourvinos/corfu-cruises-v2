@@ -1,5 +1,5 @@
-using System;
 using API.Infrastructure.Classes;
+using System;
 
 namespace API.Features.Reservations {
 

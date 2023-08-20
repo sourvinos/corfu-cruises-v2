@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using API.Features.Availability;
 using API.Features.PickupPoints;
 using API.Features.Schedules;
@@ -13,6 +10,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
+using System.Linq;
+using System;
 
 namespace API.Features.Reservations {
 

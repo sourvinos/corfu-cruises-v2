@@ -1,4 +1,3 @@
-using System.Linq;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Implementations;
@@ -6,6 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Linq;
 
 namespace API.Features.Manifest {
 

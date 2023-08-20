@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using API.Features.CoachRoutes;
 using API.Features.Customers;
 using API.Features.Destinations;
@@ -17,6 +16,7 @@ using API.Features.ShipRoutes;
 using API.Features.Ships;
 using API.Infrastructure.Auth;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace API.Features.Users {
 

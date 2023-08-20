@@ -1,13 +1,11 @@
-using System;
-using System.Threading.Tasks;
 using API.Features.Users;
-using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
-using Serilog;
+using System.Threading.Tasks;
+using System;
 
 namespace API.Infrastructure.Middleware {
 
@@ -24,10 +22,11 @@ namespace API.Infrastructure.Middleware {
         public async Task InvokeAsync(HttpContext httpContext, RequestDelegate next) {
             try {
                 await next(httpContext);
-            } catch (CustomException exception) {
+            }
+            catch (CustomException exception) {
                 await CreateCustomErrorResponse(httpContext, exception);
-            } catch (Exception exception) {
-                LogError(exception, httpContextAccessor, userManager);
+            }
+            catch (Exception exception) {
                 await CreateServerErrorResponse(httpContext, exception);
             }
         }
@@ -85,10 +84,6 @@ namespace API.Infrastructure.Middleware {
                 498 => ApiMessages.EmailNotSent(),
                 _ => ApiMessages.UnknownError(),
             };
-        }
-
-        private static void LogError(Exception exception, IHttpContextAccessor httpContextAccessor, UserManager<UserExtended> userManager) {
-            Log.Error("USER {userId} | MESSAGE {message}", Identity.GetConnectedUserDetails(userManager, Identity.GetConnectedUserId(httpContextAccessor)).UserName, exception.Message);
         }
 
     }

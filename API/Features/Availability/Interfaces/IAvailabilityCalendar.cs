@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using API.Features.Schedules;
 using API.Infrastructure.Interfaces;
+using System.Collections.Generic;
 
 namespace API.Features.Availability {
 

@@ -1,6 +1,6 @@
-using System;
 using Microsoft.Extensions.Options;
 using MimeKit;
+using System;
 
 namespace API.Infrastructure.Account {
 

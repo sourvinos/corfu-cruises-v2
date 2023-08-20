@@ -1,6 +1,6 @@
-using System;
-using System.Collections.Generic;
 using API.Infrastructure.Interfaces;
+using System.Collections.Generic;
+using System;
 
 namespace API.Features.Reservations {
 

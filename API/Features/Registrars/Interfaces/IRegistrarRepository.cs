@@ -1,6 +1,6 @@
+using API.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Interfaces;
 
 namespace API.Features.Registrars {
 

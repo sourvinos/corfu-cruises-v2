@@ -1,6 +1,6 @@
-using System.Threading.Tasks;
 using API.Features.Reservations;
 using API.Infrastructure.Interfaces;
+using System.Threading.Tasks;
 
 namespace API.Features.CheckIn {
 

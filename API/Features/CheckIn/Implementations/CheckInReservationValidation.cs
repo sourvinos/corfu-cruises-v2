@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using API.Features.PickupPoints;
 using API.Features.Reservations;
 using API.Features.Schedules;
@@ -9,6 +7,8 @@ using API.Infrastructure.Implementations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Linq;
+using System;
 
 namespace API.Features.CheckIn {
 

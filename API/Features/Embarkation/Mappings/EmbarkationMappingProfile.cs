@@ -1,7 +1,7 @@
-using System.Linq;
 using API.Features.Reservations;
 using API.Infrastructure.Classes;
 using AutoMapper;
+using System.Linq;
 
 namespace API.Features.Embarkation {
 

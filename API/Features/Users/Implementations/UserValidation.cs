@@ -1,9 +1,9 @@
-using System.Linq;
 using API.Infrastructure.Classes;
 using API.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace API.Features.Users {
 

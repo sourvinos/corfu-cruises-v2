@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using API.Infrastructure.Interfaces;
+using System.Collections.Generic;
 
 namespace API.Features.Schedules {
 

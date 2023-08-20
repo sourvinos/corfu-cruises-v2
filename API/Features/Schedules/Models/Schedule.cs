@@ -1,7 +1,7 @@
-using System;
 using API.Features.Destinations;
 using API.Features.Ports;
 using API.Features.Users;
+using System;
 
 namespace API.Features.Schedules {
 

@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using API.Features.Customers;
 using API.Features.Destinations;
 using API.Features.Drivers;
@@ -7,6 +5,8 @@ using API.Features.PickupPoints;
 using API.Features.Ports;
 using API.Features.Ships;
 using API.Features.Users;
+using System.Collections.Generic;
+using System;
 
 namespace API.Features.Reservations {
 

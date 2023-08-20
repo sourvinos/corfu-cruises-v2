@@ -1,6 +1,6 @@
+using API.Infrastructure.Responses;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Infrastructure.Responses;
 
 namespace API.Features.Users {
 

@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
-using API.Features.Reservations;
+﻿using API.Features.Reservations;
 using API.Features.Schedules;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
 using API.Infrastructure.Responses;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace API.Features.CheckIn {
 

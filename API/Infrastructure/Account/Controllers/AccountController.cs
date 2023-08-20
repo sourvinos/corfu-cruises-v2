@@ -1,5 +1,3 @@
-using System.Text;
-using System.Threading.Tasks;
 using API.Features.Users;
 using API.Infrastructure.Extensions;
 using API.Infrastructure.Helpers;
@@ -9,6 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace API.Infrastructure.Account {
 

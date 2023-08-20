@@ -1,6 +1,6 @@
-using System;
 using API.Features.Reservations;
 using API.Infrastructure.Interfaces;
+using System;
 
 namespace API.Features.CheckIn {
 

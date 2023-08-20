@@ -15,8 +15,8 @@ using API.Features.ShipOwners;
 using API.Features.ShipRoutes;
 using API.Features.Ships;
 using API.Infrastructure.Auth;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Infrastructure.Classes {
